@@ -1,0 +1,74 @@
+.header {
+    width: 100%;
+    background-color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 20%;
+    padding: 1.4rem 0;
+    margin-left: 7.5rem;
+    margin-right: 7.5rem;
+    text-decoration: none;
+}
+
+.logo {
+    height: 5rem;
+}
+
+.text {
+    position: absolute;
+    top: 3rem;
+    left: 5.8rem;
+    font-size: 2.2rem;
+    color: var(--white);
+}
+
+.search-bar {
+    width: 400px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    padding: 3px 20px;
+}
+
+.search-bar input {
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    font-size: 15px;
+
+}
+.search-bar button {
+    border: 0;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.cart-icon {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.nav-link {
+    color: #ffffff;
+    padding-right: 75px;
+}
+
+.login-link, .signup-link {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0 10px;
+    font-size: 1.6rem;
+}

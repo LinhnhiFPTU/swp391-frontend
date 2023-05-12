@@ -1,0 +1,30 @@
+.header {
+  position: fixed;
+  width: 100%;
+  background-color: var(--primary);
+
+
+  .logo-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 15%;
+    padding: 1.4rem 0;
+    margin-left: 7.5rem;
+    margin-right: 7.5rem;
+    text-decoration: none;  
+  }
+
+
+  .logo {
+    height: 5rem;
+  }
+
+  .text {
+    position: absolute;
+    top: 3rem;
+    left: 5.8rem;
+    font-size: 2.2rem;
+    color: var(--white);
+  }
+}
