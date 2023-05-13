@@ -1,0 +1,60 @@
+// ---------CATEGORIES---------
+.categories {
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bird-cage_cat img,
+.bird-food_cat img,
+.bird-clothes_cat img {
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    border: 0.3px rgba(0, 0, 0, 0.192) solid;
+}
+
+// ---------FLASH SALE + BEST SELLER---------
+.flash-sale, .best-seller {
+    margin: 30px;
+}
+
+.flash-sale_title, .best-seller_title {
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.flash-sale_wrapper, .best-seller_wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flash-sale_products, .best-seller_products {
+    border: 0.3px solid rgba(0, 0, 0, 0.234);
+    width: max-content;
+    margin-top: 50px;
+}
+
+.flash-sale_product, .best-seller_product {
+    padding: 10px;
+}
+
+.product-sale {
+    color: red;
+    width: max-content;
+}
+
+.flash-sale_products img {
+    width: 170px;
+}
+
+.product-name {
+    padding: 10px 0px;
+}
+
+.heart-icon:hover {
+    color: red;
+    width: fit-content;
+}

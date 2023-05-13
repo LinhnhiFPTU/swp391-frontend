@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, NavLink } from "react-router-dom";
 import images from "~/assets/images/logo.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faBagShopping } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles);
@@ -21,7 +21,7 @@ const Header = () => {
                 </form>
             </div>
             <div className={cx('cart-icon')}>
-            <FontAwesomeIcon icon={faBagShopping} />
+            <FontAwesomeIcon icon={faCartShopping} style={{color: "#ffffff",}} />
             </div>
             <div className={cx('nav-link')}>
                 <span><NavLink to="/login" className={cx('login-link')}>Login</NavLink></span>

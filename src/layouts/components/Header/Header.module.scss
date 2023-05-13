@@ -4,6 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 30px;
 }
 
 .logo-link {
@@ -13,7 +14,7 @@
     width: 20%;
     padding: 1.4rem 0;
     margin-left: 7.5rem;
-    margin-right: 7.5rem;
+    // margin-right: 7.5rem;
     text-decoration: none;
 }
 
@@ -23,14 +24,14 @@
 
 .text {
     position: absolute;
-    top: 3rem;
+    // top: 3rem;
     left: 5.8rem;
     font-size: 2.2rem;
     color: var(--white);
 }
 
 .search-bar {
-    width: 400px;
+    width: 450px;
     background-color: #ffffff;
     display: flex;
     align-items: center;
@@ -70,5 +71,5 @@
     color: #ffffff;
     text-decoration: none;
     padding: 0 10px;
-    font-size: 1.6rem;
+    font-size: 15px;
 }
