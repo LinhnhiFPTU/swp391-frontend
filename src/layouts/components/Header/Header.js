@@ -1,9 +1,10 @@
 import React from 'react'
-import { Link, NavLink } from "react-router-dom";
-import images from "~/assets/images/logo.png";
+import classNames from "classnames/bind";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faBagShopping } from '@fortawesome/free-solid-svg-icons'
-import classNames from "classnames/bind";
+import { Link, NavLink } from "react-router-dom";
+
+import images from "~/assets/images/logo.png";
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles);
 
@@ -29,6 +30,7 @@ const Header = () => {
                 <span><NavLink to="/signup" className={cx('signup-link')}>Sign up</NavLink></span>
             </div>
         </div>
+        
     )
 }
 

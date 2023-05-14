@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import Footer from "~/layouts/components/Footer";
 import HeaderForm from "~/layouts/components/HeaderForm";
 import googleIcon from "~/assets/images/googleIcon.png";
 import styles from "./Login.module.scss";
@@ -53,7 +54,7 @@ function Login() {
 
               <div className={cx("options")}>
                 <Link to="/forget" className={cx("options-link")}>
-                  Forget password
+                  Forgotten password
                 </Link>
               </div>
 
@@ -84,6 +85,9 @@ function Login() {
             </div>
           </form>
         </div>
+      </div>
+      <div className={cx("footer")}>
+        <Footer />
       </div>
     </>
   );
