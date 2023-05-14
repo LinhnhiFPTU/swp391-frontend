@@ -1,0 +1,112 @@
+// ---------CONTAINER---------
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.content {
+    width: 90%;
+}
+// ---------BANNER---------
+
+.banner {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    margin-bottom: 30px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+}
+
+.banner-content {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+
+    .content-text {
+        margin-bottom: 20px;
+        color: #fff;
+        font-size: 5rem;
+    }
+
+    .content-button {
+        font-size: 2rem;
+        font-weight: 500;
+        padding: 5px 20px;
+        border-radius: 3px;
+        color: #fff;
+        border: 1px solid #F97B22;
+        background-color: #F97B22;
+        text-decoration: none;
+        transition: .2s ease-in;
+    }
+
+    .content-button:hover {
+        background-color: transparent;
+    }
+}
+
+
+// ---------CATEGORIES---------
+.categories {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bird-cage_cat img,
+.bird-food_cat img,
+.bird-clothes_cat img {
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    border: 0.3px rgba(0, 0, 0, 0.192) solid;
+}
+
+// ---------FLASH SALE + BEST SELLER---------
+.flash-sale, .best-seller {
+    margin: 30px;
+}
+
+.flash-sale_title, .best-seller_title {
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.flash-sale_wrapper, .best-seller_wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flash-sale_products, .best-seller_products {
+    border: 0.3px solid rgba(0, 0, 0, 0.234);
+    width: max-content;
+    margin-top: 50px;
+}
+
+.flash-sale_product, .best-seller_product {
+    padding: 10px;
+}
+
+.product-sale {
+    color: red;
+    width: max-content;
+}
+
+.flash-sale_products img {
+    width: 170px;
+}
+
+.product-name {
+    padding: 10px 0px;
+}
+
+.heart-icon:hover {
+    color: red;
+    width: fit-content;
+}

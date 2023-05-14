@@ -1,6 +1,6 @@
 .footer {
   width: 100%;
-  background-color: #fafafa;
+  border-top: 1px solid var(--primary);
 
   .footer-section {
     display: flex;
@@ -61,7 +61,17 @@
       font-size: 1.4rem;
     }
   }
-  .social-media-github {
+
+  .location {
+    display: flex;
+    align-items: center;
+
+    .text {
+      font-size: 1.4rem;
+    }
+  }
+
+  .social-media-github, .location {
     margin-top: 5px;
   }
 

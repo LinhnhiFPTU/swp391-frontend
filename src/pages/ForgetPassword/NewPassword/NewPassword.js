@@ -1,18 +1,19 @@
 import classNames from "classnames/bind";
-import Footer from "~/layouts/components/Footer";
-import HeaderForm from "~/layouts/components/HeaderForm";
 import styles from "./NewPassword.module.scss";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
 function NewPassword() {
-  const handleSubmit = () => {};
+  const [password, setPassword] = useState('')
+  const [confirm, setConfirm] = useState('')
+  const handleSubmit = () => {
+    
+  };
 
   return (
     <>
-      <div className={cx("header")}>
-        <HeaderForm />
-      </div>
+
       <div className={cx("container")}>
         <div className={cx("content")}>
           <form>
@@ -24,19 +25,19 @@ function NewPassword() {
             </div>
             <div className={cx("info")}>
               <div className={cx("text")}>
-                <input type="password" className={cx("password")} required />
+                <input type="password" className={cx("password")} required value={password} onChange={e => setPassword(e.target.value)}/>
                 <span></span>
                 <label>New password</label>
               </div>
 
               <div className={cx("text")}>
-                <input type="password" className={cx("password")} required />
+                <input type="password" className={cx("password")} required value={confirm} onChange={e => setConfirm(e.target.value)}/>
                 <span></span>
                 <label>Confirm password</label>
               </div>
 
               <div className={cx("btn-submit")}>
-                <button disabled onClick={handleSubmit}>
+                <button disabled={password !== confirm} onClick={handleSubmit}>
                   Reset
                 </button>
               </div>
@@ -44,9 +45,7 @@ function NewPassword() {
           </form>
         </div>
       </div>
-      <div className={cx("footer")}>
-        <Footer />
-      </div>
+
     </>
   );
 }

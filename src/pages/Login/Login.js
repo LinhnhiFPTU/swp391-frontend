@@ -10,12 +10,20 @@ import styles from "./Login.module.scss";
 const cx = classNames.bind(styles);
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [request, setRequest] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
+    let options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(request),
+    }
+    fetch('/api/v1/auths/authentication', options)
+    .then(res => res.json())
+    .then(body => console.log(body))
   };
 
   return (
@@ -35,7 +43,7 @@ function Login() {
                 <input
                   type="text"
                   className={cx("email")}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setRequest({...request, email: e.target.value})}
                   required
                 />
                 <span></span>
@@ -45,7 +53,7 @@ function Login() {
                 <input
                   type="password"
                   className={cx("password")}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setRequest({...request, password: e.target.value})}
                   required
                 />
                 <span></span>
@@ -53,8 +61,8 @@ function Login() {
               </div>
 
               <div className={cx("options")}>
-                <Link to="/forget" className={cx("options-link")}>
-                  Forgotten password
+                <Link to="/reset" className={cx("options-link")}>
+                  Forget password
                 </Link>
               </div>
 

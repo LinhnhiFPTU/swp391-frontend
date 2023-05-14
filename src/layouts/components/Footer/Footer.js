@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import gmail from "~/assets/images/gmail.png";
 import github from "~/assets/images/github.png";
+import location from "~/assets/images/location.png";
 import styles from "./Footer.module.scss";
 
 const cx = classNames.bind(styles);
@@ -12,11 +13,11 @@ function Footer() {
     <div className={cx("footer")}>
       <div className={cx("footer-section")}>
         <div className={cx("footer-item")}>
-          <p className={cx('main-title')}>Bird Trading Platform</p>
+          <p className={cx("main-title")}>Bird Trading Platform</p>
         </div>
         <div className={cx("footer-item")}>
-          <p className={cx('title')}>SHOP</p>
-          <div className={cx('footer-item-text')}>
+          <p className={cx("title")}>SHOP</p>
+          <div className={cx("footer-item-text")}>
             <Link to="/bird" className={cx("link")}>
               <p>Bird</p>
             </Link>
@@ -24,19 +25,19 @@ function Footer() {
               <p>Bird food</p>
             </Link>
             <Link to="/bird-accessories" className={cx("link")}>
-              <p >Bird accessories</p>
+              <p>Bird accessories</p>
             </Link>
             <Link to="/login" className={cx("link")}>
-              <p >Login</p>
+              <p>Login</p>
             </Link>
             <Link to="/signup" className={cx("link")}>
-              <p >Sign up</p>
+              <p>Sign up</p>
             </Link>
           </div>
         </div>
 
         <div className={cx("footer-item")}>
-          <p className={cx('title')}>ABOUT US</p>
+          <p className={cx("title")}>ABOUT US</p>
           <div className={cx("intro-project")}>
             <p className={cx("text-about")}>
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -54,8 +55,8 @@ function Footer() {
         </div>
 
         <div className={cx("footer-item")}>
-          <p className={cx('title')}>FOLLOW US</p>
-          <div className={cx('footer-item-text')}>
+          <p className={cx("title")}>CONTACT US</p>
+          <div className={cx("footer-item-text")}>
             <div className={cx("social-media-mail")}>
               <img src={gmail} alt="gmail" className={cx("logo")}></img>
               <p className={cx("text")}>swp391.birdtrading@gmail.com</p>
@@ -65,6 +66,10 @@ function Footer() {
               <a href="/github" className={cx("link")}>
                 <p>Github</p>
               </a>
+            </div>
+            <div className={cx("location")}>
+              <img src={location} alt="location" className={cx("logo")}></img>
+              <p className={cx("text")}>Student Cultural House, Ho Chi Minh City National University </p>
             </div>
           </div>
         </div>
@@ -80,10 +85,18 @@ function Footer() {
           </p>
         </div>
         <div className={cx("below-link")}>
-          <Link to="" className={cx("text-link-below")}>Term of use</Link>
-          <Link to="" className={cx("text-link-below")}>Privacy policy</Link>
-          <Link to="" className={cx("text-link-below")}>Security</Link>
-          <Link to="" className={cx("text-link-below")}>Cookies</Link>
+          <Link to="" className={cx("text-link-below")}>
+            Term of use
+          </Link>
+          <Link to="" className={cx("text-link-below")}>
+            Privacy policy
+          </Link>
+          <Link to="" className={cx("text-link-below")}>
+            Security
+          </Link>
+          <Link to="" className={cx("text-link-below")}>
+            Cookies
+          </Link>
         </div>
       </div>
     </div>

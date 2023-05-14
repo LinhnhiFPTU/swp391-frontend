@@ -1,23 +1,12 @@
 import classNames from "classnames/bind";
-import { useNavigate } from "react-router-dom";
-import Footer from "~/layouts/components/Footer";
-import HeaderForm from "~/layouts/components/HeaderForm";
 import styles from "./Forget.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Forget() {
-  const navigate = useNavigate();
-
-  const handleSubmit = () => {
-    navigate("/verify");
-  };
+function Forget({onClick}) {
 
   return (
     <>
-      <div className={cx("header")}>
-        <HeaderForm />
-      </div>
       <div className={cx("container")}>
         <div className={cx("content")}>
           <form>
@@ -26,8 +15,9 @@ function Forget() {
             </div>
             <div className={cx("header-subText")}>
               <p>
-                <span className={cx('sub-error')}>Opps!!!</span> Something happen with your account. Input your email address to
-                fix the issue.
+                <span className={cx("sub-error")}>Opps!!!</span> Something
+                happen with your account. Input your email address to fix the
+                issue.
               </p>
             </div>
             <div className={cx("info")}>
@@ -38,17 +28,14 @@ function Forget() {
               </div>
 
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={onClick}>Submit</button>
               </div>
             </div>
           </form>
         </div>
       </div>
-      <div className={cx("footer")}>
-        <Footer />
-      </div>
     </>
   );
 }
 
-export default Forget;
+export default (Forget);
