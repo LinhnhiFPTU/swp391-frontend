@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 import Footer from "~/layouts/components/Footer";
 import HeaderForm from "~/layouts/components/HeaderForm";
@@ -11,26 +12,43 @@ const cx = classNames.bind(styles);
 
 function Login() {
   const [request, setRequest] = useState({});
+  const [msg, setMsg] = useState("");
+  const [submit, setSubmit] = useState(false);
+  const navigate = useNavigate();
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let rs = decodedCookie.substring(name.length);
+    return rs;
+  }
+
+  useEffect(() => {
+    if (submit) {
+      axios
+        .post("/api/v1/auths/authentication", request)
+        .then((res) => {
+          setMsg("");
+          navigate("/");
+          console.log(res.data);
+          document.cookie = "auth_token=" + res.data.token;
+          console.log(getCookie("auth_token"));
+        })
+        .catch((e) => {
+          setMsg(e.response.data.message);
+          setSubmit(false);
+        });
+    }
+  }, [submit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(request),
-    }
-    fetch('/api/v1/auths/authentication', options)
-    .then(res => res.json())
-    .then(body => console.log(body))
+    setSubmit(true);
   };
 
   return (
     <>
-      <div className={cx("header")}>
-        <HeaderForm />
-      </div>
+      <HeaderForm />
       <div className={cx("container")}>
         <div className={cx("content")}>
           <form>
@@ -43,7 +61,9 @@ function Login() {
                 <input
                   type="text"
                   className={cx("email")}
-                  onChange={(e) => setRequest({...request, email: e.target.value})}
+                  onChange={(e) =>
+                    setRequest({ ...request, email: e.target.value })
+                  }
                   required
                 />
                 <span></span>
@@ -53,13 +73,17 @@ function Login() {
                 <input
                   type="password"
                   className={cx("password")}
-                  onChange={(e) => setRequest({...request, password: e.target.value})}
+                  onChange={(e) =>
+                    setRequest({ ...request, password: e.target.value })
+                  }
                   required
                 />
                 <span></span>
                 <label>Password</label>
               </div>
-
+              <div className={cx("error")}>
+                <p className={cx("mess")}>{msg}</p>
+              </div>
               <div className={cx("options")}>
                 <Link to="/reset" className={cx("options-link")}>
                   Forget password
@@ -94,9 +118,7 @@ function Login() {
           </form>
         </div>
       </div>
-      <div className={cx("footer")}>
-        <Footer />
-      </div>
+      <Footer />
     </>
   );
 }

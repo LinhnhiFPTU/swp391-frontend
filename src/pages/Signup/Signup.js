@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Footer from "~/layouts/components/Footer";
 import HeaderForm from "~/layouts/components/HeaderForm";
 import styles from "./Signup.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -23,12 +24,22 @@ const genders = [
   },
 ];
 function Signup() {
+  const [msg, setMsg] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [checked, setChecked] = useState();
   const [user, setUser] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    axios
+      .post("/api/v1/auths/registration", user)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e.response.data.message);
+        setMsg(e.response.data.message);
+      });
   };
 
   return (
@@ -69,7 +80,7 @@ function Signup() {
               </div>
               <div className={cx("text")}>
                 <input
-                  type="text"
+                  type="email"
                   className={cx("email")}
                   onChange={(e) => setUser({ ...user, email: e.target.value })}
                   required
@@ -77,6 +88,9 @@ function Signup() {
                 <span></span>
                 <label>Email</label>
               </div>
+              {/* <div className={cx("error")}>
+                <p className={cx("mess")}>{msg}</p>
+              </div> */}
               <div className={cx("text")}>
                 <input
                   type="password"
@@ -93,14 +107,18 @@ function Signup() {
                 <input
                   type="password"
                   className={cx("confirm-password")}
-                  onChange={(e) =>
-                    setUser({ ...user, confirmPassword: e.target.value })
-                  }
+                  onChange={(e) => setConfirm(e.target.value)}
                   required
                 />
                 <span></span>
                 <label>Confirm password</label>
               </div>
+
+              {/* <div className={cx('error')}>
+                <p className={cx("mess")}>
+                </p>
+              </div> */}
+
               <div className={cx("gender-form")}>
                 <p>Gender</p>
                 <div className={cx("gender")}>
@@ -111,7 +129,10 @@ function Signup() {
                         checked={checked === gender.id}
                         onChange={() => {
                           setChecked(gender.id);
-                          setUser({ ...user, gender: gender.id });
+                          setUser({
+                            ...user,
+                            gender: gender.name.toUpperCase(),
+                          });
                         }}
                       />
                       <i></i>

@@ -37,24 +37,17 @@ return (
                 <Link className={cx("option-link")} to="/contact">Contact Us</Link>
             </div>
         </div>
-        <div className={cx("cart-icon")}>
-            <span className={cx('counter', 'disable')}>22</span>
-            <Link to="cart">
-                <i className={cx('icon', "fa-light fa-cart-shopping")}></i>
-            </Link>
-        </div>
+        
         <div className={cx("nav-link")}>
-            <span>
-            <Link to="/login" className={cx("login-link")}>
-                Login
-            </Link>
-            </span>
-            |
-            <span>
-            <Link to="/signup" className={cx("signup-link")}>
-                Sign up
-            </Link>
-            </span>
+            <div className={cx("cart-icon")}>
+                <span className={cx('counter', 'disable')}>22</span>
+                <Link to="cart">
+                    <i className={cx('icon', "fa-light fa-cart-shopping")}></i>
+                </Link>
+            </div>
+            <div className={cx('user-link')}>
+                <i className={cx('icon', "fa-light fa-user")}></i>
+            </div>
         </div>
         </div>
     </div>

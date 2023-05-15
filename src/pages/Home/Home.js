@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 
@@ -26,8 +26,10 @@ function Home() {
           <div className={cx("banner")}>
             <img src={banner} alt="banner"></img>
             <div className={cx("banner-content")}>
-              <h1 className={cx('content-text')}>Keep Your Pet Safe</h1>
-              <Link to="/shop" className={cx('content-button')}>SHOP NOW</Link>
+              <h1 className={cx("content-text")}>Keep Your Pet Safe</h1>
+              <Link to="/shop" className={cx("content-button")}>
+                SHOP NOW
+              </Link>
             </div>
           </div>
 
@@ -201,9 +203,9 @@ function Home() {
           </div> */}
           {/* -----------------SHOP TRENDING----------------- */}
           {/* -----------------FOOTER----------------- */}
-          <Footer />
         </div>
       </div>
+      <Footer />
     </>
   );
 }
