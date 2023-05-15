@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 function Footer() {
   return (
     <div className={cx("footer")}>
-      <div className={cx('container')}>
+      <div className={cx("container")}>
         <div className={cx("footer-section")}>
           <div className={cx("footer-item")}>
             <p className={cx("main-title")}>Bird Trading Platform</p>
@@ -36,25 +36,20 @@ function Footer() {
               </Link>
             </div>
           </div>
-  
+
           <div className={cx("footer-item")}>
             <p className={cx("title")}>ABOUT US</p>
             <div className={cx("intro-project")}>
               <p className={cx("text-about")}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                Welcome to our bird trading platform! We are a passionate team
+                of bird enthusiasts dedicated to connecting bird lovers with
+                their perfect feathered friends. Our platform offers a wide
+                variety of birds for sale, from common species to rare and
+                exotic breeds.
               </p>
             </div>
           </div>
-  
+
           <div className={cx("footer-item")}>
             <p className={cx("title")}>CONTACT US</p>
             <div className={cx("footer-item-text")}>
@@ -75,9 +70,9 @@ function Footer() {
             </div>
           </div>
         </div>
-  
+
         <hr></hr>
-  
+
         <div className={cx("footer-section-below")}>
           <div className={cx("copy-right")}>
             <p className={cx("copy-right-text")}>

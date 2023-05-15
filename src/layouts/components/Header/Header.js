@@ -41,13 +41,16 @@ return (
         <div className={cx("nav-link")}>
             <div className={cx("cart-icon")}>
                 <span className={cx('counter', 'disable')}>22</span>
-                <Link to="cart">
+                <Link to="cart" className={cx('cart-link')}>
                     <i className={cx('icon', "fa-light fa-cart-shopping")}></i>
                 </Link>
             </div>
             <div className={cx('user-link')}>
-                <i className={cx('icon', "fa-light fa-user")}></i>
+                <div className={cx('dropdown-select')}>
+                    <i className={cx('icon', "fa-light fa-user")}></i>
+                </div>
             </div>
+            
         </div>
         </div>
     </div>

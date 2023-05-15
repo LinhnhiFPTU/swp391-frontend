@@ -1,5 +1,9 @@
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
+import * as React from "react";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -14,6 +18,7 @@ function Login() {
   const [request, setRequest] = useState({});
   const [msg, setMsg] = useState("");
   const [submit, setSubmit] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   function getCookie(cname) {
@@ -37,13 +42,19 @@ function Login() {
         .catch((e) => {
           setMsg(e.response.data.message);
           setSubmit(false);
+          setOpen(false)
         });
     }
   }, [submit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setOpen(true);
     setSubmit(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -91,8 +102,19 @@ function Login() {
               </div>
 
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit}>Log in</button>
+                <button onClick={handleSubmit}>LOG IN</button>
+                <Backdrop
+                  sx={{
+                    color: "#fff",
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                  }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
               </div>
+
               <div className={cx("or")}>
                 <span></span>
                 <p>or</p>

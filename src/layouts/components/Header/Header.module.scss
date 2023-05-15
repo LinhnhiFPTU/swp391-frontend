@@ -96,14 +96,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-right: 35px;
+    margin-right: 35px;
+}
+
+.cart-link {
+    text-decoration: none;
 }
 
 .counter {
     user-select: none;
     position: absolute;
-    bottom: 2.8rem;
-    left: 0.8rem;
+    bottom: 2.9rem;
+    left: 2.5rem;
     width: 3.2rem;
     height: 2rem;
     font-size: 1.3rem;
@@ -125,8 +129,14 @@
     color: #333;
 }
 
+.auth-actions {
+    width: 115px;
+}
 .user-link {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    padding-bottom: 4px;
+    cursor: pointer;
 }
