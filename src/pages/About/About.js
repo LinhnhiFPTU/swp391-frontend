@@ -1,5 +1,5 @@
 import Header from '~/layouts/components/Header'
-import about from '~/assets/images/about.png'
+import about from '~/assets/images/about.jpg'
 import classNames from "classnames/bind";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
