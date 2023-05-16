@@ -6,6 +6,7 @@ import Forget from '~/pages/ForgetPassword'
 import About from '~/pages/About'
 import Contact from '~/pages/Contact'
 
+
 const publicRoutes = [
   { path: '/', component: Home},
   { path: '/login', component: Login},

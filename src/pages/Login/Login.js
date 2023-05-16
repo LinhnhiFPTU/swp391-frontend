@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -66,7 +66,6 @@ function Login() {
             <div className={cx("head-text")}>
               <p>Welcome</p>
             </div>
-
             <div className={cx("info")}>
               <div className={cx("text")}>
                 <input
@@ -102,7 +101,7 @@ function Login() {
               </div>
 
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit}>LOG IN</button>
+                <button onClick={handleSubmit} disabled={true}>LOG IN</button>
                 <Backdrop
                   sx={{
                     color: "#fff",
