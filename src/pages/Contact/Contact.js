@@ -2,11 +2,13 @@ import Header from '~/layouts/components/Header'
 import classNames from "classnames/bind";
 
 import styles from "./Contact.module.scss";
+import Banner from '~/layouts/components/Banner/Banner';
 const cx = classNames.bind(styles);
 function Contact() {
     return (
         <div className={cx('contact-wrapper')}>
             <Header />
+            <Banner />
             <div className={cx('contact-container')}>
                 <div className={cx('contact-details')}>
                     <i className={cx("fa-light fa-envelope", 'icon')}></i>
