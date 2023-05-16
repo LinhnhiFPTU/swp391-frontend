@@ -10,9 +10,11 @@ function About() {
         <div className={cx('about-wrapper')}>
             <Header />
             <div className={cx('about-container')}>
-                <div className={cx('about-description', 'col-lg-5')}>
-                    <p>Welcome to our trade site for birds!</p>
-                    <p>We are a group of ardent bird lovers who specialize in matching bird enthusiasts with the ideal feathery companions. Our marketplace offers a wide range of birds for sale, including common species as well as uncommon and exotic varieties, specialty feeds, and accessories.</p>
+                <div className={cx('about-descriptions', 'col-lg-5')}>
+                    <div className={cx('about-description')}>
+                        <p>Welcome to our trade site for birds!</p>
+                        <p>We are a group of ardent bird lovers who specialize in matching bird enthusiasts with the ideal feathery companions. Our marketplace offers a wide range of birds for sale, including common species as well as uncommon and exotic varieties, specialty feeds, and accessories.</p>
+                    </div>
                     <div className={cx('about-info')}>
                         <div className={cx('about-details')}>
                             <h3>10K</h3>
@@ -27,7 +29,7 @@ function About() {
                     </div>
                 </div>
                 <div className={cx('about-image', 'col-lg-6')}>
-                    <img src={about} alt='About-us'/>
+                    <img src={about} alt='About-us' />
                 </div>
             </div>
         </div>
