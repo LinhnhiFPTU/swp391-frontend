@@ -1,6 +1,18 @@
-.contact-container {
+.contact-wrapper {
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+
+.container {
+    width: 90%;
+}
+
+.contact-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 50px;
 }
 

@@ -90,6 +90,16 @@
   background-color: transparent;
 }
 
+.btn-submit button[disabled] {
+  opacity: .6;
+  cursor: default;
+}
+
+.btn-submit button[disabled]:hover {
+  color: #fff;
+  background: var(--primary);
+}
+
 .login {
   display: flex;
   justify-content: center;

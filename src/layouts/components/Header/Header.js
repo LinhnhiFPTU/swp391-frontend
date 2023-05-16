@@ -70,7 +70,7 @@ const Header = () => {
                       </Link>
                     </div>
                     <div className={cx('option-signup')}>
-                      <Link to="/login" className={cx('signup-link')}>
+                      <Link to="/signup" className={cx('signup-link')}>
                         <span>Sign up</span>
                         <i className={cx("fa-regular fa-user-plus")}></i>
                       </Link>

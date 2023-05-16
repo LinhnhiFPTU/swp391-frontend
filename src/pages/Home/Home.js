@@ -4,9 +4,9 @@ import classNames from "classnames/bind";
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import Banner from "~/layouts/components/Banner/";
-// import birds from "~/assets/images/birds.png";
-// import birdfood from "~/assets/images/bird-foods.png";
-// import birdaccessories from "~/assets/images/bird-accessories.png";
+import birds from "~/assets/images/birds.png";
+import birdfood from "~/assets/images/bird-foods.png";
+import birdaccessories from "~/assets/images/bird-accessories.png";
 // import bird from "~/assets/images/bird.png";
 
 import styles from "./Home.module.scss";
@@ -23,7 +23,7 @@ function Home() {
           {/* -----------------BANNER----------------- */}
           <Banner/>
           {/* -----------------CATEGORIES----------------- */}
-          {/* <div className={cx("categories")}>
+          <div className={cx("categories")}>
             <div className={cx("bird-cage_cat")}>
               <img src={birds} alt="Birds"></img>
               <p>Birds</p>
@@ -36,8 +36,10 @@ function Home() {
               <img src={birdaccessories} alt="Bird accessories"></img>
               <p>Bird Accessories</p>
             </div>
-          </div> */}
+          </div>
 
+
+          
           {/* -----------------FLASH SALE----------------- */}
           {/* -----------------BEST SELLER----------------- */}
           {/* -----------------SHOP TRENDING----------------- */}

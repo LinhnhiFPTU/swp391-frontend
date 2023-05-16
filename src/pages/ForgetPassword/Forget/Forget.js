@@ -1,9 +1,13 @@
 import classNames from "classnames/bind";
+
 import styles from "./Forget.module.scss";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
 function Forget({onClick}) {
+
+  const [email, setEmail] = useState('')
 
   return (
     <>
@@ -22,13 +26,13 @@ function Forget({onClick}) {
             </div>
             <div className={cx("info")}>
               <div className={cx("text")}>
-                <input type="text" className={cx("email")} required />
+                <input type="text" className={cx("email")} onChange={e => setEmail(e.target.value)} required />
                 <span></span>
                 <label>Email</label>
               </div>
 
               <div className={cx("btn-submit")}>
-                <button onClick={onClick}>Submit</button>
+                <button onClick={onClick} disabled={email === ''}>Submit</button>
               </div>
             </div>
           </form>
