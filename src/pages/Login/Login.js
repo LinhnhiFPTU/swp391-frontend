@@ -5,6 +5,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 // import Button from "@mui/material/Button";
 import axios from "axios";
+import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
 
 import Footer from "~/layouts/components/Footer";
@@ -15,7 +16,7 @@ import styles from "./Login.module.scss";
 const cx = classNames.bind(styles);
 
 function Login() {
-  const [request, setRequest] = useState({"email": "", "password": ""});
+  const [request, setRequest] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
@@ -43,16 +44,15 @@ function Login() {
         .catch((e) => {
           setMsg(e.response.data.message);
           setSubmit(false);
-          setOpen(false)
+          setOpen(false);
         });
     }
-  }, [submit]);
+  }, [submit, request, navigate]);
 
   useEffect(() => {
     if (request.email && request.password) {
       setDisabled(false);
-    }else
-    {
+    } else {
       setDisabled(true);
     }
   }, [request.email, request.password]);
@@ -66,8 +66,6 @@ function Login() {
   const handleClose = () => {
     setOpen(false);
   };
-
-
 
   return (
     <>
@@ -103,9 +101,11 @@ function Login() {
                 <span></span>
                 <label>Password</label>
               </div>
-              <div className={cx("error")}>
-                <p className={cx("mess")}>{msg}</p>
-              </div>
+              {msg && (
+                <Alert key="danger" variant="danger">
+                  {msg}
+                </Alert>
+              )}
               <div className={cx("options")}>
                 <Link to="/reset" className={cx("options-link")}>
                   Forget password
@@ -113,7 +113,9 @@ function Login() {
               </div>
 
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit} disabled={disabled}>LOG IN</button>
+                <button onClick={handleSubmit} disabled={disabled}>
+                  LOG IN
+                </button>
                 <Backdrop
                   sx={{
                     color: "#fff",

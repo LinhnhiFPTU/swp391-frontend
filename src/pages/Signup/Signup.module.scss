@@ -61,13 +61,7 @@
 .text input:valid ~ span::before {
   width: 100%;
 }
-.mess {
-  padding: 8px 10px;
-  border-radius: 2px;
-  border-color: #f5c6cb;
-  background-color: #f8d7da;
-  color: #721c24;
-}
+
 
 .btn-submit button {
   width: 100%;
@@ -118,6 +112,7 @@
   align-items: center;
   margin-left: 5px;
   margin-top: 30px;
+  margin-bottom: 30px;
 
   p {
     color: #adadad;

@@ -6,9 +6,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 // import Button from "@mui/material/Button";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Alert from "react-bootstrap/Alert";
 
-import success from '~/assets/images/success.png'
-import EmailPopup from '~/layouts/components/EmailPopup'
+import EmailPopup from "~/layouts/components/EmailPopup";
 import Footer from "~/layouts/components/Footer";
 import HeaderForm from "~/layouts/components/HeaderForm";
 import styles from "./Signup.module.scss";
@@ -31,10 +31,10 @@ const genders = [
 ];
 function Signup() {
   const [user, setUser] = useState({
-    "firstName": "",
-    "lastName": "",
-    "email": "",
-    "password": "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   });
   const [msg, setMsg] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -60,18 +60,37 @@ function Signup() {
           setOpen(false);
         });
     }
-  }, [submit]);
+  }, [submit, user]);
 
   useEffect(() => {
-    if (user.firstName && user.lastName && user.email && user.password && confirm  && checked) { 
-      setDisabled(false)
-    }else {
-      setDisabled(true)
+    if (
+      user.firstName &&
+      user.lastName &&
+      user.email &&
+      user.password &&
+      confirm &&
+      checked
+    ) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
     }
-  }, [user.firstName, user.lastName, user.email, user.password, confirm, checked]);
+  }, [
+    user.firstName,
+    user.lastName,
+    user.email,
+    user.password,
+    confirm,
+    checked,
+  ]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (user.password !== confirm) {
+      setMsg("Passwords do not match");
+      setSubmit(false);
+      setOpenModal(false);
+    }
     setSubmit(true);
     setOpen(true);
   };
@@ -81,7 +100,7 @@ function Signup() {
   };
   return (
     <>
-      {openModal && <EmailPopup setOpenModal email={user.email}/>}
+      {openModal && <EmailPopup setOpenModal email={user.email} />}
       <HeaderForm />
       <div className={cx("container")}>
         <div className={cx("content")}>
@@ -177,8 +196,15 @@ function Signup() {
                   ))}
                 </div>
               </div>
+              {msg && (
+                <Alert key="danger" variant="danger">
+                  {msg}
+                </Alert>
+              )}
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit} disabled={disabled}>SIGN UP</button>
+                <button onClick={handleSubmit} disabled={disabled}>
+                  SIGN UP
+                </button>
                 <Backdrop
                   sx={{
                     color: "#fff",
