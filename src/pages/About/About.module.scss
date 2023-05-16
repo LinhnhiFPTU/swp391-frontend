@@ -1,8 +1,14 @@
+.about-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 150px;
+}
+
 .about-container {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    padding: 50px;
+    width: 90%;
 }
 .about-descriptions {
     display: flex;

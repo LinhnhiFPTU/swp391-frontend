@@ -15,8 +15,9 @@ import styles from "./Login.module.scss";
 const cx = classNames.bind(styles);
 
 function Login() {
-  const [request, setRequest] = useState({});
+  const [request, setRequest] = useState({"email": "", "password": ""});
   const [msg, setMsg] = useState("");
+  const [disabled, setDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -47,6 +48,15 @@ function Login() {
     }
   }, [submit]);
 
+  useEffect(() => {
+    if (request.email && request.password) {
+      setDisabled(false);
+    }else
+    {
+      setDisabled(true);
+    }
+  }, [request.email, request.password]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setOpen(true);
@@ -56,6 +66,8 @@ function Login() {
   const handleClose = () => {
     setOpen(false);
   };
+
+
 
   return (
     <>
@@ -101,7 +113,7 @@ function Login() {
               </div>
 
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit} disabled={true}>LOG IN</button>
+                <button onClick={handleSubmit} disabled={disabled}>LOG IN</button>
                 <Backdrop
                   sx={{
                     color: "#fff",

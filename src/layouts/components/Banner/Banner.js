@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
-import { Fade } from "react-slideshow-image";
+import { Slide } from "react-slideshow-image";
 
 import banner from "~/assets/images/banner.jpg";
 import banner1 from "~/assets/images/banner1.jpg";
@@ -37,7 +37,7 @@ const birds = [
 
 function Banner() {
   return (
-    <Fade
+    <Slide
       duration={5000}
       transitionDuration={1000}
       arrows={false}
@@ -56,7 +56,7 @@ function Banner() {
           </div>
         </div>
       ))}
-    </Fade>
+    </Slide>
   );
 }
 
