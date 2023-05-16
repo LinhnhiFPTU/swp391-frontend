@@ -1,13 +1,25 @@
 import classNames from "classnames/bind";
-
-import styles from "./Forget.module.scss";
 import { useState } from "react";
+import * as React from "react";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import styles from "./Forget.module.scss";
 
 const cx = classNames.bind(styles);
 
 function Forget({onClick}) {
 
   const [email, setEmail] = useState('')
+  const [open, setOpen] = useState(false);
+
+  const handleSubmit = (e) => {
+    onClick(e, {email})
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -32,7 +44,17 @@ function Forget({onClick}) {
               </div>
 
               <div className={cx("btn-submit")}>
-                <button onClick={onClick} disabled={email === ''}>Submit</button>
+                <button onClick={handleSubmit} disabled={email === ''}>SUBMIT</button>
+                <Backdrop
+                  sx={{
+                    color: "#fff",
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                  }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
               </div>
             </div>
           </form>

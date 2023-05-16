@@ -43,25 +43,9 @@
     outline: none;
   }
 
-  // input::-webkit-outer-spin-button,
-  // input::-webkit-inner-spin-button {
-  //   -webkit-appearance: none;
-  //   margin: 0;
-  // }
-
   input:focus {
     outline: 2px solid var(--primary);
     border-color: transparent;
-  }
-}
-
-.error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .mess {
-    color: red;
   }
 }
 

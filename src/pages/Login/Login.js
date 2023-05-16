@@ -7,6 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 
 import Footer from "~/layouts/components/Footer";
 import HeaderForm from "~/layouts/components/HeaderForm";
@@ -16,6 +17,9 @@ import styles from "./Login.module.scss";
 const cx = classNames.bind(styles);
 
 function Login() {
+  const [user, setUser] = useState();
+  const [profile, setProfile] = useState([]);
+
   const [request, setRequest] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
   const [disabled, setDisabled] = useState(true);
@@ -23,12 +27,30 @@ function Login() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let rs = decodedCookie.substring(name.length);
-    return rs;
-  }
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
 
   useEffect(() => {
     if (submit) {
@@ -38,8 +60,6 @@ function Login() {
           setMsg("");
           navigate("/");
           console.log(res.data);
-          document.cookie = "auth_token=" + res.data.token;
-          console.log(getCookie("auth_token"));
         })
         .catch((e) => {
           setMsg(e.response.data.message);
@@ -48,6 +68,17 @@ function Login() {
         });
     }
   }, [submit, request, navigate]);
+
+  const isLogin = useEffect(() => {
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        navigate("/");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   useEffect(() => {
     if (request.email && request.password) {
@@ -136,10 +167,11 @@ function Login() {
 
               <div className={cx("choices")}>
                 <label className={cx("login-google")}>
-                  <div className={cx("icon-google")}>
+                  <div className={cx("icon-google")} onClick={() => login()}>
                     <img src={googleIcon} alt="google"></img>
                   </div>
                 </label>
+
                 <div className={cx("sign-up")}>
                   <p>
                     Don't have account?{" "}

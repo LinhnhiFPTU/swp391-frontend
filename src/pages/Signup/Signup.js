@@ -69,7 +69,7 @@ function Signup() {
       user.email &&
       user.password &&
       confirm &&
-      checked
+      checked && (user.password === confirm)
     ) {
       setDisabled(false);
     } else {
@@ -84,13 +84,20 @@ function Signup() {
     checked,
   ]);
 
+  useEffect(() => {
+    if (
+      user.password !== confirm
+    ) {
+      setDisabled(true);
+      setMsg("Passwords do not match");
+    } else
+    {
+      setMsg("");
+    }
+  }, [confirm]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user.password !== confirm) {
-      setMsg("Passwords do not match");
-      setSubmit(false);
-      setOpenModal(false);
-    }
     setSubmit(true);
     setOpen(true);
   };
@@ -135,7 +142,7 @@ function Signup() {
               </div>
               <div className={cx("text")}>
                 <input
-                  type="email"
+                  type="text"
                   className={cx("email")}
                   onChange={(e) => setUser({ ...user, email: e.target.value })}
                   required

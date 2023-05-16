@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
+import axios from "axios";
 
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles);
 
 const Header = () => {
+
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        setUser(res.data)
+        console.log(res.data)
+      })
+      .catch((e) => {
+        console.log(e)
+      });
+  }, [])
+
   return (
     <>
       <div className={cx("header")}>
@@ -56,7 +72,35 @@ const Header = () => {
                 <i className={cx("icon", "fa-light fa-cart-shopping")}></i>
               </Link>
             </div>
+            {user ? 
             <Tippy 
+              interactive 
+              delay={[0, 200]}
+              placement="bottom-end"
+              render={(attrs) => (
+                <div className={cx('user-options')} tabIndex="-1" {...attrs}>
+                  <PopperWrapper>
+                    <div className={cx('option-login')}>
+                      <Link to="/login" className={cx('login-link')}>
+                        <span>User profile</span>
+                        <i className={cx("fa-regular fa-right-to-bracket")}></i>
+                      </Link>
+                    </div>
+                    <div className={cx('option-signup')}>
+                      <Link to="/signup" className={cx('signup-link')}>
+                        <span>Log out</span>
+                        <i className={cx("fa-regular fa-user-plus")}></i>
+                      </Link>
+                    </div>
+                  </PopperWrapper>
+                </div>
+              )}>
+              <div className={cx("user-icon")}>
+                <i className={cx("icon", "fa-light fa-user")}></i>
+              </div>
+            </Tippy>
+            : (
+              <Tippy 
               interactive 
               delay={[0, 200]}
               placement="bottom-end"
@@ -82,6 +126,7 @@ const Header = () => {
                 <i className={cx("icon", "fa-light fa-user")}></i>
               </div>
             </Tippy>
+            )}
           </div>
         </div>
       </div>

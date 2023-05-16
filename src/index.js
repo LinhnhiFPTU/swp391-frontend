@@ -1,16 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "~/App";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import GlobalStyles from "./components/GlobalStyles";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <GlobalStyles>
-      <App />
-    </GlobalStyles>
-  </React.StrictMode>
+  <GoogleOAuthProvider clientId="96615940146-a6npdnvt227aiaou542u02q3q38v788t.apps.googleusercontent.com">
+    <React.StrictMode>
+      <GlobalStyles>
+        <App />
+      </GlobalStyles>
+    </React.StrictMode>
+  </GoogleOAuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
