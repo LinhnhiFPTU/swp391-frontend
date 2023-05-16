@@ -1,0 +1,32 @@
+.contact-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.contact-details {
+    border: 0.3px solid rgba(0, 0, 0, 0.307);
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    width: 420px;
+}
+
+.icon {
+    font-size: 30px;
+    padding-bottom: 15px;
+    color: #41644a;
+}
+
+.contact-title {
+    padding-bottom: 15px;
+    font-weight: 550;
+}
+
+.contact-info span, .contact-info p{
+    font-size: 15px;
+}
+
+.contact-info span:first-child {
+    color: green;
+    font-weight: 500;
+}
