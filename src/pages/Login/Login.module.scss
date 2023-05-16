@@ -107,7 +107,15 @@
   background-color: transparent;
 }
 
+.btn-submit button[disabled] {
+  opacity: .6;
+  cursor: default;
+}
 
+.btn-submit button[disabled]:hover {
+  color: #fff;
+  background: var(--primary);
+}
 
 .or {
   margin-top: 30px;

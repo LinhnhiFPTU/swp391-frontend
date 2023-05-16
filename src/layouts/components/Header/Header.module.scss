@@ -83,7 +83,7 @@
     color: var(--primary);
 }
 
-.nav-link {
+.nav-icon {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -96,7 +96,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 35px;
+    margin-right: 25px;
 }
 
 .cart-link {
@@ -129,14 +129,52 @@
     color: #333;
 }
 
-.auth-actions {
-    width: 115px;
-}
-.user-link {
+.user-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    padding-bottom: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    padding-bottom: 4px;
     cursor: pointer;
+}
+
+.user-options {
+    width: 140px;
+    position: relative;
+}
+
+.option-login::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid rgba(255, 255, 255);
+    transform: translateY(-100%);
+    transform: border-color 0.2s linear;
+}
+
+.option-login:hover:before {
+    border-bottom-color: rgba(22, 24, 35, .0);;
+}
+
+.login-link, .signup-link {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    transform: background-color 0.2s linear;
+}
+
+.login-link:hover, .signup-link:hover {
+    color: var(--primary);
+    background-color: rgba(22, 24, 35, .04);
+}
+
+.login-link i {
+    margin-right: 5px;
 }

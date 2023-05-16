@@ -3,11 +3,12 @@ import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import ModalSuccess from "~/layouts/components/Modal/SignUpModal";
+import success from '~/assets/images/success.png'
+import EmailPopup from '~/layouts/components/EmailPopup'
 import Footer from "~/layouts/components/Footer";
 import HeaderForm from "~/layouts/components/HeaderForm";
 import styles from "./Signup.module.scss";
@@ -29,14 +30,19 @@ const genders = [
   },
 ];
 function Signup() {
+  const [user, setUser] = useState({
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "password": "",
+  });
   const [msg, setMsg] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [checked, setChecked] = useState();
-  const [user, setUser] = useState({});
+  const [checked, setChecked] = useState(0);
   const [submit, setSubmit] = useState(false);
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
     if (submit) {
@@ -45,7 +51,7 @@ function Signup() {
         .then((res) => {
           console.log(res);
           setOpenModal(true);
-          setOpen(false)
+          setOpen(false);
         })
         .catch((e) => {
           console.log(e.response.data.message);
@@ -55,6 +61,14 @@ function Signup() {
         });
     }
   }, [submit]);
+
+  useEffect(() => {
+    if (user.firstName && user.lastName && user.email && user.password && confirm  && checked) { 
+      setDisabled(false)
+    }else {
+      setDisabled(true)
+    }
+  }, [user.firstName, user.lastName, user.email, user.password, confirm, checked]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,7 +81,7 @@ function Signup() {
   };
   return (
     <>
-      {openModal && <ModalSuccess />}
+      {openModal && <EmailPopup setOpenModal email={user.email}/>}
       <HeaderForm />
       <div className={cx("container")}>
         <div className={cx("content")}>
@@ -164,7 +178,7 @@ function Signup() {
                 </div>
               </div>
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit}>SIGN UP</button>
+                <button onClick={handleSubmit} disabled={disabled}>SIGN UP</button>
                 <Backdrop
                   sx={{
                     color: "#fff",

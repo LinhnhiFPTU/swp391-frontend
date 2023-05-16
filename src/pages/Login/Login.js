@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
@@ -19,8 +19,9 @@ function Login() {
   const [user, setUser] = useState();
   const [profile, setProfile] = useState([]);
 
-  const [request, setRequest] = useState({});
+  const [request, setRequest] = useState({"email": "", "password": ""});
   const [msg, setMsg] = useState("");
+  const [disabled, setDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -77,6 +78,15 @@ function Login() {
         console.log(e)
       });
   }, []);
+  
+  useEffect(() => {
+    if (request.email && request.password) {
+      setDisabled(false);
+    }else
+    {
+      setDisabled(true);
+    }
+  }, [request.email, request.password]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -88,6 +98,8 @@ function Login() {
     setOpen(false);
   };
 
+
+
   return (
     <>
       <HeaderForm />
@@ -97,7 +109,6 @@ function Login() {
             <div className={cx("head-text")}>
               <p>Welcome</p>
             </div>
-
             <div className={cx("info")}>
               <div className={cx("text")}>
                 <input
@@ -133,7 +144,7 @@ function Login() {
               </div>
 
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit}>LOG IN</button>
+                <button onClick={handleSubmit} disabled={disabled}>LOG IN</button>
                 <Backdrop
                   sx={{
                     color: "#fff",
