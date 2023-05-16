@@ -7,49 +7,6 @@
 .content {
     width: 90%;
 }
-// ---------BANNER---------
-
-.banner {
-    position: relative;
-    width: 100%;
-    height: 430px;
-    margin-bottom: 30px;
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-}
-
-.banner-content {
-    position: absolute;
-    top: 50%;
-    left: 20%;
-    transform: translate(-50%, -50%);
-
-    .content-text {
-        margin-bottom: 20px;
-        color: #fff;
-        font-size: 5rem;
-    }
-
-    .content-button {
-        font-size: 2rem;
-        font-weight: 500;
-        padding: 5px 20px;
-        border-radius: 3px;
-        color: #fff;
-        border: 1px solid #F97B22;
-        background-color: #F97B22;
-        text-decoration: none;
-        transition: .2s ease-in;
-    }
-
-    .content-button:hover {
-        background-color: transparent;
-    }
-}
-
 
 // ---------CATEGORIES---------
 .categories {
