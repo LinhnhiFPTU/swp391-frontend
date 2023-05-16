@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 
@@ -26,13 +26,15 @@ function Home() {
           <div className={cx("banner")}>
             <img src={banner} alt="banner"></img>
             <div className={cx("banner-content")}>
-              <h1 className={cx('content-text')}>Keep Your Pet Safe</h1>
-              <Link to="/shop" className={cx('content-button')}>SHOP NOW</Link>
+              <h1 className={cx("content-text")}>Keep Your Pet Safe</h1>
+              <Link to="/shop" className={cx("content-button")}>
+                SHOP NOW
+              </Link>
             </div>
           </div>
 
           {/* -----------------CATEGORIES----------------- */}
-          <div className={cx("categories")}>
+          {/* <div className={cx("categories")}>
             <div className={cx("bird-cage_cat")}>
               <img src={birds} alt="Birds"></img>
               <p>Birds</p>
@@ -45,165 +47,15 @@ function Home() {
               <img src={birdaccessories} alt="Bird accessories"></img>
               <p>Bird Accessories</p>
             </div>
-          </div>
+          </div> */}
 
           {/* -----------------FLASH SALE----------------- */}
-          {/* <div className={cx("flash-sale")}>
-            <p className={cx("flash-sale_title")}>Flash sale</p>
-            <div className={cx("flash-sale_wrapper")}>
-              <div className={cx("flash-sale_products")}>
-                <div className={cx("flash-sale_product")}>
-                  <div className={cx("product-sale")}>
-                    <p>50%</p>
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-              <div className={cx("flash-sale_products")}>
-                <div className={cx("flash-sale_product")}>
-                  <div className={cx("product-sale")}>
-                    <p>50%</p>
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-              <div className={cx("flash-sale_products")}>
-                <div className={cx("flash-sale_product")}>
-                  <div className={cx("product-sale")}>
-                    <p>50%</p>
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-              <div className={cx("flash-sale_products")}>
-                <div className={cx("flash-sale_product")}>
-                  <div className={cx("product-sale")}>
-                    <p>50%</p>
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-              <div className={cx("flash-sale_products")}>
-                <div className={cx("flash-sale_product")}>
-                  <div className={cx("product-sale")}>
-                    <p>50%</p>
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
           {/* -----------------BEST SELLER----------------- */}
-          {/* <div className={cx("best-seller")}>
-            <p className={cx("best-seller_title")}>Best seller</p>
-            <div className={cx("best-seller_wrapper")}>
-              <div className={cx("best-seller_products")}>
-                <div className={cx("best-seller_product")}>
-                  <div className={cx("heart-icon")}>
-                    <FontAwesomeIcon icon={faHeart} />
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-              <div className={cx("best-seller_products")}>
-                <div className={cx("best-seller_product")}>
-                  <div className={cx("heart-icon")}>
-                    <FontAwesomeIcon icon={faHeart} />
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-              <div className={cx("best-seller_products")}>
-                <div className={cx("best-seller_product")}>
-                  <div className={cx("heart-icon")}>
-                    <FontAwesomeIcon icon={faHeart} />
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-              <div className={cx("best-seller_products")}>
-                <div className={cx("best-seller_product")}>
-                  <div className={cx("heart-icon")}>
-                    <FontAwesomeIcon icon={faHeart} />
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-              <div className={cx("best-seller_products")}>
-                <div className={cx("best-seller_product")}>
-                  <div className={cx("heart-icon")}>
-                    <FontAwesomeIcon icon={faHeart} />
-                  </div>
-                  <img src={bird} alt="Bird" />
-                  <div className={cx("product-name")}>
-                    <p>Bird</p>
-                  </div>
-                  <div className={cx("product-price")}>
-                    <span>216,27</span> $
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
           {/* -----------------SHOP TRENDING----------------- */}
           {/* -----------------FOOTER----------------- */}
-          <Footer />
         </div>
       </div>
+      <Footer />
     </>
   );
 }

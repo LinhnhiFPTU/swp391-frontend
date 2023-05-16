@@ -1,7 +1,13 @@
+import * as React from "react";
 import classNames from "classnames/bind";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
+import ModalSuccess from "~/layouts/components/Modal/SignUpModal";
 import Footer from "~/layouts/components/Footer";
 import HeaderForm from "~/layouts/components/HeaderForm";
 import styles from "./Signup.module.scss";
@@ -23,19 +29,46 @@ const genders = [
   },
 ];
 function Signup() {
+  const [msg, setMsg] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [checked, setChecked] = useState();
   const [user, setUser] = useState({});
+  const [submit, setSubmit] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (submit) {
+      axios
+        .post("/api/v1/auths/registration", user)
+        .then((res) => {
+          console.log(res);
+          setOpenModal(true);
+          setOpen(false)
+        })
+        .catch((e) => {
+          console.log(e.response.data.message);
+          setMsg(e.response.data.message);
+          setSubmit(false);
+          setOpen(false);
+        });
+    }
+  }, [submit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    setSubmit(true);
+    setOpen(true);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
-      <div className={cx("header")}>
-        <HeaderForm />
-      </div>
+      {openModal && <ModalSuccess />}
+      <HeaderForm />
       <div className={cx("container")}>
         <div className={cx("content")}>
           <form>
@@ -69,7 +102,7 @@ function Signup() {
               </div>
               <div className={cx("text")}>
                 <input
-                  type="text"
+                  type="email"
                   className={cx("email")}
                   onChange={(e) => setUser({ ...user, email: e.target.value })}
                   required
@@ -77,6 +110,9 @@ function Signup() {
                 <span></span>
                 <label>Email</label>
               </div>
+              {/* <div className={cx("error")}>
+                <p className={cx("mess")}>{msg}</p>
+              </div> */}
               <div className={cx("text")}>
                 <input
                   type="password"
@@ -93,14 +129,18 @@ function Signup() {
                 <input
                   type="password"
                   className={cx("confirm-password")}
-                  onChange={(e) =>
-                    setUser({ ...user, confirmPassword: e.target.value })
-                  }
+                  onChange={(e) => setConfirm(e.target.value)}
                   required
                 />
                 <span></span>
                 <label>Confirm password</label>
               </div>
+
+              {/* <div className={cx('error')}>
+                <p className={cx("mess")}>
+                </p>
+              </div> */}
+
               <div className={cx("gender-form")}>
                 <p>Gender</p>
                 <div className={cx("gender")}>
@@ -111,7 +151,10 @@ function Signup() {
                         checked={checked === gender.id}
                         onChange={() => {
                           setChecked(gender.id);
-                          setUser({ ...user, gender: gender.id });
+                          setUser({
+                            ...user,
+                            gender: gender.name.toUpperCase(),
+                          });
                         }}
                       />
                       <i></i>
@@ -121,7 +164,17 @@ function Signup() {
                 </div>
               </div>
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit}>Sign up</button>
+                <button onClick={handleSubmit}>SIGN UP</button>
+                <Backdrop
+                  sx={{
+                    color: "#fff",
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                  }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
               </div>
               <div className={cx("login")}>
                 <p>
@@ -135,9 +188,7 @@ function Signup() {
           </form>
         </div>
       </div>
-      <div className={cx("footer")}>
-        <Footer />
-      </div>
+      <Footer />
     </>
   );
 }
