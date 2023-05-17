@@ -18,6 +18,7 @@ const cx = classNames.bind(styles);
 function Login() {
   const [user, setUser] = useState();
   const [profile, setProfile] = useState([]);
+  const [isLogin, setIsLogin] = useState(true);
 
   const [request, setRequest] = useState({"email": "", "password": ""});
   const [msg, setMsg] = useState("");
@@ -68,13 +69,14 @@ function Login() {
     }
   }, [submit]);
 
-  const isLogin = useEffect(() => {
+  useEffect(() => {
     axios
       .get("/api/v1/users/info")
       .then((res) => {
         navigate("/");
       })
       .catch((e) => {
+        setIsLogin(false)
         console.log(e)
       });
   }, []);
@@ -103,7 +105,7 @@ function Login() {
   return (
     <>
       <HeaderForm />
-      <div className={cx("container")}>
+      {!isLogin && <div className={cx("container")}>
         <div className={cx("content")}>
           <form>
             <div className={cx("head-text")}>
@@ -182,7 +184,7 @@ function Login() {
             </div>
           </form>
         </div>
-      </div>
+      </div>}
       <Footer />
     </>
   );
