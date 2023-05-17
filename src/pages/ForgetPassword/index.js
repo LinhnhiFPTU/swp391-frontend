@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Footer from "~/layouts/components/Footer";
-import HeaderForm from "~/layouts/components/HeaderForm";
 import Forget from "~/pages/ForgetPassword/Forget";
+import HeaderForm from "~/layouts/components/HeaderForm";
 import Verify from "~/pages/ForgetPassword/Verify";
 import NewPassword from "~/pages/ForgetPassword/NewPassword";
 import axios from "axios";
@@ -13,6 +14,9 @@ function ForgetPassword() {
   const [arg, setArg] = useState();
   const [user, setUser] = useState();
   const [errMsg, setErrMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   let CurStep = steps[step];
 
   useEffect(() => {
@@ -25,6 +29,12 @@ function ForgetPassword() {
               setUser(res.data);
               setArg(null);
               setStep((step) => step + 1);
+              setErrMsg("");
+              setLoading(false);
+            })
+            .catch((err) => {
+              setLoading(false);
+              setErrMsg(err.response.data.message);
             });
           break;
         case 1:
@@ -33,17 +43,32 @@ function ForgetPassword() {
               params: { code: arg.code },
             })
             .then((res) => {
-              console.log(res);
-              setErrMsg("Code isn't match");
+              setLoading(false);
               setStep((step) => step + 1);
             })
             .catch((e) => {
-              setErrMsg("Code isn't match");
+              setLoading(false);
+              setErrMsg(e.response.data.message);
             });
           break;
-        default: break;
+        case 2:
+          axios
+            .post("/api/v1/auths/reset/new", user, {
+              params: { password: arg.confirm },
+            })
+            .then((res) => {
+              console.log(res);
+              navigate("/login");
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+          break;
+        default:
+          break;
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arg]);
 
   useEffect(() => {
@@ -56,6 +81,7 @@ function ForgetPassword() {
 
   const handleSubmit = (e, args) => {
     e.preventDefault();
+    setLoading(true);
     if (args) {
       setArg(args);
     }
@@ -64,7 +90,7 @@ function ForgetPassword() {
   return (
     <>
       <HeaderForm />
-      <CurStep onClick={handleSubmit} errMsg={errMsg} />
+      <CurStep onClick={handleSubmit} errMsg={errMsg} loading={loading} />
       <Footer />
     </>
   );

@@ -7,6 +7,7 @@
 }
 
 .content {
+  width: 500px;
   background-color: #fff;
 }
 
@@ -15,14 +16,38 @@
   color: var(--primary);
   font-size: 4.8rem;
   font-weight: 500;
+  margin-bottom: 20px;
 }
+.info {
+  width: 100%;
+}
+.text-content {
+  display: flex;
+}
+
 .text {
   position: relative;
   border-bottom: 1px solid #adadad;
-  margin: 30px 0;
+  margin: 0 0 30px 0;
 }
-.text input {
-  width: 500px;
+
+.text-1 {
+  width: 100%;
+  margin-right: 30px;
+}
+
+.text-2 {
+  width: 100%;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+.text input,
+.show-hide input {
+  width: 100%;
   padding: 0 5px;
   height: 40px;
   background: none;
@@ -62,6 +87,23 @@
   width: 100%;
 }
 
+.input-group-btn {
+  position: relative;
+}
+
+.eyes-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.error {
+  margin-bottom: 30px;
+}
 
 .btn-submit button {
   width: 100%;
@@ -73,7 +115,6 @@
   font-weight: 500;
   cursor: pointer;
   outline: none;
-  margin-top: 30px;
   transition: 0.9s ease;
   border: 1px solid var(--primary);
   background: var(--primary);
@@ -85,7 +126,7 @@
 }
 
 .btn-submit button[disabled] {
-  opacity: .6;
+  opacity: 0.6;
   cursor: default;
 }
 
@@ -103,12 +144,16 @@
   a {
     font-weight: 600;
     text-decoration: none;
+    color: #333;
+  }
+
+  a:hover {
     color: var(--primary);
   }
 }
 .gender-form {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin-left: 5px;
   margin-top: 30px;

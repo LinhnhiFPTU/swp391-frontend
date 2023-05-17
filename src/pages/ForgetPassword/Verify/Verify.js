@@ -10,17 +10,14 @@ import styles from "./Verify.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Verify({ onClick, errMsg = "" }) {
+function Verify({ onClick, errMsg = "" , loading}) {
   const [code, setCode] = useState("");
-  const [open, setOpen] = useState(false);
 
   const handleSubmit = (e) => {
     onClick(e, { code });
-    setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
   };
 
   const handleKeyUp = (e) => {
@@ -81,14 +78,14 @@ function Verify({ onClick, errMsg = "" }) {
               )}
               <div className={cx("btn-submit")}>
                 <button onClick={handleSubmit} disabled={code.length !== 6}>
-                  VERRIFICATION
+                  VERIFICATION 
                 </button>
                 <Backdrop
                   sx={{
                     color: "#fff",
                     zIndex: (theme) => theme.zIndex.drawer + 1,
                   }}
-                  open={open}
+                  open={loading}
                   onClick={handleClose}
                 >
                   <CircularProgress color="inherit" />

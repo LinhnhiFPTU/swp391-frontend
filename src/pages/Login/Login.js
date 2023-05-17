@@ -19,12 +19,14 @@ const cx = classNames.bind(styles);
 function Login() {
   const [user, setUser] = useState();
   const [profile, setProfile] = useState([]);
+  const [isLogin, setIsLogin] = useState(true);
 
   const [request, setRequest] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
   const [open, setOpen] = useState(false);
+  const [passwordType, setPasswordType] = useState("password");
   const navigate = useNavigate();
 
   const login = useGoogleLogin({
@@ -69,13 +71,14 @@ function Login() {
     }
   }, [submit, request, navigate]);
 
-  const isLogin = useEffect(() => {
+  useEffect(() => {
     axios
       .get("/api/v1/users/info")
       .then((res) => {
         navigate("/");
       })
       .catch((e) => {
+        setIsLogin(false)
         console.log(e);
       });
   }, []);
@@ -94,6 +97,15 @@ function Login() {
     setSubmit(true);
   };
 
+  const togglePassword = (e) => {
+    e.preventDefault();
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -101,7 +113,7 @@ function Login() {
   return (
     <>
       <HeaderForm />
-      <div className={cx("container")}>
+      {!isLogin && <div className={cx("container")}>
         <div className={cx("content")}>
           <form>
             <div className={cx("head-text")}>
@@ -122,13 +134,23 @@ function Login() {
               </div>
               <div className={cx("text")}>
                 <input
-                  type="password"
+                  type={passwordType}
                   className={cx("password")}
                   onChange={(e) =>
                     setRequest({ ...request, password: e.target.value })
                   }
                   required
                 />
+
+                <div className={cx("input-group-btn")}>
+                  <button className={cx("eyes-btn")} onClick={togglePassword}>
+                    {passwordType === "password" ? (
+                      <i className="bi bi-eye-slash"></i>
+                    ) : (
+                      <i className="bi bi-eye"></i>
+                    )}
+                  </button>
+                </div>
                 <span></span>
                 <label>Password</label>
               </div>
@@ -184,7 +206,7 @@ function Login() {
             </div>
           </form>
         </div>
-      </div>
+      </div>}
       <Footer />
     </>
   );

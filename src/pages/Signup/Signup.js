@@ -7,7 +7,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
-
 import EmailPopup from "~/layouts/components/EmailPopup";
 import Footer from "~/layouts/components/Footer";
 import HeaderForm from "~/layouts/components/HeaderForm";
@@ -31,7 +30,7 @@ const genders = [
 ];
 function Signup() {
   const [user, setUser] = useState({
-    firstName: "",
+    firstname: "",
     lastName: "",
     email: "",
     password: "",
@@ -43,6 +42,8 @@ function Signup() {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [passwordType, setPasswordType] = useState("password");
+  const [passwordConfirmType, setPasswordConfirmType] = useState("password");
 
   useEffect(() => {
     if (submit) {
@@ -64,20 +65,21 @@ function Signup() {
 
   useEffect(() => {
     if (
-      user.firstName &&
-      user.lastName &&
+      user.firstname &&
+      user.lastname &&
       user.email &&
       user.password &&
       confirm &&
-      checked && (user.password === confirm)
+      checked &&
+      user.password === confirm
     ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
   }, [
-    user.firstName,
-    user.lastName,
+    user.firstname,
+    user.lastname,
     user.email,
     user.password,
     confirm,
@@ -85,16 +87,38 @@ function Signup() {
   ]);
 
   useEffect(() => {
-    if (
-      user.password !== confirm
-    ) {
+    const regex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+    if (user.password !== confirm) {
       setDisabled(true);
       setMsg("Passwords do not match");
-    } else
-    {
+    } else if (user.email === "") {
+      setMsg("");
+    } else if (!regex.test(user.email)) {
+      setDisabled(true);
+      setMsg("Email not valid");
+    } else {
       setMsg("");
     }
-  }, [confirm]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [confirm, user.email, user.firstname, user.lastname]);
+
+  const togglePassword = (e) => {
+    e.preventDefault();
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
+  };
+
+  const togglePasswordConfirm = (e) => {
+    e.preventDefault();
+    if (passwordConfirmType === "password") {
+      setPasswordConfirmType("text");
+      return;
+    }
+    setPasswordConfirmType("password");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -116,71 +140,86 @@ function Signup() {
               <p>Register</p>
             </div>
             <div className={cx("info")}>
-              <div className={cx("text")}>
-                <input
-                  type="text"
-                  className={cx("first-name")}
-                  onChange={(e) =>
-                    setUser({ ...user, firstName: e.target.value })
-                  }
-                  required
-                />
-                <span></span>
-                <label>First name</label>
-              </div>
-              <div className={cx("text")}>
-                <input
-                  type="text"
-                  className={cx("last-name")}
-                  onChange={(e) =>
-                    setUser({ ...user, lastName: e.target.value })
-                  }
-                  required
-                />
-                <span></span>
-                <label>Last name</label>
+              <div className={cx("text-content")}>
+                <div className={cx("text", "text-1")}>
+                  <input
+                    type="text"
+                    className={cx("first-name")}
+                    onChange={(e) =>
+                      setUser({ ...user, firstname: e.target.value })
+                    }
+                    required
+                  />
+                  <span></span>
+                  <label>First name</label>
+                </div>
+                <div className={cx("text", "text-2")}>
+                  <input
+                    type="text"
+                    className={cx("last-name")}
+                    onChange={(e) =>
+                      setUser({ ...user, lastname: e.target.value })
+                    }
+                    required
+                  />
+                  <span></span>
+                  <label>Last name</label>
+                </div>
               </div>
               <div className={cx("text")}>
                 <input
                   type="text"
                   className={cx("email")}
-                  onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  onBlur={(e) => setUser({ ...user, email: e.target.value })}
                   required
                 />
                 <span></span>
                 <label>Email</label>
               </div>
-              {/* <div className={cx("error")}>
-                <p className={cx("mess")}>{msg}</p>
-              </div> */}
               <div className={cx("text")}>
                 <input
-                  type="password"
+                  type={passwordType}
                   className={cx("password")}
-                  onChange={(e) =>
-                    setUser({ ...user, password: e.target.value })
-                  }
+                  onBlur={(e) => {
+                    setUser({ ...user, password: e.target.value });
+                  }}
                   required
                 />
+                <div className={cx("input-group-btn")}>
+                  <button className={cx("eyes-btn")} onClick={togglePassword}>
+                    {passwordType === "password" ? (
+                      <i className="bi bi-eye-slash"></i>
+                    ) : (
+                      <i className="bi bi-eye"></i>
+                    )}
+                  </button>
+                </div>
                 <span></span>
                 <label>Password</label>
               </div>
+
               <div className={cx("text")}>
                 <input
-                  type="password"
+                  type={passwordConfirmType}
                   className={cx("confirm-password")}
-                  onChange={(e) => setConfirm(e.target.value)}
+                  onBlur={(e) => setConfirm(e.target.value)}
                   required
                 />
+                <div className={cx("input-group-btn")}>
+                  <button
+                    className={cx("eyes-btn")}
+                    onClick={togglePasswordConfirm}
+                  >
+                    {passwordConfirmType === "password" ? (
+                      <i className="bi bi-eye-slash"></i>
+                    ) : (
+                      <i className="bi bi-eye"></i>
+                    )}
+                  </button>
+                </div>
                 <span></span>
                 <label>Confirm password</label>
               </div>
-
-              {/* <div className={cx('error')}>
-                <p className={cx("mess")}>
-                </p>
-              </div> */}
-
               <div className={cx("gender-form")}>
                 <p>Gender</p>
                 <div className={cx("gender")}>
@@ -204,9 +243,11 @@ function Signup() {
                 </div>
               </div>
               {msg && (
-                <Alert key="danger" variant="danger">
-                  {msg}
-                </Alert>
+                <div className={cx("error")}>
+                  <Alert key="danger" variant="danger">
+                    {msg}
+                  </Alert>
+                </div>
               )}
               <div className={cx("btn-submit")}>
                 <button onClick={handleSubmit} disabled={disabled}>

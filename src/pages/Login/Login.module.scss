@@ -7,9 +7,12 @@
 }
 
 .content {
+  width: 500px;
   background-color: #fff;
 }
-
+.info {
+  width: 100%;
+}
 .head-text p {
   text-align: center;
   color: var(--primary);
@@ -22,7 +25,7 @@
   margin: 30px 0;
 }
 .text input {
-  width: 500px;
+  width: 100%;
   padding: 0 5px;
   height: 40px;
   background: none;
@@ -30,7 +33,6 @@
   border: none;
   outline: none;
 }
-
 
 .text label {
   position: absolute;
@@ -61,6 +63,25 @@
 .text input:focus ~ span::before,
 .text input:valid ~ span::before {
   width: 100%;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+.input-group-btn {
+  position: relative;
+}
+
+.eyes-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  background-color: transparent;
 }
 
 .options {
@@ -99,7 +120,7 @@
 }
 
 .btn-submit button[disabled] {
-  opacity: .6;
+  opacity: 0.6;
   cursor: default;
 }
 
@@ -136,7 +157,7 @@
   .icon-google {
     width: 65px;
     height: 65px;
-    border: 1px solid #AAAA;
+    border: 1px solid #aaaa;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -158,6 +179,10 @@
   a {
     font-weight: 600;
     text-decoration: none;
+    color: #333;
+  }
+
+  a:hover {
     color: var(--primary);
   }
 }

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "~/App";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GlobalStyles from "./components/GlobalStyles";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
