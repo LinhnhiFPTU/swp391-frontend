@@ -1,0 +1,22 @@
+.profile-wrapper {
+    display: flex;
+}
+
+.left-content {
+    width: 25%;
+    border-right: 1px solid var(--primary);
+}
+
+.user-avatar {
+    width: 30%;
+    text-align: center;
+}
+
+.user-avatar-img img {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+.right-content {
+    padding: 30px;
+}

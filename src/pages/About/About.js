@@ -11,7 +11,7 @@ function About() {
             <Header />
             <div className={cx('about-wrapper')}>
                 <div className={cx('about-container')}>
-                    <div className={cx('about-descriptions', 'col-lg-5')}>
+                    <div className={cx('about-descriptions', 'col-lg-6')}>
                         <div className={cx('about-description')}>
                             <p>Welcome to our trade site for birds!</p>
                             <p>We are a group of ardent bird lovers who specialize in matching bird enthusiasts with the ideal feathery companions. Our marketplace offers a wide range of birds for sale, including common species as well as uncommon and exotic varieties, specialty feeds, and accessories.</p>
@@ -29,7 +29,7 @@ function About() {
                             </div>
                         </div>
                     </div>
-                    <div className={cx('about-image', 'col-lg-6')}>
+                    <div className={cx('about-image', 'col-lg-5')}>
                         <img src={about} alt='About-us' />
                     </div>
                 </div>
