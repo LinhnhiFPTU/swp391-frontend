@@ -5,7 +5,9 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 // import Button from "@mui/material/Button";
 import axios from "axios";
+import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 
 import Footer from "~/layouts/components/Footer";
 import HeaderForm from "~/layouts/components/HeaderForm";
@@ -15,19 +17,42 @@ import styles from "./Login.module.scss";
 const cx = classNames.bind(styles);
 
 function Login() {
-  const [request, setRequest] = useState({"email": "", "password": ""});
+  const [user, setUser] = useState();
+  const [profile, setProfile] = useState([]);
+  const [isLogin, setIsLogin] = useState(true);
+
+  const [request, setRequest] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
   const [open, setOpen] = useState(false);
+  const [passwordType, setPasswordType] = useState("password");
   const navigate = useNavigate();
 
-  function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let rs = decodedCookie.substring(name.length);
-    return rs;
-  }
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
 
   useEffect(() => {
     if (submit) {
@@ -37,22 +62,31 @@ function Login() {
           setMsg("");
           navigate("/");
           console.log(res.data);
-          document.cookie = "auth_token=" + res.data.token;
-          console.log(getCookie("auth_token"));
         })
         .catch((e) => {
           setMsg(e.response.data.message);
           setSubmit(false);
-          setOpen(false)
+          setOpen(false);
         });
     }
-  }, [submit]);
+  }, [submit, request, navigate]);
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        navigate("/");
+      })
+      .catch((e) => {
+        setIsLogin(false)
+        console.log(e);
+      });
+  }, []);
 
   useEffect(() => {
     if (request.email && request.password) {
       setDisabled(false);
-    }else
-    {
+    } else {
       setDisabled(true);
     }
   }, [request.email, request.password]);
@@ -63,16 +97,23 @@ function Login() {
     setSubmit(true);
   };
 
+  const togglePassword = (e) => {
+    e.preventDefault();
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
 
-
-
   return (
     <>
       <HeaderForm />
-      <div className={cx("container")}>
+      {!isLogin && <div className={cx("container")}>
         <div className={cx("content")}>
           <form>
             <div className={cx("head-text")}>
@@ -93,19 +134,31 @@ function Login() {
               </div>
               <div className={cx("text")}>
                 <input
-                  type="password"
+                  type={passwordType}
                   className={cx("password")}
                   onChange={(e) =>
                     setRequest({ ...request, password: e.target.value })
                   }
                   required
                 />
+
+                <div className={cx("input-group-btn")}>
+                  <button className={cx("eyes-btn")} onClick={togglePassword}>
+                    {passwordType === "password" ? (
+                      <i className="bi bi-eye-slash"></i>
+                    ) : (
+                      <i className="bi bi-eye"></i>
+                    )}
+                  </button>
+                </div>
                 <span></span>
                 <label>Password</label>
               </div>
-              <div className={cx("error")}>
-                <p className={cx("mess")}>{msg}</p>
-              </div>
+              {msg && (
+                <Alert key="danger" variant="danger">
+                  {msg}
+                </Alert>
+              )}
               <div className={cx("options")}>
                 <Link to="/reset" className={cx("options-link")}>
                   Forget password
@@ -113,7 +166,9 @@ function Login() {
               </div>
 
               <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit} disabled={disabled}>LOG IN</button>
+                <button onClick={handleSubmit} disabled={disabled}>
+                  LOG IN
+                </button>
                 <Backdrop
                   sx={{
                     color: "#fff",
@@ -134,10 +189,11 @@ function Login() {
 
               <div className={cx("choices")}>
                 <label className={cx("login-google")}>
-                  <div className={cx("icon-google")}>
+                  <div className={cx("icon-google")} onClick={() => login()}>
                     <img src={googleIcon} alt="google"></img>
                   </div>
                 </label>
+
                 <div className={cx("sign-up")}>
                   <p>
                     Don't have account?{" "}
@@ -150,7 +206,7 @@ function Login() {
             </div>
           </form>
         </div>
-      </div>
+      </div>}
       <Footer />
     </>
   );

@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
-
+import axios from "axios";
+import avatar from '~/assets/images/avatar.png'
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles);
 
 const Header = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        setUser(res.data);
+        console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
   return (
     <>
       <div className={cx("header")}>
@@ -47,41 +62,103 @@ const Header = () => {
                 Contact Us
               </Link>
             </div>
+            
           </div>
-
-          <div className={cx("nav-icon")}>
-            <div className={cx("cart-icon")}>
+          <div className={cx("cart-icon")}>
               <span className={cx("counter", "disable")}>22</span>
               <Link to="cart" className={cx("cart-link")}>
                 <i className={cx("icon", "fa-light fa-cart-shopping")}></i>
               </Link>
             </div>
-            <Tippy 
-              interactive 
-              delay={[0, 200]}
-              placement="bottom-end"
-              render={(attrs) => (
-                <div className={cx('user-options')} tabIndex="-1" {...attrs}>
-                  <PopperWrapper>
-                    <div className={cx('option-login')}>
-                      <Link to="/login" className={cx('login-link')}>
-                        <span>Login</span>
-                        <i className={cx("fa-regular fa-right-to-bracket")}></i>
-                      </Link>
-                    </div>
-                    <div className={cx('option-signup')}>
-                      <Link to="/signup" className={cx('signup-link')}>
-                        <span>Sign up</span>
-                        <i className={cx("fa-regular fa-user-plus")}></i>
-                      </Link>
-                    </div>
-                  </PopperWrapper>
+
+          <div className={cx("nav-icon")}>
+            {user ? (
+              <Tippy
+                interactive
+                delay={[0, 200]}
+                placement="bottom-end"
+                render={(attrs) => (
+                  <div
+                    className={cx("user-login-options")}
+                    tabIndex="-1"
+                    {...attrs}
+                  >
+                    <PopperWrapper>
+                      <div className={cx("option-first", "option-user")}>
+                        <Link to="/" className={cx("login-link")}>
+                          <span>User profile</span>
+                          <i className={cx("icon-sub", "fa-light fa-user")}></i>
+                        </Link>
+                      </div>
+                      <div className={cx("option-next")}>
+                        <Link to="/" className={cx("login-link")}>
+                          <span>Order</span>
+                          <i
+                            className={cx(
+                              "icon-sub",
+                              "fa-sharp fa-regular fa-basket-shopping"
+                            )}
+                          ></i>
+                        </Link>
+                      </div>
+                      <div className={cx("option-logout")}>
+                        <Link to="/" className={cx("signup-link")}>
+                          <span>Log out</span>
+                          <i
+                            className={cx(
+                              "icon-sub",
+                              "fa-regular fa-power-off"
+                            )}
+                          ></i>
+                        </Link>
+                      </div>
+                    </PopperWrapper>
+                  </div>
+                )}
+              >
+                <div className={cx("user-image")}>
+                  <img src={avatar} alt="avatar"></img>
                 </div>
-              )}>
-              <div className={cx("user-icon")}>
-                <i className={cx("icon", "fa-light fa-user")}></i>
-              </div>
-            </Tippy>
+              </Tippy>
+            ) : (
+              <Tippy
+                interactive
+                delay={[0, 200]}
+                placement="bottom-end"
+                render={(attrs) => (
+                  <div className={cx("user-options")} tabIndex="-1" {...attrs}>
+                    <PopperWrapper>
+                      <div className={cx("option-first")}>
+                        <Link to="/login" className={cx("login-link")}>
+                          <span>Login</span>
+                          <i
+                            className={cx(
+                              "icon-sub",
+                              "fa-regular fa-right-to-bracket"
+                            )}
+                          ></i>
+                        </Link>
+                      </div>
+                      <div className={cx("option-signup")}>
+                        <Link to="/signup" className={cx("signup-link")}>
+                          <span>Sign up</span>
+                          <i
+                            className={cx(
+                              "icon-sub",
+                              "fa-regular fa-user-plus"
+                            )}
+                          ></i>
+                        </Link>
+                      </div>
+                    </PopperWrapper>
+                  </div>
+                )}
+              >
+                <div className={cx("user-image")}>
+                  <img src={avatar} alt="avatar"></img>
+                </div>
+              </Tippy>
+            )}
           </div>
         </div>
       </div>
