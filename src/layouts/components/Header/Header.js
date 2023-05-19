@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import axios from "axios";
-import avatar from "~/assets/images/avatar.png";
+import avatar from "~/assets/images/user.png";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
