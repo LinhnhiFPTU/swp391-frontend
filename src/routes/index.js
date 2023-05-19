@@ -6,6 +6,7 @@ import Forget from '~/pages/ForgetPassword'
 import About from '~/pages/About'
 import Contact from '~/pages/Contact'
 import Profile from "~/pages/Profile";
+import Password from "~/pages/Profile/Password";
 
 
 const publicRoutes = [
@@ -16,6 +17,7 @@ const publicRoutes = [
   { path: '/about', component: About},
   { path: '/contact', component: Contact},
   { path: '/profile', component: Profile},
+  { path: '/user-password', component: Password},
 ];
 
 const privateRoutes = [];
