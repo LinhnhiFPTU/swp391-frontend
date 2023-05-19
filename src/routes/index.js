@@ -5,6 +5,7 @@ import Signup from '~/pages/Signup'
 import Forget from '~/pages/ForgetPassword'
 import About from '~/pages/About'
 import Contact from '~/pages/Contact'
+import Confirm from '~/pages/Confirm'
 
 
 const publicRoutes = [
@@ -14,6 +15,7 @@ const publicRoutes = [
   { path: '/reset', component: Forget},
   { path: '/about', component: About},
   { path: '/contact', component: Contact},
+  { path: '/confirm', component: Confirm},
 ];
 
 const privateRoutes = [];

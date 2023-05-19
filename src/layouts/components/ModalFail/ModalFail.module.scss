@@ -29,6 +29,7 @@
 }
 
 
+
 .success-heading {
   letter-spacing: 0.05px;
   text-align: center;
@@ -43,8 +44,8 @@
   margin: 10px auto;
 }
 
-.success {
-  color: #2ad352;
+.fail {
+  color: #dd4247;
   font-size: 3.4rem;
 }
 
@@ -68,11 +69,12 @@ p {
   border-radius: 5px;
   color: #fff;
   letter-spacing: 0.05px;
-  border: 1px solid #2ad352;
-  background-color: #2ad352;
+  border: 1px solid #dd4247;
+  background-color: #dd4247;
+  margin-right: 10px;
 }
 
 .navigate-link:hover {
-  color: #2ad352;
+  color: #dd4247;
   background-color: transparent;
 }

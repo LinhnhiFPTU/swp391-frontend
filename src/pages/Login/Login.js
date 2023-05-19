@@ -5,6 +5,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 // import Button from "@mui/material/Button";
 import axios from "axios";
+import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 
@@ -24,6 +25,7 @@ function Login() {
   const [disabled, setDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
   const [open, setOpen] = useState(false);
+  const [passwordType, setPasswordType] = useState("password");
   const navigate = useNavigate();
 
   const login = useGoogleLogin({
@@ -44,7 +46,6 @@ function Login() {
           }
         )
         .then((res) => {
-          console.log(res.data);
           axios
             .post("/api/v1/auths/google", res.data)
             .then((res) => {
@@ -55,7 +56,6 @@ function Login() {
             .catch((e) => {
               setMsg(e.response.data.message);
               setSubmit(false);
-              setOpen(false);
             });
         })
         .catch((err) => console.log(err));
@@ -77,7 +77,7 @@ function Login() {
           setOpen(false);
         });
     }
-  }, [submit]);
+  }, [submit, request, navigate]);
 
   useEffect(() => {
     axios
@@ -89,6 +89,7 @@ function Login() {
         setIsLogin(false);
         console.log(e);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -103,6 +104,15 @@ function Login() {
     e.preventDefault();
     setOpen(true);
     setSubmit(true);
+  };
+
+  const togglePassword = (e) => {
+    e.preventDefault();
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
   };
 
   const handleClose = () => {
@@ -134,19 +144,31 @@ function Login() {
                 </div>
                 <div className={cx("text")}>
                   <input
-                    type="password"
+                    type={passwordType}
                     className={cx("password")}
                     onChange={(e) =>
                       setRequest({ ...request, password: e.target.value })
                     }
                     required
                   />
+
+                  <div className={cx("input-group-btn")}>
+                    <button className={cx("eyes-btn")} onClick={togglePassword}>
+                      {passwordType === "password" ? (
+                        <i className="bi bi-eye-slash"></i>
+                      ) : (
+                        <i className="bi bi-eye"></i>
+                      )}
+                    </button>
+                  </div>
                   <span></span>
                   <label>Password</label>
                 </div>
-                <div className={cx("error")}>
-                  <p className={cx("mess")}>{msg}</p>
-                </div>
+                {msg && (
+                  <Alert key="danger" variant="danger">
+                    {msg}
+                  </Alert>
+                )}
                 <div className={cx("options")}>
                   <Link to="/reset" className={cx("options-link")}>
                     Forget password

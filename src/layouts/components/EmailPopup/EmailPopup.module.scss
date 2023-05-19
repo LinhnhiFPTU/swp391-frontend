@@ -24,11 +24,10 @@
 .img-success {
   width: 150px;
   height: 150px;
-  background-image: url('../../../assets/images/verify.png');
+  background-image: url('../../../assets/images/verify1.png');
   background-repeat: no-repeat;
   background-size: 100%;
   margin-top: 40px;
-  margin-right: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,12 +55,12 @@
 }
 
 h1 {
-  color: #fc1c17;
+  color: #f5554a;
   font-size: 3rem;
 }
 
 .email {
-  color: #fc1c17;
+  color: #f5554a;
   text-decoration: underline;
 }
 
@@ -85,11 +84,11 @@ p {
   border-radius: 5px;
   color: #fff;
   letter-spacing: 0.05px;
-  border: 1px solid #fc1c17;
-  background-color: #fc1c17;
+  border: 1px solid #f5554a;
+  background-color: #f5554a;
 }
 
 .navigate-link:hover {
-  color: #fc1c17;
+  color: #f5554a;
   background-color: transparent;
 }
