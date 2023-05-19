@@ -7,6 +7,7 @@ import About from '~/pages/About'
 import Contact from '~/pages/Contact'
 import Profile from "~/pages/Profile";
 import Password from "~/pages/Profile/Password";
+import Confirm from '~/pages/Confirm'
 
 
 const publicRoutes = [
@@ -18,6 +19,7 @@ const publicRoutes = [
   { path: '/contact', component: Contact},
   { path: '/profile', component: Profile},
   { path: '/user-password', component: Password},
+  { path: '/confirm', component: Confirm},
 ];
 
 const privateRoutes = [];

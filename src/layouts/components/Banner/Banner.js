@@ -38,7 +38,7 @@ const birds = [
 function Banner() {
   return (
     <Slide
-      duration={5000}
+      duration={3000}
       transitionDuration={1000}
       arrows={false}
       autoplay={true}

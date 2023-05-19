@@ -18,7 +18,6 @@ const cx = classNames.bind(styles);
 
 function Login() {
   const [user, setUser] = useState();
-  const [profile, setProfile] = useState([]);
   const [isLogin, setIsLogin] = useState(true);
 
   const [request, setRequest] = useState({ email: "", password: "" });
@@ -47,8 +46,17 @@ function Login() {
           }
         )
         .then((res) => {
-          console.log(res.data);
-          setProfile(res.data);
+          axios
+            .post("/api/v1/auths/google", res.data)
+            .then((res) => {
+              setMsg("");
+              navigate("/");
+              console.log(res.data);
+            })
+            .catch((e) => {
+              setMsg(e.response.data.message);
+              setSubmit(false);
+            });
         })
         .catch((err) => console.log(err));
     }
@@ -78,9 +86,10 @@ function Login() {
         navigate("/");
       })
       .catch((e) => {
-        setIsLogin(false)
+        setIsLogin(false);
         console.log(e);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -113,100 +122,102 @@ function Login() {
   return (
     <>
       <HeaderForm />
-      {!isLogin && <div className={cx("container")}>
-        <div className={cx("content")}>
-          <form>
-            <div className={cx("head-text")}>
-              <p>Welcome</p>
-            </div>
-            <div className={cx("info")}>
-              <div className={cx("text")}>
-                <input
-                  type="text"
-                  className={cx("email")}
-                  onChange={(e) =>
-                    setRequest({ ...request, email: e.target.value })
-                  }
-                  required
-                />
-                <span></span>
-                <label>Email</label>
+      {!isLogin && (
+        <div className={cx("container")}>
+          <div className={cx("content")}>
+            <form>
+              <div className={cx("head-text")}>
+                <p>Welcome</p>
               </div>
-              <div className={cx("text")}>
-                <input
-                  type={passwordType}
-                  className={cx("password")}
-                  onChange={(e) =>
-                    setRequest({ ...request, password: e.target.value })
-                  }
-                  required
-                />
-
-                <div className={cx("input-group-btn")}>
-                  <button className={cx("eyes-btn")} onClick={togglePassword}>
-                    {passwordType === "password" ? (
-                      <i className="bi bi-eye-slash"></i>
-                    ) : (
-                      <i className="bi bi-eye"></i>
-                    )}
-                  </button>
+              <div className={cx("info")}>
+                <div className={cx("text")}>
+                  <input
+                    type="text"
+                    className={cx("email")}
+                    onChange={(e) =>
+                      setRequest({ ...request, email: e.target.value })
+                    }
+                    required
+                  />
+                  <span></span>
+                  <label>Email</label>
                 </div>
-                <span></span>
-                <label>Password</label>
-              </div>
-              {msg && (
-                <Alert key="danger" variant="danger">
-                  {msg}
-                </Alert>
-              )}
-              <div className={cx("options")}>
-                <Link to="/reset" className={cx("options-link")}>
-                  Forget password
-                </Link>
-              </div>
+                <div className={cx("text")}>
+                  <input
+                    type={passwordType}
+                    className={cx("password")}
+                    onChange={(e) =>
+                      setRequest({ ...request, password: e.target.value })
+                    }
+                    required
+                  />
 
-              <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit} disabled={disabled}>
-                  LOG IN
-                </button>
-                <Backdrop
-                  sx={{
-                    color: "#fff",
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                  }}
-                  open={open}
-                  onClick={handleClose}
-                >
-                  <CircularProgress color="inherit" />
-                </Backdrop>
-              </div>
-
-              <div className={cx("or")}>
-                <span></span>
-                <p>or</p>
-                <span></span>
-              </div>
-
-              <div className={cx("choices")}>
-                <label className={cx("login-google")}>
-                  <div className={cx("icon-google")} onClick={() => login()}>
-                    <img src={googleIcon} alt="google"></img>
+                  <div className={cx("input-group-btn")}>
+                    <button className={cx("eyes-btn")} onClick={togglePassword}>
+                      {passwordType === "password" ? (
+                        <i className="bi bi-eye-slash"></i>
+                      ) : (
+                        <i className="bi bi-eye"></i>
+                      )}
+                    </button>
                   </div>
-                </label>
+                  <span></span>
+                  <label>Password</label>
+                </div>
+                {msg && (
+                  <Alert key="danger" variant="danger">
+                    {msg}
+                  </Alert>
+                )}
+                <div className={cx("options")}>
+                  <Link to="/reset" className={cx("options-link")}>
+                    Forget password
+                  </Link>
+                </div>
 
-                <div className={cx("sign-up")}>
-                  <p>
-                    Don't have account?{" "}
-                    <span>
-                      <Link to="/signup">Sign up</Link>
-                    </span>
-                  </p>
+                <div className={cx("btn-submit")}>
+                  <button onClick={handleSubmit} disabled={disabled}>
+                    LOG IN
+                  </button>
+                  <Backdrop
+                    sx={{
+                      color: "#fff",
+                      zIndex: (theme) => theme.zIndex.drawer + 1,
+                    }}
+                    open={open}
+                    onClick={handleClose}
+                  >
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
+                </div>
+
+                <div className={cx("or")}>
+                  <span></span>
+                  <p>or</p>
+                  <span></span>
+                </div>
+
+                <div className={cx("choices")}>
+                  <label className={cx("login-google")}>
+                    <div className={cx("icon-google")} onClick={() => login()}>
+                      <img src={googleIcon} alt="google"></img>
+                    </div>
+                  </label>
+
+                  <div className={cx("sign-up")}>
+                    <p>
+                      Don't have account?{" "}
+                      <span>
+                        <Link to="/signup">Sign up</Link>
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>}
+      )}
       <Footer />
     </>
   );

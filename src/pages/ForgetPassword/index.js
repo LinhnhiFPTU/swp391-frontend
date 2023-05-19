@@ -73,12 +73,14 @@ function ForgetPassword() {
 
   useEffect(() => {
     if (user) {
-      axios.post("/api/v1/auths/reset/send", user).then((res) => {
+      axios.post("/api/v1/auths/reset/send", user)
+      .then((res) => {
         console.log(res);
       });
     }
   }, [user]);
 
+  
   const handleSubmit = (e, args) => {
     e.preventDefault();
     setLoading(true);
@@ -90,7 +92,12 @@ function ForgetPassword() {
   return (
     <>
       <HeaderForm />
-      <CurStep onClick={handleSubmit} errMsg={errMsg} loading={loading} />
+      <CurStep
+        onClick={handleSubmit}
+        errMsg={errMsg}
+        loading={loading}
+        user={user}
+      />
       <Footer />
     </>
   );
