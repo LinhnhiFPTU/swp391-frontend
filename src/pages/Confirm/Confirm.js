@@ -9,29 +9,37 @@ import axios from "axios";
 function Confirm() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState("");
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
-      console.log(msg);
-      let token = searchParams.get("token");
-      console.log(token);
-      axios
-        .get("/api/v1/auths/registration/confirm?token=" + token)
-        .then((res) => {
-          setSuccess(true);
-          setMsg(res.data.status);
-        })
-        .catch((e) => {
-          (msg.length === 0) && setMsg(e.response.data.message);
-        });
-  }, []);
+    let token = searchParams.get("token");
+    axios
+      .get("/api/v1/auths/registration/confirm?token=" + token)
+      .then((res) => {
+        setSuccess(true);
+        setMsg(res.data.status);
+      })
+      .catch((e) => {
+        console.log(e);
+        setMsg(e.response.data.message);
+        if (e.response.data.message === "Token expired") {
+          setFail("expired");
+        }
+      });
+  }, [searchParams.get("token")]);
 
   return (
     <>
       {success ? (
         <Modal message="Confirm Success" subMessage={msg} path="/login" />
       ) : (
-        <ModalFail message="Confirm Fail" subMessage={msg} path="/" />
+        <ModalFail
+          message="Confirm Fail"
+          subMessage={msg}
+          path="/"
+          isResend={fail === "expired"}
+        />
       )}
       <HeaderForm />
     </>

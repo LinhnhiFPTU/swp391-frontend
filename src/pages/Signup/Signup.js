@@ -30,8 +30,8 @@ const genders = [
 ];
 function Signup() {
   const [user, setUser] = useState({
-    firstname: "",
-    lastname: "",
+    firstname: undefined,
+    lastname: undefined,
     email: "",
     password: "",
   });
@@ -88,18 +88,20 @@ function Signup() {
 
   useEffect(() => {
     const regex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-    if (user.password !== confirm) {
+
+    if (typeof user.firstname === "string" && !user.firstname) {
       setDisabled(true);
-      setMsg("Passwords do not match!");
-    } else if (user.email === "") {
-      setMsg("");
-    } else if (!regex.test(user.email)) {
+      setMsg("Firstname is required!");
+    } else if (typeof user.lastname === "string" && !user.lastname) {
+      setDisabled(true);
+      setMsg("Lastname is required!");
+    } else if (user.email && !regex.test(user.email)) {
       setDisabled(true);
       setMsg("Email not valid!");
-    } else if (user.password !== confirm) {
-      setMsg("");
-    } else {
-    }
+    } else if (user.password && confirm && user.password !== confirm) {
+      setDisabled(true);
+      setMsg("Passwords do not match!");
+    } else setMsg("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [confirm, user.email, user.firstname, user.lastname]);
 

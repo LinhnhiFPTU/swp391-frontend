@@ -1,11 +1,23 @@
 import classNames from "classnames/bind";
 import styles from "./ModalFail.module.scss";
 import { Link } from "react-router-dom";
-import fail from '~/assets/images/fail.png'
+import fail from "~/assets/images/fail.png";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-function ModalFail({ closeModal, message = "Message", subMessage = "Sub message", path="/", contentBtn = "OKAY"}) {
+function ModalFail({
+  closeModal,
+  message = "Message",
+  subMessage = "Sub message",
+  path = "/",
+  contentBtn = "OKAY",
+  isResend = true,
+}) {
+  const [resend, setResend] = useState(false);
+  const [resendMsg, setResendMsg] = useState("");
+
   const imgStyles = {
     width: "130px",
     height: "130px",
@@ -13,6 +25,20 @@ function ModalFail({ closeModal, message = "Message", subMessage = "Sub message"
     backgroundRepeat: "no-repeat",
     backgroundSize: "100%",
     marginTop: "40px",
+  };
+
+  useEffect(() => {
+    if (resend) {
+      axios
+        .get("/api/v1/auths/registration/resend")
+        .then((res) => {})
+        .catch((e) => {});
+    }
+  }, [resend]);
+
+  const handleResend = (e) => {
+    e.preventDefault();
+    setResend(true);
   };
 
   return (
@@ -31,6 +57,14 @@ function ModalFail({ closeModal, message = "Message", subMessage = "Sub message"
           <Link className={cx("navigate-link")} to={path}>
             {contentBtn}
           </Link>
+          {isResend && (
+            <a className={cx("navigate-link")} onClick={handleResend}>
+              {"Resend"}
+            </a>
+          )}
+        </div>
+        <div className={cx("success-text")}>
+          <p>{resendMsg}</p>
         </div>
       </div>
     </div>
