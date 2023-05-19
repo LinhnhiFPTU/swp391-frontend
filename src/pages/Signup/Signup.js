@@ -205,9 +205,9 @@ function Signup() {
                         onClick={togglePassword}
                       >
                         {passwordType === "password" ? (
-                          <i className="bi bi-eye-slash"></i>
+                          <i className={cx("icon-password", "bi bi-eye-slash")}></i>
                         ) : (
-                          <i className="bi bi-eye"></i>
+                          <i className={cx("icon-password", "bi bi-eye")}></i>
                         )}
                       </button>
                     </div>
@@ -228,9 +228,9 @@ function Signup() {
                         onClick={togglePasswordConfirm}
                       >
                         {passwordConfirmType === "password" ? (
-                          <i className="bi bi-eye-slash"></i>
+                          <i className={cx("icon-password", "bi bi-eye-slash")}></i>
                         ) : (
-                          <i className="bi bi-eye"></i>
+                          <i className={cx("icon-password", "bi bi-eye")}></i>
                         )}
                       </button>
                     </div>

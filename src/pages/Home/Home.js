@@ -130,6 +130,7 @@ function Home() {
                 <div className={cx("item-img")}>
                   <img src={flash} alt="item-img"/>
                 </div>
+                
               </div>
             </div>
           </div>
