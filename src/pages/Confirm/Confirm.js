@@ -11,6 +11,7 @@ function Confirm() {
   const [success, setSuccess] = useState(false);
   const [fail, setFail] = useState("");
   const [msg, setMsg] = useState("");
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     let token = searchParams.get("token");
@@ -18,16 +19,21 @@ function Confirm() {
       .get("/api/v1/auths/registration/confirm?token=" + token)
       .then((res) => {
         setSuccess(true);
-        setMsg(res.data.status);
+        setMsg((msg) => res.data.status);
       })
       .catch((e) => {
         console.log(e);
-        setMsg(e.response.data.message);
+        setMsg((msg) => {
+          if (!msg) {
+            return e.response.data.message;
+          }
+          return msg;
+        });
         if (e.response.data.message === "Token expired") {
           setFail("expired");
         }
       });
-  }, [searchParams.get("token")]);
+  }, []);
 
   return (
     <>
