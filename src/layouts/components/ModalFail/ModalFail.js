@@ -1,19 +1,20 @@
 import classNames from "classnames/bind";
-import styles from "./Modal.module.scss";
+import styles from "./ModalFail.module.scss";
 import { Link } from "react-router-dom";
-import success from '~/assets/images/success.png'
+import fail from '~/assets/images/fail.png'
 
 const cx = classNames.bind(styles);
 
-function Modal({ closeModal, message = "Message", subMessage = "Sub message", path="/", contentBtn = "OKAY"}) {
+function ModalFail({ closeModal, message = "Message", subMessage = "Sub message", path="/", contentBtn = "OKAY"}) {
   const imgStyles = {
     width: "130px",
     height: "130px",
-    backgroundImage: `url(${success})`,
+    backgroundImage: `url(${fail})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "100%",
     marginTop: "40px",
   };
+
   return (
     <div className={cx("overlay")}>
       <div onClick={(e) => e.stopPropagation()} className={cx("pop-up")}>
@@ -21,7 +22,7 @@ function Modal({ closeModal, message = "Message", subMessage = "Sub message", pa
           <div className={cx("img-success")} style={imgStyles}></div>
         </div>
         <div className={cx("success-heading")}>
-          <h1 className={cx("success")}>{message}</h1>
+          <h1 className={cx("fail")}>{message}</h1>
         </div>
         <div className={cx("success-text")}>
           <p>{subMessage}</p>
@@ -36,4 +37,4 @@ function Modal({ closeModal, message = "Message", subMessage = "Sub message", pa
   );
 }
 
-export default Modal;
+export default ModalFail;

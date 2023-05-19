@@ -3,7 +3,9 @@ import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import axios from "axios";
-import avatar from '~/assets/images/avatar.png'
+import avatar from "~/assets/images/avatar.png";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles);
@@ -62,14 +64,13 @@ const Header = () => {
                 Contact Us
               </Link>
             </div>
-            
           </div>
           <div className={cx("cart-icon")}>
-              <span className={cx("counter", "disable")}>22</span>
-              <Link to="cart" className={cx("cart-link")}>
-                <i className={cx("icon", "fa-light fa-cart-shopping")}></i>
-              </Link>
-            </div>
+            <span className={cx("counter", "disable")}>22</span>
+            <Link to="cart" className={cx("cart-link")}>
+              <i className={cx("icon", "fa-light fa-cart-shopping")}></i>
+            </Link>
+          </div>
 
           <div className={cx("nav-icon")}>
             {user ? (
@@ -116,8 +117,10 @@ const Header = () => {
                   </div>
                 )}
               >
-                <div className={cx("user-image")}>
-                  <img src={avatar} alt="avatar"></img>
+                <div className={cx('user-avatar')}>
+                  <Stack direction="row" spacing={2}>
+                    <Avatar alt="avatar" src={avatar} sx={{ width: 33, height: 33 }}/>
+                  </Stack>
                 </div>
               </Tippy>
             ) : (
@@ -154,8 +157,10 @@ const Header = () => {
                   </div>
                 )}
               >
-                <div className={cx("user-image")}>
-                  <img src={avatar} alt="avatar"></img>
+                <div className={cx('user-avatar')}>
+                  <Stack direction="row" spacing={2}>
+                    <Avatar alt="avatar" src={avatar} sx={{ width: 33, height: 33 }}/>
+                  </Stack>
                 </div>
               </Tippy>
             )}

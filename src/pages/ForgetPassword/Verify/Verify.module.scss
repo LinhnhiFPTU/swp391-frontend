@@ -86,11 +86,29 @@
   align-items: center;
   margin-top: 30px;
 
-  a {
+  .resend-text {
+    cursor: pointer;
     color: #aaaa;
+    border: none;
+    outline: none;
+    padding: 5px;
+    background-color: transparent;
   }
 
-  a:hover {
+  .resend-active {
+    color: var(--primary);
+    color: var(--primary);
+    border: none;
+    outline: none;
+    padding: 5px;
+    background-color: transparent;
+  }
+
+  .resend-active:hover {
+    text-decoration: underline;
+  }
+
+  .count-down {
     color: var(--primary);
   }
 }

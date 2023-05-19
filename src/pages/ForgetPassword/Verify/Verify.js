@@ -1,23 +1,48 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Link } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
+import axios from "axios";
 
 import styles from "./Verify.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Verify({ onClick, errMsg = "" , loading}) {
+function Verify({ onClick, errMsg = "", loading, user }) {
   const [code, setCode] = useState("");
+  const [countDown, setCountDown] = useState(60);
+  const [disabled, setDisabled] = useState(true);
+  const [classResend, setClassResend] = useState('resend-text')
+  const timeID = useRef();
+
+  useEffect(() => {
+    timeID.current = setInterval(() => {
+      setCountDown((pre) => pre - 1);
+    }, 1000);
+    return () => {
+      clearInterval(timeID.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (countDown <= 0) {
+      clearInterval(timeID.current);
+      setDisabled(false);
+      setClassResend('resend-active');
+    }
+  }, [countDown]);
 
   const handleSubmit = (e) => {
     onClick(e, { code });
   };
 
-  const handleClose = () => {
+  const handleResend = () => {
+    axios.post("/api/v1/auths/reset/send", user)
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   const handleKeyUp = (e) => {
@@ -58,8 +83,8 @@ function Verify({ onClick, errMsg = "" , loading}) {
             <div className={cx("header-subText")}>
               <p>
                 Copy the verification code in{" "}
-                <span className={cx("hight-light")}>your email</span> to verify
-                this account recovery.
+                <span className={cx("hight-light")}>{user.email}</span> to
+                verify this account recovery.
               </p>
             </div>
             <div className={cx("info")}>
@@ -78,7 +103,7 @@ function Verify({ onClick, errMsg = "" , loading}) {
               )}
               <div className={cx("btn-submit")}>
                 <button onClick={handleSubmit} disabled={code.length !== 6}>
-                  VERIFICATION 
+                  VERIFICATION
                 </button>
                 <Backdrop
                   sx={{
@@ -86,7 +111,6 @@ function Verify({ onClick, errMsg = "" , loading}) {
                     zIndex: (theme) => theme.zIndex.drawer + 1,
                   }}
                   open={loading}
-                  onClick={handleClose}
                 >
                   <CircularProgress color="inherit" />
                 </Backdrop>
@@ -95,9 +119,8 @@ function Verify({ onClick, errMsg = "" , loading}) {
                 <div className={cx("re-send")}>
                   <p>
                     Didn't get the code?{" "}
-                    <span>
-                      <Link to="">Resend Email</Link>
-                    </span>
+                    <button disabled={disabled} onClick={handleResend} className={cx(classResend)}>Resend Email</button>{" "}
+                    <span className={cx('count-down')}>{countDown}s</span>
                   </p>
                 </div>
               </div>

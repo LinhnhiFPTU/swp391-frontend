@@ -31,7 +31,7 @@ const genders = [
 function Signup() {
   const [user, setUser] = useState({
     firstname: "",
-    lastName: "",
+    lastname: "",
     email: "",
     password: "",
   });
@@ -90,14 +90,15 @@ function Signup() {
     const regex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
     if (user.password !== confirm) {
       setDisabled(true);
-      setMsg("Passwords do not match");
+      setMsg("Passwords do not match!");
     } else if (user.email === "") {
       setMsg("");
     } else if (!regex.test(user.email)) {
       setDisabled(true);
-      setMsg("Email not valid");
-    } else {
+      setMsg("Email not valid!");
+    } else if (user.password !== confirm) {
       setMsg("");
+    } else {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [confirm, user.email, user.firstname, user.lastname]);
@@ -131,152 +132,168 @@ function Signup() {
   };
   return (
     <>
-      {openModal && <EmailPopup setOpenModal email={user.email} />}
+      {openModal && (
+        <EmailPopup
+          setOpenModal
+          email={user.email}
+          message="Register successfully"
+          subMessage="to verify"
+        />
+      )}
       <HeaderForm />
-      <div className={cx("container")}>
-        <div className={cx("content")}>
-          <form>
-            <div className={cx("head-text")}>
-              <p>Register</p>
-            </div>
-            <div className={cx("info")}>
-              <div className={cx("text-content")}>
-                <div className={cx("text", "text-1")}>
-                  <input
-                    type="text"
-                    className={cx("first-name")}
-                    onChange={(e) =>
-                      setUser({ ...user, firstname: e.target.value })
-                    }
-                    required
-                  />
-                  <span></span>
-                  <label>First name</label>
+      {!openModal && (
+        <>
+          <div className={cx("container")}>
+            <div className={cx("content")}>
+              <form>
+                <div className={cx("head-text")}>
+                  <p>Register</p>
                 </div>
-                <div className={cx("text", "text-2")}>
-                  <input
-                    type="text"
-                    className={cx("last-name")}
-                    onChange={(e) =>
-                      setUser({ ...user, lastname: e.target.value })
-                    }
-                    required
-                  />
-                  <span></span>
-                  <label>Last name</label>
-                </div>
-              </div>
-              <div className={cx("text")}>
-                <input
-                  type="text"
-                  className={cx("email")}
-                  onBlur={(e) => setUser({ ...user, email: e.target.value })}
-                  required
-                />
-                <span></span>
-                <label>Email</label>
-              </div>
-              <div className={cx("text")}>
-                <input
-                  type={passwordType}
-                  className={cx("password")}
-                  onBlur={(e) => {
-                    setUser({ ...user, password: e.target.value });
-                  }}
-                  required
-                />
-                <div className={cx("input-group-btn")}>
-                  <button className={cx("eyes-btn")} onClick={togglePassword}>
-                    {passwordType === "password" ? (
-                      <i className="bi bi-eye-slash"></i>
-                    ) : (
-                      <i className="bi bi-eye"></i>
-                    )}
-                  </button>
-                </div>
-                <span></span>
-                <label>Password</label>
-              </div>
-
-              <div className={cx("text")}>
-                <input
-                  type={passwordConfirmType}
-                  className={cx("confirm-password")}
-                  onBlur={(e) => setConfirm(e.target.value)}
-                  required
-                />
-                <div className={cx("input-group-btn")}>
-                  <button
-                    className={cx("eyes-btn")}
-                    onClick={togglePasswordConfirm}
-                  >
-                    {passwordConfirmType === "password" ? (
-                      <i className="bi bi-eye-slash"></i>
-                    ) : (
-                      <i className="bi bi-eye"></i>
-                    )}
-                  </button>
-                </div>
-                <span></span>
-                <label>Confirm password</label>
-              </div>
-              <div className={cx("gender-form")}>
-                <p>Gender</p>
-                <div className={cx("gender")}>
-                  {genders.map((gender) => (
-                    <label key={gender.id}>
+                <div className={cx("info")}>
+                  <div className={cx("text-content")}>
+                    <div className={cx("text", "text-1")}>
                       <input
-                        type="radio"
-                        checked={checked === gender.id}
-                        onChange={() => {
-                          setChecked(gender.id);
-                          setUser({
-                            ...user,
-                            gender: gender.name.toUpperCase(),
-                          });
-                        }}
+                        type="text"
+                        className={cx("first-name")}
+                        onBlur={(e) =>
+                          setUser({ ...user, firstname: e.target.value.trim() })
+                        }
+                        required
                       />
-                      <i></i>
-                      <span>{gender.name}</span>
-                    </label>
-                  ))}
+                      <span></span>
+                      <label>First name</label>
+                    </div>
+                    <div className={cx("text", "text-2")}>
+                      <input
+                        type="text"
+                        className={cx("last-name")}
+                        onBlur={(e) =>
+                          setUser({ ...user, lastname: e.target.value.trim() })
+                        }
+                        required
+                      />
+                      <span></span>
+                      <label>Last name</label>
+                    </div>
+                  </div>
+                  <div className={cx("text")}>
+                    <input
+                      type="text"
+                      className={cx("email")}
+                      onBlur={(e) =>
+                        setUser({ ...user, email: e.target.value.trim() })
+                      }
+                      required
+                    />
+                    <span></span>
+                    <label>Email</label>
+                  </div>
+                  <div className={cx("text")}>
+                    <input
+                      type={passwordType}
+                      className={cx("password")}
+                      onBlur={(e) => {
+                        setUser({ ...user, password: e.target.value.trim() });
+                      }}
+                      required
+                    />
+                    <div className={cx("input-group-btn")}>
+                      <button
+                        className={cx("eyes-btn")}
+                        onClick={togglePassword}
+                      >
+                        {passwordType === "password" ? (
+                          <i className="bi bi-eye-slash"></i>
+                        ) : (
+                          <i className="bi bi-eye"></i>
+                        )}
+                      </button>
+                    </div>
+                    <span></span>
+                    <label>Password</label>
+                  </div>
+
+                  <div className={cx("text")}>
+                    <input
+                      type={passwordConfirmType}
+                      className={cx("confirm-password")}
+                      onBlur={(e) => setConfirm(e.target.value.trim())}
+                      required
+                    />
+                    <div className={cx("input-group-btn")}>
+                      <button
+                        className={cx("eyes-btn")}
+                        onClick={togglePasswordConfirm}
+                      >
+                        {passwordConfirmType === "password" ? (
+                          <i className="bi bi-eye-slash"></i>
+                        ) : (
+                          <i className="bi bi-eye"></i>
+                        )}
+                      </button>
+                    </div>
+                    <span></span>
+                    <label>Confirm password</label>
+                  </div>
+                  <div className={cx("gender-form")}>
+                    <p>Gender</p>
+                    <div className={cx("gender")}>
+                      {genders.map((gender) => (
+                        <label key={gender.id}>
+                          <input
+                            type="radio"
+                            checked={checked === gender.id}
+                            onChange={() => {
+                              setChecked(gender.id);
+                              setUser({
+                                ...user,
+                                gender: gender.name.toUpperCase(),
+                              });
+                            }}
+                          />
+                          <i></i>
+                          <span>{gender.name}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                  {msg && (
+                    <div className={cx("error")}>
+                      <Alert key="danger" variant="danger">
+                        {msg}
+                      </Alert>
+                    </div>
+                  )}
+                  <div className={cx("btn-submit")}>
+                    <button onClick={handleSubmit} disabled={disabled}>
+                      SIGN UP
+                    </button>
+                    <Backdrop
+                      sx={{
+                        color: "#fff",
+                        zIndex: (theme) => theme.zIndex.drawer + 1,
+                      }}
+                      open={open}
+                      onClick={handleClose}
+                    >
+                      <CircularProgress color="inherit" />
+                    </Backdrop>
+                  </div>
+                  <div className={cx("login")}>
+                    <p>
+                      Already have an account?{" "}
+                      <span>
+                        <Link to="/login">Log in</Link>
+                      </span>
+                    </p>
+                  </div>
                 </div>
-              </div>
-              {msg && (
-                <div className={cx("error")}>
-                  <Alert key="danger" variant="danger">
-                    {msg}
-                  </Alert>
-                </div>
-              )}
-              <div className={cx("btn-submit")}>
-                <button onClick={handleSubmit} disabled={disabled}>
-                  SIGN UP
-                </button>
-                <Backdrop
-                  sx={{
-                    color: "#fff",
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                  }}
-                  open={open}
-                  onClick={handleClose}
-                >
-                  <CircularProgress color="inherit" />
-                </Backdrop>
-              </div>
-              <div className={cx("login")}>
-                <p>
-                  Already have an account?{" "}
-                  <span>
-                    <Link to="/login">Log in</Link>
-                  </span>
-                </p>
-              </div>
+              </form>
             </div>
-          </form>
-        </div>
-      </div>
-      <Footer />
+          </div>
+          <Footer />
+        </>
+      )}
     </>
   );
 }
