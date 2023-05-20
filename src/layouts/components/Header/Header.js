@@ -86,7 +86,7 @@ const Header = () => {
                   >
                     <PopperWrapper>
                       <div className={cx("option-first", "option-user")}>
-                        <Link to="/" className={cx("login-link")}>
+                        <Link to="/user/account/profile" className={cx("login-link")}>
                           <span>User profile</span>
                           <i className={cx("icon-sub", "fa-light fa-user")}></i>
                         </Link>

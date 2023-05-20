@@ -3,8 +3,7 @@
   height: 101px;
   display: flex;
   justify-content: center;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  margin-bottom: 30px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .header-content {
@@ -31,10 +30,11 @@
 
 .sub-text {
   font-size: 3.4rem;
+  color: var(--primary);
 }
 
 .inner-subText {
-  color: var(--primary);
+  color: #333;
 }
 
 .search-bar {
@@ -58,9 +58,12 @@
   border-radius: 3px;
   border: none;
   outline: none;
-  color: #fff;
-  background: var(--primary);
+  background-color: var(--primary);
   cursor: pointer;
+
+  i {
+    color: #fff;
+  }
 }
 
 .options-content {
@@ -169,22 +172,29 @@
   margin-bottom: 4px;
 }
 
-
 .login-link,
 .signup-link {
   text-decoration: none;
-  color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px;
   transform: background-color 0.2s linear;
+
+  span,
+  i {
+    color: #333;
+  }
 }
 
 .login-link:hover,
 .signup-link:hover {
-  color: var(--primary);
   background-color: rgba(22, 24, 35, 0.04);
+
+  span,
+  i {
+    color: var(--primary);
+  }
 }
 
 .login-link i {
