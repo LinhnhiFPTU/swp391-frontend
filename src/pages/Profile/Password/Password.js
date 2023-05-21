@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
+import Alert from "react-bootstrap/Alert";
 
 import avatar from "~/assets/images/user.png";
 import styles from "./Password.module.scss";
@@ -23,7 +24,11 @@ const sidebarDatas = [
 ];
 function Password() {
   const { pathname } = useLocation();
+  const [msg, setMsg] = useState("");
   const [passwordType, setPasswordType] = useState("password");
+  const [passwordNewType, setPasswordNewType] = useState("password");
+  const [passwordConfirmType, setPasswordConfirmType] = useState("password");
+
   const togglePassword = (e) => {
     e.preventDefault();
     if (passwordType === "password") {
@@ -31,6 +36,24 @@ function Password() {
       return;
     }
     setPasswordType("password");
+  };
+
+  const toggleNewPassword = (e) => {
+    e.preventDefault();
+    if (passwordNewType === "password") {
+      setPasswordNewType("text");
+      return;
+    }
+    setPasswordNewType("password");
+  };
+
+  const toggleConfirmPassword = (e) => {
+    e.preventDefault();
+    if (passwordConfirmType === "password") {
+      setPasswordConfirmType("text");
+      return;
+    }
+    setPasswordConfirmType("password");
   };
   return (
     <>
@@ -97,13 +120,16 @@ function Password() {
                 </div>
                 <div className={cx("pass")}>
                   <input
-                    type={passwordType}
+                    type={passwordNewType}
                     className={cx("password")}
                     required
                   />
                   <div className={cx("input-group-btn")}>
-                    <button className={cx("eyes-btn")} onClick={togglePassword}>
-                      {passwordType === "password" ? (
+                    <button
+                      className={cx("eyes-btn")}
+                      onClick={toggleNewPassword}
+                    >
+                      {passwordNewType === "password" ? (
                         <i className="bi bi-eye-slash"></i>
                       ) : (
                         <i className="bi bi-eye"></i>
@@ -115,13 +141,16 @@ function Password() {
                 </div>
                 <div className={cx("pass")}>
                   <input
-                    type={passwordType}
+                    type={passwordConfirmType}
                     className={cx("password")}
                     required
                   />
                   <div className={cx("input-group-btn")}>
-                    <button className={cx("eyes-btn")} onClick={togglePassword}>
-                      {passwordType === "password" ? (
+                    <button
+                      className={cx("eyes-btn")}
+                      onClick={toggleConfirmPassword}
+                    >
+                      {passwordConfirmType === "password" ? (
                         <i className="bi bi-eye-slash"></i>
                       ) : (
                         <i className="bi bi-eye"></i>
@@ -131,6 +160,13 @@ function Password() {
                   <span></span>
                   <label>Confirm password</label>{" "}
                 </div>
+                {msg && (
+                  <div className={cx("error")}>
+                    <Alert key="danger" variant="danger">
+                      Password does not match
+                    </Alert>
+                  </div>
+                )}
                 <div className={cx("save")}>
                   <button className={cx("save-btn")}>Save</button>
                 </div>
