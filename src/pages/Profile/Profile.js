@@ -34,7 +34,9 @@ function Profile() {
                 <div className={cx('left-content')}>
                     <div className={cx('user-avatar')}>
                         <div className={cx('user-avatar-img')}>
-                            {preview ? <img src={preview} alt="Preview" /> : <img src={avatar} />}
+                            {preview ? 
+                            <img src={preview} alt="Preview" /> : 
+                            <img src={avatar} />}
                         </div>
                         <div className={cx('user-name')}>
                             <p>DevDD</p>
