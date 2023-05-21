@@ -200,10 +200,10 @@ function Address() {
                 </div>
                 <div className={cx("next-page")}>
                   <button className={cx("icon-left")}>
-                    <i class="fa-light fa-angle-left"></i>
+                    <i className={cx("fa-light fa-angle-left")}></i>
                   </button>
                   <button className={cx("icon-right")}>
-                    <i class="fa-light fa-angle-right"></i>
+                    <i className={cx("fa-light fa-angle-right")}></i>
                   </button>
                 </div>
               </div>
