@@ -7,6 +7,8 @@
   margin-bottom: 30px;
 
   img {
+    cursor: pointer;
+    -webkit-user-drag: none;
     width: 100%;
     height: 100%;
   }

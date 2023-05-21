@@ -6,13 +6,13 @@
   margin-top: 30px;
 }
 .content {
-  margin-bottom: 200px;
+  margin-bottom: 80px;
   width: 90%;
 }
 
 // ---------CATEGORIES---------
 .categories-container {
-  padding: 20px;
+  padding: 30px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 .categories-heading {
@@ -102,7 +102,7 @@
 // ---------FLASH SALE---------
 .flashSale-container {
   margin-top: 50px;
-  padding: 20px;
+  padding: 30px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
@@ -140,7 +140,6 @@
     color: var(--primary);
   }
 
-  //min-width:
   .countdown-minute {
     min-width: 34px;
     line-height: 25px;
@@ -177,6 +176,7 @@
   width: 200px;
   height: 300px;
   margin: auto;
+  text-decoration: none;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   position: relative;
 }
@@ -196,7 +196,7 @@
   align-items: center;
   flex-direction: column;
   width: 40px;
-  height: 45px;
+  height: 35px;
   clip-path: polygon(
     30% 0%,
     70% 0%,
@@ -207,12 +207,7 @@
     0 100%,
     0 0
   );
-  background-color: rgba(250, 105, 105, 0.8);
-}
-
-.text-discount {
-  font-size: 0.75rem;
-  color: #fff;
+  background-color: rgba(245, 49, 49, 0.8);
 }
 
 .per-discount {
@@ -290,11 +285,10 @@
   z-index: 1;
 }
 
-
 // ---------BEST SELLER---------
 .best-seller_container {
   margin-top: 50px;
-  padding: 20px;
+  padding: 30px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
@@ -324,7 +318,7 @@
   box-sizing: content-box;
   padding-top: 15px;
   position: relative;
-  background: #FF7C33;
+  background: #ff7c33;
   color: #fff;
 }
 .best-seller_top p {
@@ -420,3 +414,71 @@
   }
 }
 
+
+
+// ---------SHOP TRENDING---------
+
+.shop-trending-container {
+  margin-top: 50px;
+  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.shop-trending-top {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.shop-trending-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+.shop-item {
+  display: flex;
+  width: 30%;
+  align-items: center;
+  padding: 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  background-color: #f5f6f8;
+}
+.shop-item:hover {
+  color: #333;
+}
+.shop-text {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sub-text {
+  margin-top: 20px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+
+  .rating-text {
+    margin-right: 10px;
+  }
+  .rating-icon {
+    margin-top: 10px;
+  }
+  .rate {
+    font-size: 2.2rem;
+  }
+}
+.shop-img {
+  width: 126px;
+  height: 126px;
+
+  img {
+    width: 100%;
+  }
+}

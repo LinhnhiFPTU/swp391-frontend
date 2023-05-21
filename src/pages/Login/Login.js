@@ -50,7 +50,7 @@ function Login() {
             .post("/api/v1/auths/google", res.data)
             .then((res) => {
               setMsg("");
-              navigate("/");
+              window.location.href = "/"
               console.log(res.data);
             })
             .catch((e) => {
@@ -60,7 +60,7 @@ function Login() {
         })
         .catch((err) => console.log(err));
     }
-  }, [user]);
+  }, [user, navigate]);
 
   useEffect(() => {
     if (submit) {
@@ -68,7 +68,7 @@ function Login() {
         .post("/api/v1/auths/authentication", request)
         .then((res) => {
           setMsg("");
-          navigate("/");
+          window.location.href = "/"
           console.log(res.data);
         })
         .catch((e) => {

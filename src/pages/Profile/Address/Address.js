@@ -1,12 +1,12 @@
 import classNames from "classnames/bind";
 import { NavLink, useLocation } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
 
-import avatar from "~/assets/images/user.png";
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import AddressPopup from "~/layouts/components/AddressPopup";
 import styles from "./Address.module.scss";
-import { useState } from "react";
+import { UserContext } from "~/App";
 
 const cx = classNames.bind(styles);
 const sidebarDatas = [
@@ -26,6 +26,21 @@ const sidebarDatas = [
 function Address() {
   const { pathname } = useLocation();
   const [openMadal, setOpenModal] = useState(false);
+  const [user, setUser] = useState({
+    email: "",
+    firstname: "",
+    lastname: "",
+    imageurl: "",
+    gender: "",
+  })
+  const context = useContext(UserContext)
+  
+  useEffect(() => {
+    if(context)
+    {
+      setUser(context)
+    }
+  }, [context])
 
   const handleAdd = () => {
     setOpenModal(true);
@@ -41,10 +56,10 @@ function Address() {
             <div className={cx("left-content")}>
               <div className={cx("user-avatar")}>
                 <div className={cx("user-avatar-img")}>
-                  <img src={avatar} alt="avatar" />
+                  <img src={user.imageurl} alt="avatar" />
                 </div>
                 <div className={cx("user-name")}>
-                  <p>DevDD</p>
+                  <p>{(user.firstname + " " + user.lastname).trim() || "User"}</p>
                 </div>
               </div>
               <div className={cx("user-nav")}>
@@ -185,10 +200,10 @@ function Address() {
                 </div>
                 <div className={cx("next-page")}>
                   <button className={cx("icon-left")}>
-                    <i class="fa-light fa-angle-left"></i>
+                    <i className={cx("fa-light fa-angle-left")}></i>
                   </button>
                   <button className={cx("icon-right")}>
-                    <i class="fa-light fa-angle-right"></i>
+                    <i className={cx("fa-light fa-angle-right")}></i>
                   </button>
                 </div>
               </div>

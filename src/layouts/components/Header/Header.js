@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
-import axios from "axios";
 import avatar from "~/assets/images/user.png";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import styles from "./Header.module.scss";
+import { UserContext } from "~/App";
+import axios from "axios";
 const cx = classNames.bind(styles);
 
 const Header = () => {
-  const [user, setUser] = useState(null);
-
+  const user = useContext(UserContext);
+  const [logout, setLogout] = useState(false)
   useEffect(() => {
-    axios
-      .get("/api/v1/users/info")
-      .then((res) => {
-        setUser(res.data);
-        console.log(res.data);
+    if(logout)
+    {
+      axios.post('/api/v1/auths/signout')
+      .then(res => {
+        console.log(res)
+        window.location.href = "/"
       })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+      .catch(e => console.log(e))
+    }
+  }, [logout])
+
+  const handleLogout = (e) => {
+    e.preventDefault()
+    setLogout(true)
+  }
 
   return (
     <>
@@ -86,7 +92,10 @@ const Header = () => {
                   >
                     <PopperWrapper>
                       <div className={cx("option-first", "option-user")}>
-                        <Link to="/user/account/profile" className={cx("login-link")}>
+                        <Link
+                          to="/user/account/profile"
+                          className={cx("login-link")}
+                        >
                           <span>User profile</span>
                           <i className={cx("icon-sub", "fa-light fa-user")}></i>
                         </Link>
@@ -103,7 +112,7 @@ const Header = () => {
                         </Link>
                       </div>
                       <div className={cx("option-logout")}>
-                        <Link to="/" className={cx("signup-link")}>
+                        <a className={cx("signup-link")} onClick={handleLogout}>
                           <span>Log out</span>
                           <i
                             className={cx(
@@ -111,15 +120,19 @@ const Header = () => {
                               "fa-regular fa-power-off"
                             )}
                           ></i>
-                        </Link>
+                        </a>
                       </div>
                     </PopperWrapper>
                   </div>
                 )}
               >
-                <div className={cx('user-avatar')}>
+                <div className={cx("user-avatar")}>
                   <Stack direction="row" spacing={2}>
-                    <Avatar alt="avatar" src={avatar} sx={{ width: 33, height: 33 }}/>
+                    <Avatar
+                      alt="avatar"
+                      src={user.imageurl}
+                      sx={{ width: 33, height: 33 }}
+                    />
                   </Stack>
                 </div>
               </Tippy>
@@ -157,9 +170,13 @@ const Header = () => {
                   </div>
                 )}
               >
-                <div className={cx('user-avatar')}>
+                <div className={cx("user-avatar")}>
                   <Stack direction="row" spacing={2}>
-                    <Avatar alt="avatar" src={avatar} sx={{ width: 33, height: 33 }}/>
+                    <Avatar
+                      alt="avatar"
+                      src={avatar}
+                      sx={{ width: 33, height: 33 }}
+                    />
                   </Stack>
                 </div>
               </Tippy>

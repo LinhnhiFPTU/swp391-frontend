@@ -1,13 +1,14 @@
 import classNames from "classnames/bind";
 
-import avatar from "~/assets/images/user.png";
 import Avatar from "react-avatar-edit";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import axios from "axios";
 
 import styles from "./Account.module.scss";
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
+import { UserContext } from "~/App";
 
 const cx = classNames.bind(styles);
 const genders = [
@@ -42,8 +43,18 @@ const sidebarDatas = [
 
 function Profile() {
   const [preview, setPreview] = useState(null);
-  const [checked, setChecked] = useState(0);
+  const [confirm, setConfirm] = useState(false);
   const { pathname } = useLocation();
+  const context = useContext(UserContext)
+  const [user, setUser] = useState({
+    email: "",
+    firstname: "",
+    lastname: "",
+    gender: "",
+    imageurl: ""
+  });
+
+
   const onClose = () => {
     setPreview(null);
   };
@@ -58,6 +69,47 @@ function Profile() {
       elem.target.value = "";
     }
   };
+
+  useEffect(() => {
+    if(context)
+    {
+      setUser(context)
+    }
+  }, [context])
+
+  useEffect(() => {
+    if (confirm) {
+      const formData = new FormData();
+      fetch(preview)
+        .then((res) => res.blob())
+        .then((blob) => {
+          const file = new File([blob], "mail.png");
+          formData.append("file", file);
+          axios
+            .post("/api/v1/users/info/avatar", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((res) => {
+              console.log(res);
+              // context.imageurl = context.imageurl + "?" + new Date().getTime();
+              window.location.href = "/user/account/profile"
+              setConfirm(c => !c)
+            })
+            .catch((e) => {
+              console.log(e);
+              setConfirm(c => !c)
+            });
+        });
+    }
+  }, [confirm]);
+
+  const handleConfirmAvatar = (e) => {
+    e.preventDefault();
+    setConfirm(true);
+  };
+
   return (
     <>
       <Header />
@@ -67,19 +119,16 @@ function Profile() {
             <div className={cx("left-content")}>
               <div className={cx("user-avatar")}>
                 <div className={cx("user-avatar-img")}>
-                  {preview ? (
-                    <img src={preview} alt="preview" />
-                  ) : (
-                    <img src={avatar} alt="avatar" />
-                  )}
+                  <img src={user.imageurl} alt="avatar"/>
                 </div>
                 <div className={cx("user-name")}>
-                  <p>DevDD</p>
+                  <p>{(user.firstname + " " + user.lastname).trim() || "User"}</p>
                 </div>
               </div>
               <div className={cx("user-nav")}>
                 {sidebarDatas.map((data, index) => (
                   <NavLink
+                    key={index}
                     to={data.path}
                     className={({ isActive }) =>
                       [cx("nav-link"), isActive ? cx("nav-active") : null].join(
@@ -93,7 +142,6 @@ function Profile() {
                         "/user/account/address",
                       ].includes(pathname)
                     }
-                    key={index}
                   >
                     <span className={cx("nav-text")}>{data.title}</span>
                   </NavLink>
@@ -110,12 +158,12 @@ function Profile() {
                 <div className={cx("setting-container")}>
                   <div className={cx("setting-content_left")}>
                     <div className={cx("text", "text-1")}>
-                      <input type="text" className={cx("email")} required />
+                      <input type="text" className={cx("email")} required value={user.firstname} onChange={e => setUser({...user, firstname: e.target.value})}/>
                       <span></span>
                       <label>First name</label>
                     </div>
                     <div className={cx("text", "text-2")}>
-                      <input type="text" className={cx("email")} required />
+                      <input type="text" className={cx("email")} required value={user.lastname} onChange={e => setUser({...user, lastname: e.target.value})}/>
                       <span></span>
                       <label>Last name</label>
                     </div>
@@ -126,9 +174,16 @@ function Profile() {
                           <label key={gender.id}>
                             <input
                               type="radio"
-                              checked={checked === gender.id}
+                              checked={(() => {
+                                let gender_name = user.gender;
+                                if(!gender_name) return false;
+                                let gender_object = genders.filter(g => g.name.toUpperCase() === gender_name)[0]
+                                console.log(gender_object, gender_name)
+                                return gender_object.id === gender.id
+                              })()}
                               onChange={() => {
-                                setChecked(gender.id);
+                                let gender_object = genders.filter((g) => g.id === gender.id)[0]
+                                setUser({...user, gender: gender_object.name.toUpperCase()})
                               }}
                             />
                             <i></i>
@@ -162,7 +217,7 @@ function Profile() {
                       </div>
                     </div>
                     <div className={cx("submit-avatar")}>
-                        <button className={cx("avatar-btn")}>
+                        <button className={cx("avatar-btn")} onClick={handleConfirmAvatar} disabled={preview? false : true}>
                           Change avatar
                         </button>
                       </div>
