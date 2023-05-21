@@ -6,6 +6,7 @@ import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import Banner from "~/layouts/components/Banner/";
 
+import bird from "~/assets/images/bird.png"
 import birds from "~/assets/images/birds.png";
 import birdFood from "~/assets/images/bird-foods.png";
 import birdAccessories from "~/assets/images/bird-accessories.png";
@@ -71,12 +72,41 @@ const flashSales = [
     name: "Shefa",
     price: "1.120.000",
   },
-  // {
-  //   image: flash,
-  //   name: "Petslife",
-  //   price: "2.500.000",
-  // },
 ];
+
+const bestSeller = [
+  {
+    image: bird,
+    name: "Nekton",
+    price: "1.777.000",
+    sells: "100+",
+  },
+  {
+    image: bird,
+    name: "Amoxy-Tyl",
+    price: "1.000.000",
+    sells: "100+",
+  },
+  {
+    image: bird,
+    name: "Bird B.Gone",
+    price: "200.000",
+    sells: "200+",
+  },
+  {
+    image: bird,
+    name: "Bird Spikes",
+    price: "77.000",
+    sells: "300+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+];
+
 
 function Home() {
   const [second, setSecond] = useState(59);
@@ -165,7 +195,7 @@ function Home() {
 
             <div className={cx("flashSale-list")}>
               {flashSales.map((item, index) => (
-                <div className={cx("flashSale-item")}>
+                <div key={index} className={cx("flashSale-item")}>
                   <div className={cx("item-img")}>
                     <img src={item.image} alt="item-img" />
                   </div>
@@ -189,6 +219,28 @@ function Home() {
             </div>
           </div>
           {/* -----------------BEST SELLER----------------- */}
+          <div className={cx('best-seller_container')}>
+            <div className={cx('best-seller_title')}>
+              <p>TOP PRODUCTS</p>
+            </div>
+            <div className={cx('best-seller_list')}>
+              {bestSeller.map((item, index) => (
+                <div key={index} className={cx('best-seller_items')}>
+                  <div className={cx('best-seller_item')}>
+                    <div className={cx('best-seller_top')}>
+                      <p>TOP</p>
+                    </div>
+                    <div className={cx('item-img')}>
+                      <img src={item.image} alt={item.name} />
+                    </div>
+                    <div className={cx('item-name')}>{item.name}</div>
+                    <div className={cx('item-price')}>{item.price}</div>
+                    <div className={cx('item-sells')}><span>Monthly Sales {item.sells}</span></div>
+                  </div>
+                </div>
+              ))} 
+            </div>
+          </div>
           {/* -----------------SHOP TRENDING----------------- */}
         </div>
       </div>

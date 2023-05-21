@@ -188,7 +188,6 @@
     width: 100%;
   }
 }
-
 .item-discount {
   position: absolute;
   top: 0;
@@ -289,4 +288,58 @@
   color: #fff;
   font-size: 1.2rem;
   z-index: 1;
+}
+
+
+// ---------BEST SELLER---------
+.best-seller_container {
+  margin-top: 50px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.best-seller_list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.best-seller_item {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  text-align: center;
+  height: max-content;
+}
+
+.best-seller_top {
+  width: 40px;
+  height: 40px;
+  box-sizing: content-box;
+  padding-top: 15px;
+  position: relative;
+  background: #FF7C33;
+  color: #fff;
+}
+.best-seller_top p {
+  font-size: 1.5rem;
+}
+.best-seller_top::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 13px solid #fff;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+}
+
+.item-sells {
+  background-color: rgba(0, 0, 0, 0.37);
+  color: #fff;
+  margin-top: 10px;
+}
+
+.item-sells span {
+  font-size: 1.4rem;
 }
