@@ -9,6 +9,8 @@ import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import Banner from "~/layouts/components/Banner/";
 
+import { SmoothHorizonScrolling } from "~/utils";
+
 import bird from "~/assets/images/bird.png"
 import birds from "~/assets/images/birds.png";
 import birdFood from "~/assets/images/bird-foods.png";
@@ -127,6 +129,18 @@ const bestSeller = [
     price: "1.120.000",
     sells: "400+",
   },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
 
 ];
 
@@ -142,6 +156,20 @@ function Home() {
   const [second, setSecond] = useState(59);
   const [minute, setMinute] = useState(30);
   const timeID = useRef();
+  const slideRef = useRef();
+  const productRef = useRef();
+
+  const handleScrollRight = () => {
+    const maxScrollLeft = slideRef.current.scrollWidth - slideRef.current.clientWidth;
+    if ( maxScrollLeft == 0) {
+      SmoothHorizonScrolling(
+        slideRef.current, 
+        250, 
+        productRef.current.clientWidth, 
+        slideRef.current.scrollLeft);
+    };
+
+  }
 
   useEffect(() => {
     timeID.current = setInterval(() => {
@@ -276,6 +304,35 @@ function Home() {
             </div>
 
           </div>
+
+          {/* Try */}
+          {/* <div className={cx('best-seller_container1')}>
+            <div className={cx('best-seller_title1')}>
+              <p>TOP PRODUCTS</p>
+            </div>
+
+            <div ref={slideRef} className={cx('best-seller_list1')}>
+              {bestSeller.map((item, index) => (
+                <div key={index} ref={productRef} className={cx('best-seller_items1')}>
+                  <div className={cx('best-seller_top1')}>
+                    <p>TOP</p>
+                  </div>
+                  <div className={cx('item-img1')}>
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className={cx('item-name1')}>{item.name}</div>
+                  <div className={cx('item-price1')}>{item.price}</div>
+                  <div className={cx('item-sells1')}><span>Monthly Sales {item.sells}</span></div>
+                </div>
+              ))}
+            </div>
+            <div className={cx('button-left')}>
+              <i class="fa-solid fa-chevron-left"></i>
+            </div>
+            <div className={cx('button-right')} onClick={handleScrollRight}>
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+          </div> */}
           {/* -----------------SHOP TRENDING----------------- */}
         </div>
       </div>

@@ -302,6 +302,12 @@
   font-weight: 500;
   color: #FF7C33;
   margin: 20px 0;
+  user-select: none;
+}
+
+.best-seller_items {
+  display: grid;
+  gap: 1000px;
 }
 
 .best-seller_item {
@@ -350,3 +356,67 @@
   font-size: 1.4rem;
   margin: 100px 0;
 }
+
+
+//TRY
+.best-seller_container1 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .button-left, .button-right {
+    position: absolute;
+    top: 180px;
+    z-index: 20;
+    color: #fff;
+    background-color: #ff7c33;
+    padding: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: #f85c07;
+    }
+  }
+  
+  .button-left {
+    left: 12px;
+  }
+  .button-right {
+    right: 12px;
+  }
+}
+
+.best-seller_title1 p {
+  user-select: none;
+}
+
+
+.best-seller_list1 {
+  position: relative;
+  width: fit-content;
+  display: flex;
+  justify-content: space-evenly;
+  // gap: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  overflow-y: hidden;
+  overflow-x: auto;
+  overflow: hidden; 
+  
+
+}
+.best-seller_items1 {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  overflow: hidden;
+  position: relative;
+  
+  padding: 20px 0;
+  scroll-behavior: smooth;
+}
+.item-img1 {
+  width: 200px;
+
+  img {
+    width: 90%;
+  }
+}
+
