@@ -8,16 +8,17 @@
 
 .profile-container {
   width: 90%;
+  height: 100%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .profile-content {
   display: flex;
+  height: 100%;
 }
 
 .left-content {
   flex-basis: 25%;
-  height: 86.7vh;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -40,7 +41,7 @@
 }
 
 .user-avatar-img img {
-  width: 185px;
+  width: 150px;
   margin-bottom: 10px;
 }
 
@@ -57,10 +58,9 @@
   margin-top: 50px;
 }
 
-
 .nav-link {
   width: 100%;
-  padding: 30px;
+  padding: 20px;
   text-decoration: none;
   color: #333;
 }
@@ -75,21 +75,21 @@
 }
 
 .nav-active:hover {
-  color: #fff;  
+  color: #fff;
 }
 
 .nav-text {
   font-size: 2rem;
 }
 
-.nav-text:hover {
-  color: #333;
-}
-
 .right-content {
   flex-basis: 75%;
-  margin: 0 100px;
-  
+  margin: 0 85px;
+}
+
+.right-content-head {
+  padding: 0 0 30px 0;
+  border-bottom: 1px solid #aaaa;
 }
 
 .setting-title {
@@ -107,7 +107,7 @@
   justify-content: space-between;
 }
 
-.setting-content_left { 
+.setting-content_left {
   margin: auto 0;
 }
 
@@ -117,8 +117,8 @@
   margin: 0 0 30px 0;
 }
 
-.text-1  {
-  margin-top: 130px;
+.text-1 {
+  margin-top: 90px;
 }
 
 .text-2 {
@@ -171,7 +171,7 @@
   justify-content: space-between;
   align-items: center;
   margin-left: 5px;
-  margin-top: 80px;
+  margin-top: 70px;
   margin-bottom: 30px;
 
   p {
@@ -270,7 +270,8 @@
 }
 
 .save {
-  margin-top: 100px;
+  margin-top: 90px;
+  margin-bottom: 50px;
   display: flex;
   justify-content: flex-start;
 
@@ -282,6 +283,7 @@
     color: #fff;
     border: 1px solid transparent;
     border-radius: 5px;
+    transition: 0.25s ease;
   }
 
   .save-btn:hover {
@@ -297,6 +299,7 @@
 
 .drop-image {
   position: relative;
+  z-index: 3;
 }
 
 .drop-icon {
@@ -317,8 +320,33 @@
   transform: translateX(-40%);
 
   span {
+    user-select: none;
     font-style: italic;
     font-size: 1.4rem;
     color: #7c7c7caa;
   }
+}
+
+.submit-avatar {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-btn {
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  border: 1px solid transparent;
+  color: #fff;
+  background-color: var(--primary);
+  border-radius: 5px;
+  transition: 0.25s ease;
+}
+
+.avatar-btn:hover {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
 }

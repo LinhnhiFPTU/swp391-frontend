@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 
-import avatar from "~/assets/images/user-avatar.png";
+import avatar from "~/assets/images/user.png";
 import styles from "./Password.module.scss";
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
@@ -71,8 +71,10 @@ function Password() {
               </div>
             </div>
             <div className={cx("right-content")}>
-              <div className={cx("setting-title")}>
-                <p>Password Settings</p>
+              <div className={cx("right-content-head")}>
+                <div className={cx("setting-title")}>
+                  <p>Password Settings</p>
+                </div>
               </div>
               <div className={cx("setting-content")}>
                 <div className={cx("pass")}>

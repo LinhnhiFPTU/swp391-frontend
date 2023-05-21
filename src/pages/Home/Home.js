@@ -71,11 +71,11 @@ const flashSales = [
     name: "Shefa",
     price: "1.120.000",
   },
-  {
-    image: flash,
-    name: "Petslife",
-    price: "2.500.000",
-  },
+  // {
+  //   image: flash,
+  //   name: "Petslife",
+  //   price: "2.500.000",
+  // },
 ];
 
 function Home() {
