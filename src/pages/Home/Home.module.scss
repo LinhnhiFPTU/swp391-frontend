@@ -298,13 +298,19 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
+.best-seller_title p {
+  font-weight: 500;
+  color: #FF7C33;
+  margin: 20px 0;
+}
+
 .best-seller_list {
   display: flex;
   justify-content: space-around;
 }
 
 .best-seller_item {
-  width: 200px;
+  width: 100%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   text-align: center;
   height: max-content;
@@ -330,8 +336,12 @@
   width: 0;
   height: 0;
   border-bottom: 13px solid #fff;
-  border-left: 25px solid transparent;
-  border-right: 25px solid transparent;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}
+
+.item-img img {
+  width: 100%;
 }
 
 .item-sells {
