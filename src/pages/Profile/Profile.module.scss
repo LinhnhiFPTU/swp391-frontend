@@ -72,6 +72,19 @@
   margin-bottom: 10px;
 }
 
+.drop-image
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirm_avatar {
+  background-color: var(--primary);
+  color: #eee;
+  margin-top: 10px;
+}
+
 .container {
   display: block;
   position: relative;
@@ -157,8 +170,6 @@
   cursor: pointer;
   padding: 10px 0;
 }
-
-
 
 .row div {
   padding: 15px;
