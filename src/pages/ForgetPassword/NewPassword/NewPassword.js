@@ -49,7 +49,7 @@ function NewPassword({ onClick }) {
     setPasswordConfirmType("password");
   };
   const handleSubmit = (e) => {
-    onClick(e, {confirm})
+    onClick(e, { confirm });
   };
 
   return (
@@ -81,7 +81,8 @@ function NewPassword({ onClick }) {
                   </button>
                 </div>
                 <span></span>
-                <label>New password</label>              </div>
+                <label>New password</label>{" "}
+              </div>
 
               <div className={cx("text")}>
                 <input

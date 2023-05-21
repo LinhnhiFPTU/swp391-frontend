@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
-import axios from "axios";
-import avatar from "~/assets/images/avatar.png";
+import avatar from "~/assets/images/user.png";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import styles from "./Header.module.scss";
+import { UserContext } from "~/App";
 const cx = classNames.bind(styles);
 
 const Header = () => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("/api/v1/users/info")
-      .then((res) => {
-        setUser(res.data);
-        console.log(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  const user = useContext(UserContext);
 
   return (
     <>
@@ -86,7 +74,10 @@ const Header = () => {
                   >
                     <PopperWrapper>
                       <div className={cx("option-first", "option-user")}>
-                        <Link to="/" className={cx("login-link")}>
+                        <Link
+                          to="/user/account/profile"
+                          className={cx("login-link")}
+                        >
                           <span>User profile</span>
                           <i className={cx("icon-sub", "fa-light fa-user")}></i>
                         </Link>
@@ -117,9 +108,13 @@ const Header = () => {
                   </div>
                 )}
               >
-                <div className={cx('user-avatar')}>
+                <div className={cx("user-avatar")}>
                   <Stack direction="row" spacing={2}>
-                    <Avatar alt="avatar" src={avatar} sx={{ width: 33, height: 33 }}/>
+                    <Avatar
+                      alt="avatar"
+                      src={user.imageurl || avatar}
+                      sx={{ width: 33, height: 33 }}
+                    />
                   </Stack>
                 </div>
               </Tippy>
@@ -157,9 +152,13 @@ const Header = () => {
                   </div>
                 )}
               >
-                <div className={cx('user-avatar')}>
+                <div className={cx("user-avatar")}>
                   <Stack direction="row" spacing={2}>
-                    <Avatar alt="avatar" src={avatar} sx={{ width: 33, height: 33 }}/>
+                    <Avatar
+                      alt="avatar"
+                      src={avatar}
+                      sx={{ width: 33, height: 33 }}
+                    />
                   </Stack>
                 </div>
               </Tippy>
