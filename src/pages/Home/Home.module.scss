@@ -304,14 +304,10 @@
   margin: 20px 0;
 }
 
-.best-seller_list {
-  display: flex;
-  justify-content: space-around;
-}
-
 .best-seller_item {
-  width: 100%;
+  width: 200px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  justify-content: center;
   text-align: center;
   height: max-content;
 }
@@ -352,4 +348,5 @@
 
 .item-sells span {
   font-size: 1.4rem;
+  margin: 100px 0;
 }

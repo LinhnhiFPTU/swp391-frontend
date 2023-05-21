@@ -1,6 +1,9 @@
 import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
@@ -13,6 +16,7 @@ import birdAccessories from "~/assets/images/bird-accessories.png";
 import birdCage from "~/assets/images/bird-cage.png";
 import flash from "~/assets/images/pro1.jpg";
 import styles from "./Home.module.scss";
+import { Skeleton } from "@mui/material";
 
 const cx = classNames.bind(styles);
 const categories = [
@@ -105,8 +109,34 @@ const bestSeller = [
     price: "1.120.000",
     sells: "400+",
   },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+
 ];
 
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 5,
+  slidesToScroll: 5,
+};
 
 function Home() {
   const [second, setSecond] = useState(59);
@@ -223,23 +253,28 @@ function Home() {
             <div className={cx('best-seller_title')}>
               <p>TOP PRODUCTS</p>
             </div>
+
+
             <div className={cx('best-seller_list')}>
-              {bestSeller.map((item, index) => (
-                <div key={index} className={cx('best-seller_items')}>
-                  <div className={cx('best-seller_item')}>
-                    <div className={cx('best-seller_top')}>
-                      <p>TOP</p>
+              <Slider {...settings}>
+                {bestSeller.map((item, index) => (
+                  <div key={index} className={cx('best-seller_items')}>
+                    <div className={cx('best-seller_item')}>
+                      <div className={cx('best-seller_top')}>
+                        <p>TOP</p>
+                      </div>
+                      <div className={cx('item-img')}>
+                        <img src={item.image} alt={item.name} />
+                      </div>
+                      <div className={cx('item-name')}>{item.name}</div>
+                      <div className={cx('item-price')}>{item.price}</div>
+                      <div className={cx('item-sells')}><span>Monthly Sales {item.sells}</span></div>
                     </div>
-                    <div className={cx('item-img')}>
-                      <img src={item.image} alt={item.name} />
-                    </div>
-                    <div className={cx('item-name')}>{item.name}</div>
-                    <div className={cx('item-price')}>{item.price}</div>
-                    <div className={cx('item-sells')}><span>Monthly Sales {item.sells}</span></div>
                   </div>
-                </div>
-              ))} 
+                ))}
+              </Slider>
             </div>
+
           </div>
           {/* -----------------SHOP TRENDING----------------- */}
         </div>
