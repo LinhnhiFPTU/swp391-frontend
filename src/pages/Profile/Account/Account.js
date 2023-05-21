@@ -43,7 +43,8 @@ const sidebarDatas = [
 
 function Profile() {
   const [preview, setPreview] = useState(null);
-  const [confirm, setConfirm] = useState(false);
+  const [changeAvatar, setChangeAvatar] = useState(false);
+  const [updateProfile, setUpdateProfile] = useState(false);
   const { pathname } = useLocation();
   const context = useContext(UserContext)
   const [user, setUser] = useState({
@@ -78,7 +79,7 @@ function Profile() {
   }, [context])
 
   useEffect(() => {
-    if (confirm) {
+    if (changeAvatar) {
       const formData = new FormData();
       fetch(preview)
         .then((res) => res.blob())
@@ -95,20 +96,43 @@ function Profile() {
               console.log(res);
               // context.imageurl = context.imageurl + "?" + new Date().getTime();
               window.location.href = "/user/account/profile"
-              setConfirm(c => !c)
+              setChangeAvatar(c => !c)
             })
             .catch((e) => {
               console.log(e);
-              setConfirm(c => !c)
+              setChangeAvatar(c => !c)
             });
         });
     }
-  }, [confirm]);
+  }, [changeAvatar]);
+
+  useEffect(() => {
+    if (updateProfile) {
+      let updateRequest = {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        gender: user.gender
+      }
+      axios.post('/api/v1/users/info/update/profile', updateRequest)
+      .then(res => {
+        console.log(res)
+        window.location.href = "/user/account/profile"
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    }
+  }, [updateProfile]);
 
   const handleConfirmAvatar = (e) => {
     e.preventDefault();
-    setConfirm(true);
+    setChangeAvatar(true);
   };
+
+  const handleUpdateProfile = (e) => {
+    e.preventDefault();
+    setUpdateProfile(true)
+  }
 
   return (
     <>
@@ -193,7 +217,7 @@ function Profile() {
                       </div>
                     </div>
                     <div className={cx("save")}>
-                      <button className={cx("save-btn")}>Save</button>
+                      <button className={cx("save-btn")} onClick={handleUpdateProfile}>Save</button>
                     </div>
                   </div>
                   <div className={cx("setting-content_right")}>

@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
+import axios from "axios";
 
 import styles from "./Password.module.scss";
 import Header from "~/layouts/components/Header/Header";
@@ -27,6 +28,12 @@ const sidebarDatas = [
 function Password() {
   const { pathname } = useLocation();
   const [msg, setMsg] = useState("");
+  const [changePassword, setChangePassword] = useState(false);
+  const [changePasswordRequest, setChangePasswordRequest] = useState({
+    oldpassword: "",
+    newpassword: ""
+  });
+  const [confPassword, setConfPassword] = useState("")
   const [passwordType, setPasswordType] = useState("password");
   const [passwordNewType, setPasswordNewType] = useState("password");
   const [passwordConfirmType, setPasswordConfirmType] = useState("password");
@@ -36,15 +43,28 @@ function Password() {
     lastname: "",
     imageurl: "",
     gender: "",
-  })
-  const context = useContext(UserContext)
+  });
+  const context = useContext(UserContext);
 
   useEffect(() => {
-    if(context)
-    {
-      setUser(context)
+    if (context) {
+      setUser(context);
     }
-  }, [context])
+  }, [context]);
+
+  useEffect(() => {
+    if (changePassword) {
+      axios
+        .post("/api/v1/users/info/update/password", changePasswordRequest)
+        .then((res) => {
+          console.log(res);
+          window.location.href = "/user/account/password";
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [changePassword]);
 
   const togglePassword = (e) => {
     e.preventDefault();
@@ -72,7 +92,12 @@ function Password() {
     }
     setPasswordConfirmType("password");
   };
-  
+
+  const handleChangePassword = (e) => {
+    e.preventDefault();
+    setChangePassword(true);
+  };
+
   return (
     <>
       <Header />
@@ -85,7 +110,9 @@ function Password() {
                   <img src={user.imageurl} alt="avatar" />
                 </div>
                 <div className={cx("user-name")}>
-                  <p>{(user.firstname + " " + user.lastname).trim() || "User"}</p>
+                  <p>
+                    {(user.firstname + " " + user.lastname).trim() || "User"}
+                  </p>
                 </div>
               </div>
               <div className={cx("user-nav")}>
@@ -123,6 +150,8 @@ function Password() {
                     type={passwordType}
                     className={cx("password")}
                     required
+                    value={changePasswordRequest.oldpassword}
+                    onChange={e => setChangePasswordRequest({...changePasswordRequest, oldpassword: e.target.value})}
                   />
                   <div className={cx("input-group-btn")}>
                     <button className={cx("eyes-btn")} onClick={togglePassword}>
@@ -141,6 +170,8 @@ function Password() {
                     type={passwordNewType}
                     className={cx("password")}
                     required
+                    value={changePasswordRequest.newpassword}
+                    onChange={e => setChangePasswordRequest({...changePasswordRequest, newpassword: e.target.value})}
                   />
                   <div className={cx("input-group-btn")}>
                     <button
@@ -162,6 +193,8 @@ function Password() {
                     type={passwordConfirmType}
                     className={cx("password")}
                     required
+                    value={confPassword}
+                    onChange={e => setConfPassword(e.target.value)}
                   />
                   <div className={cx("input-group-btn")}>
                     <button
@@ -186,7 +219,12 @@ function Password() {
                   </div>
                 )}
                 <div className={cx("save")}>
-                  <button className={cx("save-btn")}>Save</button>
+                  <button
+                    className={cx("save-btn")}
+                    onClick={handleChangePassword}
+                  >
+                    Save
+                  </button>
                 </div>
               </div>
             </div>

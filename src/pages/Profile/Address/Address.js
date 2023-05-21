@@ -156,8 +156,8 @@ function Address() {
                     </div>
                   </div>
                   <div className={cx("address-options")}>
-                    <div className={cx("address-default")}>
-                      <span>Default</span>
+                    <div className={cx("address-non-default")}>
+                      <span></span>
                     </div>
                     <button className={cx("address-make")}>
                       <span>Make it default</span>
@@ -190,8 +190,8 @@ function Address() {
                     </div>
                   </div>
                   <div className={cx("address-options")}>
-                    <div className={cx("address-default")}>
-                      <span>Default</span>
+                    <div className={cx("address-non-default")}>
+                      <span></span>
                     </div>
                     <button className={cx("address-make")}>
                       <span>Make it default</span>
