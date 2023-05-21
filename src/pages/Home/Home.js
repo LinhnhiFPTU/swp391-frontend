@@ -1,17 +1,19 @@
 import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import Rating from '@mui/material/Rating';
 
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import Banner from "~/layouts/components/Banner/";
 
-import bird from "~/assets/images/bird.png"
+import bird from "~/assets/images/bird.png";
 import birds from "~/assets/images/birds.png";
 import birdFood from "~/assets/images/bird-foods.png";
 import birdAccessories from "~/assets/images/bird-accessories.png";
 import birdCage from "~/assets/images/bird-cage.png";
 import flash from "~/assets/images/pro1.jpg";
+import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
 
 const cx = classNames.bind(styles);
@@ -107,6 +109,26 @@ const bestSeller = [
   },
 ];
 
+const shops = [
+  {
+    name: "Shop",
+    describe: "Commerce is a global online marketplace, where people.",
+    image: avatar,
+    rating: 4,
+  },
+  {
+    name: "Shop name",
+    describe: "Commerce is a global online marketplace, where people.",
+    image: avatar,
+    rating: 4,
+  },
+  {
+    name: "Shop name",
+    describe: "Commerce is a global online marketplace, where people.",
+    image: avatar,
+    rating: 1.5,
+  },
+];
 
 function Home() {
   const [second, setSecond] = useState(59);
@@ -195,53 +217,83 @@ function Home() {
 
             <div className={cx("flashSale-list")}>
               {flashSales.map((item, index) => (
-                <div key={index} className={cx("flashSale-item")}>
+                <Link to="/" key={index} className={cx("flashSale-item")}>
                   <div className={cx("item-img")}>
                     <img src={item.image} alt="item-img" />
                   </div>
                   <div className={cx("item-discount")}>
-                    <span className={cx("per-discount")}>20%</span>
-                    <span className={cx("text-discount")}>DISCOUNT</span>
+                    <span className={cx("per-discount")}>-20%</span>
                   </div>
                   <div className={cx("item-name")}>
                     <span className={cx("name")}>{item.name}</span>
                   </div>
                   <div className={cx("item-price")}>
-                    <span className={cx("price")}>₫</span>{item.price}
+                    <span className={cx("price")}>₫</span>
+                    {item.price}
                   </div>
                   <div className={cx("item-status")}>
                     <div className={cx("loading")}>
                       <span className={cx("loading-text")}>SELLING WELL</span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
           {/* -----------------BEST SELLER----------------- */}
-          <div className={cx('best-seller_container')}>
-            <div className={cx('best-seller_title')}>
+          <div className={cx("best-seller_container")}>
+            <div className={cx("best-seller_title")}>
               <p>TOP PRODUCTS</p>
             </div>
-            <div className={cx('best-seller_list')}>
+            <div className={cx("best-seller_list")}>
               {bestSeller.map((item, index) => (
-                <div key={index} className={cx('best-seller_items')}>
-                  <div className={cx('best-seller_item')}>
-                    <div className={cx('best-seller_top')}>
+                <div key={index} className={cx("best-seller_items")}>
+                  <div className={cx("best-seller_item")}>
+                    <div className={cx("best-seller_top")}>
                       <p>TOP</p>
                     </div>
-                    <div className={cx('item-img')}>
+                    <div className={cx("item-img")}>
                       <img src={item.image} alt={item.name} />
                     </div>
-                    <div className={cx('item-name')}>{item.name}</div>
-                    <div className={cx('item-price')}>{item.price}</div>
-                    <div className={cx('item-sells')}><span>Monthly Sales {item.sells}</span></div>
+                    <div className={cx("item-name")}>{item.name}</div>
+                    <div className={cx("item-price")}>{item.price}</div>
+                    <div className={cx("item-sells")}>
+                      <span>Monthly Sales {item.sells}</span>
+                    </div>
                   </div>
                 </div>
-              ))} 
+              ))}
             </div>
           </div>
           {/* -----------------SHOP TRENDING----------------- */}
+          <div className={cx("shop-trending-container")}>
+            <div className={cx("shop-trending-top")}>
+              <span>Shop Trending</span>
+            </div>
+            <div className={cx("shop-trending-content")}>
+              {shops.map((shop, index) => (
+                <Link to="/" className={cx("shop-item")} key={index}>
+                  <div className={cx("shop-text")}>
+                    <div className={cx("head-text")}>
+                      <h3>{shop.name}</h3>
+                    </div>
+                    <div className={cx("sub-text")}>
+                      <span>{shop.describe}</span>
+                    </div>
+                    <div className={cx("rating")}>
+                      <span className={cx("rating-text")}><span className={cx("rate")}>{shop.rating}</span>/5</span>
+                      <div className={cx("rating-icon")}>
+                        <Rating name="half-rating-read" defaultValue={shop.rating} precision={0.1} size="large" readOnly />
+                      </div>
+                    </div>
+                  </div>
+                  <div className={cx("shop-img")}>
+                    <img src={shop.image} alt="shop-img" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

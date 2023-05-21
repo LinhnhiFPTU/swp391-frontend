@@ -80,6 +80,7 @@ function Profile() {
               <div className={cx("user-nav")}>
                 {sidebarDatas.map((data, index) => (
                   <NavLink
+                    key={index}
                     to={data.path}
                     className={({ isActive }) =>
                       [cx("nav-link"), isActive ? cx("nav-active") : null].join(
@@ -93,7 +94,6 @@ function Profile() {
                         "/user/account/address",
                       ].includes(pathname)
                     }
-                    key={index}
                   >
                     <span className={cx("nav-text")}>{data.title}</span>
                   </NavLink>
@@ -162,10 +162,10 @@ function Profile() {
                       </div>
                     </div>
                     <div className={cx("submit-avatar")}>
-                        <button className={cx("avatar-btn")}>
-                          Change avatar
-                        </button>
-                      </div>
+                      <button className={cx("avatar-btn")}>
+                        Change avatar
+                      </button>
+                    </div>
                   </div>
                 </div>
               </form>
