@@ -126,7 +126,7 @@ const shops = [
     name: "Shop name",
     describe: "Commerce is a global online marketplace, where people.",
     image: avatar,
-    rating: 1.5,
+    rating: 3.5,
   },
 ];
 
