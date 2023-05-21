@@ -9,6 +9,7 @@ import Account from "~/pages/Profile/Account";
 import Password from "~/pages/Profile/Password";
 import Address from "~/pages/Profile/Address"
 import Confirm from '~/pages/Confirm'
+import Popup from '~/layouts/components/AddressPopup'
 
 
 const publicRoutes = [
@@ -22,6 +23,7 @@ const publicRoutes = [
   { path: '/user/account/password', component: Password},
   { path: '/user/account/address', component: Address},
   { path: '/confirm', component: Confirm},
+  { path: '/popup', component: Popup},
 ];
 
 const privateRoutes = [];

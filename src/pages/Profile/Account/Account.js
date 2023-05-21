@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 
-import avatar from "~/assets/images/user-avatar.png";
+import avatar from "~/assets/images/user.png";
 import Avatar from "react-avatar-edit";
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
@@ -101,8 +101,10 @@ function Profile() {
               </div>
             </div>
             <div className={cx("right-content")}>
-              <div className={cx("setting-title")}>
-                <p>Account Settings</p>
+              <div className={cx("right-content-head")}>
+                <div className={cx("setting-title")}>
+                  <p>Account Settings</p>
+                </div>
               </div>
               <form>
                 <div className={cx("setting-container")}>
@@ -147,7 +149,7 @@ function Profile() {
                         ></i>
                       </div>
                       <Avatar
-                        width={430}
+                        width={350}
                         height={300}
                         onCrop={onCrop}
                         onClose={onClose}
@@ -156,9 +158,14 @@ function Profile() {
                         label="Drag your image here"
                       />
                       <div className={cx("drop-text")}>
-                        <span>(Maximum image size 10 MB)</span>
+                        <span>{preview ? "" : "(Maximum size 10 MB)"}</span>
                       </div>
                     </div>
+                    <div className={cx("submit-avatar")}>
+                        <button className={cx("avatar-btn")}>
+                          Change avatar
+                        </button>
+                      </div>
                   </div>
                 </div>
               </form>
