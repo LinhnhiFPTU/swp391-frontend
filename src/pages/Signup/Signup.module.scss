@@ -10,7 +10,9 @@
   width: 500px;
   background-color: #fff;
 }
-
+.head-text {
+  margin-bottom: 30px;
+}
 .head-text p {
   text-align: center;
   color: var(--primary);
@@ -99,6 +101,10 @@ input[type="password"]::-ms-clear {
   border: none;
   outline: none;
   background-color: transparent;
+}
+
+.icon-password {
+  user-select: none;
 }
 
 .error {

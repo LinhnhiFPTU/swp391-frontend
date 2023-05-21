@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import axios from "axios";
-import avatar from "~/assets/images/avatar.png";
+import avatar from "~/assets/images/user.png";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
@@ -86,7 +86,7 @@ const Header = () => {
                   >
                     <PopperWrapper>
                       <div className={cx("option-first", "option-user")}>
-                        <Link to="/" className={cx("login-link")}>
+                        <Link to="/user/account/profile" className={cx("login-link")}>
                           <span>User profile</span>
                           <i className={cx("icon-sub", "fa-light fa-user")}></i>
                         </Link>

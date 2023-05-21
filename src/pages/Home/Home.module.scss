@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  
+  margin-top: 30px;
 }
 .content {
   margin-bottom: 200px;
@@ -11,6 +11,10 @@
 }
 
 // ---------CATEGORIES---------
+.categories-container {
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
 .categories-heading {
   margin-bottom: 30px;
   display: flex;
@@ -22,26 +26,25 @@
   font-size: 2.8rem;
   margin-right: 15px;
   font-weight: bold;
-  color: #333;
+  color: var(--primary);
 }
 
 .cate-text {
   font-size: 2.2rem;
   font-weight: bold;
-  color: #333;
+  color: var(--primary);
 }
-
 
 .categories {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 
 .category-item {
-  width: 400px;
+  width: 24%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,12 +56,12 @@
   position: relative;
 }
 
-.category-item::before{
-  content: '';
+.category-item::before {
+  content: "";
   position: absolute;
   width: 0%;
   height: 100%;
-  background-color: #AABA79;
+  background-color: rgb(242, 255, 221);
   top: 0;
   left: 0;
   z-index: -1;
@@ -69,10 +72,9 @@
   width: 100%;
 }
 
-
 .cate-img {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   margin-right: 20px;
 
   .image {
@@ -97,52 +99,247 @@
   font-size: 1.4rem;
 }
 
-// ---------FLASH SALE + BEST SELLER---------
-.flash-sale,
-.best-seller {
-  margin: 30px;
-}
-
-.flash-sale_title,
-.best-seller_title {
-  font-size: 25px;
-  font-weight: 500;
-  text-align: center;
-  padding-top: 30px;
-}
-
-.flash-sale_wrapper,
-.best-seller_wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
-.flash-sale_products,
-.best-seller_products {
-  border: 0.3px solid rgba(0, 0, 0, 0.234);
-  width: max-content;
+// ---------FLASH SALE---------
+.flashSale-container {
   margin-top: 50px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.flash-sale_product,
-.best-seller_product {
-  padding: 10px;
+.flashSale-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }
 
-.product-sale {
-  color: red;
-  width: max-content;
+.flashSale-more {
+  display: flex;
+  align-items: center;
+
+  .more-item {
+    text-decoration: none;
+    color: var(--primary);
+  }
 }
 
-.flash-sale_products img {
+.flashSale-heading {
+  display: flex;
+  align-items: center;
+
+  .flashSale-text-1 {
+    font-size: 2.2rem;
+    letter-spacing: 0.6px;
+    font-weight: bold;
+    color: var(--primary);
+  }
+
+  .flashSale-text-2 {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--primary);
+  }
+
+  //min-width:
+  .countdown-minute {
+    min-width: 34px;
+    line-height: 25px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border-radius: 2px;
+    margin-left: 10px;
+    padding: 0px 8px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+  }
+
+  .countdown-second {
+    min-width: 34px;
+    line-height: 25px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border-radius: 2px;
+    margin-left: 5px;
+    padding: 0px 8px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+  }
+}
+
+.flashSale-list {
+  display: flex;
+  align-items: center;
+}
+
+.flashSale-item {
+  width: 200px;
+  height: 300px;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  position: relative;
+}
+
+.item-img {
+  width: 100%;
+
+  img {
+    width: 100%;
+  }
+}
+.item-discount {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 40px;
+  height: 45px;
+  clip-path: polygon(
+    30% 0%,
+    70% 0%,
+    100% 0,
+    100% 100%,
+    48% 84%,
+    0 100%,
+    0 100%,
+    0 0
+  );
+  background-color: rgba(250, 105, 105, 0.8);
+}
+
+.text-discount {
+  font-size: 0.75rem;
+  color: #fff;
+}
+
+.per-discount {
+  margin-top: 5px;
+  color: yellow;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.item-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  color: var(--primary);
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.item-price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  color: #333;
+}
+.price {
+  margin-right: 2px;
+}
+
+.item-status {
+  margin: 5px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.status-img {
+  width: 20px;
+  height: 23px;
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  z-index: 2;
+}
+
+.loading {
   width: 170px;
+  height: 20px;
+  border-radius: 9px;
+  overflow: hidden;
+  background-color: #c2e0c2;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.product-name {
-  padding: 10px 0px;
+.loading::before {
+  content: "";
+  width: 150px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 9px 0 0 9px;
+  background-color: var(--primary);
 }
 
-.heart-icon:hover {
-  color: red;
-  width: fit-content;
+.loading-text {
+  font-weight: 500;
+  color: #fff;
+  font-size: 1.2rem;
+  z-index: 1;
+}
+
+
+// ---------BEST SELLER---------
+.best-seller_container {
+  margin-top: 50px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.best-seller_list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.best-seller_item {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  text-align: center;
+  height: max-content;
+}
+
+.best-seller_top {
+  width: 40px;
+  height: 40px;
+  box-sizing: content-box;
+  padding-top: 15px;
+  position: relative;
+  background: #FF7C33;
+  color: #fff;
+}
+.best-seller_top p {
+  font-size: 1.5rem;
+}
+.best-seller_top::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 13px solid #fff;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+}
+
+.item-sells {
+  background-color: rgba(0, 0, 0, 0.37);
+  color: #fff;
+  margin-top: 10px;
+}
+
+.item-sells span {
+  font-size: 1.4rem;
 }

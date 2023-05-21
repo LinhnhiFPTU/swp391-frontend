@@ -1,0 +1,104 @@
+.profile-wrapper {
+  width: 100%;
+  min-height: calc(100vh - 101px);
+  display: flex;
+  justify-content: center;
+  padding: 30px 0 0 0;
+}
+
+.profile-container {
+  width: 90%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.profile-content {
+  display: flex;
+}
+
+.left-content {
+  flex-basis: 25%;
+  height: 86.7vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.user-avatar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.user-avatar-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.user-avatar-img img {
+  width: 185px;
+  margin-bottom: 10px;
+}
+
+.user-name {
+  p {
+    font-size: 2rem;
+  }
+}
+
+.user-nav {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+
+.nav-link {
+  width: 100%;
+  padding: 30px;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-link:hover {
+  color: #000;
+}
+
+.nav-active {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.nav-active:hover {
+  color: #fff;  
+}
+
+.nav-text {
+  font-size: 2rem;
+}
+
+.nav-text:hover {
+  color: #333;
+}
+
+.right-content {
+  flex-basis: 75%;
+  margin: 0 100px;
+  
+}
+
+.setting-title {
+  margin-top: 60px;
+
+
+  p {
+    font-size: 2.8rem;
+    font-weight: 500;
+    color: var(--primary);
+  }
+}
