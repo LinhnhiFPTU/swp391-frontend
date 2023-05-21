@@ -1,6 +1,5 @@
 import classNames from "classnames/bind";
 
-import avatar from "~/assets/images/user.png";
 import Avatar from "react-avatar-edit";
 import { useState, useEffect, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
@@ -43,26 +42,19 @@ const sidebarDatas = [
 ];
 
 function Profile() {
-  const context = useContext(UserContext) || {
-    email: "",
-    firstname: "",
-    lastname: "",
-    imageurl: "",
-    gender: "",
-  }
-
+  const [preview, setPreview] = useState(null);
+  const [confirm, setConfirm] = useState(false);
+  const { pathname } = useLocation();
+  const context = useContext(UserContext)
   const [user, setUser] = useState({
     email: "",
     firstname: "",
     lastname: "",
-    imageurl: "",
     gender: "",
+    imageurl: ""
   });
 
 
-  const [preview, setPreview] = useState(null);
-  const [confirm, setConfirm] = useState(false);
-  const { pathname } = useLocation();
   const onClose = () => {
     setPreview(null);
   };
@@ -79,6 +71,13 @@ function Profile() {
   };
 
   useEffect(() => {
+    if(context)
+    {
+      setUser(context)
+    }
+  }, [context])
+
+  useEffect(() => {
     if (confirm) {
       const formData = new FormData();
       fetch(preview)
@@ -87,7 +86,7 @@ function Profile() {
           const file = new File([blob], "mail.png");
           formData.append("file", file);
           axios
-            .post("/api/v1/users/upload/avatar", formData, {
+            .post("/api/v1/users/info/avatar", formData, {
               headers: {
                 "Content-Type": "multipart/form-data",
               },
@@ -120,15 +119,16 @@ function Profile() {
             <div className={cx("left-content")}>
               <div className={cx("user-avatar")}>
                 <div className={cx("user-avatar-img")}>
-                  <img src={context.imageurl || avatar} alt="avatar"/>
+                  <img src={user.imageurl} alt="avatar"/>
                 </div>
                 <div className={cx("user-name")}>
-                  <p>{(context.firstname + " " + context.lastname).trim() || "User"}</p>
+                  <p>{(user.firstname + " " + user.lastname).trim() || "User"}</p>
                 </div>
               </div>
               <div className={cx("user-nav")}>
                 {sidebarDatas.map((data, index) => (
                   <NavLink
+                    key={index}
                     to={data.path}
                     className={({ isActive }) =>
                       [cx("nav-link"), isActive ? cx("nav-active") : null].join(
@@ -142,7 +142,6 @@ function Profile() {
                         "/user/account/address",
                       ].includes(pathname)
                     }
-                    key={index}
                   >
                     <span className={cx("nav-text")}>{data.title}</span>
                   </NavLink>
@@ -159,12 +158,12 @@ function Profile() {
                 <div className={cx("setting-container")}>
                   <div className={cx("setting-content_left")}>
                     <div className={cx("text", "text-1")}>
-                      <input type="text" className={cx("email")} required value={context.firstname} onChange={e => setUser({...user, firstname: e.target.value})}/>
+                      <input type="text" className={cx("email")} required value={user.firstname} onChange={e => setUser({...user, firstname: e.target.value})}/>
                       <span></span>
                       <label>First name</label>
                     </div>
                     <div className={cx("text", "text-2")}>
-                      <input type="text" className={cx("email")} required value={context.lastname} onChange={e => setUser({...user, lastname: e.target.value})}/>
+                      <input type="text" className={cx("email")} required value={user.lastname} onChange={e => setUser({...user, lastname: e.target.value})}/>
                       <span></span>
                       <label>Last name</label>
                     </div>
@@ -176,7 +175,7 @@ function Profile() {
                             <input
                               type="radio"
                               checked={(() => {
-                                let gender_name = context.gender;
+                                let gender_name = user.gender;
                                 if(!gender_name) return false;
                                 let gender_object = genders.filter(g => g.name.toUpperCase() === gender_name)[0]
                                 console.log(gender_object, gender_name)

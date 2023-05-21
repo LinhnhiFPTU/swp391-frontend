@@ -1,8 +1,7 @@
 import classNames from "classnames/bind";
 import { NavLink, useLocation } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
-import avatar from "~/assets/images/user.png";
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import AddressPopup from "~/layouts/components/AddressPopup";
@@ -25,16 +24,23 @@ const sidebarDatas = [
   },
 ];
 function Address() {
-  const context = useContext(UserContext) || {
+  const { pathname } = useLocation();
+  const [openMadal, setOpenModal] = useState(false);
+  const [user, setUser] = useState({
     email: "",
     firstname: "",
     lastname: "",
     imageurl: "",
     gender: "",
-  }
-
-  const { pathname } = useLocation();
-  const [openMadal, setOpenModal] = useState(false);
+  })
+  const context = useContext(UserContext)
+  
+  useEffect(() => {
+    if(context)
+    {
+      setUser(context)
+    }
+  }, [context])
 
   const handleAdd = () => {
     setOpenModal(true);
@@ -50,10 +56,10 @@ function Address() {
             <div className={cx("left-content")}>
               <div className={cx("user-avatar")}>
                 <div className={cx("user-avatar-img")}>
-                  <img src={context.imageurl || avatar} alt="avatar" />
+                  <img src={user.imageurl} alt="avatar" />
                 </div>
                 <div className={cx("user-name")}>
-                  <p>DevDD</p>
+                  <p>{(user.firstname + " " + user.lastname).trim() || "User"}</p>
                 </div>
               </div>
               <div className={cx("user-nav")}>

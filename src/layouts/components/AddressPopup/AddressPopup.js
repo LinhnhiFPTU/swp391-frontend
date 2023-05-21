@@ -1,9 +1,30 @@
 import classNames from "classnames/bind";
 import styles from "./AddressPopup.module.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function AddressPopup({ closeModel }) {
+
+  const [receiveInfo, setReceiveInfo] = useState({})
+
+  useEffect(() => {
+    axios.get('https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province',
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Token': 'fc0ea700-c65d-11ed-ab31-3eeb4194879e'
+      }
+    })
+    .then(
+      res => {
+        console.log(res.data)
+      }
+    )
+  }, [])
+
+
   return (
     <div className={cx("overlay")}>
       <div className={cx("addr-popup")}>
@@ -48,7 +69,12 @@ function AddressPopup({ closeModel }) {
           </div>
           <div className={cx("popup-footer")}>
             <div className={cx("popup-btn")}>
-              <button className={cx("cancel", "p-btn")} onClick={() => closeModel(false)}>Cancel</button>
+              <button
+                className={cx("cancel", "p-btn")}
+                onClick={() => closeModel(false)}
+              >
+                Cancel
+              </button>
               <button className={cx("update", "p-btn")}>Update</button>
             </div>
           </div>
