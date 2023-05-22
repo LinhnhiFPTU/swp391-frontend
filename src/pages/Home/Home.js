@@ -183,14 +183,13 @@ function Home() {
 
   const handleScrollRight = () => {
     const maxScrollLeft = slideRef.current.scrollWidth - slideRef.current.clientWidth;
-    if ( maxScrollLeft == 0) {
+    if ( maxScrollLeft === 0) {
       SmoothHorizonScrolling(
         slideRef.current, 
         250, 
         productRef.current.clientWidth, 
         slideRef.current.scrollLeft);
     };
-
   }
 
   useEffect(() => {

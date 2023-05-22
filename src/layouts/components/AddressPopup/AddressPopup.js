@@ -64,7 +64,7 @@ function AddressPopup({ closeModel }) {
                   placeholder=" "
                   required
                 />
-                <label for="text" className={cx("form-label")}>
+                <label className={cx("form-label")}>
                   Phone
                 </label>
               </div>
@@ -81,51 +81,7 @@ function AddressPopup({ closeModel }) {
                       <span className={cx("province-item")}>
                         TP Ho Chi Minh
                       </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
+                      
                     </PopperWrapper>
                   </div>
                 )}
@@ -139,7 +95,7 @@ function AddressPopup({ closeModel }) {
                     onFocus={() => setFocusP(true)}
                     required
                   />
-                  <label for="text" className={cx("form-label")}>
+                  <label className={cx("form-label")}>
                     Province
                   </label>
                 </div>
@@ -156,51 +112,7 @@ function AddressPopup({ closeModel }) {
                       <span className={cx("province-item")}>
                         TP Ho Chi Minh
                       </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
+                      
                     </PopperWrapper>
                   </div>
                 )}
@@ -214,7 +126,7 @@ function AddressPopup({ closeModel }) {
                     onFocus={() => setFocusD(true)}
                     required
                   />
-                  <label for="text" className={cx("form-label")}>
+                  <label className={cx("form-label")}>
                     District
                   </label>
                 </div>
@@ -230,51 +142,7 @@ function AddressPopup({ closeModel }) {
                       <span className={cx("province-item")}>
                         TP Ho Chi Minh
                       </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
-                      <span className={cx("province-item")}>
-                        TP Ho Chi Minh
-                      </span>
+                      
                     </PopperWrapper>
                   </div>
                 )}
@@ -288,7 +156,7 @@ function AddressPopup({ closeModel }) {
                     onFocus={() => setFocusW(true)}
                     required
                   />
-                  <label for="text" className={cx("form-label")}>
+                  <label className={cx("form-label")}>
                     Ward
                   </label>
                 </div>
@@ -302,7 +170,7 @@ function AddressPopup({ closeModel }) {
                   placeholder=" "
                   required
                 />
-                <label for="text" className={cx("form-label")}>
+                <label className={cx("form-label")}>
                   Specific address
                 </label>
               </div>

@@ -46,7 +46,7 @@ function Contact() {
                   <p>Location</p>
                 </div>
                 <div className={cx("contact-info")}>
-                  <p>FPT University, Thu Duc City, Ho Chi Minh City, Viet Nam</p>
+                  <p>SE1741, FPT University, HCM City, VietNam</p>
                 </div>
               </div>
             </div>
