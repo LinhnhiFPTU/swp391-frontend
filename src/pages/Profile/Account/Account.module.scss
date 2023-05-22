@@ -359,6 +359,16 @@
   transition: 0.25s ease;
 }
 
+.submit-avatar button[disabled] {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.submit-avatar button[disabled]:hover {
+  color: #fff;
+  background: var(--primary);
+}
+
 .avatar-btn:hover {
   background-color: transparent;
   border: 1px solid var(--primary);

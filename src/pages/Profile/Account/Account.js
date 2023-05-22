@@ -49,8 +49,9 @@ function Profile() {
   const { pathname } = useLocation();
   const [msg, setMsg] = useState("");
   const [preview, setPreview] = useState(null);
-  const [confirm, setConfirm] = useState(false);
-  const context = useContext(UserContext);
+  const [changeAvatar, setChangeAvatar] = useState(false);
+  const [updateProfile, setUpdateProfile] = useState(false);
+  const context = useContext(UserContext)
   const [user, setUser] = useState({
     email: "",
     firstname: "",
@@ -81,7 +82,7 @@ function Profile() {
   }, [context]);
 
   useEffect(() => {
-    if (confirm) {
+    if (changeAvatar) {
       const formData = new FormData();
       fetch(preview)
         .then((res) => res.blob())
@@ -97,21 +98,44 @@ function Profile() {
             .then((res) => {
               console.log(res);
               // context.imageurl = context.imageurl + "?" + new Date().getTime();
-              window.location.href = "/user/account/profile";
-              setConfirm((c) => !c);
+              window.location.href = "/user/account/profile"
+              setChangeAvatar(c => !c)
             })
             .catch((e) => {
               console.log(e);
-              setConfirm((c) => !c);
+              setChangeAvatar(c => !c)
             });
         });
     }
-  }, [confirm]);
+  }, [changeAvatar]);
+
+  useEffect(() => {
+    if (updateProfile) {
+      let updateRequest = {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        gender: user.gender
+      }
+      axios.post('/api/v1/users/info/update/profile', updateRequest)
+      .then(res => {
+        console.log(res)
+        window.location.href = "/user/account/profile"
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    }
+  }, [updateProfile]);
 
   const handleConfirmAvatar = (e) => {
     e.preventDefault();
-    setConfirm(true);
+    setChangeAvatar(true);
   };
+
+  const handleUpdateProfile = (e) => {
+    e.preventDefault();
+    setUpdateProfile(true)
+  }
 
   return (
     <>
@@ -229,7 +253,7 @@ function Profile() {
                       </div>
                     )}
                     <div className={cx("save")}>
-                      <button className={cx("save-btn")}>Save</button>
+                      <button className={cx("save-btn")} onClick={handleUpdateProfile}>Save</button>
                     </div>
                   </div>
                   <div className={cx("setting-content_right")}>
@@ -246,7 +270,7 @@ function Profile() {
                         onClose={onClose}
                         onBeforeFileLoad={onBeforeFileLoad}
                         src={null}
-                        label="Drag your image here"
+                        label="Click here to change image"
                       />
                       <div className={cx("drop-text")}>
                         <span>{preview ? "" : "(Maximum size 10 MB)"}</span>

@@ -112,6 +112,14 @@ const Header = () => {
                           ></i>
                         </Link>
                       </div>
+                      <div className={cx("option-next")}>
+                        <Link to="/" className={cx("login-link")}>
+                          <span>Seller</span>
+                          <i
+                            className={cx("icon-sub", "fa-light fa-circle-dollar")}
+                          ></i>
+                        </Link>
+                      </div>
                       <div className={cx("option-logout")}>
                         <a className={cx("signup-link")} onClick={handleLogout}>
                           <span>Log out</span>
@@ -122,17 +130,6 @@ const Header = () => {
                             )}
                           ></i>
                         </a>
-                      </div>
-                      <div className={cx("option-next")}>
-                        <Link to="/" className={cx("login-link")}>
-                          <span>Seller channel</span>
-                          <i
-                            className={cx(
-                              "icon-sub",
-                              "fa-brands fa-shopify"
-                            )}
-                          ></i>
-                        </Link>
                       </div>
                     </PopperWrapper>
                   </div>
