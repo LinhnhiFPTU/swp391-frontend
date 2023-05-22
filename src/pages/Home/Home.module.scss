@@ -195,7 +195,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 40px;
+  width: 35px;
   height: 35px;
   clip-path: polygon(
     30% 0%,
@@ -211,6 +211,7 @@
 }
 
 .per-discount {
+  text-align: center;
   margin-top: 5px;
   color: yellow;
   font-size: 1.2rem;
@@ -293,21 +294,20 @@
 }
 
 .best-seller_title p {
-  font-weight: 500;
+  font-size: 2.2rem;
+  font-weight: bold;
   color: #FF7C33;
-  margin: 20px 0;
-}
-
-.best-seller_list {
-  display: flex;
-  justify-content: space-around;
+  margin: 0 0 30px 0;
+  user-select: none;
 }
 
 .best-seller_item {
-  width: 100%;
+  width: 200px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  justify-content: center;
   text-align: center;
   height: max-content;
+  margin: 0 20px;
 }
 
 .best-seller_top {
@@ -346,6 +346,86 @@
 
 .item-sells span {
   font-size: 1.4rem;
+  margin: 100px 0;
+}
+
+
+//TRY
+.best-seller_container1 {
+  width: 100%;
+  // height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  margin-top: 50px;
+}
+
+.best-seller_title1 p {
+  user-select: none;
+  color: #FF7C33;
+}
+
+
+.best-seller_list1 {
+  // position: relative;
+  // display: flex;
+  // justify-content: space-evenly;
+  // gap: 10px;
+  padding: 0 30px;
+}
+.best-seller_items1 {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  text-align: center;
+}
+.item-img1 {
+  width: 200px;
+
+  img {
+    width: 90%;
+  }
+}
+
+.best-seller_top1 {
+  width: 40px;
+  height: 40px;
+  box-sizing: content-box;
+  padding-top: 15px;
+  position: relative;
+  background: #ff7c33;
+  color: #fff;
+}
+.best-seller_top1 p {
+  font-size: 1.5rem;
+}
+.best-seller_top1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 13px solid #fff;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}
+
+.item-name1 {
+  width: 200px;
+}
+
+.item-price1 {
+  width: 200px;
+}
+
+.item-sells1 {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.37);
+  color: #fff;
+  margin-top: 10px;
+}
+
+.item-sells span {
+  font-size: 1.4rem;
+  margin: 100px 0;
 }
 
 // ---------SHOP TRENDING---------

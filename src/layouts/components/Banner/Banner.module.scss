@@ -1,44 +1,48 @@
 // ---------BANNER---------
 
 .banner {
-  position: relative;
   width: 100%;
   height: 430px;
-  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.banner-slider {
+  flex-basis: 65%;
+  height: 100%;
 
   img {
-    cursor: pointer;
-    -webkit-user-drag: none;
     width: 100%;
     height: 100%;
   }
 }
 
-.banner-content {
-  position: absolute;
-  top: 50%;
-  left: 23%;
-  transform: translate(-50%, -50%);
+.banner-right {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-basis: 34%;
+  height: 100%;
+}
 
-  .content-text {
-    margin-bottom: 20px;
-    color: #fff;
-    font-size: 5rem;
+.banner-item-1 {
+  width: 100%;
+  height: 48.5%;
+
+  img {
+    width: 100%;
+    height: 100%;
   }
+}
 
-  .content-button {
-    font-size: 2rem;
-    font-weight: 500;
-    padding: 5px 20px;
-    border-radius: 3px;
-    color: #fff;
-    border: 1px solid #f97b22;
-    background-color: #f97b22;
-    text-decoration: none;
-    transition: 0.2s ease-in;
-  }
+.banner-item-2 {
+  width: 100%;
+  height: 48.5%;
 
-  .content-button:hover {
-    background-color: transparent;
+  img {
+    width: 100%;
+    height: 100%;
   }
 }

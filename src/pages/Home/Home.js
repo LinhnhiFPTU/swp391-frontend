@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Rating from '@mui/material/Rating';
+import Rating from "@mui/material/Rating";
 
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
@@ -107,6 +107,36 @@ const bestSeller = [
     price: "1.120.000",
     sells: "400+",
   },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
 ];
 
 const shops = [
@@ -114,7 +144,7 @@ const shops = [
     name: "Shop",
     describe: "Commerce is a global online marketplace, where people.",
     image: avatar,
-    rating: 4,
+    rating: 2,
   },
   {
     name: "Shop name",
@@ -129,6 +159,16 @@ const shops = [
     rating: 3.5,
   },
 ];
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 1500,
+  slidesToShow: 6,
+  slidesToScroll: 6,
+  autoplay: true,
+  autoplaySpeed: 5000,
+};
 
 function Home() {
   const [second, setSecond] = useState(59);
@@ -241,30 +281,7 @@ function Home() {
             </div>
           </div>
           {/* -----------------BEST SELLER----------------- */}
-          <div className={cx("best-seller_container")}>
-            <div className={cx("best-seller_title")}>
-              <p>TOP PRODUCTS</p>
-            </div>
-            <div className={cx("best-seller_list")}>
-              {bestSeller.map((item, index) => (
-                <div key={index} className={cx("best-seller_items")}>
-                  <div className={cx("best-seller_item")}>
-                    <div className={cx("best-seller_top")}>
-                      <p>TOP</p>
-                    </div>
-                    <div className={cx("item-img")}>
-                      <img src={item.image} alt={item.name} />
-                    </div>
-                    <div className={cx("item-name")}>{item.name}</div>
-                    <div className={cx("item-price")}>{item.price}</div>
-                    <div className={cx("item-sells")}>
-                      <span>Monthly Sales {item.sells}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
             <div className={cx("shop-trending-top")}>
@@ -281,9 +298,17 @@ function Home() {
                       <span>{shop.describe}</span>
                     </div>
                     <div className={cx("rating")}>
-                      <span className={cx("rating-text")}><span className={cx("rate")}>{shop.rating}</span>/5</span>
+                      <span className={cx("rating-text")}>
+                        <span className={cx("rate")}>{shop.rating}</span>/5
+                      </span>
                       <div className={cx("rating-icon")}>
-                        <Rating name="half-rating-read" defaultValue={shop.rating} precision={0.1} size="large" readOnly />
+                        <Rating
+                          name="half-rating-read"
+                          defaultValue={shop.rating}
+                          precision={0.1}
+                          size="large"
+                          readOnly
+                        />
                       </div>
                     </div>
                   </div>
