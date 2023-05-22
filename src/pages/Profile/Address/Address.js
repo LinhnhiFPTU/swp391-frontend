@@ -27,35 +27,64 @@ const sidebarDatas = [
 function Address() {
   const { pathname } = useLocation();
   const [openMadal, setOpenModal] = useState(false);
+  const [curPage, setCurPage] = useState(1);
   const [receiveinfos, setReceiveInfos] = useState([])
   const [user, setUser] = useState({
     email: "",
     firstname: "",
     lastname: "",
     imageurl: "",
-    gender: ""
+    gender: "",
+    receive_info_page: 1
   });
   const context = useContext(UserContext);
 
   useEffect(() => {
     if (context) {
       setUser(context);
-      let page = 0
-      axios.get('/api/v1/users/info/address?page=' + page)
+    }
+  }, [context]);
+
+  useEffect(() => {
+    axios.get('/api/v1/users/info/address?page=' + curPage)
       .then(res => {
         let setup = res.data || []
-        console.log(res.data)
+        let param = (curPage == 1)? "": "?page=" + curPage
         setReceiveInfos(setup)
       })
       .catch(e => {
         console.log(e)
       })
-    }
-  }, [context]);
+  }, [curPage])
 
   const handleAdd = () => {
     setOpenModal(true);
   };
+
+  const handlePrev = (e) =>
+  {
+    e.preventDefault()
+    setCurPage(c => {
+      if(c > 0)
+      {
+        let prevPage = c - 1
+        return prevPage;
+      }
+      return c;
+    })
+  }
+
+  const handleNext = (e) =>
+  {
+    e.preventDefault()
+    setCurPage(c => {
+      if(c < user.receive_info_page)
+      {
+        let nextPage = c + 1;
+        return nextPage;
+      }
+    })
+  }
 
   return (
     <>
@@ -148,10 +177,10 @@ function Address() {
                   </div>
                 ))}
                 <div className={cx("next-page")}>
-                  <button className={cx("icon-left")}>
+                  <button className={cx("icon-left")} onClick={handlePrev} disabled={curPage === 1}>
                     <i className={cx("fa-light fa-angle-left")}></i>
                   </button>
-                  <button className={cx("icon-right")}>
+                  <button className={cx("icon-right")} onClick={handleNext} disabled={curPage === user.receive_info_page}>
                     <i className={cx("fa-light fa-angle-right")}></i>
                   </button>
                 </div>

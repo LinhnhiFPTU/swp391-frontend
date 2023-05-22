@@ -237,7 +237,7 @@
   }
 }
 
-.icon-left:hover, .icon-right:hover {
+.icon-left:hover:not(:disabled), .icon-right:hover {
   color: var(--primary);
 }
 
