@@ -12,14 +12,17 @@ const cx = classNames.bind(styles);
 const sidebarDatas = [
   {
     title: "Account",
+    icon: "fa-light fa-user",
     path: "/user/account/profile",
   },
   {
     title: "Password",
+    icon: "fa-light fa-lock",
     path: "/user/account/password",
   },
   {
     title: "Address",
+    icon: "fa-regular fa-address-book",
     path: "/user/account/address",
   },
 ];
@@ -32,15 +35,14 @@ function Address() {
     lastname: "",
     imageurl: "",
     gender: "",
-  })
-  const context = useContext(UserContext)
-  
+  });
+  const context = useContext(UserContext);
+
   useEffect(() => {
-    if(context)
-    {
-      setUser(context)
+    if (context) {
+      setUser(context);
     }
-  }, [context])
+  }, [context]);
 
   const handleAdd = () => {
     setOpenModal(true);
@@ -48,7 +50,7 @@ function Address() {
 
   return (
     <>
-      {openMadal && <AddressPopup closeModel={setOpenModal}/>}
+      {openMadal && <AddressPopup closeModel={setOpenModal} />}
       <Header />
       <div className={cx("profile-wrapper")}>
         <div className={cx("profile-container")}>
@@ -59,7 +61,9 @@ function Address() {
                   <img src={user.imageurl} alt="avatar" />
                 </div>
                 <div className={cx("user-name")}>
-                  <p>{(user.firstname + " " + user.lastname).trim() || "User"}</p>
+                  <p>
+                    {(user.firstname + " " + user.lastname).trim() || "User"}
+                  </p>
                 </div>
               </div>
               <div className={cx("user-nav")}>
@@ -80,6 +84,7 @@ function Address() {
                     }
                     key={index}
                   >
+                    <i className={cx(data.icon, "icon-sidebar")}></i>
                     <span className={cx("nav-text")}>{data.title}</span>
                   </NavLink>
                 ))}
