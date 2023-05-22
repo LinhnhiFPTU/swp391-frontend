@@ -210,25 +210,6 @@ function Home() {
               <span className={cx("cate-text")}>Categories</span>
             </div>
             <div className={cx("categories")}>
-              {categories.map((category, index) => (
-                <Link
-                  to={category.to}
-                  className={cx("category-item")}
-                  key={index}
-                >
-                  <div className={cx("cate-img")}>
-                    <img
-                      src={category.image}
-                      alt="cate-img"
-                      className={cx("image")}
-                    />
-                  </div>
-                  <div className={cx("cate-text-after")}>
-                    <h3 className={cx("cate-text-head")}>{category.title}</h3>
-                    <p className={cx("cate-text-sub")}>{category.subTitle}</p>
-                  </div>
-                </Link>
-              ))}
             </div>
           </div>
 

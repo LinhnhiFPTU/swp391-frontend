@@ -14,14 +14,17 @@ const cx = classNames.bind(styles);
 const sidebarDatas = [
   {
     title: "Account",
+    icon: "fa-light fa-user",
     path: "/user/account/profile",
   },
   {
     title: "Password",
+    icon: "fa-light fa-lock",
     path: "/user/account/password",
   },
   {
     title: "Address",
+    icon: "fa-regular fa-address-book",
     path: "/user/account/address",
   },
 ];
@@ -62,6 +65,7 @@ function Password() {
         })
         .catch((e) => {
           console.log(e);
+          setMsg(e.response.data.message);
         });
     }
   }, [changePassword]);
@@ -133,6 +137,7 @@ function Password() {
                     }
                     key={index}
                   >
+                    <i className={cx(data.icon, "icon-sidebar")}></i>
                     <span className={cx("nav-text")}>{data.title}</span>
                   </NavLink>
                 ))}
@@ -214,7 +219,7 @@ function Password() {
                 {msg && (
                   <div className={cx("error")}>
                     <Alert key="danger" variant="danger">
-                      Password does not match
+                      {msg}
                     </Alert>
                   </div>
                 )}

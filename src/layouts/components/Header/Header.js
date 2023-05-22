@@ -13,23 +13,23 @@ const cx = classNames.bind(styles);
 
 const Header = () => {
   const user = useContext(UserContext);
-  const [logout, setLogout] = useState(false)
+  const [logout, setLogout] = useState(false);
   useEffect(() => {
-    if(logout)
-    {
-      axios.post('/api/v1/auths/signout')
-      .then(res => {
-        console.log(res)
-        window.location.href = "/"
-      })
-      .catch(e => console.log(e))
+    if (logout) {
+      axios
+        .post("/api/v1/auths/signout")
+        .then((res) => {
+          console.log(res);
+          window.location.href = "/";
+        })
+        .catch((e) => console.log(e));
     }
-  }, [logout])
+  }, [logout]);
 
   const handleLogout = (e) => {
-    e.preventDefault()
-    setLogout(true)
-  }
+    e.preventDefault();
+    setLogout(true);
+  };
 
   return (
     <>
@@ -79,6 +79,7 @@ const Header = () => {
           </div>
 
           <div className={cx("nav-icon")}>
+            {/* -----------------Da login----------------- */}
             {user ? (
               <Tippy
                 interactive
@@ -108,6 +109,14 @@ const Header = () => {
                               "icon-sub",
                               "fa-sharp fa-regular fa-basket-shopping"
                             )}
+                          ></i>
+                        </Link>
+                      </div>
+                      <div className={cx("option-next")}>
+                        <Link to="/" className={cx("login-link")}>
+                          <span>Seller</span>
+                          <i
+                            className={cx("icon-sub", "fa-light fa-circle-dollar")}
                           ></i>
                         </Link>
                       </div>
@@ -143,6 +152,7 @@ const Header = () => {
                 placement="bottom-end"
                 render={(attrs) => (
                   <div className={cx("user-options")} tabIndex="-1" {...attrs}>
+                    {/* -----------------Chua login----------------- */}
                     <PopperWrapper>
                       <div className={cx("option-first")}>
                         <Link to="/login" className={cx("login-link")}>
