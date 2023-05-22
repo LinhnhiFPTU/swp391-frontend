@@ -65,7 +65,9 @@ function Footer() {
               </div>
               <div className={cx("location")}>
                 <img src={location} alt="location" className={cx("logo")}></img>
-                <p className={cx("text")}>SE1741, FPT University, HCM City, VietNam</p>
+                <p className={cx("text")}>
+                  SE1741, FPT University, HCM City, VietNam
+                </p>
               </div>
             </div>
           </div>

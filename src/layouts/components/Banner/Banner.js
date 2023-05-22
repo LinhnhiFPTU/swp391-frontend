@@ -1,8 +1,6 @@
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
-import { Slide } from "react-slideshow-image";
-
 import banner from "~/assets/images/banner.png";
 import banner1 from "~/assets/images/banner1.jpg";
 import banner2 from "~/assets/images/banner2.jpg";
@@ -15,48 +13,44 @@ const cx = classNames.bind(styles);
 const birds = [
   {
     url: banner,
-    title: "Keep Your Pet Safe",
   },
   {
     url: banner1,
-    title: "Keep Your Pet Safe 1",
   },
   {
     url: banner2,
-    title: "Keep Your Pet Safe 2",
   },
   {
     url: banner3,
-    title: "Keep Your Pet Safe 3",
   },
   {
     url: banner4,
-    title: "Keep Your Pet Safe 4",
   },
 ];
 
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
+
 function Banner() {
   return (
-    <Slide
-      duration={3000}
-      transitionDuration={1000}
-      arrows={false}
-      autoplay={true}
-      pauseOnHover={true}
-      
-    >
-      {birds.map((bird, index) => (
-        <div className={cx("banner")} key={index}>
-          <img src={bird.url} alt="banner"/>
-          <div className={cx("banner-content")}>
-            <h1 className={cx("content-text")}>{bird.title}</h1>
-            <Link to="/shop" className={cx("content-button")}>
-              SHOP NOW
-            </Link>
-          </div>
+    <div className={cx("banner")}>
+      <div className={cx("banner-slider")}>
+        <img src={banner} alt="banner-slider" />
+      </div>
+      <div className={cx("banner-right")}>
+        <div className={cx("banner-item-1")}>
+          <img src={banner1} alt="banner-item" />
         </div>
-      ))}
-    </Slide>
+        <div className={cx("banner-item-2")}>
+          <img src={banner1} alt="banner-item" />
+        </div>
+      </div>
+    </div>
   );
 }
 

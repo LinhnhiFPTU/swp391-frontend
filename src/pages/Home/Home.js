@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y, Pagination } from 'swiper';
@@ -9,75 +10,76 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import Rating from '@mui/material/Rating';
+=======
+import Rating from "@mui/material/Rating";
+>>>>>>> 6b1d7618993b01eb7243d1dfd52c404a4d063ca9
 
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import Banner from "~/layouts/components/Banner/";
 
 import bird from "~/assets/images/bird.png";
-import birds from "~/assets/images/birds.png";
-import birdFood from "~/assets/images/bird-foods.png";
-import birdAccessories from "~/assets/images/bird-accessories.png";
-import birdCage from "~/assets/images/bird-cage.png";
-import flash from "~/assets/images/pro1.jpg";
+import birdFood from '~/assets/images/bird-food.png'
+import birdCage from '~/assets/images/bird-cage.png'
+import birdAccessory from '~/assets/images/bird-accessory.png'
 import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
 
 const cx = classNames.bind(styles);
 const categories = [
   {
-    image: birds,
+    image: bird,
     title: "BIRDS",
-    subTitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    subText:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
   {
     image: birdFood,
     title: "BIRD FOODS",
-    subTitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    subText:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
   {
     image: birdCage,
     title: "BIRD CAGE",
-    subTitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    subText:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
   {
-    image: birdAccessories,
+    image: birdAccessory,
     title: "BIRD ACCESSORIES",
-    subTitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    subText:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
 ];
 
 const flashSales = [
   {
-    image: flash,
+    image: birdFood,
     name: "Nekton",
     price: "1.777.000",
   },
   {
-    image: flash,
+    image: birdFood,
     name: "Amoxy-Tyl",
     price: "1.000.000",
   },
   {
-    image: flash,
+    image: birdFood,
     name: "Bird B.Gone",
     price: "200.000",
   },
   {
-    image: flash,
+    image: birdFood,
     name: "Bird Spikes",
     price: "77.000",
   },
   {
-    image: flash,
+    image: birdFood,
     name: "Shefa",
     price: "1.120.000",
   },
@@ -144,9 +146,9 @@ const bestSeller = [
     price: "1.120.000",
     sells: "400+",
   },
-
 ];
 
+<<<<<<< HEAD
 
 // const settings = {
 //   dots: true,
@@ -155,12 +157,14 @@ const bestSeller = [
 //   slidesToShow: 5,
 //   slidesToScroll: 2,
 // };
+=======
+>>>>>>> 6b1d7618993b01eb7243d1dfd52c404a4d063ca9
 const shops = [
   {
     name: "Shop",
     describe: "Commerce is a global online marketplace, where people.",
     image: avatar,
-    rating: 4,
+    rating: 2,
   },
   {
     name: "Shop name",
@@ -176,7 +180,15 @@ const shops = [
   },
 ];
 
-
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 1500,
+  slidesToShow: 6,
+  slidesToScroll: 6,
+  autoplay: true,
+  autoplaySpeed: 5000,
+};
 
 function Home() {
   const [second, setSecond] = useState(59);
@@ -219,22 +231,16 @@ function Home() {
             </div>
             <div className={cx("categories")}>
               {categories.map((category, index) => (
-                <Link
-                  to={category.to}
-                  className={cx("category-item")}
-                  key={index}
-                >
-                  <div className={cx("cate-img")}>
-                    <img
-                      src={category.image}
-                      alt="cate-img"
-                      className={cx("image")}
-                    />
+                <Link to={category.to} className={cx("category-item")}>
+                  <div className={cx("item-img")}>
+                    <img src={category.image} alt="cate-img" />
                   </div>
-                  <div className={cx("cate-text-after")}>
-                    <h3 className={cx("cate-text-head")}>{category.title}</h3>
-                    <p className={cx("cate-text-sub")}>{category.subTitle}</p>
+                  <div className={cx("item-type")}>
+                    <span className={cx("type-text")}>{category.title}</span>
+                    <br></br>
+                    <span className={cx("type-subText")}>{category.subText}</span>
                   </div>
+                  
                 </Link>
               ))}
             </div>
@@ -289,6 +295,7 @@ function Home() {
             </div>
           </div>
           {/* -----------------BEST SELLER----------------- */}
+<<<<<<< HEAD
           <div className={cx('best-seller_container')}>
             <div className={cx('best-seller_title')}>
               <p>TOP PRODUCTS</p>
@@ -330,6 +337,9 @@ function Home() {
             </div>
 
           </div>
+=======
+
+>>>>>>> 6b1d7618993b01eb7243d1dfd52c404a4d063ca9
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
             <div className={cx("shop-trending-top")}>
@@ -346,9 +356,17 @@ function Home() {
                       <span>{shop.describe}</span>
                     </div>
                     <div className={cx("rating")}>
-                      <span className={cx("rating-text")}><span className={cx("rate")}>{shop.rating}</span>/5</span>
+                      <span className={cx("rating-text")}>
+                        <span className={cx("rate")}>{shop.rating}</span>/5
+                      </span>
                       <div className={cx("rating-icon")}>
-                        <Rating name="half-rating-read" defaultValue={shop.rating} precision={0.1} size="large" readOnly />
+                        <Rating
+                          name="half-rating-read"
+                          defaultValue={shop.rating}
+                          precision={0.1}
+                          size="large"
+                          readOnly
+                        />
                       </div>
                     </div>
                   </div>

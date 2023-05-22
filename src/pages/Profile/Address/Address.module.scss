@@ -13,6 +13,8 @@
 }
 
 .profile-content {
+  border: 1px solid var(--primary);
+  border-radius: 12px 0 0 12px;
   display: flex;
   min-height: 850px;
   height: 100%;
@@ -23,7 +25,8 @@
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 12px 0 0 12px;
+  background-color: var(--primary);
 }
 
 .user-avatar {
@@ -52,6 +55,7 @@
 .user-name {
   p {
     font-size: 2rem;
+    color: #fff;
   }
 }
 
@@ -64,19 +68,27 @@
 
 
 .nav-link {
+  display: flex;
+  align-items: center;
   width: 100%;
   padding: 20px;
   text-decoration: none;
-  color: #333;
+  color: #fff;
 }
 
 .nav-link:hover {
-  color: #000;
+  color: #fff;
 }
 
 .nav-active {
-  background-color: var(--primary);
+  background-color: rgba(255, 255, 255, 0.26);
+  border-radius: 35px 0 0 35px;
   color: #fff;
+}
+
+.icon-sidebar {
+  font-size: 1.8rem;
+  margin-right: 40px;
 }
 
 .nav-active:hover {
@@ -196,6 +208,13 @@
   width: 100px;
   padding: 2px 15px;
   border: 1px solid var(--primary);
+}
+
+.address-non-default {
+  font-size: 1.3rem;
+  text-align: center;
+  width: 100px;
+  padding: 2px 15px;
 }
 
 .address-make {
