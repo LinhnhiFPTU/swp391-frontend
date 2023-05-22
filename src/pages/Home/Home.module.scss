@@ -364,7 +364,7 @@
 
 
 .best-seller_list1 {
-  position: relative;
+  // position: relative;
   // display: flex;
   // justify-content: space-evenly;
   // gap: 10px;
@@ -407,15 +407,12 @@
   border-right: 20px solid transparent;
 }
 
-// .item-img1 img {
-//   width: 100%;
-// }
 .item-name1 {
-  width: 100%;
+  width: 200px;
 }
 
 .item-price1 {
-  width: 100%;
+  width: 200px;
 }
 
 .item-sells1 {

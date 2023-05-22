@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y } from 'swiper';
 import 'swiper/swiper.min.css';
@@ -25,7 +26,6 @@ import birdCage from "~/assets/images/bird-cage.png";
 import flash from "~/assets/images/pro1.jpg";
 import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
-import { Skeleton } from "@mui/material";
 
 const cx = classNames.bind(styles);
 const categories = [
@@ -179,7 +179,7 @@ const settings = {
   infinite: true,
   speed: 500,
   slidesToShow: 5,
-  slidesToScroll: 5,
+  slidesToScroll: 2,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />
 };
@@ -389,9 +389,9 @@ function Home() {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            </div>
+            </div> */}
 
-          </div> */}
+          {/* </div> */}
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
             <div className={cx("shop-trending-top")}>
