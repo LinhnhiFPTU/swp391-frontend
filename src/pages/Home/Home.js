@@ -8,69 +8,67 @@ import Footer from "~/layouts/components/Footer";
 import Banner from "~/layouts/components/Banner/";
 
 import bird from "~/assets/images/bird.png";
-import birds from "~/assets/images/birds.png";
-import birdFood from "~/assets/images/bird-foods.png";
-import birdAccessories from "~/assets/images/bird-accessories.png";
-import birdCage from "~/assets/images/bird-cage.png";
-import flash from "~/assets/images/pro1.jpg";
+import birdFood from '~/assets/images/bird-food.png'
+import birdCage from '~/assets/images/bird-cage.png'
+import birdAccessory from '~/assets/images/bird-accessory.png'
 import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
 
 const cx = classNames.bind(styles);
 const categories = [
   {
-    image: birds,
+    image: bird,
     title: "BIRDS",
-    subTitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    subText:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
   {
     image: birdFood,
     title: "BIRD FOODS",
-    subTitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    subText:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
   {
     image: birdCage,
     title: "BIRD CAGE",
-    subTitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    subText:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
   {
-    image: birdAccessories,
+    image: birdAccessory,
     title: "BIRD ACCESSORIES",
-    subTitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    subText:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
 ];
 
 const flashSales = [
   {
-    image: flash,
+    image: birdFood,
     name: "Nekton",
     price: "1.777.000",
   },
   {
-    image: flash,
+    image: birdFood,
     name: "Amoxy-Tyl",
     price: "1.000.000",
   },
   {
-    image: flash,
+    image: birdFood,
     name: "Bird B.Gone",
     price: "200.000",
   },
   {
-    image: flash,
+    image: birdFood,
     name: "Bird Spikes",
     price: "77.000",
   },
   {
-    image: flash,
+    image: birdFood,
     name: "Shefa",
     price: "1.120.000",
   },
@@ -210,6 +208,19 @@ function Home() {
               <span className={cx("cate-text")}>Categories</span>
             </div>
             <div className={cx("categories")}>
+              {categories.map((category, index) => (
+                <Link to={category.to} className={cx("category-item")}>
+                  <div className={cx("item-img")}>
+                    <img src={category.image} alt="cate-img" />
+                  </div>
+                  <div className={cx("item-type")}>
+                    <span className={cx("type-text")}>{category.title}</span>
+                    <br></br>
+                    <span className={cx("type-subText")}>{category.subText}</span>
+                  </div>
+                  
+                </Link>
+              ))}
             </div>
           </div>
 
