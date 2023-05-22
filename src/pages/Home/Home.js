@@ -1,16 +1,11 @@
 import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Rating from '@mui/material/Rating';
+import Rating from "@mui/material/Rating";
 
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import Banner from "~/layouts/components/Banner/";
-
-import { SmoothHorizonScrolling } from "~/utils";
 
 import bird from "~/assets/images/bird.png";
 import birds from "~/assets/images/birds.png";
@@ -20,7 +15,6 @@ import birdCage from "~/assets/images/bird-cage.png";
 import flash from "~/assets/images/pro1.jpg";
 import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
-import { Skeleton } from "@mui/material";
 
 const cx = classNames.bind(styles);
 const categories = [
@@ -143,22 +137,14 @@ const bestSeller = [
     price: "1.120.000",
     sells: "400+",
   },
-
 ];
 
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 5,
-  slidesToScroll: 5,
-};
 const shops = [
   {
     name: "Shop",
     describe: "Commerce is a global online marketplace, where people.",
     image: avatar,
-    rating: 4,
+    rating: 2,
   },
   {
     name: "Shop name",
@@ -174,23 +160,20 @@ const shops = [
   },
 ];
 
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 1500,
+  slidesToShow: 6,
+  slidesToScroll: 6,
+  autoplay: true,
+  autoplaySpeed: 5000,
+};
+
 function Home() {
   const [second, setSecond] = useState(59);
   const [minute, setMinute] = useState(30);
   const timeID = useRef();
-  const slideRef = useRef();
-  const productRef = useRef();
-
-  const handleScrollRight = () => {
-    const maxScrollLeft = slideRef.current.scrollWidth - slideRef.current.clientWidth;
-    if ( maxScrollLeft === 0) {
-      SmoothHorizonScrolling(
-        slideRef.current, 
-        250, 
-        productRef.current.clientWidth, 
-        slideRef.current.scrollLeft);
-    };
-  }
 
   useEffect(() => {
     timeID.current = setInterval(() => {
@@ -298,62 +281,7 @@ function Home() {
             </div>
           </div>
           {/* -----------------BEST SELLER----------------- */}
-          <div className={cx("best-seller_container")}>
-            <div className={cx("best-seller_title")}>
-              <p>TOP PRODUCTS</p>
-            </div>
 
-
-            <div className={cx('best-seller_list')}>
-              <Slider {...settings}>
-                {bestSeller.map((item, index) => (
-                  <div key={index} className={cx('best-seller_items')}>
-                    <div className={cx('best-seller_item')}>
-                      <div className={cx('best-seller_top')}>
-                        <p>TOP</p>
-                      </div>
-                      <div className={cx('item-img')}>
-                        <img src={item.image} alt={item.name} />
-                      </div>
-                      <div className={cx('item-name')}>{item.name}</div>
-                      <div className={cx('item-price')}>{item.price}</div>
-                      <div className={cx('item-sells')}><span>Monthly Sales {item.sells}</span></div>
-                    </div>
-                  </div>
-                ))}
-              </Slider>
-            </div>
-
-          </div>
-
-          {/* Try */}
-          {/* <div className={cx('best-seller_container1')}>
-            <div className={cx('best-seller_title1')}>
-              <p>TOP PRODUCTS</p>
-            </div>
-
-            <div ref={slideRef} className={cx('best-seller_list1')}>
-              {bestSeller.map((item, index) => (
-                <div key={index} ref={productRef} className={cx('best-seller_items1')}>
-                  <div className={cx('best-seller_top1')}>
-                    <p>TOP</p>
-                  </div>
-                  <div className={cx('item-img1')}>
-                    <img src={item.image} alt={item.name} />
-                  </div>
-                  <div className={cx('item-name1')}>{item.name}</div>
-                  <div className={cx('item-price1')}>{item.price}</div>
-                  <div className={cx('item-sells1')}><span>Monthly Sales {item.sells}</span></div>
-                </div>
-              ))}
-            </div>
-            <div className={cx('button-left')}>
-              <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div className={cx('button-right')} onClick={handleScrollRight}>
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
-          </div> */}
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
             <div className={cx("shop-trending-top")}>
@@ -370,9 +298,17 @@ function Home() {
                       <span>{shop.describe}</span>
                     </div>
                     <div className={cx("rating")}>
-                      <span className={cx("rating-text")}><span className={cx("rate")}>{shop.rating}</span>/5</span>
+                      <span className={cx("rating-text")}>
+                        <span className={cx("rate")}>{shop.rating}</span>/5
+                      </span>
                       <div className={cx("rating-icon")}>
-                        <Rating name="half-rating-read" defaultValue={shop.rating} precision={0.1} size="large" readOnly />
+                        <Rating
+                          name="half-rating-read"
+                          defaultValue={shop.rating}
+                          precision={0.1}
+                          size="large"
+                          readOnly
+                        />
                       </div>
                     </div>
                   </div>

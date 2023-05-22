@@ -60,6 +60,7 @@
   }
   .social-media-mail {
     .text {
+      margin: 0;
       font-size: 1.4rem;
     }
   }
@@ -69,7 +70,16 @@
     align-items: center;
 
     .text {
+      margin: 0;
       font-size: 1.4rem;
+    }
+  }
+
+  .social-media-github {
+    a {
+      p {
+        margin: 0;
+      }
     }
   }
 

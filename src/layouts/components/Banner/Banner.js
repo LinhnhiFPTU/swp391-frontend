@@ -1,8 +1,6 @@
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
-import Slider from "react-slick";
-
 import banner from "~/assets/images/banner.png";
 import banner1 from "~/assets/images/banner1.jpg";
 import banner2 from "~/assets/images/banner2.jpg";
