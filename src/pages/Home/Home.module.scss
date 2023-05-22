@@ -299,10 +299,6 @@
   user-select: none;
 }
 
-.best-seller_items {
-  display: grid;
-  gap: 1000px;
-}
 
 .best-seller_item {
   width: 200px;
@@ -310,6 +306,7 @@
   justify-content: center;
   text-align: center;
   height: max-content;
+  margin: 0 20px;
 }
 
 .best-seller_top {
@@ -354,57 +351,29 @@
 
 //TRY
 .best-seller_container1 {
-  position: relative;
   width: 100%;
-  height: 100%;
-
-  .button-left, .button-right {
-    position: absolute;
-    top: 180px;
-    z-index: 20;
-    color: #fff;
-    background-color: #ff7c33;
-    padding: 10px;
-    cursor: pointer;
-    &:hover {
-      background-color: #f85c07;
-    }
-  }
-  
-  .button-left {
-    left: 12px;
-  }
-  .button-right {
-    right: 12px;
-  }
+  // height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  margin-top: 50px;
 }
 
 .best-seller_title1 p {
   user-select: none;
+  color: #FF7C33;
 }
 
 
 .best-seller_list1 {
   position: relative;
-  width: fit-content;
-  display: flex;
-  justify-content: space-evenly;
+  // display: flex;
+  // justify-content: space-evenly;
   // gap: 10px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  overflow-y: hidden;
-  overflow-x: auto;
-  overflow: hidden; 
-  
-
+  padding: 0 30px;
 }
 .best-seller_items1 {
   width: 200px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  overflow: hidden;
-  position: relative;
-  
-  padding: 20px 0;
-  scroll-behavior: smooth;
+  text-align: center;
 }
 .item-img1 {
   width: 200px;
@@ -414,7 +383,52 @@
   }
 }
 
+.best-seller_top1 {
+  width: 40px;
+  height: 40px;
+  box-sizing: content-box;
+  padding-top: 15px;
+  position: relative;
+  background: #ff7c33;
+  color: #fff;
+}
+.best-seller_top1 p {
+  font-size: 1.5rem;
+}
+.best-seller_top1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 13px solid #fff;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}
 
+// .item-img1 img {
+//   width: 100%;
+// }
+.item-name1 {
+  width: 100%;
+}
+
+.item-price1 {
+  width: 100%;
+}
+
+.item-sells1 {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.37);
+  color: #fff;
+  margin-top: 10px;
+}
+
+.item-sells span {
+  font-size: 1.4rem;
+  margin: 100px 0;
+}
 
 // ---------SHOP TRENDING---------
 

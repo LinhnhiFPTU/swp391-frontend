@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, A11y } from 'swiper';
+import 'swiper/swiper.min.css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import Rating from '@mui/material/Rating';
 
 import Header from "~/layouts/components/Header/Header";
@@ -146,12 +151,37 @@ const bestSeller = [
 
 ];
 
+//SLIDER
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", color: "orange" }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", right: "10px" }}
+      onClick={onClick}
+    />
+  );
+}
+
 const settings = {
   dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 5,
   slidesToScroll: 5,
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />
 };
 const shops = [
   {
@@ -174,6 +204,8 @@ const shops = [
   },
 ];
 
+
+
 function Home() {
   const [second, setSecond] = useState(59);
   const [minute, setMinute] = useState(30);
@@ -183,11 +215,11 @@ function Home() {
 
   const handleScrollRight = () => {
     const maxScrollLeft = slideRef.current.scrollWidth - slideRef.current.clientWidth;
-    if ( maxScrollLeft == 0) {
+    if (maxScrollLeft == 0) {
       SmoothHorizonScrolling(
-        slideRef.current, 
-        250, 
-        productRef.current.clientWidth, 
+        slideRef.current,
+        250,
+        productRef.current.clientWidth,
         slideRef.current.scrollLeft);
     };
 
@@ -328,33 +360,38 @@ function Home() {
           </div>
 
           {/* Try */}
-          {/* <div className={cx('best-seller_container1')}>
+          <div className={cx('best-seller_container1')}>
             <div className={cx('best-seller_title1')}>
               <p>TOP PRODUCTS</p>
             </div>
-
             <div ref={slideRef} className={cx('best-seller_list1')}>
-              {bestSeller.map((item, index) => (
-                <div key={index} ref={productRef} className={cx('best-seller_items1')}>
-                  <div className={cx('best-seller_top1')}>
-                    <p>TOP</p>
-                  </div>
-                  <div className={cx('item-img1')}>
-                    <img src={item.image} alt={item.name} />
-                  </div>
-                  <div className={cx('item-name1')}>{item.name}</div>
-                  <div className={cx('item-price1')}>{item.price}</div>
-                  <div className={cx('item-sells1')}><span>Monthly Sales {item.sells}</span></div>
-                </div>
-              ))}
+
+              <Swiper
+                modules={[Navigation, A11y]}
+                navigation
+                spaceBetween={95}  
+                slidesPerView={5}
+                onSlideChange={() => console.log('slide change')}
+                onSwiper={(swiper) => console.log(swiper)}
+              >
+
+                {bestSeller.map((item, index) => (
+                  <SwiperSlide key={index} ref={productRef} className={cx('best-seller_items1')} style={{width: "200px"}}>
+                    <div className={cx('best-seller_top1')}>
+                      <p>TOP</p>
+                    </div>
+                    <div className={cx('item-img1')}>
+                      <img src={item.image} alt={item.name} />
+                    </div>
+                    <div className={cx('item-name1')}>{item.name}</div>
+                    <div className={cx('item-price1')}>{item.price}</div>
+                    <div className={cx('item-sells1')}><span>Monthly Sales {item.sells}</span></div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
-            <div className={cx('button-left')}>
-              <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div className={cx('button-right')} onClick={handleScrollRight}>
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
-          </div> */}
+
+          </div>
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
             <div className={cx("shop-trending-top")}>
