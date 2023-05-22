@@ -42,7 +42,7 @@ function Password() {
     firstname: "",
     lastname: "",
     imageurl: "",
-    gender: "",
+    gender: ""
   });
   const context = useContext(UserContext);
 

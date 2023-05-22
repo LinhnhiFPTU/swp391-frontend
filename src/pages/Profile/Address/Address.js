@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation} from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 
 import Header from "~/layouts/components/Header/Header";
@@ -7,6 +7,7 @@ import Footer from "~/layouts/components/Footer";
 import AddressPopup from "~/layouts/components/AddressPopup";
 import styles from "./Address.module.scss";
 import { UserContext } from "~/App";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 const sidebarDatas = [
@@ -26,21 +27,31 @@ const sidebarDatas = [
 function Address() {
   const { pathname } = useLocation();
   const [openMadal, setOpenModal] = useState(false);
+  const [receiveinfos, setReceiveInfos] = useState([])
   const [user, setUser] = useState({
     email: "",
     firstname: "",
     lastname: "",
     imageurl: "",
-    gender: "",
-  })
-  const context = useContext(UserContext)
-  
+    gender: ""
+  });
+  const context = useContext(UserContext);
+
   useEffect(() => {
-    if(context)
-    {
-      setUser(context)
+    if (context) {
+      setUser(context);
+      let page = 0
+      axios.get('/api/v1/users/info/address?page=' + page)
+      .then(res => {
+        let setup = res.data || []
+        console.log(res.data)
+        setReceiveInfos(setup)
+      })
+      .catch(e => {
+        console.log(e)
+      })
     }
-  }, [context])
+  }, [context]);
 
   const handleAdd = () => {
     setOpenModal(true);
@@ -48,7 +59,7 @@ function Address() {
 
   return (
     <>
-      {openMadal && <AddressPopup closeModel={setOpenModal}/>}
+      {openMadal && <AddressPopup closeModel={setOpenModal} />}
       <Header />
       <div className={cx("profile-wrapper")}>
         <div className={cx("profile-container")}>
@@ -59,7 +70,9 @@ function Address() {
                   <img src={user.imageurl} alt="avatar" />
                 </div>
                 <div className={cx("user-name")}>
-                  <p>{(user.firstname + " " + user.lastname).trim() || "User"}</p>
+                  <p>
+                    {(user.firstname + " " + user.lastname).trim() || "User"}
+                  </p>
                 </div>
               </div>
               <div className={cx("user-nav")}>
@@ -96,108 +109,44 @@ function Address() {
                 </button>
               </div>
               <div className={cx("setting-content")}>
-                <div className={cx("address-item")}>
-                  <div className={cx("address-icon")}>
-                    <i className={cx("fa-solid fa-address-book")}></i>
-                  </div>
-                  <div className={cx("address-name")}>
-                    <span className={cx("name")}>Dinh Duy</span>
-                  </div>
-                  <div className={cx("address-phone")}>
-                    <span className={cx("phone")}>0964987169</span>
-                  </div>
-                  <div className={cx("address-detail")}>
-                    <div className={cx("address-name")}>
-                      <span className={cx("address")}>Vinhome Grand Pard</span>
+                {receiveinfos.map((item) => (
+                  <div className={cx("address-item")} key={item.id}>
+                    <div className={cx("address-icon")}>
+                      <i className={cx("fa-solid fa-address-book")}></i>
                     </div>
-                    <div className={cx("address-crud")}>
-                      <button className={cx("crud-delete")}>
-                        <i
-                          className={cx(
-                            "icon-delete",
-                            "fa-sharp fa-solid fa-trash-xmark"
-                          )}
-                        ></i>
+                    <div className={cx("address-name")}>
+                      <span className={cx("name")}>{item.fullname}</span>
+                    </div>
+                    <div className={cx("address-phone")}>
+                      <span className={cx("phone")}>{item.phone}</span>
+                    </div>
+                    <div className={cx("address-detail")}>
+                      <div className={cx("address-name")}>
+                        <span className={cx("address")}>
+                          {`${item.specific_address}, ${item.ward}, ${item.district}, ${item.province}`}
+                        </span>
+                      </div>
+                      <div className={cx("address-crud")}>
+                        <button className={cx("crud-delete")}>
+                          <i
+                            className={cx(
+                              "icon-delete",
+                              "fa-sharp fa-solid fa-trash-xmark"
+                            )}
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div className={cx("address-options")}>
+                      <div className={cx({"address-non-default": !item._default}, {"address-default" : item._default})}>
+                        <span>{item._default && "Default"}</span>
+                      </div>
+                      <button className={cx("address-make")} disabled={item._default}>
+                        <span>Make it default</span>
                       </button>
                     </div>
                   </div>
-                  <div className={cx("address-options")}>
-                    <div className={cx("address-default")}>
-                      <span>Default</span>
-                    </div>
-                    <button className={cx("address-make")}>
-                      <span>Make it default</span>
-                    </button>
-                  </div>
-                </div>
-                <div className={cx("address-item")}>
-                  <div className={cx("address-icon")}>
-                    <i className={cx("fa-solid fa-address-book")}></i>
-                  </div>
-                  <div className={cx("address-name")}>
-                    <span className={cx("name")}>Dinh Duy</span>
-                  </div>
-                  <div className={cx("address-phone")}>
-                    <span className={cx("phone")}>0964987169</span>
-                  </div>
-                  <div className={cx("address-detail")}>
-                    <div className={cx("address-name")}>
-                      <span className={cx("address")}>Vinhome Grand Pard</span>
-                    </div>
-                    <div className={cx("address-crud")}>
-                      <button className={cx("crud-delete")}>
-                        <i
-                          className={cx(
-                            "icon-delete",
-                            "fa-sharp fa-solid fa-trash-xmark"
-                          )}
-                        ></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div className={cx("address-options")}>
-                    <div className={cx("address-non-default")}>
-                      <span></span>
-                    </div>
-                    <button className={cx("address-make")}>
-                      <span>Make it default</span>
-                    </button>
-                  </div>
-                </div>
-                <div className={cx("address-item")}>
-                  <div className={cx("address-icon")}>
-                    <i className={cx("fa-solid fa-address-book")}></i>
-                  </div>
-                  <div className={cx("address-name")}>
-                    <span className={cx("name")}>Dinh Duy</span>
-                  </div>
-                  <div className={cx("address-phone")}>
-                    <span className={cx("phone")}>0964987169</span>
-                  </div>
-                  <div className={cx("address-detail")}>
-                    <div className={cx("address-name")}>
-                      <span className={cx("address")}>Vinhome Grand Pard</span>
-                    </div>
-                    <div className={cx("address-crud")}>
-                      <button className={cx("crud-delete")}>
-                        <i
-                          className={cx(
-                            "icon-delete",
-                            "fa-sharp fa-solid fa-trash-xmark"
-                          )}
-                        ></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div className={cx("address-options")}>
-                    <div className={cx("address-non-default")}>
-                      <span></span>
-                    </div>
-                    <button className={cx("address-make")}>
-                      <span>Make it default</span>
-                    </button>
-                  </div>
-                </div>
+                ))}
                 <div className={cx("next-page")}>
                   <button className={cx("icon-left")}>
                     <i className={cx("fa-light fa-angle-left")}></i>
