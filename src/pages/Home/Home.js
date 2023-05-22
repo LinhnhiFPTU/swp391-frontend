@@ -360,7 +360,7 @@ function Home() {
           </div>
 
           {/* Try */}
-          <div className={cx('best-seller_container1')}>
+          {/* <div className={cx('best-seller_container1')}>
             <div className={cx('best-seller_title1')}>
               <p>TOP PRODUCTS</p>
             </div>
@@ -391,7 +391,7 @@ function Home() {
               </Swiper>
             </div>
 
-          </div>
+          </div> */}
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
             <div className={cx("shop-trending-top")}>
