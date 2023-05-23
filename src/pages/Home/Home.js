@@ -1,18 +1,12 @@
 import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, A11y, Pagination } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import Rating from '@mui/material/Rating';
-=======
-import Rating from "@mui/material/Rating";
->>>>>>> 6b1d7618993b01eb7243d1dfd52c404a4d063ca9
 
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
@@ -148,17 +142,8 @@ const bestSeller = [
   },
 ];
 
-<<<<<<< HEAD
 
-// const settings = {
-//   dots: true,
-//   infinite: true,
-//   speed: 500,
-//   slidesToShow: 5,
-//   slidesToScroll: 2,
-// };
-=======
->>>>>>> 6b1d7618993b01eb7243d1dfd52c404a4d063ca9
+
 const shops = [
   {
     name: "Shop",
@@ -180,14 +165,70 @@ const shops = [
   },
 ];
 
+const products = [
+  {
+    image: bird,
+    name: "Nekton",
+    price: "1.777.000",
+    sells: "100+",
+  },
+  {
+    image: bird,
+    name: "Amoxy-Tyl",
+    price: "1.000.000",
+    sells: "100+",
+  },
+  {
+    image: bird,
+    name: "Bird B.Gone",
+    price: "200.000",
+    sells: "200+",
+  },
+  {
+    image: bird,
+    name: "Bird Spikes",
+    price: "77.000",
+    sells: "300+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+    sells: "400+",
+  },
+
+];
+
+const  PrevArrow = (props) => {
+  const { onClick } = props
+  return (
+    <div className={cx('control-btn')} onClick={onClick}>
+      <button className={cx('prev')}>
+        <i class="fa-regular fa-chevron-left"></i>
+      </button>
+    </div>
+  )
+}
+const NextArrow = (props) => {
+  const { onClick } = props
+  return (
+    <div className={cx('control-btn')} onClick={onClick}>
+      <button className={cx('next')}>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  )
+}
 const settings = {
   dots: true,
   infinite: true,
   speed: 1500,
-  slidesToShow: 6,
-  slidesToScroll: 6,
-  autoplay: true,
-  autoplaySpeed: 5000,
+  slidesToShow: 5,
+  slidesToScroll: 2,
+  // autoplay: true,
+  // autoplaySpeed: 5000,
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />,
 };
 
 function Home() {
@@ -231,7 +272,7 @@ function Home() {
             </div>
             <div className={cx("categories")}>
               {categories.map((category, index) => (
-                <Link to={category.to} className={cx("category-item")}>
+                <Link key={index} to={category.to} className={cx("category-item")}>
                   <div className={cx("item-img")}>
                     <img src={category.image} alt="cate-img" />
                   </div>
@@ -240,7 +281,7 @@ function Home() {
                     <br></br>
                     <span className={cx("type-subText")}>{category.subText}</span>
                   </div>
-                  
+
                 </Link>
               ))}
             </div>
@@ -294,52 +335,33 @@ function Home() {
               ))}
             </div>
           </div>
+
           {/* -----------------BEST SELLER----------------- */}
-<<<<<<< HEAD
-          <div className={cx('best-seller_container')}>
-            <div className={cx('best-seller_title')}>
+          <div className={cx("best-seller_container")}>
+            <div className={cx("best-seller_title")}>
               <p>TOP PRODUCTS</p>
             </div>
             <div className={cx('best-seller_list')}>
-
-              <Swiper
-                modules={[Navigation,Pagination, A11y]}
-                navigation
-                pagination={{ clickable: true }}
-                spaceBetween={50}
-                slidesPerView={"auto"}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
-              >
-
+              <Slider {...settings}>
                 {bestSeller.map((item, index) => (
-                  <SwiperSlide key={index} className={cx('best-seller_items')}>
-                    <div className={cx('best-seller_top')}>
-                      <p>TOP</p>
+                  <div key={index} className={cx('best-seller_items')}>
+                    <div className={cx('best-seller_item')}>
+                      <div className={cx('best-seller_top')}>
+                        <p>TOP</p>
+                      </div>
+                      <div className={cx('item-img')}>
+                        <img src={item.image} alt={item.name} />
+                      </div>
+                      <div className={cx('item-name')}>{item.name}</div>
+                      <div className={cx('item-price')}>{item.price}</div>
+                      <div className={cx('item-sells')}><span>Monthly Sales {item.sells}</span></div>
                     </div>
-                    <div className={cx('item-img')}>
-                      <img src={item.image} alt={item.name} />
-                    </div>
-                    <div className={cx('item-name')}>{item.name}</div>
-                    <div className={cx('item-price')}>{item.price}</div>
-                    <div className={cx('item-sells')}><span>Monthly Sales {item.sells}</span></div>
-
-                  </SwiperSlide>
+                  </div>
                 ))}
-                <div className={cx('button-next-slide')}>
-                  <i class="fa-regular fa-chevron-left"></i>
-                </div>
-                <div className={cx('button-prev-slide')}>
-                {" "}
-                  <i class="fa-solid fa-chevron-right"></i>
-                </div>
-              </Swiper>
+              </Slider>
             </div>
 
           </div>
-=======
-
->>>>>>> 6b1d7618993b01eb7243d1dfd52c404a4d063ca9
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
             <div className={cx("shop-trending-top")}>
@@ -374,6 +396,25 @@ function Home() {
                     <img src={shop.image} alt="shop-img" />
                   </div>
                 </Link>
+              ))}
+            </div>
+          </div>
+
+          {/*-----------------------------------PRODUCTS------------------------------*/}
+          <div className={cx('product_container')}>
+            <div className={cx('product_title')}>
+              <p>TOP PRODUCTS</p>
+            </div>
+            <div className={cx('product_list')}>
+              {products.map((item, index) => (
+                <div key={index} className={cx('product_items')}>
+                  <div className={cx('product-img')}>
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className={cx('product-name')}>{item.name}</div>
+                  <div className={cx('product-price')}>{item.price}</div>
+                  <div className={cx('product-sells')}><span>Monthly Sales {item.sells}</span></div>
+                </div>
               ))}
             </div>
           </div>
