@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -170,36 +171,56 @@ const products = [
     image: bird,
     name: "Nekton",
     price: "1.777.000",
-    sells: "100+",
   },
   {
     image: bird,
     name: "Amoxy-Tyl",
     price: "1.000.000",
-    sells: "100+",
   },
   {
     image: bird,
     name: "Bird B.Gone",
     price: "200.000",
-    sells: "200+",
   },
   {
     image: bird,
     name: "Bird Spikes",
     price: "77.000",
-    sells: "300+",
   },
   {
     image: bird,
     name: "Shefa",
     price: "1.120.000",
-    sells: "400+",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
+  },
+  {
+    image: bird,
+    name: "Shefa",
+    price: "1.120.000",
   },
 
 ];
 
-const  PrevArrow = (props) => {
+const PrevArrow = (props) => {
   const { onClick } = props
   return (
     <div className={cx('control-btn')} onClick={onClick}>
@@ -225,8 +246,8 @@ const settings = {
   speed: 1500,
   slidesToShow: 5,
   slidesToScroll: 2,
-  // autoplay: true,
-  // autoplaySpeed: 5000,
+  autoplay: true,
+  autoplaySpeed: 5000,
   nextArrow: <NextArrow />,
   prevArrow: <PrevArrow />,
 };
@@ -360,7 +381,36 @@ function Home() {
                 ))}
               </Slider>
             </div>
+          </div>
 
+          {/*-----------------------------------PRODUCTS------------------------------*/}
+          <div className={cx('product_container')}>
+            <div className={cx('product_title')}>
+              <p>DAILY PRODUCTS</p>
+            </div>
+            <div className={cx('product_list')}>
+              {products.map((item, index) => (
+                <div key={index} className={cx('product_items')}>
+                  <div className={cx('product-img')}>
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className={cx('product-name')}>{item.name}</div>
+                  <div className={cx('product-rating')}>
+                    <i className={cx("fa-solid fa-star")}></i>
+                    <i className={cx("fa-solid fa-star")}></i>
+                    <i className={cx("fa-solid fa-star")}></i>
+                    <i className={cx("fa-solid fa-star")}></i>
+                    <i className={cx("fa-solid fa-star")}></i>
+                  </div>
+                  <div className={cx('price_before')}>{item.price}</div>
+                  <div className={cx('product-price')}>{item.price}</div>
+                  <button className={cx('btn_add')}>Add to cart</button>
+
+
+                </div>
+
+              ))}
+            </div>
           </div>
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
@@ -400,24 +450,7 @@ function Home() {
             </div>
           </div>
 
-          {/*-----------------------------------PRODUCTS------------------------------*/}
-          <div className={cx('product_container')}>
-            <div className={cx('product_title')}>
-              <p>TOP PRODUCTS</p>
-            </div>
-            <div className={cx('product_list')}>
-              {products.map((item, index) => (
-                <div key={index} className={cx('product_items')}>
-                  <div className={cx('product-img')}>
-                    <img src={item.image} alt={item.name} />
-                  </div>
-                  <div className={cx('product-name')}>{item.name}</div>
-                  <div className={cx('product-price')}>{item.price}</div>
-                  <div className={cx('product-sells')}><span>Monthly Sales {item.sells}</span></div>
-                </div>
-              ))}
-            </div>
-          </div>
+
         </div>
       </div>
       <Footer />
