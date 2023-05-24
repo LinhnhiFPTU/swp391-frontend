@@ -97,13 +97,13 @@ const Header = () => {
                           to="/user/account/profile"
                           className={cx("login-link")}
                         >
-                          <span>User profile</span>
+                          <span>My account</span>
                           <i className={cx("icon-sub", "fa-light fa-user")}></i>
                         </Link>
                       </div>
                       <div className={cx("option-next")}>
                         <Link to="/" className={cx("login-link")}>
-                          <span>Order</span>
+                          <span>My purchase</span>
                           <i
                             className={cx(
                               "icon-sub",
