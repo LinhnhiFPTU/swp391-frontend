@@ -9,7 +9,7 @@
 .about-container {
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: var(--width);
 }
 .about-descriptions {
     display: flex;

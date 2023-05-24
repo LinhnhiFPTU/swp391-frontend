@@ -96,7 +96,7 @@
 }
 
 .container {
-  width: 90%;
+  width: var(--width);
   border-top: 1px solid var(--primary);
 }
 

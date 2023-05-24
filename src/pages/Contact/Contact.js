@@ -2,7 +2,6 @@ import Header from "~/layouts/components/Header";
 import classNames from "classnames/bind";
 
 import styles from "./Contact.module.scss";
-import Banner from "~/layouts/components/Banner/Banner";
 import Footer from "~/layouts/components/Footer/";
 const cx = classNames.bind(styles);
 function Contact() {
@@ -11,7 +10,6 @@ function Contact() {
       <Header />
       <div className={cx("contact-wrapper")}>
         <div className={cx('container')}>
-            <Banner />
             <div className={cx("contact-container")}>
               <div className={cx("contact-details")}>
                 <i className={cx("fa-light fa-envelope", "icon")}></i>

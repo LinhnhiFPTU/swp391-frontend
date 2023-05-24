@@ -73,7 +73,7 @@ const Header = () => {
           </div>
           <div className={cx("cart-icon")}>
             <span className={cx("counter", "disable")}>22</span>
-            <Link to="cart" className={cx("cart-link")}>
+            <Link to="/cart" className={cx("cart-link")}>
               <i className={cx("icon", "fa-light fa-cart-shopping")}></i>
             </Link>
           </div>
