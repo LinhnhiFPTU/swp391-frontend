@@ -14,7 +14,8 @@ function Verify({ onClick, errMsg = "", loading, user }) {
   const [code, setCode] = useState("");
   const [countDown, setCountDown] = useState(60);
   const [disabled, setDisabled] = useState(true);
-  const [classResend, setClassResend] = useState('resend-text')
+  const [classResend, setClassResend] = useState("resend-text");
+  const [resend, setResend] = useState(0);
   const timeID = useRef();
 
   useEffect(() => {
@@ -24,13 +25,13 @@ function Verify({ onClick, errMsg = "", loading, user }) {
     return () => {
       clearInterval(timeID.current);
     };
-  }, []);
+  }, [resend]);
 
   useEffect(() => {
     if (countDown <= 0) {
       clearInterval(timeID.current);
       setDisabled(false);
-      setClassResend('resend-active');
+      setClassResend("resend-active");
     }
   }, [countDown]);
 
@@ -38,11 +39,15 @@ function Verify({ onClick, errMsg = "", loading, user }) {
     onClick(e, { code });
   };
 
-  const handleResend = () => {
-    axios.post("/api/v1/auths/reset/send", user)
-      .then((res) => {
-        console.log(res);
-      });
+  const handleResend = (e) => {
+    e.preventDefault();
+    axios.post("/api/v1/auths/reset/send", user).then((res) => {
+      setCountDown(60);
+      setDisabled(true)
+      setClassResend("resend-text");
+      setResend((r) => r + 1);
+      console.log(res);
+    });
   };
 
   const handleKeyUp = (e) => {
@@ -119,8 +124,14 @@ function Verify({ onClick, errMsg = "", loading, user }) {
                 <div className={cx("re-send")}>
                   <p>
                     Didn't get the code?{" "}
-                    <button disabled={disabled} onClick={handleResend} className={cx(classResend)}>Resend Email</button>{" "}
-                    <span className={cx('count-down')}>{countDown}s</span>
+                    <button
+                      disabled={disabled}
+                      onClick={handleResend}
+                      className={cx(classResend)}
+                    >
+                      Resend Email
+                    </button>{" "}
+                    <span className={cx("count-down")}>{countDown}s</span>
                   </p>
                 </div>
               </div>

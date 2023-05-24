@@ -249,7 +249,7 @@
   }
 }
 
-.icon-left:hover:not(:disabled), .icon-right:hover {
+.icon-left:hover:not(:disabled), .icon-right:hover:not(:disabled) {
   color: var(--primary);
 }
 
