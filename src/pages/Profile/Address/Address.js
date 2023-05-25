@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { NavLink, useLocation} from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 
 import Header from "~/layouts/components/Header/Header";
@@ -30,34 +30,100 @@ const sidebarDatas = [
 function Address() {
   const { pathname } = useLocation();
   const [openMadal, setOpenModal] = useState(false);
-  const [receiveinfos, setReceiveInfos] = useState([])
+  const [curPage, setCurPage] = useState(1);
+  const [defaultId, setDefaultId] = useState();
+  const [deleteId, setDeleteId] = useState();
+  const [receiveinfos, setReceiveInfos] = useState([]);
   const [user, setUser] = useState({
     email: "",
     firstname: "",
     lastname: "",
     imageurl: "",
-    gender: ""
+    gender: "",
+    receiveInfoPage: 1,
   });
   const context = useContext(UserContext);
 
   useEffect(() => {
     if (context) {
       setUser(context);
-      let page = 1
-      axios.get('/api/v1/users/info/address?page=' + page)
-      .then(res => {
-        let setup = res.data || []
-        console.log(res.data)
-        setReceiveInfos(setup)
-      })
-      .catch(e => {
-        console.log(e)
-      })
     }
   }, [context]);
 
+  useEffect(() => {
+    axios
+      .get("/api/v1/users/info/receives?page=" + curPage)
+      .then((res) => {
+        let setup = res.data || [];
+        let param = curPage == 1 ? "" : "?page=" + curPage;
+        setReceiveInfos(setup);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [curPage]);
+
+  useEffect(() => {
+    if (defaultId) {
+      axios
+        .get("/api/v1/users/info/receives/default/" + defaultId)
+        .then((res) => {
+          console.log(res)
+          window.location.href = '/user/account/address'
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [defaultId]);
+
+  useEffect(() => {
+    if (deleteId) {
+      axios
+        .get("/api/v1/users/info/receives/delete/" + deleteId)
+        .then((res) => {
+          console.log(res)
+          window.location.href = '/user/account/address'
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [deleteId]);
+
   const handleAdd = () => {
     setOpenModal(true);
+  };
+
+  const handlePrev = (e) => {
+    e.preventDefault();
+    setCurPage((c) => {
+      if (c > 0) {
+        let prevPage = c - 1;
+        return prevPage;
+      }
+      return c;
+    });
+  };
+
+  const handleNext = (e) => {
+    e.preventDefault();
+    setCurPage((c) => {
+      if (c < user.receiveInfoPage) {
+        let nextPage = c + 1;
+        return nextPage;
+      }
+    });
+  };
+
+  const handleSetDefault = (e, id) => {
+    e.preventDefault();
+    setDefaultId(id)
+  };
+
+  const handleDelete = (e, id) => {
+    e.preventDefault();
+    setDeleteId(id)
   };
 
   return (
@@ -131,7 +197,7 @@ function Address() {
                         </span>
                       </div>
                       <div className={cx("address-crud")}>
-                        <button className={cx("crud-delete")}>
+                        <button className={cx("crud-delete")} onClick={(e) => handleDelete(e, item.id)}>
                           <i
                             className={cx(
                               "icon-delete",
@@ -142,20 +208,37 @@ function Address() {
                       </div>
                     </div>
                     <div className={cx("address-options")}>
-                      <div className={cx({"address-non-default": !item._default}, {"address-default" : item._default})}>
+                      <div
+                        className={cx(
+                          { "address-non-default": !item._default },
+                          { "address-default": item._default }
+                        )}
+                      >
                         <span>{item._default && "Default"}</span>
                       </div>
-                      <button className={cx("address-make")} disabled={item._default}>
+                      <button
+                        className={cx("address-make")}
+                        disabled={item._default}
+                        onClick={(e) => handleSetDefault(e, item.id)}
+                      >
                         <span>Make it default</span>
                       </button>
                     </div>
                   </div>
                 ))}
                 <div className={cx("next-page")}>
-                  <button className={cx("icon-left")}>
+                  <button
+                    className={cx("icon-left")}
+                    onClick={handlePrev}
+                    disabled={curPage === 1}
+                  >
                     <i className={cx("fa-light fa-angle-left")}></i>
                   </button>
-                  <button className={cx("icon-right")}>
+                  <button
+                    className={cx("icon-right")}
+                    onClick={handleNext}
+                    disabled={curPage === user.receiveInfoPage}
+                  >
                     <i className={cx("fa-light fa-angle-right")}></i>
                   </button>
                 </div>

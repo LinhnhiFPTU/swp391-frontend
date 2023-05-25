@@ -135,7 +135,7 @@ function AddressPopup({ closeModel }) {
         ward: receiveInfo.ward.name
       }
       axios
-        .post("/api/v1/users/info/address", AddReceiveRequest)
+        .post("/api/v1/users/info/receives", AddReceiveRequest)
         .then((res) => {
           window.location.href = '/user/account/address'
           console.log(res);
