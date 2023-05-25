@@ -372,7 +372,7 @@ function Home() {
             <div className={cx("flashSale-list")}>
               <Slider {...settings_flashsale}>
                 {flashSales.map((item, index) => (
-                  <Link to="/" key={index} className={cx("flashSale-items")}>
+                  <Link to="/flash_sale" key={index} className={cx("flashSale-items")}>
                     <div className={cx("best-seller_item")}>
                       <div className={cx("item-img")}>
                         <img src={item.image} alt="item-img" />
@@ -489,12 +489,12 @@ function Home() {
                         <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
                         <span className={cx("chat-text")}>Chat</span>
                       </button>
-                      <button className={cx("view")}>
+                      <Link to="" className={cx("view")}>
                         <i
                           className={cx("fa-sharp fa-solid fa-bag-shopping", "icon-view")}
                         ></i>
                         <span className={cx("view-text")}>View Shop</span>
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </Link>
