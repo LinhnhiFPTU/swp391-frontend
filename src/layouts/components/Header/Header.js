@@ -57,7 +57,7 @@ const Header = () => {
           <div className={cx("options-content")}>
             <div className={cx("option")}>
               <Link className={cx("option-link")} to="/shop">
-                Shop
+                Products
               </Link>
             </div>
             <div className={cx("option")}>
