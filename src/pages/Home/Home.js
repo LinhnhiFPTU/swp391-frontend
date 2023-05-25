@@ -75,6 +75,21 @@ const flashSales = [
     name: "Shefa",
     price: "1.120.000",
   },
+  {
+    image: birdFood,
+    name: "Shefa",
+    price: "1.120.000",
+  },
+  {
+    image: birdFood,
+    name: "Shefa",
+    price: "1.120.000",
+  },
+  {
+    image: birdFood,
+    name: "Shefa",
+    price: "1.120.000",
+  },
 ];
 
 const bestSeller = [
@@ -162,85 +177,115 @@ const products = [
   {
     image: bird,
     name: "Nekton",
-    price: "1.777.000",
+    price: "25",
   },
   {
     image: bird,
     name: "Amoxy-Tyl",
-    price: "1.000.000",
+    price: "30",
   },
   {
     image: bird,
     name: "Bird B.Gone",
-    price: "200.000",
+    price: "35",
   },
   {
     image: bird,
     name: "Bird Spikes",
-    price: "77.000",
+    price: "40",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "45",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "50",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "55",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "60",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "65",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "70",
   },
 ];
-
-const PrevArrow = (props) => {
-  const { onClick } = props;
+//Control Flash Sale Button
+const PrevArrowFS = (props) => {
+  const { onClick } = props
   return (
-    <div className={cx("control-btn")} onClick={onClick}>
+    <div className={cx("controlfs-btn")} onClick={onClick}>
       <button className={cx("prev")}>
         <i class="fa-regular fa-chevron-left"></i>
       </button>
     </div>
   );
 };
-const NextArrow = (props) => {
+const NextArrowFS = (props) => {
   const { onClick } = props;
   return (
-    <div className={cx("control-btn")} onClick={onClick}>
+    <div className={cx("controlfs-btn")} onClick={onClick}>
       <button className={cx("next")}>
         <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
   );
 };
-const settings = {
-  dots: true,
+//Control Best Seller Button
+const PrevArrowBS = (props) => {
+  const { onClick } = props
+  return (
+    <div className={cx("controlbs-btn")} onClick={onClick}>
+      <button className={cx("prev")}>
+        <i class="fa-regular fa-chevron-left"></i>
+      </button>
+    </div>
+  );
+};
+const NextArrowBS = (props) => {
+  const { onClick } = props;
+  return (
+    <div className={cx("controlbs-btn")} onClick={onClick}>
+      <button className={cx("next")}>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  );
+};
+const settings_flashsale = {
   infinite: true,
   speed: 1500,
   slidesToShow: 5,
   slidesToScroll: 2,
   autoplay: true,
   autoplaySpeed: 5000,
-  nextArrow: <NextArrow />,
-  prevArrow: <PrevArrow />,
+  nextArrow: <NextArrowFS />,
+  prevArrow: <PrevArrowFS />,
+};
+const settings_bestseller = {
+  infinite: true,
+  speed: 1500,
+  slidesToShow: 5,
+  slidesToScroll: 2,
+  autoplay: true,
+  autoplaySpeed: 5000,
+  nextArrow: <NextArrowBS />,
+  prevArrow: <PrevArrowBS />,
 };
 
 function Home() {
@@ -325,28 +370,32 @@ function Home() {
             </div>
 
             <div className={cx("flashSale-list")}>
-              {flashSales.map((item, index) => (
-                <Link to="/" key={index} className={cx("flashSale-item")}>
-                  <div className={cx("item-img")}>
-                    <img src={item.image} alt="item-img" />
-                  </div>
-                  <div className={cx("item-discount")}>
-                    <span className={cx("per-discount")}>-20%</span>
-                  </div>
-                  <div className={cx("item-name")}>
-                    <span className={cx("name")}>{item.name}</span>
-                  </div>
-                  <div className={cx("item-price")}>
-                    <span className={cx("price")}>₫</span>
-                    {item.price}
-                  </div>
-                  <div className={cx("item-status")}>
-                    <div className={cx("loading")}>
-                      <span className={cx("loading-text")}>SELLING WELL</span>
+              <Slider {...settings_flashsale}>
+                {flashSales.map((item, index) => (
+                  <Link to="/" key={index} className={cx("flashSale-items")}>
+                    <div className={cx("best-seller_item")}>
+                      <div className={cx("item-img")}>
+                        <img src={item.image} alt="item-img" />
+                      </div>
+                      <div className={cx("item-discount")}>
+                        <span className={cx("per-discount")}>-20%</span>
+                      </div>
+                      <div className={cx("item-name")}>
+                        <span className={cx("name")}>{item.name}</span>
+                      </div>
+                      <div className={cx("item-price")}>
+                        <span className={cx("price")}>₫</span>
+                        {item.price}
+                      </div>
+                      <div className={cx("item-status")}>
+                        <div className={cx("loading")}>
+                          <span className={cx("loading-text")}>SELLING WELL</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </Slider>
             </div>
           </div>
 
@@ -356,7 +405,7 @@ function Home() {
               <p>TOP PRODUCTS</p>
             </div>
             <div className={cx("best-seller_list")}>
-              <Slider {...settings}>
+              <Slider {...settings_bestseller}>
                 {bestSeller.map((item, index) => (
                   <div key={index} className={cx("best-seller_items")}>
                     <div className={cx("best-seller_item")}>
@@ -366,7 +415,7 @@ function Home() {
                       <div className={cx("item-img")}>
                         <img src={item.image} alt={item.name} />
                       </div>
-                      <div className={cx("item-name")}>{item.name}</div>
+                      <div className={cx("bitem-name")}>{item.name}</div>
                       <div className={cx("item-price")}>{item.price}</div>
                       <div className={cx("item-sells")}>
                         <span>Monthly Sales {item.sells}</span>
@@ -389,17 +438,19 @@ function Home() {
                   <div className={cx("product-img")}>
                     <img src={item.image} alt={item.name} />
                   </div>
-                  <div className={cx("product-name")}>{item.name}</div>
-                  <div className={cx("product-rating")}>
-                    <i className={cx("fa-solid fa-star")}></i>
-                    <i className={cx("fa-solid fa-star")}></i>
-                    <i className={cx("fa-solid fa-star")}></i>
-                    <i className={cx("fa-solid fa-star")}></i>
-                    <i className={cx("fa-solid fa-star")}></i>
+                  <div className={cx('product-name')}>{item.name}</div>
+                  <div className={cx('product-rating')}>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
                   </div>
-                  <div className={cx("price_before")}>{item.price}</div>
-                  <div className={cx("product-price")}>{item.price}</div>
-                  <button className={cx("btn_add")}>Add to cart</button>
+                  <div className={cx('price_before')}>${item.price}</div>
+                  <div className={cx('product-price')}>${item.price}</div>
+                  <button className={cx('btn_add')}>Buy Now</button>
+
+
                 </div>
               ))}
             </div>
