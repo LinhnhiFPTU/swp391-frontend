@@ -57,7 +57,7 @@ const Header = () => {
           <div className={cx("options-content")}>
             <div className={cx("option")}>
               <Link className={cx("option-link")} to="/shop">
-                Shop
+                Products
               </Link>
             </div>
             <div className={cx("option")}>
@@ -73,8 +73,14 @@ const Header = () => {
           </div>
           <div className={cx("cart-icon")}>
             <span className={cx("counter", "disable")}>22</span>
-            <Link to="cart" className={cx("cart-link")}>
+            <Link to="/cart" className={cx("cart-link")}>
               <i className={cx("icon", "fa-light fa-cart-shopping")}></i>
+            </Link>
+          </div>
+
+          <div className={cx("notification-icon")}>
+            <Link to="/user/notifications" className={cx("notify-link")}>
+              <i className={cx("icon", "fa-light fa-bell")}></i>
             </Link>
           </div>
 
@@ -97,13 +103,13 @@ const Header = () => {
                           to="/user/account/profile"
                           className={cx("login-link")}
                         >
-                          <span>User profile</span>
+                          <span>My account</span>
                           <i className={cx("icon-sub", "fa-light fa-user")}></i>
                         </Link>
                       </div>
                       <div className={cx("option-next")}>
                         <Link to="/" className={cx("login-link")}>
-                          <span>Order</span>
+                          <span>My purchase</span>
                           <i
                             className={cx(
                               "icon-sub",

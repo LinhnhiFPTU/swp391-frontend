@@ -7,14 +7,13 @@
 }
 
 .container {
-    width: 90%;
+    width: var(--width);
 }
 
 .contact-container {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 50px;
 }
 
 .contact-details {
@@ -22,7 +21,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    width: 420px;
+    width: 390px;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.063);
 }
 
