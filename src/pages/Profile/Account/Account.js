@@ -265,7 +265,7 @@ function Profile() {
                       </div>
                       <Avatar
                         width={350}
-                        height={300}
+                        height={350}
                         onCrop={onCrop}
                         onClose={onClose}
                         onBeforeFileLoad={onBeforeFileLoad}

@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Header from "~/layouts/components/Header/";
 import Footer from "~/layouts/components/Footer/";
 import banner from "~/assets/images/banner.png";
+import birdFood from "~/assets/images/bird-food.png";
 import styles from "./FlashSale.module.scss";
 
 const cx = classNames.bind(styles);
@@ -11,8 +12,8 @@ const cx = classNames.bind(styles);
 const filterBtns = ["birds", "foods", "medicines", "cages", "accessories"];
 function FlashSale() {
   const [type, setType] = useState("birds");
-  const [second,setSecond] = useState(0)
-  const [minute, setMinute] = useState(0)
+  const [second, setSecond] = useState(0);
+  const [minute, setMinute] = useState(0);
   const timeID = useRef();
 
   useEffect(() => {
@@ -27,8 +28,8 @@ function FlashSale() {
 
       let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
       let second = Math.floor((distance % (60 * 1000)) / 1000);
-      setMinute(minute)
-      setSecond(second)
+      setMinute(minute);
+      setSecond(second);
     }, 1000);
     return () => {
       clearInterval(timeID.current);
@@ -61,14 +62,10 @@ function FlashSale() {
               </div>
               <div className={cx("flash_sale-countdown-time")}>
                 <span className={cx("countdown-minute")}>
-                  {minute < 10
-                    ? "0" + minute
-                    : minute}
+                  {minute < 10 ? "0" + minute : minute}
                 </span>
                 <span className={cx("countdown-second")}>
-                  {second < 10
-                    ? "0" + second
-                    : second}
+                  {second < 10 ? "0" + second : second}
                 </span>
               </div>
             </div>
@@ -93,36 +90,352 @@ function FlashSale() {
           </div>
           <div className={cx("flash_sale-list")}>
             <div className={cx("flash_sale-product")}>
-
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
             <div className={cx("flash_sale-product")}>
-              
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
             <div className={cx("flash_sale-product")}>
-              
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
             <div className={cx("flash_sale-product")}>
-              
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
-
             <div className={cx("flash_sale-product")}>
-              
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
             <div className={cx("flash_sale-product")}>
-
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
             <div className={cx("flash_sale-product")}>
-              
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
             <div className={cx("flash_sale-product")}>
-              
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
             <div className={cx("flash_sale-product")}>
-              
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
-
             <div className={cx("flash_sale-product")}>
-              
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
+            </div>
+            <div className={cx("flash_sale-product")}>
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
+            </div>
+            <div className={cx("flash_sale-product")}>
+              <div className={cx("product-image")}>
+                <img src={birdFood} alt="product-img" />
+              </div>
+              <div className={cx("product-name")}>
+                <span className={cx("name-text")}>
+                  Fruit Blend® Flavor with Natural Flavors
+                </span>
+              </div>
+              <div className={cx("product-rating")}>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+              </div>
+              <div className={cx("product-price")}>
+                <span className={cx("price-before")}>$200</span>
+                <span className={cx("price-after")}>$100</span>
+              </div>
+              <div className={cx("product-feature")}>
+                <div className={cx("product-status")}>
+                  <div className={cx("loading")}>
+                    <span className={cx("loading-text")}>SELLING WELL</span>
+                  </div>
+                </div>
+                <button className={cx("buy-btn")}>Buy now</button>
+              </div>
             </div>
           </div>
         </div>

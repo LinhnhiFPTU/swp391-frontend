@@ -2,7 +2,6 @@ import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,6 +14,7 @@ import Banner from "~/layouts/components/Banner/";
 
 import bird from "~/assets/images/bird.png";
 import birdFood from "~/assets/images/bird-food.png";
+import birdMedicine from "~/assets/images/bird-medicine.png";
 import birdCage from "~/assets/images/bird-cage.png";
 import birdAccessory from "~/assets/images/bird-accessory.png";
 import avatar from "~/assets/images/avatar.png";
@@ -25,29 +25,26 @@ const categories = [
   {
     image: bird,
     title: "BIRDS",
-    subText:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
   {
     image: birdFood,
     title: "BIRD FOODS",
-    subText:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    to: "",
+  },
+  {
+    image: birdMedicine,
+    title: "BIRD MEDICINES",
     to: "",
   },
   {
     image: birdCage,
-    title: "BIRD CAGE",
-    subText:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    title: "BIRD CAGES",
     to: "",
   },
   {
     image: birdAccessory,
     title: "BIRD ACCESSORIES",
-    subText:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     to: "",
   },
 ];
@@ -161,19 +158,16 @@ const bestSeller = [
 const shops = [
   {
     name: "Shop",
-    describe: "Commerce is a global online marketplace, where people.",
     image: avatar,
     rating: 2,
   },
   {
     name: "Shop name",
-    describe: "Commerce is a global online marketplace, where people.",
     image: avatar,
     rating: 4,
   },
   {
     name: "Shop name",
-    describe: "Commerce is a global online marketplace, where people.",
     image: avatar,
     rating: 3.5,
   },
@@ -328,7 +322,7 @@ function Home() {
           {/* -----------------BANNER----------------- */}
           <Banner />
           {/* -----------------CATEGORIES----------------- */}
-          {/* <div className={cx("categories-container")}>
+          <div className={cx("categories-container")}>
             <div className={cx("categories-heading")}>
               <i className={cx("cate-icon", "fa-solid fa-bars")}></i>
               <span className={cx("cate-text")}>Categories</span>
@@ -346,14 +340,11 @@ function Home() {
                   <div className={cx("item-type")}>
                     <span className={cx("type-text")}>{category.title}</span>
                     <br></br>
-                    <span className={cx("type-subText")}>
-                      {category.subText}
-                    </span>
                   </div>
                 </Link>
               ))}
             </div>
-          </div> */}
+          </div>
 
           {/* -----------------FLASH SALE----------------- */}
           <div className={cx("flashSale-container")}>
@@ -381,7 +372,7 @@ function Home() {
             <div className={cx("flashSale-list")}>
               <Slider {...settings_flashsale}>
                 {flashSales.map((item, index) => (
-                  <Link to="/" key={index} className={cx("flashSale-items")}>
+                  <Link to="/flash_sale" key={index} className={cx("flashSale-items")}>
                     <div className={cx("best-seller_item")}>
                       <div className={cx("item-img")}>
                         <img src={item.image} alt="item-img" />
@@ -437,14 +428,14 @@ function Home() {
           </div>
 
           {/*-----------------------------------PRODUCTS------------------------------*/}
-          <div className={cx('product_container')}>
-            <div className={cx('product_title')}>
+          <div className={cx("product_container")}>
+            <div className={cx("product_title")}>
               <p>DAILY PRODUCTS</p>
             </div>
-            <div className={cx('product_list')}>
+            <div className={cx("product_list")}>
               {products.map((item, index) => (
-                <div key={index} className={cx('product_items')}>
-                  <div className={cx('product-img')}>
+                <div key={index} className={cx("product_items")}>
+                  <div className={cx("product-img")}>
                     <img src={item.image} alt={item.name} />
                   </div>
                   <div className={cx('product-name')}>{item.name}</div>
@@ -461,7 +452,6 @@ function Home() {
 
 
                 </div>
-
               ))}
             </div>
           </div>
@@ -473,12 +463,12 @@ function Home() {
             <div className={cx("shop-trending-content")}>
               {shops.map((shop, index) => (
                 <Link to="/" className={cx("shop-item")} key={index}>
+                  <div className={cx("shop-img")}>
+                    <img src={shop.image} alt="shop-img" />
+                  </div>
                   <div className={cx("shop-text")}>
                     <div className={cx("head-text")}>
                       <h3>{shop.name}</h3>
-                    </div>
-                    <div className={cx("sub-text")}>
-                      <span>{shop.describe}</span>
                     </div>
                     <div className={cx("rating")}>
                       <span className={cx("rating-text")}>
@@ -489,20 +479,28 @@ function Home() {
                           name="half-rating-read"
                           defaultValue={shop.rating}
                           precision={0.1}
-                          size="large"
+                          size="medium"
                           readOnly
                         />
                       </div>
                     </div>
-                  </div>
-                  <div className={cx("shop-img")}>
-                    <img src={shop.image} alt="shop-img" />
+                    <div className={cx("contact")}>
+                      <button className={cx("chat")}>
+                        <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
+                        <span className={cx("chat-text")}>Chat</span>
+                      </button>
+                      <Link to="" className={cx("view")}>
+                        <i
+                          className={cx("fa-sharp fa-solid fa-bag-shopping", "icon-view")}
+                        ></i>
+                        <span className={cx("view-text")}>View Shop</span>
+                      </Link>
+                    </div>
                   </div>
                 </Link>
               ))}
             </div>
           </div>
-
         </div>
       </div>
       <Footer />
