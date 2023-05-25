@@ -78,6 +78,12 @@ const Header = () => {
             </Link>
           </div>
 
+          <div className={cx("notification-icon")}>
+            <Link to="/user/notifications" className={cx("notify-link")}>
+              <i className={cx("icon", "fa-light fa-bell")}></i>
+            </Link>
+          </div>
+
           <div className={cx("nav-icon")}>
             {/* -----------------Da login----------------- */}
             {user ? (

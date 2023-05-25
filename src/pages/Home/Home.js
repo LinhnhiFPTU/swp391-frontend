@@ -283,7 +283,7 @@ function Home() {
           {/* -----------------BANNER----------------- */}
           <Banner />
           {/* -----------------CATEGORIES----------------- */}
-          <div className={cx("categories-container")}>
+          {/* <div className={cx("categories-container")}>
             <div className={cx("categories-heading")}>
               <i className={cx("cate-icon", "fa-solid fa-bars")}></i>
               <span className={cx("cate-text")}>Categories</span>
@@ -308,7 +308,7 @@ function Home() {
                 </Link>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* -----------------FLASH SALE----------------- */}
           <div className={cx("flashSale-container")}>

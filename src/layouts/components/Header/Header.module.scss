@@ -38,7 +38,7 @@
 }
 
 .search-bar {
-  width: 500px;
+  width: 450px;
   display: flex;
   align-items: center;
 }
@@ -46,14 +46,14 @@
 .search-bar input {
   font-size: 15px;
   flex: 1;
-  padding: 13px;
+  padding: 10px;
   border: none;
   border-radius: 3px;
   outline: none;
   background: rgba(22, 24, 35, 0.03);
 }
 .search-bar button {
-  padding: 13px;
+  padding: 10px;
   margin-left: 2px;
   border-radius: 3px;
   border: none;
@@ -68,15 +68,16 @@
 
 .options-content {
   display: flex;
+  align-items: center;
 }
 
 .option {
-  padding: 0 35px;
+  padding: 0 20px;
 }
 
 .option-link {
   color: #333;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 600;
   text-decoration: none;
 }
@@ -93,12 +94,18 @@
 
 .cart-icon {
   position: relative;
-  width: 3rem;
-  height: 3rem;
+  width: 2.6rem;
+  height: 2.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 25px;
+}
+
+.notification-icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-right: 15px;
 }
 
 .cart-link {
@@ -109,10 +116,10 @@
   user-select: none;
   position: absolute;
   bottom: 2rem;
-  left: 1.8rem;
-  width: 2.4rem;
-  height: 2rem;
-  font-size: 1.3rem;
+  left: 1.6rem;
+  width: 2rem;
+  height: 1.8rem;
+  font-size: 1.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +134,7 @@
 // }
 
 .icon {
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: #333;
 }
 

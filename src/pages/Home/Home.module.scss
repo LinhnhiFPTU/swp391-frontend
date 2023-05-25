@@ -186,14 +186,16 @@
   flex-direction: column;
   width: 42px;
   height: 38px;
-  clip-path: polygon(30% 0%,
-      70% 0%,
-      100% 0,
-      100% 100%,
-      48% 84%,
-      0 100%,
-      0 100%,
-      0 0);
+  clip-path: polygon(
+    30% 0%,
+    70% 0%,
+    100% 0,
+    100% 100%,
+    48% 84%,
+    0 100%,
+    0 100%,
+    0 0
+  );
   background-color: #ff4d2e;
 }
 
@@ -343,7 +345,8 @@
 }
 
 //control-button
-.control-btn .next,  .control-btn .prev{
+.control-btn .next,
+.control-btn .prev {
   position: absolute;
   width: 30px;
   height: 30px;
@@ -353,33 +356,51 @@
   text-decoration: none;
   text-align: center;
   color: #ff7a3393;
-  font-size: 20px;
-  background-color: rgba(216, 211, 211, 0.968);
-  &:hover {
-    width: 35px;
-    height: 35px;
-    font-size: 23px;
-    top: calc(50% - 35px);
+  font-size: 16px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+
+
+  &:hover i {
+    margin: 15px;
   }
 }
 
 .control-btn .next {
   top: calc(50% - 30px);
-  right: -40px;
+  right: -45px;
   border: none;
-  
+  position: absolute;
+
+  &:hover {
+    top: calc(50% - 40px);
+    right: -55px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
 }
 
 .control-btn .prev {
-  top: calc(50% - 30px);  
-  left: -40px;
+  top: calc(50% - 30px);
+  left: -45px;
   border: none;
+  position: absolute;
+
+  &:hover {
+    top: calc(50% - 40px);
+    left: -55px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
 }
 
 //Product
 .product_container {
   background-color: white;
-  width:100%;
+  width: 100%;
   margin-top: 50px;
   padding: 30px;
   position: relative;
@@ -512,5 +533,3 @@
     width: 100%;
   }
 }
-
-
