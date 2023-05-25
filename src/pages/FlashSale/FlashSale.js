@@ -4,9 +4,11 @@ import { useEffect, useState, useRef } from "react";
 import Header from "~/layouts/components/Header/";
 import Footer from "~/layouts/components/Footer/";
 import banner from "~/assets/images/banner.png";
+import birdFood from "~/assets/images/bird-food.png"
 import styles from "./FlashSale.module.scss";
 
 const cx = classNames.bind(styles);
+
 
 const filterBtns = ["birds", "foods", "medicines", "cages", "accessories"];
 function FlashSale() {
@@ -93,37 +95,19 @@ function FlashSale() {
           </div>
           <div className={cx("flash_sale-list")}>
             <div className={cx("flash_sale-product")}>
+                <div className={cx("product-name")}>
+                </div>
+                <div className={cx("product-rating")}>
 
-            </div>
-            <div className={cx("flash_sale-product")}>
-              
-            </div>
-            <div className={cx("flash_sale-product")}>
-              
-            </div>
-            <div className={cx("flash_sale-product")}>
-              
-            </div>
+                </div>
+                <div className={cx("product-price")}>
 
-            <div className={cx("flash_sale-product")}>
-              
-            </div>
-            <div className={cx("flash_sale-product")}>
+                </div>
+                <div className={cx("product-feature")}>
 
+                </div>
             </div>
-            <div className={cx("flash_sale-product")}>
-              
-            </div>
-            <div className={cx("flash_sale-product")}>
-              
-            </div>
-            <div className={cx("flash_sale-product")}>
-              
-            </div>
-
-            <div className={cx("flash_sale-product")}>
-              
-            </div>
+            
           </div>
         </div>
       </div>

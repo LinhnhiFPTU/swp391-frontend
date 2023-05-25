@@ -84,16 +84,16 @@ function Footer() {
           </div>
           <div className={cx("below-link")}>
             <Link to="" className={cx("text-link-below")}>
-              Term of use
+              Term of service
             </Link>
             <Link to="" className={cx("text-link-below")}>
               Privacy policy
             </Link>
             <Link to="" className={cx("text-link-below")}>
-              Security
+              Shipping policy
             </Link>
             <Link to="" className={cx("text-link-below")}>
-              Cookies
+              Violation
             </Link>
           </div>
         </div>
