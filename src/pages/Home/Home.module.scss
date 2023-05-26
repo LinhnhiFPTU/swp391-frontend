@@ -60,6 +60,11 @@
   text-decoration: none;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  }
+
   .item-img {
     width: 100px;
     height: 100px;
@@ -399,9 +404,9 @@
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-  &:hover i {
-    margin: 15px;
-  }
+  // &:hover i {
+  //   margin: 15px;
+  // }
 }
 
 .controlbs-btn .next {

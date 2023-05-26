@@ -252,7 +252,7 @@ const PrevArrowBS = (props) => {
   return (
     <div className={cx("controlbs-btn")} onClick={onClick}>
       <button className={cx("prev")}>
-        <i class="fa-regular fa-chevron-left"></i>
+        <i className={cx("fa-regular fa-chevron-left")}></i>
       </button>
     </div>
   );
@@ -262,7 +262,7 @@ const NextArrowBS = (props) => {
   return (
     <div className={cx("controlbs-btn")} onClick={onClick}>
       <button className={cx("next")}>
-        <i class="fa-solid fa-chevron-right"></i>
+        <i className={cx("fa-solid fa-chevron-right")}></i>
       </button>
     </div>
   );
