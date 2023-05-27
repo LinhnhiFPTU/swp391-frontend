@@ -7,6 +7,7 @@ import avatar from '~/assets/images/avatar.png'
 import bird from "~/assets/images/bird.png";
 
 import styles from "./Shop.module.scss";
+import Footer from '~/layouts/components/Footer/Footer';
 const cx = classNames.bind(styles);
 
 const products = [
@@ -164,6 +165,7 @@ function Shop() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
