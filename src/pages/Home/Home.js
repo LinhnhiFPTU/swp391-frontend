@@ -176,58 +176,58 @@ const shops = [
 const products = [
   {
     image: bird,
-    name: "Nekton",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "25",
   },
   {
     image: bird,
-    name: "Amoxy-Tyl",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "30",
   },
   {
     image: bird,
-    name: "Bird B.Gone",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "35",
   },
   {
     image: bird,
-    name: "Bird Spikes",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "40",
   },
   {
     image: bird,
-    name: "Shefa",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "45",
   },
   {
     image: bird,
-    name: "Shefa",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "50",
   },
   {
     image: bird,
-    name: "Shefa",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "55",
   },
   {
     image: bird,
-    name: "Shefa",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "60",
   },
   {
     image: bird,
-    name: "Shefa",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "65",
   },
   {
     image: bird,
-    name: "Shefa",
+    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "70",
   },
 ];
 //Control Flash Sale Button
 const PrevArrowFS = (props) => {
-  const { onClick } = props
+  const { onClick } = props;
   return (
     <div className={cx("controlfs-btn")} onClick={onClick}>
       <button className={cx("prev")}>
@@ -248,7 +248,7 @@ const NextArrowFS = (props) => {
 };
 //Control Best Seller Button
 const PrevArrowBS = (props) => {
-  const { onClick } = props
+  const { onClick } = props;
   return (
     <div className={cx("controlbs-btn")} onClick={onClick}>
       <button className={cx("prev")}>
@@ -372,7 +372,11 @@ function Home() {
             <div className={cx("flashSale-list")}>
               <Slider {...settings_flashsale}>
                 {flashSales.map((item, index) => (
-                  <Link to="/flash_sale" key={index} className={cx("flashSale-items")}>
+                  <Link
+                    to="/flash_sale"
+                    key={index}
+                    className={cx("flashSale-items")}
+                  >
                     <div className={cx("best-seller_item")}>
                       <div className={cx("item-img")}>
                         <img src={item.image} alt="item-img" />
@@ -389,7 +393,9 @@ function Home() {
                       </div>
                       <div className={cx("item-status")}>
                         <div className={cx("loading")}>
-                          <span className={cx("loading-text")}>SELLING WELL</span>
+                          <span className={cx("loading-text")}>
+                            SELLING WELL
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -426,35 +432,6 @@ function Home() {
               </Slider>
             </div>
           </div>
-
-          {/*-----------------------------------PRODUCTS------------------------------*/}
-          <div className={cx("product_container")}>
-            <div className={cx("product_title")}>
-              <p>DAILY PRODUCTS</p>
-            </div>
-            <div className={cx("product_list")}>
-              {products.map((item, index) => (
-                <div key={index} className={cx("product_items")}>
-                  <div className={cx("product-img")}>
-                    <img src={item.image} alt={item.name} />
-                  </div>
-                  <div className={cx('product-name')}>{item.name}</div>
-                  <div className={cx('product-rating')}>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
-                  </div>
-                  <div className={cx('price_before')}>${item.price}</div>
-                  <div className={cx('product-price')}>${item.price}</div>
-                  <button className={cx('btn_add')}>Buy Now</button>
-
-
-                </div>
-              ))}
-            </div>
-          </div>
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
             <div className={cx("shop-trending-top")}>
@@ -486,18 +463,49 @@ function Home() {
                     </div>
                     <div className={cx("contact")}>
                       <button className={cx("chat")}>
-                        <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
+                        <i
+                          className={cx("fa-solid fa-messages", "icon-chat")}
+                        ></i>
                         <span className={cx("chat-text")}>Chat</span>
                       </button>
                       <Link to="" className={cx("view")}>
                         <i
-                          className={cx("fa-sharp fa-solid fa-bag-shopping", "icon-view")}
+                          className={cx(
+                            "fa-sharp fa-solid fa-bag-shopping",
+                            "icon-view"
+                          )}
                         ></i>
                         <span className={cx("view-text")}>View Shop</span>
                       </Link>
                     </div>
                   </div>
                 </Link>
+              ))}
+            </div>
+          </div>
+          {/*-----------------------------------PRODUCTS------------------------------*/}
+          <div className={cx("product_container")}>
+            <div className={cx("product_title")}>
+              DAILY PRODUCTS
+            </div>
+            <div className={cx("product_list")}>
+              {products.map((item, index) => (
+                <div key={index} className={cx("product_items")}>
+                  <div className={cx("product-img")}>
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className={cx("product-name")}>{item.name}</div>
+                  <div className={cx("product-rating")}>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                  </div>
+                  <div className={cx("price_before")}>${item.price}</div>
+                  <div className={cx("product-price")}>${item.price}</div>
+                  <button className={cx("btn_add")}>Buy Now</button>
+                </div>
               ))}
             </div>
           </div>

@@ -30,7 +30,7 @@
 
         &:hover {
           transform: translateY(-3px);
-          box-shadow: rgba(0, 136, 72, 0.2) 0px 2px 8px 0px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         }
 
         .shop-related_shop-item {
@@ -224,7 +224,7 @@
           
           &:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0, 136, 72, 0.2);
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
           }
 
           .item-image {
@@ -255,14 +255,14 @@
               align-items: center;
 
               .real-price {
-                margin-right: 8px;
+                margin-right: 15px;
                 font-size: 1.4rem;
                 text-decoration: line-through;
                 color: #0000008a;
               }
 
               .sale-price {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
                 color: var(--primary);
               }
             }
