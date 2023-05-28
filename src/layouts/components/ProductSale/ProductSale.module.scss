@@ -390,7 +390,7 @@
 
         .related-product {
           width: 160px;
-          height: 200px;
+          height: 250px;
           text-decoration: none;
           color: #000000de;
 
@@ -407,9 +407,13 @@
             margin-top: 7px;
             font-size: 1.4rem;
             width: 160px;
-            white-space: nowrap;
+            word-wrap: break-word;
+            white-space: normal;
             overflow: hidden;
+            display: -webkit-box;
             text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
           }
 
           .product-price {
@@ -589,9 +593,12 @@
         .description-content {
           margin: 30px 15px 15px 15px;
 
-          .text {
+          pre {
+            font-family: "Poppins", sans-serif;
             font-size: 1.4rem;
             color: #000000cc;
+            display: block;
+            white-space: pre-line;
           }
         }
       }
@@ -716,40 +723,66 @@
               }
             }
 
-            .image_comment {
+            .comment-wrapper {
               height: 82px;
-              display: flex;
 
-              video {
-                cursor: zoom-in;
+              .comment-video {
+                position: relative;
                 width: 72px;
                 height: 72px;
-                margin: 0 10px 10px 0px;
+                margin-right: 10px;
+                background-color: black;
+                video {
+                  cursor: zoom-in;
+                  width: 72px;
+                  height: 72px;
+                }
+
+                .icon-video {
+                  width: 100%;
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  background: rgba(0, 0, 0, 0.54);
+                  padding: 4px 8px 4px 8px;
+                  align-items: center;
+                  font-size: 1rem;
+                  color: #fff;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                }
               }
-
-              img {
-                cursor: zoom-in;
-                width: 72px;
+              .comment-image {
+                width: 500px;
                 height: 72px;
-                margin: 0 10px 10px 0px;
+                display: flex;
+
+                img {
+                  cursor: zoom-in;
+                  margin-right: 10px;
+                  width: 72px;
+                  height: 100%;
+                }
               }
             }
 
             .view-image {
-              width: 100%;
+              max-width: fit-content;
               height: 500px;
               position: relative;
               .preview {
-                margin-top: 30px;
-                width: 500px;
-                height: 100%;
+                width: fit-content;
+                height: 500px;
                 img {
-                  cursor: zoom-out;
-                  width: 100%;
+                  max-width: 100%;
+                  max-height: 500px;
                 }
                 video {
-                  cursor: zoom-out;
-                  width: 100%;
+                  width: 516px;
+                  max-height: 500px;
+                  background-color: black !important;
                 }
               }
 

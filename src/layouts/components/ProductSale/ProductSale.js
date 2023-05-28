@@ -14,8 +14,19 @@ import styles from "./ProductSale.module.scss";
 
 const cx = classNames.bind(styles);
 const filterBtns = ["All", "5 Star", "4 Star", "3 Star", "2 Star", "1 Star"];
-const products = [product, product1, product2, product3, product4, product5];
+const products = [
+  {
+    type: "video",
+    src: "https://play-ws.vod.shopee.com/api/v4/11110103/mms/vn_7a40b4ce-8cbe-4f13-ae8e-355f3aa3d07b_000230.16000461675675278.mp4",
+  },
+  { type: "img", src: product1 },
+  { type: "img", src: product2 },
+  { type: "img", src: product3 },
+  { type: "img", src: product4 },
+  { type: "img", src: product5 },
+];
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
 function ProductSale() {
   const [type, setType] = useState("All");
   const [second, setSecond] = useState(0);
@@ -23,12 +34,13 @@ function ProductSale() {
   const [cmtPage, setCmtPage] = useState(1);
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
+  const videoRef = useRef();
   const timeID = useRef();
   const [comment, setComment] = useState({
     ratings: [1, 2, 3, 4, 5],
     rating: 2,
   });
-  const [imagePreview, setImagePreview] = useState();
+  const [preview, setPreview] = useState([]);
   useEffect(() => {
     let now2 = new Date();
     now2.setHours(now2.getHours() + 1);
@@ -360,7 +372,11 @@ function ProductSale() {
             <div className={cx("product-description")}>
               <div className={cx("description-title")}>Product Description</div>
               <div className={cx("description-content")}>
-                <span className={cx("text")}></span>
+                <pre className={cx("text")}>
+                  {`
+                  
+                  `}
+                </pre>
               </div>
             </div>
           </div>
@@ -434,46 +450,51 @@ function ProductSale() {
                       Tiếp tục ủng hộ shop
                     </span>
                   </div>
-                  <div className={cx("image_comment")}>
-                    <video
-                      src="https://www.w3schools.com/tags/movie.mp4"
-                      onClick={(e) => setImagePreview(e.target.src)}
-                    ></video>
-                    {products.map((productImg, index) => (
-                      <img
-                        key={index}
-                        src={productImg}
-                        alt="img-comment"
-                        onClick={(e) => setImagePreview(e.target.src)}
-                      />
-                    ))}
-                  </div>
-                  {imagePreview && (
-                    <div className={cx("view-image")}>
-                      {/* <div className={cx("controll-btn")}>
-                        <button className={cx("prev")}>
-                          <i className={cx("fa-regular fa-chevron-left")}></i>
-                        </button>
-                      </div> */}
-
-                      <div className={cx("preview")}>
-                        {/* <img
-                          src={imagePreview}
-                          alt="view-img"
-                        /> */}
-                        <video
-                          src={imagePreview}
-                          controls
-                          autoPlay
-                        ></video>
-                      </div>
-                      {/* <div className={cx("controll-btn")}>
-                        <button className={cx("next")}>
-                          <i className={cx("fa-solid fa-chevron-right")}></i>
-                        </button>
-                      </div> */}
+                  <div className={cx("comment-wrapper")}>
+                    <div className={cx("comment-image")}>
+                      {products.map((productMedia, index) => {
+                        if (productMedia.type === "img") {
+                          return (
+                            <img
+                              key={index}
+                              src={productMedia.src}
+                              alt="img-comment"
+                              onClick={""}
+                            />
+                          );
+                        }
+                        return (
+                          <div className={cx("comment-video")}>
+                            <video
+                              src="https://play-ws.vod.shopee.com/api/v4/11110103/mms/vn_7a40b4ce-8cbe-4f13-ae8e-355f3aa3d07b_000230.16000461675675278.mp4"
+                              onClick={""}
+                              ref={videoRef}
+                            />
+                            <div className={cx("icon-video")}>
+                              <i className={cx("fa-solid fa-video")}></i>
+                              <span>
+                                {(() => {
+                                  let duration =
+                                    videoRef.current &&
+                                    Math.floor(videoRef.current.duration);
+                                  let rs = "00:00";
+                                  if (duration) {
+                                    let minute = Math.floor(duration / 60);
+                                    let seconds = duration % 60;
+                                    let secString = "";
+                                    if (seconds < 10) secString = "0" + seconds;
+                                    else secString = seconds;
+                                    rs = minute + ":" + secString;
+                                  }
+                                  return rs;
+                                })()}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>

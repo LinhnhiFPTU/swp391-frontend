@@ -118,7 +118,7 @@
     border: none;
     outline: none;
     background-color: transparent;
-    color: #ff1616;
+    color: var(--flash_sale-primary);
     border-bottom: 5px solid var(--flash_sale-primary);
   }
 
@@ -147,7 +147,7 @@
 
     &:hover {
       transform: translateY(-5px);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     }
 
     .product-sale {
