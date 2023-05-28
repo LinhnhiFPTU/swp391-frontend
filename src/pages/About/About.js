@@ -14,7 +14,10 @@ function About() {
                     <div className={cx('about-descriptions', 'col-lg-6')}>
                         <div className={cx('about-description')}>
                             <p>Welcome to our trade site for birds!</p>
-                            <p>We are a group of ardent bird lovers who specialize in matching bird enthusiasts with the ideal feathery companions. Our marketplace offers a wide range of birds for sale, including common species as well as uncommon and exotic varieties, specialty feeds, and accessories.</p>
+                            <p>We are a group of ardent bird lovers who specialize in matching bird enthusiasts with the ideal feathery companions.
+                            We are a bird store that specializes in all your pet bird needs!  <br/>
+                            Our marketplace offers a wide range of birds for sale, including common species as well as uncommon and exotic varieties, 
+                            specialty feeds, and accessories. We ship Vietnam-wide!</p>
                         </div>
                         <div className={cx('about-info')}>
                             <div className={cx('about-details')}>

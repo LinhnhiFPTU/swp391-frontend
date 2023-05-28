@@ -12,6 +12,7 @@ import FlashSale from '~/pages/FlashSale'
 import ProductSale from "~/layouts/components/ProductSale";
 import Shop from "~/pages/Shop";
 import ProductSearch from "~/pages/ProductSearch";
+import Cart from "~/pages/Cart";
 
 
 const publicRoutes = [
@@ -28,6 +29,7 @@ const publicRoutes = [
   { path: '/shop', component: Shop},
   { path: '/product_sale', component: ProductSale},
   { path: '/product_search', component: ProductSearch},
+  { path: '/cart', component: Cart},
 ];
 
 const privateRoutes = [];
