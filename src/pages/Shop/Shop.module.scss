@@ -103,7 +103,7 @@
 .shop-totalProducts span, .shop-totalFollowers span,
 .shop-totalRating span, .shop-totalResponseRate span {
     width: 50px;
-    color: #008848;
+    color: var(--primary);
     font-weight: 500;
 }
 
