@@ -11,6 +11,7 @@ import Address from "~/pages/Profile/Address"
 import FlashSale from '~/pages/FlashSale'
 import ProductSale from "~/layouts/components/ProductSale";
 import Shop from "~/pages/Shop";
+import Cart from "~/pages/Cart";
 
 
 const publicRoutes = [
@@ -26,6 +27,7 @@ const publicRoutes = [
   { path: '/flash_sale', component: FlashSale},
   { path: '/product_sale', component: ProductSale},
   { path: '/shop', component: Shop},
+  { path: '/cart', component: Cart},
 ];
 
 const privateRoutes = [];
