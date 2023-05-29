@@ -212,9 +212,18 @@
 
 .item-name {
   margin-top: 5px;
-  color: var(--flash_sale-primary);
   font-size: 1.8rem;
   font-weight: 500;
+  width: 100%;
+  height: 27px;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  color: var(--flash_sale-primary);
 }
 
 .item-price {
@@ -369,10 +378,19 @@
 }
 
 .bitem-name {
-  color: #ff7c33;
   margin-top: 5px;
   font-size: 1.8rem;
   font-weight: 500;
+  width: 100%;
+  height: 27px;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  color: #ff7c33;
 }
 
 .item-sells {
@@ -541,13 +559,13 @@
     font-size: 1.4rem;
     text-decoration: none;
     outline: none;
-    border: 1px solid #636262aa;
-    color: #636262aa;
+    border: 1px solid #333;
+    color: #333;
     background-color: transparent;
 
     .icon-view {
       margin-right: 10px;
-      color: #636262aa;
+      color: #333;
     }
   }
 }
