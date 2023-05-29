@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 
 import Avatar from "react-avatar-edit";
 import { useState, useEffect, useContext } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 

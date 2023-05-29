@@ -9,6 +9,7 @@ import birdMedicine from "~/assets/images/bird-medicine.png";
 import birdCage from "~/assets/images/bird-cage.png";
 import bird from "~/assets/images/bird.png";
 import styles from "./FlashSale.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -55,24 +56,26 @@ function FlashSale() {
   const timeID = useRef();
 
   useEffect(() => {
-    let now2 = new Date();
-    now2.setHours(now2.getHours() + 1);
-    now2.setMinutes(0);
-    now2.setSeconds(0);
-    let end = now2.getTime();
-    timeID.current = setInterval(() => {
-      let now = new Date().getTime();
-      let distance = end - now;
+    axios.get("/api/v1/publics/time").then((res) => {
+      let now2 = new Date(res.data);
+      now2.setHours(now2.getHours() + 1);
+      now2.setMinutes(0);
+      now2.setSeconds(0);
+      let end = now2.getTime();
+      timeID.current = setInterval(() => {
+        let now = new Date().getTime();
+        let distance = end - now;
 
-      let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
-      let second = Math.floor((distance % (60 * 1000)) / 1000);
-      setMinute(minute);
-      setSecond(second);
-    }, 1000);
+        let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
+        let second = Math.floor((distance % (60 * 1000)) / 1000);
+        setMinute(minute);
+        setSecond(second);
+      }, 1000);
+    });
     return () => {
       clearInterval(timeID.current);
     };
-  });
+  }, []);
 
   // useEffect(() => {
   //   if (countdown.minute === 0 && countdown.second === 0) {
@@ -130,7 +133,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -148,8 +153,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -164,7 +173,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -182,8 +193,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -198,7 +213,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -216,8 +233,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -232,7 +253,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -250,8 +273,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -266,7 +293,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -284,8 +313,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -300,7 +333,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -318,8 +353,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -334,7 +373,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -352,8 +393,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -368,7 +413,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -386,8 +433,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -402,7 +453,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -420,8 +473,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -436,7 +493,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -454,8 +513,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>
@@ -470,7 +533,9 @@ function FlashSale() {
             {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>-{product.product_sale_percentage}%</span>
+                  <span className={cx("sale")}>
+                    -{product.product_sale_percentage}%
+                  </span>
                 </div>
                 <div className={cx("product-image")}>
                   <img src={product.product_img} alt="product-img" />
@@ -488,8 +553,12 @@ function FlashSale() {
                   <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                 </div>
                 <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>${product.product_price}</span>
-                  <span className={cx("price-after")}>${product.product_price_sale}</span>
+                  <span className={cx("price-before")}>
+                    ${product.product_price}
+                  </span>
+                  <span className={cx("price-after")}>
+                    ${product.product_price_sale}
+                  </span>
                 </div>
                 <div className={cx("product-feature")}>
                   <div className={cx("product-status")}>

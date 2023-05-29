@@ -197,14 +197,14 @@ function Address() {
                         </span>
                       </div>
                       <div className={cx("address-crud")}>
-                        <button className={cx("crud-delete")} onClick={(e) => handleDelete(e, item.id)}>
+                        {!item._default && <button className={cx("crud-delete")} onClick={(e) => handleDelete(e, item.id)}>
                           <i
                             className={cx(
                               "icon-delete",
                               "fa-sharp fa-solid fa-trash-xmark"
                             )}
                           ></i>
-                        </button>
+                        </button>}
                       </div>
                     </div>
                     <div className={cx("address-options")}>
