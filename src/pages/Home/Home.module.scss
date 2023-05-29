@@ -289,9 +289,6 @@
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-  &:hover i {
-    margin: 15px;
-  }
 }
 
 .controlfs-btn .next {
@@ -299,6 +296,7 @@
   right: -45px;
   border: none;
   position: absolute;
+  transition: .3s;
 
   &:hover {
     top: calc(50% - 40px);
@@ -314,6 +312,7 @@
   left: -45px;
   border: none;
   position: absolute;
+  transition: .3s;
 
   &:hover {
     top: calc(50% - 40px);
@@ -430,6 +429,7 @@
   right: -45px;
   border: none;
   position: absolute;
+  transition: .3s;
 
   &:hover {
     top: calc(50% - 40px);
@@ -445,6 +445,7 @@
   left: -45px;
   border: none;
   position: absolute;
+  transition: .3s;
 
   &:hover {
     top: calc(50% - 40px);

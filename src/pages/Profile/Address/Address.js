@@ -66,7 +66,7 @@ function Address() {
   useEffect(() => {
     if (defaultId) {
       axios
-        .get("/api/v1/users/info/receives/default/" + defaultId)
+        .post("/api/v1/users/info/receives/default/" + defaultId)
         .then((res) => {
           console.log(res)
           window.location.href = '/user/account/address'
@@ -80,7 +80,7 @@ function Address() {
   useEffect(() => {
     if (deleteId) {
       axios
-        .get("/api/v1/users/info/receives/delete/" + deleteId)
+        .delete("/api/v1/users/info/receives/delete/" + deleteId)
         .then((res) => {
           console.log(res)
           window.location.href = '/user/account/address'

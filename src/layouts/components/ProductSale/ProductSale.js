@@ -1,6 +1,8 @@
 import classNames from "classnames/bind";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import product from "~/assets/images/bird-cage.png";
@@ -42,24 +44,29 @@ function ProductSale() {
   });
   const [preview, setPreview] = useState([]);
   useEffect(() => {
-    let now2 = new Date();
-    now2.setHours(now2.getHours() + 1);
-    now2.setMinutes(0);
-    now2.setSeconds(0);
-    let end = now2.getTime();
-    timeID.current = setInterval(() => {
-      let now = new Date().getTime();
-      let distance = end - now;
+    axios.get("/api/v1/publics/time").then((res) => {
+      let now2 = new Date(res.data);
+      now2.setHours(now2.getHours() + 1);
+      now2.setMinutes(0);
+      now2.setSeconds(0);
+      let end = now2.getTime();
+      timeID.current = setInterval(() => {
+        let now = new Date().getTime();
+        let distance = end - now;
 
-      let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
-      let second = Math.floor((distance % (60 * 1000)) / 1000);
-      setMinute(minute);
-      setSecond(second);
-    }, 1000);
+        let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
+        let second = Math.floor((distance % (60 * 1000)) / 1000);
+        setMinute(minute);
+        setSecond(second);
+      }, 1000);
+    })
+    .catch(e => {
+      console.log(e)
+    });
     return () => {
       clearInterval(timeID.current);
     };
-  });
+  }, []);
 
   const handleNextCmtPage = (e) => {
     e.preventDefault();

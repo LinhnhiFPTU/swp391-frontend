@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -289,29 +290,34 @@ const settings_bestseller = {
 };
 
 function Home() {
-  const [second, setSecond] = useState(59);
-  const [minute, setMinute] = useState(30);
+  const [second, setSecond] = useState(0);
+  const [minute, setMinute] = useState(0);
   const timeID = useRef();
 
   useEffect(() => {
-    timeID.current = setInterval(() => {
-      setSecond((pre) => pre - 1);
-      if (second === 0) {
-        setMinute((pre) => pre - 1);
-        setSecond(59);
-      }
-    }, 1000);
+    axios.get("/api/v1/publics/time").then((res) => {
+      let now2 = new Date(res.data);
+      now2.setHours(now2.getHours() + 1);
+      now2.setMinutes(0);
+      now2.setSeconds(0);
+      let end = now2.getTime();
+      timeID.current = setInterval(() => {
+        let now = new Date().getTime();
+        let distance = end - now;
+
+        let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
+        let second = Math.floor((distance % (60 * 1000)) / 1000);
+        setMinute(minute);
+        setSecond(second);
+      }, 1000);
+    })
+    .catch(e => {
+      console.log(e)
+    });
     return () => {
       clearInterval(timeID.current);
     };
-  });
-
-  useEffect(() => {
-    if (minute === 0 && second === 0) {
-      setMinute(30);
-      setSecond(59);
-    }
-  }, [second, minute]);
+  }, []);
   return (
     <>
       {/* -----------------HEADER----------------- */}

@@ -71,6 +71,9 @@ function FlashSale() {
         setMinute(minute);
         setSecond(second);
       }, 1000);
+    })
+    .catch(e => {
+      console.log(e)
     });
     return () => {
       clearInterval(timeID.current);
