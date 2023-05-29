@@ -71,7 +71,7 @@
 }
 
 .btn-submit button[disabled] {
-  opacity: .6;
+  opacity: 0.6;
   cursor: default;
 }
 
@@ -95,6 +95,11 @@
     background-color: transparent;
   }
 
+  p {
+    display: flex;
+    align-items: center;
+  }
+
   .resend-active {
     color: var(--primary);
     color: var(--primary);
@@ -109,6 +114,7 @@
   }
 
   .count-down {
+    min-width: 35px;
     color: var(--primary);
   }
 }

@@ -14,19 +14,14 @@ function NewPassword({ onClick }) {
   const [passwordConfirmType, setPasswordConfirmType] = useState("password");
 
   useEffect(() => {
-    if (password === confirm) {
-      setDisabled(false);
-    } else {
+    if(password === "" && confirm === "") {
       setDisabled(true);
-    }
-  }, [password, confirm]);
-
-  useEffect(() => {
-    if (password !== confirm) {
+    }else if (password !== confirm) {
       setDisabled(true);
       setMsg("Passwords do not match");
     } else {
       setMsg("");
+      setDisabled(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [confirm]);
@@ -89,7 +84,7 @@ function NewPassword({ onClick }) {
                   type={passwordConfirmType}
                   className={cx("password")}
                   required
-                  onBlur={(e) => setConfirm(e.target.value)}
+                  onChange={(e) => setConfirm(e.target.value)}
                 />
                 <div className={cx("input-group-btn")}>
                   <button

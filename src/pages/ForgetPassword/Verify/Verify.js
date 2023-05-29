@@ -131,7 +131,7 @@ function Verify({ onClick, errMsg = "", loading, user }) {
                     >
                       Resend Email
                     </button>{" "}
-                    <span className={cx("count-down")}>{countDown}s</span>
+                    <span className={cx("count-down")}>{countDown}</span>
                   </p>
                 </div>
               </div>
