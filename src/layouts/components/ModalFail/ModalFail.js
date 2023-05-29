@@ -23,12 +23,11 @@ function ModalFail({
   const [resendMsg, setResendMsg] = useState("");
 
   const imgStyles = {
-    width: "130px",
-    height: "130px",
+    width: "40px",
+    height: "40px",
     backgroundImage: `url(${fail})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "100%",
-    marginTop: "40px",
   };
 
   useEffect(() => {
@@ -38,12 +37,12 @@ function ModalFail({
         .get("/api/v1/auths/registration/resend?token=" + token)
         .then((res) => {
           setMsg((msg) => res.data.status);
-          setAlertType("success")
+          setAlertType("success");
           setResend(false);
         })
         .catch((e) => {
           setMsg(e.response.data.message);
-          setAlertType("danger")
+          setAlertType("danger");
           setResend(false);
         });
     }
@@ -57,13 +56,13 @@ function ModalFail({
   return (
     <div className={cx("overlay")}>
       <div onClick={(e) => e.stopPropagation()} className={cx("pop-up")}>
-        <div className={cx("logo-success")}>
+        <div className={cx("heading")}>
           <div className={cx("img-success")} style={imgStyles}></div>
+          <div className={cx("fail-heading")}>
+            <h1 className={cx("fail")}>{message}</h1>
+          </div>
         </div>
-        <div className={cx("success-heading")}>
-          <h1 className={cx("fail")}>{message}</h1>
-        </div>
-        <div className={cx("success-text")}>
+        <div className={cx("fail-text")}>
           <p>{subMessage}</p>
         </div>
         {msg && (

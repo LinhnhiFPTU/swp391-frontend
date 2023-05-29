@@ -2,8 +2,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 30px;
-    margin-bottom: 150px;
+    margin-top: 90px;
+    margin-bottom: 90px;
 }
 
 .container {
@@ -23,6 +23,7 @@
     text-align: center;
     width: 390px;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.063);
+    cursor: pointer;
 }
 
 .contact-details:hover {

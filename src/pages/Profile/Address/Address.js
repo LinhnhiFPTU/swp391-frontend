@@ -55,7 +55,7 @@ function Address() {
       .get("/api/v1/users/info/receives?page=" + curPage)
       .then((res) => {
         let setup = res.data || [];
-        let param = curPage == 1 ? "" : "?page=" + curPage;
+        let param = curPage === 1 ? "" : "?page=" + curPage;
         setReceiveInfos(setup);
       })
       .catch((e) => {

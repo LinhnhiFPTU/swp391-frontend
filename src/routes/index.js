@@ -8,8 +8,12 @@ import Contact from '~/pages/Contact'
 import Account from "~/pages/Profile/Account";
 import Password from "~/pages/Profile/Password";
 import Address from "~/pages/Profile/Address"
-import Confirm from '~/pages/Confirm'
+import Confirm from "~/pages/Confirm";
 import FlashSale from '~/pages/FlashSale'
+import ProductSale from "~/layouts/components/ProductSale";
+import Shop from "~/pages/Shop";
+import ProductSearch from "~/pages/ProductSearch";
+import Cart from "~/pages/Cart";
 
 
 const publicRoutes = [
@@ -24,6 +28,10 @@ const publicRoutes = [
   { path: '/user/account/address', component: Address},
   { path: '/confirm', component: Confirm},
   { path: '/flash_sale', component: FlashSale},
+  { path: '/shop', component: Shop},
+  { path: '/product_sale', component: ProductSale},
+  { path: '/product_search', component: ProductSearch},
+  { path: '/cart', component: Cart},
 ];
 
 const privateRoutes = [];
