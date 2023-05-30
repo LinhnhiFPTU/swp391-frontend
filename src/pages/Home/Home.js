@@ -54,42 +54,42 @@ const flashSales = [
   {
     image: birdFood,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.777.000",
+    price: "30",
   },
   {
     image: birdFood,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.000.000",
+    price: "35",
   },
   {
     image: birdFood,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "200.000",
+    price: "40",
   },
   {
     image: birdFood,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "77.000",
+    price: "41",
   },
   {
     image: birdFood,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "42",
   },
   {
     image: birdFood,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "43",
   },
   {
     image: birdFood,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "44",
   },
   {
     image: birdFood,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "45",
   },
 ];
 
@@ -97,61 +97,61 @@ const bestSeller = [
   {
     image: bird,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.777.000",
+    price: "31",
     sells: "100+",
   },
   {
     image: bird,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.000.000",
+    price: "32",
     sells: "100+",
   },
   {
     image: bird,
     name: "Bird B.Gone",
-    price: "200.000",
+    price: "33",
     sells: "200+",
   },
   {
     image: bird,
     name: "Bird Spikes",
-    price: "77.000",
+    price: "34",
     sells: "300+",
   },
   {
     image: bird,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "35",
     sells: "400+",
   },
   {
     image: bird,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "36",
     sells: "400+",
   },
   {
     image: bird,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "37",
     sells: "400+",
   },
   {
     image: bird,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "38",
     sells: "400+",
   },
   {
     image: bird,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "39",
     sells: "400+",
   },
   {
     image: bird,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
+    price: "40",
     sells: "400+",
   },
 ];
@@ -394,8 +394,7 @@ function Home() {
                         {item.name}
                       </div>
                       <div className={cx("item-price")}>
-                        <span className={cx("price")}>₫</span>
-                        {item.price}
+                        <span className={cx("price")}>{item.price}$</span>
                       </div>
                       <div className={cx("item-status")}>
                         <div className={cx("loading")}>
@@ -428,7 +427,7 @@ function Home() {
                         <img src={item.image} alt={item.name} />
                       </div>
                       <div className={cx("bitem-name")}>{item.name}</div>
-                      <div className={cx("item-price")}>{item.price}</div>
+                      <div className={cx("item-price")}>{item.price}$</div>
                       <div className={cx("item-sells")}>
                         <span>Monthly Sales {item.sells}</span>
                       </div>

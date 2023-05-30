@@ -163,6 +163,7 @@
 .flashSale-items {
   text-decoration: none;
   position: relative;
+  width: 212px;
 }
 .flashSale-item {
   width: 100px;
@@ -229,6 +230,8 @@
 .item-price {
   margin-top: 5px;
   color: #333;
+  font-weight: 500;
+  font-size: 2rem;
 }
 
 .price {
@@ -244,9 +247,9 @@
 }
 
 .loading {
-  width: 150px;
+  width: 170px;
   height: 20px;
-  border-radius: 9px;
+  border-radius: 12px;
   overflow: hidden;
   background-color: #f3afafcd;
   position: relative;
@@ -263,7 +266,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 9px 0 0 9px;
+  border-radius: 12px 0 0 12px;
   background-color: var(--flash_sale-primary);
 }
 
@@ -341,7 +344,7 @@
 }
 
 .best-seller_item {
-  width: 200px;
+  width: 212px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   justify-content: center;
   text-align: center;
