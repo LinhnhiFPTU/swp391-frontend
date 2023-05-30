@@ -164,7 +164,7 @@ function ProductSale() {
               <div className={cx("product-name")}>
                 <span className={cx("name")}>
                   Prevue Pet Products Square Roof Parrot Cage, Standing
-                  Birdcage, Black
+                  Birdcage, Black 
                 </span>
               </div>
               {/*------Product Status------*/}

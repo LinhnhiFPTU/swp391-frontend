@@ -437,7 +437,7 @@ function ProductSearch() {
               ))}
             </div>
           </div>
-          <div className={cx("more-comment")}>
+          <div className={cx("more-products")}>
               <button className={cx("prev")} onClick={handlePrevCmtPage}>
                 <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
               </button>

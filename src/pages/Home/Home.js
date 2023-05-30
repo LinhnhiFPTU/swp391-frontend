@@ -26,27 +26,27 @@ const categories = [
   {
     image: bird,
     title: "BIRDS",
-    to: "/",
+    to: "/category",
   },
   {
     image: birdFood,
     title: "BIRD FOODS",
-    to: "/",
+    to: "/category",
   },
   {
     image: birdMedicine,
     title: "BIRD MEDICINES",
-    to: "/",
+    to: "/category",
   },
   {
     image: birdCage,
     title: "BIRD CAGES",
-    to: "/",
+    to: "/category",
   },
   {
     image: birdAccessory,
     title: "BIRD ACCESSORIES",
-    to: "/",
+    to: "/category",
   },
 ];
 
@@ -57,34 +57,19 @@ const flashSales = [
     price: "1.777.000",
   },
   {
-    image: birdFood,
+    image: birdCage,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "1.000.000",
   },
   {
-    image: birdFood,
+    image: birdMedicine,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "200.000",
   },
   {
-    image: birdFood,
+    image: birdAccessory,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "77.000",
-  },
-  {
-    image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
-  },
-  {
-    image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
-  },
-  {
-    image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "1.120.000",
   },
   {
     image: birdFood,
@@ -95,7 +80,7 @@ const flashSales = [
 
 const bestSeller = [
   {
-    image: bird,
+    image: birdMedicine,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     price: "1.777.000",
     sells: "100+",
@@ -158,7 +143,7 @@ const bestSeller = [
 
 const shops = [
   {
-    name: "Shop",
+    name: "Shop Name",
     image: avatar,
     rating: 2,
   },
@@ -230,7 +215,7 @@ const products = [
 const PrevArrowFS = (props) => {
   const { onClick } = props;
   return (
-    <div className={cx("controlfs-btn")} onClick={onClick}>
+    <div className={cx("flash_sale-controls-btn")} onClick={onClick}>
       <button className={cx("prev")}>
         <i className={cx("fa-regular fa-chevron-left")}></i>
       </button>
@@ -240,7 +225,7 @@ const PrevArrowFS = (props) => {
 const NextArrowFS = (props) => {
   const { onClick } = props;
   return (
-    <div className={cx("controlfs-btn")} onClick={onClick}>
+    <div className={cx("flash_sale-controls-btn")} onClick={onClick}>
       <button className={cx("next")}>
         <i className={cx("fa-solid fa-chevron-right")}></i>
       </button>
@@ -251,7 +236,7 @@ const NextArrowFS = (props) => {
 const PrevArrowBS = (props) => {
   const { onClick } = props;
   return (
-    <div className={cx("controlbs-btn")} onClick={onClick}>
+    <div className={cx("controls-btn")} onClick={onClick}>
       <button className={cx("prev")}>
         <i className={cx("fa-regular fa-chevron-left")}></i>
       </button>
@@ -261,18 +246,18 @@ const PrevArrowBS = (props) => {
 const NextArrowBS = (props) => {
   const { onClick } = props;
   return (
-    <div className={cx("controlbs-btn")} onClick={onClick}>
+    <div className={cx("controls-btn")} onClick={onClick}>
       <button className={cx("next")}>
         <i className={cx("fa-solid fa-chevron-right")}></i>
       </button>
     </div>
   );
 };
-const settings_flashsale = {
+const settings_flashSale = {
   infinite: true,
-  speed: 1500,
+  speed: 2000,
   slidesToShow: 5,
-  slidesToScroll: 2,
+  slidesToScroll: 5,
   autoplay: true,
   autoplaySpeed: 5000,
   nextArrow: <NextArrowFS />,
@@ -280,9 +265,9 @@ const settings_flashsale = {
 };
 const settings_bestseller = {
   infinite: true,
-  speed: 1500,
+  speed: 2000,
   slidesToShow: 5,
-  slidesToScroll: 2,
+  slidesToScroll: 5,
   autoplay: true,
   autoplaySpeed: 5000,
   nextArrow: <NextArrowBS />,
@@ -295,25 +280,27 @@ function Home() {
   const timeID = useRef();
 
   useEffect(() => {
-    axios.get("/api/v1/publics/time").then((res) => {
-      let now2 = new Date(res.data);
-      now2.setHours(now2.getHours() + 1);
-      now2.setMinutes(0);
-      now2.setSeconds(0);
-      let end = now2.getTime();
-      timeID.current = setInterval(() => {
-        let now = new Date().getTime();
-        let distance = end - now;
+    axios
+      .get("/api/v1/publics/time")
+      .then((res) => {
+        let now2 = new Date(res.data);
+        now2.setHours(now2.getHours() + 1);
+        now2.setMinutes(0);
+        now2.setSeconds(0);
+        let end = now2.getTime();
+        timeID.current = setInterval(() => {
+          let now = new Date().getTime();
+          let distance = end - now;
 
-        let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
-        let second = Math.floor((distance % (60 * 1000)) / 1000);
-        setMinute(minute);
-        setSecond(second);
-      }, 1000);
-    })
-    .catch(e => {
-      console.log(e)
-    });
+          let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
+          let second = Math.floor((distance % (60 * 1000)) / 1000);
+          setMinute(minute);
+          setSecond(second);
+        }, 1000);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     return () => {
       clearInterval(timeID.current);
     };
@@ -376,27 +363,24 @@ function Home() {
             </div>
 
             <div className={cx("flashSale-list")}>
-              <Slider {...settings_flashsale}>
+              {/* <Slider {...settings_flashSale}> */}
                 {flashSales.map((item, index) => (
                   <Link
                     to="/flash_sale"
                     key={index}
                     className={cx("flashSale-items")}
                   >
-                    <div className={cx("best-seller_item")}>
-                      <div className={cx("item-img")}>
-                        <img src={item.image} alt="item-img" />
-                      </div>
-                      <div className={cx("item-discount")}>
-                        <span className={cx("per-discount")}>-20%</span>
-                      </div>
-                      <div className={cx("item-name")}>
-                        {item.name}
-                      </div>
-                      <div className={cx("item-price")}>
-                        <span className={cx("price")}>₫</span>
-                        {item.price}
-                      </div>
+                    <img
+                      src={item.image}
+                      alt="item-img"
+                      className={cx("flash_sale-img")}
+                    />
+                    <div className={cx("flash_sale-discount")}>
+                      <span className={cx("per-discount")}>-20%</span>
+                    </div>
+                    <div className={cx("flash_sale-content")}>
+                      <div className={cx("item-name")}>{item.name}</div>
+                      <div className={cx("item-price")}>{item.price}</div>
                       <div className={cx("item-status")}>
                         <div className={cx("loading")}>
                           <span className={cx("loading-text")}>
@@ -407,19 +391,19 @@ function Home() {
                     </div>
                   </Link>
                 ))}
-              </Slider>
+              {/* </Slider> */}
             </div>
           </div>
 
           {/* -----------------BEST SELLER----------------- */}
-          <div className={cx("best-seller_container")}>
+          {/* <div className={cx("best-seller_container")}>
             <div className={cx("best-seller_title")}>
               <p>TOP PRODUCTS</p>
             </div>
             <div className={cx("best-seller_list")}>
               <Slider {...settings_bestseller}>
                 {bestSeller.map((item, index) => (
-                  <div key={index} className={cx("best-seller_items")}>
+                  <Link to="" key={index} className={cx("best-seller_items")}>
                     <div className={cx("best-seller_item")}>
                       <div className={cx("best-seller_top")}>
                         <p>TOP</p>
@@ -427,17 +411,17 @@ function Home() {
                       <div className={cx("item-img")}>
                         <img src={item.image} alt={item.name} />
                       </div>
-                      <div className={cx("bitem-name")}>{item.name}</div>
+                      <div className={cx("item-name")}>{item.name}</div>
                       <div className={cx("item-price")}>{item.price}</div>
                       <div className={cx("item-sells")}>
                         <span>Monthly Sales {item.sells}</span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </Slider>
             </div>
-          </div>
+          </div> */}
           {/* -----------------SHOP TRENDING----------------- */}
           <div className={cx("shop-trending-container")}>
             <div className={cx("shop-trending-top")}>
@@ -445,7 +429,7 @@ function Home() {
             </div>
             <div className={cx("shop-trending-content")}>
               {shops.map((shop, index) => (
-                <div className={cx("shop-item")} key={index}>
+                <Link to="" className={cx("shop-item")} key={index}>
                   <div className={cx("shop-img")}>
                     <img src={shop.image} alt="shop-img" />
                   </div>
@@ -485,7 +469,7 @@ function Home() {
                       </Link>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
