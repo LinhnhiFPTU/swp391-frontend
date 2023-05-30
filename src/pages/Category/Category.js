@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import classNames from "classnames/bind";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 
@@ -128,6 +128,10 @@ function Category() {
   const [cmtPage, setCmtPage] = useState(1);
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   const handleNextCmtPage = (e) => {
     e.preventDefault();

@@ -274,10 +274,12 @@ const settings_bestseller = {
   prevArrow: <PrevArrowBS />,
 };
 
+
 function Home() {
   const [second, setSecond] = useState(0);
   const [minute, setMinute] = useState(0);
   const timeID = useRef();
+
 
   useEffect(() => {
     axios
@@ -305,6 +307,7 @@ function Home() {
       clearInterval(timeID.current);
     };
   }, []);
+
   return (
     <>
       {/* -----------------HEADER----------------- */}
@@ -429,7 +432,7 @@ function Home() {
             </div>
             <div className={cx("shop-trending-content")}>
               {shops.map((shop, index) => (
-                <Link to="" className={cx("shop-item")} key={index}>
+                <div className={cx("shop-item")} key={index}>
                   <div className={cx("shop-img")}>
                     <img src={shop.image} alt="shop-img" />
                   </div>
@@ -458,7 +461,7 @@ function Home() {
                         ></i>
                         <span className={cx("chat-text")}>Chat</span>
                       </button>
-                      <Link to="/" className={cx("view")}>
+                      <Link to="/shop" className={cx("view")}>
                         <i
                           className={cx(
                             "fa-sharp fa-solid fa-bag-shopping",
@@ -469,7 +472,7 @@ function Home() {
                       </Link>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

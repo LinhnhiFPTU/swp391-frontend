@@ -16,6 +16,7 @@ import ProductSearch from "~/pages/ProductSearch";
 import Cart from "~/pages/Cart";
 import Category from "~/pages/Category";
 import ProductAll from "~/pages/ProductAll";
+import Report from "~/pages/Product/Report";
 
 
 const publicRoutes = [
@@ -36,8 +37,11 @@ const publicRoutes = [
   { path: '/cart', component: Cart},
   { path: '/category', component: Category},
   { path: '/all_product', component: ProductAll},
+  { path: '/report', component: Report},
 ];
 
-const privateRoutes = [];
+const privateRoutes = [
+  
+];
 
 export { publicRoutes, privateRoutes }
