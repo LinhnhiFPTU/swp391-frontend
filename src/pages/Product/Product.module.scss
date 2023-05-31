@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 101px;
   background-color: rgb(244, 244, 244);
 
   .product-container {
@@ -34,6 +35,13 @@
         .product-name {
           .name {
             font-size: 2rem;
+            word-wrap: break-word;
+            white-space: normal;
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
           }
         }
 

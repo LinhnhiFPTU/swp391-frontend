@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import Header from "~/layouts/components/Header";
@@ -12,7 +12,7 @@ import product3 from "~/assets/images/bird.png";
 import product4 from "~/assets/images/bird-accessory.png";
 import product5 from "~/assets/images/product.png";
 import avatar from "~/assets/images/user-avatar.png";
-import styles from "./ProductSale.module.scss";
+import styles from "./Product.module.scss";
 
 const cx = classNames.bind(styles);
 const filterBtns = ["All", "5 Star", "4 Star", "3 Star", "2 Star", "1 Star"];
@@ -29,7 +29,7 @@ const products = [
 ];
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-function ProductSale() {
+function Product() {
   const [type, setType] = useState("All");
   const [second, setSecond] = useState(0);
   const [minute, setMinute] = useState(0);
@@ -38,31 +38,37 @@ function ProductSale() {
   const [minPage, setMinPage] = useState(1);
   const videoRef = useRef();
   const timeID = useRef();
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   const [comment, setComment] = useState({
     ratings: [1, 2, 3, 4, 5],
     rating: 2,
   });
   const [preview, setPreview] = useState([]);
   useEffect(() => {
-    axios.get("/api/v1/publics/time").then((res) => {
-      let now2 = new Date(res.data);
-      now2.setHours(now2.getHours() + 1);
-      now2.setMinutes(0);
-      now2.setSeconds(0);
-      let end = now2.getTime();
-      timeID.current = setInterval(() => {
-        let now = new Date().getTime();
-        let distance = end - now;
+    axios
+      .get("/api/v1/publics/time")
+      .then((res) => {
+        let now2 = new Date(res.data);
+        now2.setHours(now2.getHours() + 1);
+        now2.setMinutes(0);
+        now2.setSeconds(0);
+        let end = now2.getTime();
+        timeID.current = setInterval(() => {
+          let now = new Date().getTime();
+          let distance = end - now;
 
-        let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
-        let second = Math.floor((distance % (60 * 1000)) / 1000);
-        setMinute(minute);
-        setSecond(second);
-      }, 1000);
-    })
-    .catch(e => {
-      console.log(e)
-    });
+          let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
+          let second = Math.floor((distance % (60 * 1000)) / 1000);
+          setMinute(minute);
+          setSecond(second);
+        }, 1000);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     return () => {
       clearInterval(timeID.current);
     };
@@ -317,7 +323,7 @@ function ProductSale() {
                     <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
                     <span className={cx("chat-text")}>Chat Now</span>
                   </button>
-                  <Link to="" className={cx("view")}>
+                  <Link to="/shop" className={cx("view")}>
                     <i
                       className={cx(
                         "fa-sharp fa-solid fa-bag-shopping",
@@ -472,11 +478,7 @@ function ProductSale() {
                         }
                         return (
                           <div className={cx("comment-video")}>
-                            <video
-                              src="https://play-ws.vod.shopee.com/api/v4/11110103/mms/vn_7a40b4ce-8cbe-4f13-ae8e-355f3aa3d07b_000230.16000461675675278.mp4"
-                              onClick={""}
-                              ref={videoRef}
-                            />
+                            <video src="" onClick={""} ref={videoRef} />
                             <div className={cx("icon-video")}>
                               <i className={cx("fa-solid fa-video")}></i>
                               <span>
@@ -551,4 +553,4 @@ function ProductSale() {
   );
 }
 
-export default ProductSale;
+export default Product;

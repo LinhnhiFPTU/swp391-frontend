@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 101px;
   background-color: rgb(244, 244, 244);
 
   .product-search_container {
@@ -289,26 +290,12 @@
       }
     }
 
-    .more-comment {
+    .more-products {
       margin-top: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
 
-
-      .input-page {
-        width: 40px;
-        height: 24px;
-        text-align: center;
-        margin-right: 10px;
-        border: 1px solid #dbdbdb;
-        outline: none;
-        font-size: 1.4rem;
-
-        &:focus {
-          border: 1px solid #dbdbdb;
-        }
-      }
       .prev,
       .next {
         width: 40px;

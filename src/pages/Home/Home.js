@@ -1,7 +1,6 @@
 import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -26,132 +25,132 @@ const categories = [
   {
     image: bird,
     title: "BIRDS",
-    to: "/",
+    to: "",
   },
   {
     image: birdFood,
     title: "BIRD FOODS",
-    to: "/",
+    to: "",
   },
   {
     image: birdMedicine,
     title: "BIRD MEDICINES",
-    to: "/",
+    to: "",
   },
   {
     image: birdCage,
     title: "BIRD CAGES",
-    to: "/",
+    to: "",
   },
   {
     image: birdAccessory,
     title: "BIRD ACCESSORIES",
-    to: "/",
+    to: "",
   },
 ];
 
 const flashSales = [
   {
     image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "30",
-  },
-  {
-    image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Nekton",
     price: "35",
   },
   {
     image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "40",
+    name: "Amoxy-Tyl",
+    price: "13",
   },
   {
     image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "41",
+    name: "Bird B.Gone",
+    price: "12",
   },
   {
     image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "42",
+    name: "Bird Spikes",
+    price: "24",
   },
   {
     image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "43",
+    name: "Shefa",
+    price: "25",
   },
   {
     image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "44",
+    name: "Shefa",
+    price: "26",
   },
   {
     image: birdFood,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "45",
+    name: "Shefa",
+    price: "27",
+  },
+  {
+    image: birdFood,
+    name: "Shefa",
+    price: "28",
   },
 ];
 
 const bestSeller = [
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "31",
+    name: "Nekton",
+    price: "15",
     sells: "100+",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "32",
+    name: "Amoxy-Tyl",
+    price: "16",
     sells: "100+",
   },
   {
     image: bird,
     name: "Bird B.Gone",
-    price: "33",
+    price: "17",
     sells: "200+",
   },
   {
     image: bird,
     name: "Bird Spikes",
-    price: "34",
+    price: "18",
     sells: "300+",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "35",
+    name: "Shefa",
+    price: "19",
     sells: "400+",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "36",
+    name: "Shefa",
+    price: "20",
     sells: "400+",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "37",
+    name: "Shefa",
+    price: "21",
     sells: "400+",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "38",
+    name: "Shefa",
+    price: "22",
     sells: "400+",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "39",
+    name: "Shefa",
+    price: "23",
     sells: "400+",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    price: "40",
+    name: "Shefa",
+    price: "24",
     sells: "400+",
   },
 ];
@@ -177,62 +176,62 @@ const shops = [
 const products = [
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Nekton",
     price: "25",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Amoxy-Tyl",
     price: "30",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Bird B.Gone",
     price: "35",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Bird Spikes",
     price: "40",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "45",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "50",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "55",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "60",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "65",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "70",
   },
 ];
 //Control Flash Sale Button
 const PrevArrowFS = (props) => {
-  const { onClick } = props;
+  const { onClick } = props
   return (
     <div className={cx("controlfs-btn")} onClick={onClick}>
       <button className={cx("prev")}>
-        <i className={cx("fa-regular fa-chevron-left")}></i>
+        <i class="fa-regular fa-chevron-left"></i>
       </button>
     </div>
   );
@@ -242,14 +241,14 @@ const NextArrowFS = (props) => {
   return (
     <div className={cx("controlfs-btn")} onClick={onClick}>
       <button className={cx("next")}>
-        <i className={cx("fa-solid fa-chevron-right")}></i>
+        <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
   );
 };
 //Control Best Seller Button
 const PrevArrowBS = (props) => {
-  const { onClick } = props;
+  const { onClick } = props
   return (
     <div className={cx("controlbs-btn")} onClick={onClick}>
       <button className={cx("prev")}>
@@ -290,34 +289,29 @@ const settings_bestseller = {
 };
 
 function Home() {
-  const [second, setSecond] = useState(0);
-  const [minute, setMinute] = useState(0);
+  const [second, setSecond] = useState(59);
+  const [minute, setMinute] = useState(30);
   const timeID = useRef();
 
   useEffect(() => {
-    axios.get("/api/v1/publics/time").then((res) => {
-      let now2 = new Date(res.data);
-      now2.setHours(now2.getHours() + 1);
-      now2.setMinutes(0);
-      now2.setSeconds(0);
-      let end = now2.getTime();
-      timeID.current = setInterval(() => {
-        let now = new Date().getTime();
-        let distance = end - now;
-
-        let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
-        let second = Math.floor((distance % (60 * 1000)) / 1000);
-        setMinute(minute);
-        setSecond(second);
-      }, 1000);
-    })
-    .catch(e => {
-      console.log(e)
-    });
+    timeID.current = setInterval(() => {
+      setSecond((pre) => pre - 1);
+      if (second === 0) {
+        setMinute((pre) => pre - 1);
+        setSecond(59);
+      }
+    }, 1000);
     return () => {
       clearInterval(timeID.current);
     };
-  }, []);
+  });
+
+  useEffect(() => {
+    if (minute === 0 && second === 0) {
+      setMinute(30);
+      setSecond(59);
+    }
+  }, [second, minute]);
   return (
     <>
       {/* -----------------HEADER----------------- */}
@@ -368,7 +362,7 @@ function Home() {
                 </span>
               </div>
               <div className={cx("flashSale-more")}>
-                <Link to="/flash_sale" className={cx("more-item")}>
+                <Link to="" className={cx("more-item")}>
                   <span className={cx("more-item-text")}>See more </span>
                   <i className={cx("fa-light fa-chevron-up fa-rotate-90")}></i>
                 </Link>
@@ -378,29 +372,19 @@ function Home() {
             <div className={cx("flashSale-list")}>
               <Slider {...settings_flashsale}>
                 {flashSales.map((item, index) => (
-                  <Link
-                    to="/flash_sale"
-                    key={index}
-                    className={cx("flashSale-items")}
-                  >
-                    <div className={cx("best-seller_item")}>
-                      <div className={cx("item-img")}>
+                  <Link to="/flash_sale" key={index} className={cx("flashSale-items")}>
+                    <div className={cx("flashSale_item")}>
+                      <div className={cx("flashSale-img")}>
                         <img src={item.image} alt="item-img" />
                       </div>
-                      <div className={cx("item-discount")}>
+                      <div className={cx("flashSale-discount")}>
                         <span className={cx("per-discount")}>-20%</span>
                       </div>
-                      <div className={cx("item-name")}>
-                        {item.name}
-                      </div>
-                      <div className={cx("item-price")}>
-                        <span className={cx("price")}>{item.price}$</span>
-                      </div>
-                      <div className={cx("item-status")}>
+                      <div className={cx("fitem-name")}>{item.name}</div>
+                      <div className={cx("fitem-price")}>{item.price}$</div>
+                      <div className={cx("flashSale-status")}>
                         <div className={cx("loading")}>
-                          <span className={cx("loading-text")}>
-                            SELLING WELL
-                          </span>
+                          <span className={cx("loading-text")}>SELLING WELL</span>
                         </div>
                       </div>
                     </div>
@@ -427,14 +411,43 @@ function Home() {
                         <img src={item.image} alt={item.name} />
                       </div>
                       <div className={cx("bitem-name")}>{item.name}</div>
-                      <div className={cx("item-price")}>{item.price}$</div>
-                      <div className={cx("item-sells")}>
+                      <div className={cx("bitem-price")}>{item.price}$</div>
+                      <div className={cx("bitem-sells")}>
                         <span>Monthly Sales {item.sells}</span>
                       </div>
                     </div>
                   </div>
                 ))}
               </Slider>
+            </div>
+          </div>
+
+          {/*-----------------------------------PRODUCTS------------------------------*/}
+          <div className={cx("product_container")}>
+            <div className={cx("product_title")}>
+              <p>DAILY PRODUCTS</p>
+            </div>
+            <div className={cx("product_list")}>
+              {products.map((item, index) => (
+                <div key={index} className={cx("product_items")}>
+                  <div className={cx("product-img")}>
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className={cx('product-name')}>{item.name}</div>
+                  <div className={cx('product-rating')}>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                  </div>
+                  <div className={cx('price_before')}>${item.price}</div>
+                  <div className={cx('product-price')}>${item.price}</div>
+                  <button className={cx('btn_add')}>Buy Now</button>
+
+
+                </div>
+              ))}
             </div>
           </div>
           {/* -----------------SHOP TRENDING----------------- */}
@@ -444,7 +457,7 @@ function Home() {
             </div>
             <div className={cx("shop-trending-content")}>
               {shops.map((shop, index) => (
-                <div className={cx("shop-item")} key={index}>
+                <Link to="/" className={cx("shop-item")} key={index}>
                   <div className={cx("shop-img")}>
                     <img src={shop.image} alt="shop-img" />
                   </div>
@@ -468,47 +481,18 @@ function Home() {
                     </div>
                     <div className={cx("contact")}>
                       <button className={cx("chat")}>
-                        <i
-                          className={cx("fa-solid fa-messages", "icon-chat")}
-                        ></i>
+                        <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
                         <span className={cx("chat-text")}>Chat</span>
                       </button>
-                      <Link to="/" className={cx("view")}>
+                      <Link to="" className={cx("view")}>
                         <i
-                          className={cx(
-                            "fa-sharp fa-solid fa-bag-shopping",
-                            "icon-view"
-                          )}
+                          className={cx("fa-sharp fa-solid fa-bag-shopping", "icon-view")}
                         ></i>
                         <span className={cx("view-text")}>View Shop</span>
                       </Link>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/*-----------------------------------PRODUCTS------------------------------*/}
-          <div className={cx("product_container")}>
-            <div className={cx("product_title")}>DAILY PRODUCTS</div>
-            <div className={cx("product_list")}>
-              {products.map((item, index) => (
-                <div key={index} className={cx("product_items")}>
-                  <div className={cx("product-img")}>
-                    <img src={item.image} alt={item.name} />
-                  </div>
-                  <div className={cx("product-name")}>{item.name}</div>
-                  <div className={cx("product-rating")}>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  </div>
-                  <div className={cx("price_before")}>${item.price}</div>
-                  <div className={cx("product-price")}>${item.price}</div>
-                  <button className={cx("btn_add")}>Buy Now</button>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

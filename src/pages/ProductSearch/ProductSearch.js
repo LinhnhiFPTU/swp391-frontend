@@ -1,6 +1,7 @@
 /* eslint-disable array-callback-return */
 import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 
@@ -9,7 +10,6 @@ import Footer from "~/layouts/components/Footer";
 import avatar from "~/assets/images/user-avatar.png";
 import productImg from "~/assets/images/bird-food.png";
 import styles from "./ProductSearch.module.scss";
-import { useState } from "react";
 
 const cx = classNames.bind(styles);
 const sortBarOptions = [
@@ -79,6 +79,10 @@ function ProductSearch() {
   const [cmtPage, setCmtPage] = useState(1);
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location])
 
   const handleNextCmtPage = (e) => {
     e.preventDefault();
@@ -437,7 +441,7 @@ function ProductSearch() {
               ))}
             </div>
           </div>
-          <div className={cx("more-comment")}>
+          <div className={cx("more-products")}>
               <button className={cx("prev")} onClick={handlePrevCmtPage}>
                 <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
               </button>
