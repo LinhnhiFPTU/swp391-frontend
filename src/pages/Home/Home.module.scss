@@ -80,6 +80,7 @@
 
   .item-type {
     margin-bottom: 20px;
+
     .type-text {
       font-size: 1.7rem;
       font-weight: 500;
@@ -160,11 +161,13 @@
     color: #fff;
   }
 }
+
 .flashSale-items {
   text-decoration: none;
   position: relative;
 
 }
+
 .flashSale-item {
   width: 100px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -215,6 +218,7 @@
   font-size: 1.8rem;
   font-weight: 500;
 }
+
 .fitem-price {
   margin: 10px 0;
   color: #333;
@@ -260,6 +264,7 @@
   font-size: 1.2rem;
   z-index: 1;
 }
+
 //control flash sale button
 .controlfs-btn .next,
 .controlfs-btn .prev {
@@ -312,6 +317,7 @@
     font-size: 20px;
   }
 }
+
 .flashSale_item {
   width: 212px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -332,12 +338,14 @@
   background-color: white;
 }
 
-.best-seller_title p {
-  font-size: 2.2rem;
-  font-weight: 500;
-  color: #ff7c33;
-  margin: 0 0 30px 0;
-  user-select: none;
+.best-seller_title {
+  p {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: #ff7c33;
+    margin: 0 0 30px 0;
+    user-select: none;
+  }
 }
 
 .best-seller_item {
@@ -348,14 +356,14 @@
   height: max-content;
   margin: 0 10px;
   background-color: white;
-}
 
-.item-img {
-  width: 100%;
+  .item-img {
+    width: 100%;
 
-  img {
-    width: 90%;
-    height: 90%;
+    img {
+      width: 90%;
+      height: 90%;
+    }
   }
 }
 
@@ -367,24 +375,23 @@
   position: relative;
   background: #ff7c33;
   color: #fff;
-}
 
-.best-seller_top p {
-  font-size: 1.5rem;
-}
+  p {
+    font-size: 1.5rem;
+  }
 
-.best-seller_top::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 0;
-  border-bottom: 13px solid #fff;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 13px solid #fff;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+  }
 }
-
 
 .bitem-name {
   color: #ff7c33;
@@ -392,6 +399,7 @@
   font-size: 1.8rem;
   font-weight: 500;
 }
+
 .bitem-price {
   font-size: 1.8rem;
   font-weight: 500;
@@ -401,11 +409,11 @@
 .bitem-sells {
   background-color: rgba(0, 0, 0, 0.37);
   color: #fff;
-}
 
-.bitem-sells span {
-  font-size: 1.4rem;
-  margin: 100px 0;
+  span {
+    font-size: 1.4rem;
+    margin: 100px 0;
+  }
 }
 
 //control best seller button
@@ -469,13 +477,13 @@
 
 .product_title {
   padding: 30px;
-}
 
-.product_title p {
-  font-size: 2.2rem;
-  font-weight: 500;
-  color: var(--primary);
-  user-select: none;
+  p {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--primary);
+    user-select: none;
+  }
 }
 
 .product_list {
