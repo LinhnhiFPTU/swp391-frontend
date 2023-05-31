@@ -365,9 +365,9 @@ function Home() {
               </div>
             </div>
 
-            <div className={cx("flashSale-list")}>
+            {/* <div className={cx("flashSale-list")}> */}
               {/* <Slider {...settings_flashSale}> */}
-                {flashSales.map((item, index) => (
+                {/* {flashSales.map((item, index) => (
                   <Link
                     to="/flash_sale"
                     key={index}
@@ -393,9 +393,9 @@ function Home() {
                       </div>
                     </div>
                   </Link>
-                ))}
+                ))} */}
               {/* </Slider> */}
-            </div>
+            {/* </div> */}
           </div>
 
           {/* -----------------BEST SELLER----------------- */}

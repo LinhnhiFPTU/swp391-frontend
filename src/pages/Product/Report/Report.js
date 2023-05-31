@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
-
+import { useState } from "react";
+import ReportDetail from "./ReportDetail";
 import styles from "./Report.module.scss";
 
 const cx = classNames.bind(styles);
@@ -10,25 +11,45 @@ const reports = [
   "Products of unknown origin",
   "Products with signs of fraud",
   "Product image is not clear",
-  "Other"
+  "The product name does not match",
+  "Other...",
 ];
-function Report() {
+function Report({ closeReport }) {
+  const [openReport, setOpenReport] = useState(false);
+  const [titleReport, setTitleReport] = useState("");
+
+  const handleReport = (report) => {
+    setOpenReport(true);
+    setTitleReport(report);
+  };
   return (
-    <div className={cx("overlay")}>
-      <div className={cx("report-popup")}>
-        <div className={cx("report_container")}>
-          <div className={cx("report_header")}>
-            <span className={cx("report_reason")}>Select a Reason</span>
-            <i className={cx("fa-light fa-xmark")}></i>
+    <>
+      {openReport ? (
+        <ReportDetail titleReport={titleReport} backToReport={setOpenReport} closeSubReport = {closeReport}/>
+      ) : (
+        (<div className={cx("overlay")}>
+          <div className={cx("report-popup")}>
+            <div className={cx("report_container")}>
+              <div className={cx("report_header")}>
+                <span className={cx("report_reason")}>Select a Reason</span>
+                <i className={cx("fa-light fa-xmark", "x-icon")} onClick={() => closeReport(false)}></i>
+              </div>
+              <ul className={cx("report_list")}>
+                {reports.map((report, index) => (
+                  <li
+                    className={cx("report_item")}
+                    key={index}
+                    onClick={() => handleReport(report)}
+                  >
+                    {report}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <ul className={cx("report_list")}>
-            {reports.map((report, index) => (
-              <li key={index}>{report}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
+        </div>)
+      )}
+    </>
   );
 }
 

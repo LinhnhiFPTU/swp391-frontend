@@ -5,6 +5,7 @@ import axios from "axios";
 
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
+import Report from "./Report";
 import product from "~/assets/images/bird-cage.png";
 import product1 from "~/assets/images/bird-food.png";
 import product2 from "~/assets/images/bird-medicine.png";
@@ -36,6 +37,7 @@ function Product() {
   const [cmtPage, setCmtPage] = useState(1);
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
+  const [openReport, setOpenReport] = useState(false)
   const videoRef = useRef();
   const timeID = useRef();
   const location = useLocation();
@@ -46,7 +48,6 @@ function Product() {
     ratings: [1, 2, 3, 4, 5],
     rating: 2,
   });
-  const [preview, setPreview] = useState([]);
   useEffect(() => {
     axios
       .get("/api/v1/publics/time")
@@ -157,6 +158,7 @@ function Product() {
 
   return (
     <>
+      {openReport && <Report closeReport={setOpenReport}/>}
       <Header />
       <div className={cx("product-wrapper")}>
         <div className={cx("product-container")}>
@@ -196,7 +198,7 @@ function Product() {
                   </div>
                 </div>
                 <div className={cx("product-status-right")}>
-                  <button className={cx("report-btn")}>Report</button>
+                  <button className={cx("report-btn")} onClick={() => setOpenReport(true)}>Report</button>
                 </div>
               </div>
               {/*------Product Flash Sale------*/}
@@ -472,13 +474,12 @@ function Product() {
                               key={index}
                               src={productMedia.src}
                               alt="img-comment"
-                              onClick={""}
                             />
                           );
                         }
                         return (
-                          <div className={cx("comment-video")}>
-                            <video src="" onClick={""} ref={videoRef} />
+                          <div className={cx("comment-video")} key={index}>
+                            <video src="" ref={videoRef} />
                             <div className={cx("icon-video")}>
                               <i className={cx("fa-solid fa-video")}></i>
                               <span>
@@ -517,11 +518,11 @@ function Product() {
                 <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
               </button>
               {commentPageBtns.map(
-                (btn) =>
+                (btn, index) =>
                   btn <= maxPage &&
                   btn >= minPage && (
                     <button
-                      key={btn}
+                      key={index}
                       className={
                         cmtPage === btn ? cx("page-active") : cx("page")
                       }
