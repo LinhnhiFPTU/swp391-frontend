@@ -227,7 +227,7 @@ const products = [
 ];
 //Control Flash Sale Button
 const PrevArrowFS = (props) => {
-  const { onClick } = props
+  const { onClick } = props;
   return (
     <div className={cx("controlfs-btn")} onClick={onClick}>
       <button className={cx("prev")}>
@@ -248,7 +248,7 @@ const NextArrowFS = (props) => {
 };
 //Control Best Seller Button
 const PrevArrowBS = (props) => {
-  const { onClick } = props
+  const { onClick } = props;
   return (
     <div className={cx("controlbs-btn")} onClick={onClick}>
       <button className={cx("prev")}>
@@ -372,7 +372,11 @@ function Home() {
             <div className={cx("flashSale-list")}>
               <Slider {...settings_flashsale}>
                 {flashSales.map((item, index) => (
-                  <Link to="/flash_sale" key={index} className={cx("flashSale-items")}>
+                  <Link
+                    to="/flash_sale"
+                    key={index}
+                    className={cx("flashSale-items")}
+                  >
                     <div className={cx("flashSale_item")}>
                       <div className={cx("flashSale-img")}>
                         <img src={item.image} alt="item-img" />
@@ -384,7 +388,9 @@ function Home() {
                       <div className={cx("fitem-price")}>{item.price}$</div>
                       <div className={cx("flashSale-status")}>
                         <div className={cx("loading")}>
-                          <span className={cx("loading-text")}>SELLING WELL</span>
+                          <span className={cx("loading-text")}>
+                            SELLING WELL
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -433,19 +439,17 @@ function Home() {
                   <div className={cx("product-img")}>
                     <img src={item.image} alt={item.name} />
                   </div>
-                  <div className={cx('product-name')}>{item.name}</div>
-                  <div className={cx('product-rating')}>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
-                    <i className={cx("fa-solid fa-star", 'rate_icon')}></i>
+                  <div className={cx("product-name")}>{item.name}</div>
+                  <div className={cx("product-rating")}>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                   </div>
-                  <div className={cx('price_before')}>${item.price}</div>
-                  <div className={cx('product-price')}>${item.price}</div>
-                  <button className={cx('btn_add')}>Buy Now</button>
-
-
+                  <div className={cx("price_before")}>${item.price}</div>
+                  <div className={cx("product-price")}>${item.price}</div>
+                  <button className={cx("btn_add")}>Buy Now</button>
                 </div>
               ))}
             </div>
@@ -481,12 +485,17 @@ function Home() {
                     </div>
                     <div className={cx("contact")}>
                       <button className={cx("chat")}>
-                        <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
+                        <i
+                          className={cx("fa-solid fa-messages", "icon-chat")}
+                        ></i>
                         <span className={cx("chat-text")}>Chat</span>
                       </button>
                       <Link to="" className={cx("view")}>
                         <i
-                          className={cx("fa-sharp fa-solid fa-bag-shopping", "icon-view")}
+                          className={cx(
+                            "fa-sharp fa-solid fa-bag-shopping",
+                            "icon-view"
+                          )}
                         ></i>
                         <span className={cx("view-text")}>View Shop</span>
                       </Link>
