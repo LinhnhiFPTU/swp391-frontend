@@ -163,13 +163,14 @@
   position: relative;
 }
 
-.flashSale-item {
-  width: 100px;
+.flashSale_item {
+  width: 212px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   justify-content: center;
   text-align: center;
+  height: max-content;
+  margin: 0 10px;
   background-color: white;
-  margin: 20px 0;
 }
 
 .flashSale-img {
@@ -313,16 +314,6 @@
   }
 }
 
-.flashSale_item {
-  width: 212px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  justify-content: center;
-  text-align: center;
-  height: max-content;
-  margin: 0 10px;
-  background-color: white;
-}
-
 // ---------BEST SELLER---------
 .best-seller_container {
   position: relative;
@@ -425,10 +416,6 @@
   font-size: 16px;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-  // &:hover i {
-  //   margin: 15px;
-  // }
 }
 
 .controlbs-btn .next {
@@ -535,7 +522,6 @@
 }
 
 // ---------SHOP TRENDING---------
-
 .shop-trending-container {
   margin-top: 50px;
   padding: 30px;
