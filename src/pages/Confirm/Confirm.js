@@ -8,7 +8,7 @@ import axios from "axios";
 
 function Confirm() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(true);
   const [fail, setFail] = useState("");
   const [msg, setMsg] = useState("");
   const [count, setCount] = useState(0);

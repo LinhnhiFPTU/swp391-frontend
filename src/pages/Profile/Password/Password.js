@@ -66,6 +66,7 @@ function Password() {
         .catch((e) => {
           console.log(e);
           setMsg(e.response.data.message);
+          setChangePassword(false)
         });
     }
   }, [changePassword]);

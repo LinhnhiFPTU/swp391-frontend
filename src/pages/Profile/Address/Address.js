@@ -66,7 +66,7 @@ function Address() {
   useEffect(() => {
     if (defaultId) {
       axios
-        .get("/api/v1/users/info/receives/default/" + defaultId)
+        .post("/api/v1/users/info/receives/default/" + defaultId)
         .then((res) => {
           console.log(res)
           window.location.href = '/user/account/address'
@@ -80,7 +80,7 @@ function Address() {
   useEffect(() => {
     if (deleteId) {
       axios
-        .get("/api/v1/users/info/receives/delete/" + deleteId)
+        .delete("/api/v1/users/info/receives/delete/" + deleteId)
         .then((res) => {
           console.log(res)
           window.location.href = '/user/account/address'
@@ -197,14 +197,14 @@ function Address() {
                         </span>
                       </div>
                       <div className={cx("address-crud")}>
-                        <button className={cx("crud-delete")} onClick={(e) => handleDelete(e, item.id)}>
+                        {!item._default && <button className={cx("crud-delete")} onClick={(e) => handleDelete(e, item.id)}>
                           <i
                             className={cx(
                               "icon-delete",
                               "fa-sharp fa-solid fa-trash-xmark"
                             )}
                           ></i>
-                        </button>
+                        </button>}
                       </div>
                     </div>
                     <div className={cx("address-options")}>

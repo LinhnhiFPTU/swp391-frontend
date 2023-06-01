@@ -16,10 +16,6 @@ function Forget({onClick, errMsg = "" , loading}) {
     onClick(e, {email})
   }
 
-  // const handleClose = () => {
-    
-  // };
-
   return (
     <>
       <div className={cx("container")}>
@@ -56,7 +52,6 @@ function Forget({onClick, errMsg = "" , loading}) {
                     zIndex: (theme) => theme.zIndex.drawer + 1,
                   }}
                   open={loading}
-                  // onClick={handleClose}
                 >
                   <CircularProgress color="inherit" />
                 </Backdrop>

@@ -56,7 +56,7 @@ const Header = () => {
           </div>
           <div className={cx("options-content")}>
             <div className={cx("option")}>
-              <Link className={cx("option-link")} to="/shop">
+              <Link className={cx("option-link")} to="/all_product">
                 Products
               </Link>
             </div>

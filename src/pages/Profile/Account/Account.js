@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 
 import Avatar from "react-avatar-edit";
 import { useState, useEffect, useContext } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 
@@ -69,7 +69,7 @@ function Profile() {
   };
 
   const onBeforeFileLoad = (elem) => {
-    if (elem.target.files[0].size > 102400) {
+    if (elem.target.files[0].size > 10485760) {
       alert("File is too big!");
       elem.target.value = "";
     }
@@ -96,13 +96,11 @@ function Profile() {
               },
             })
             .then((res) => {
-              console.log(res);
               // context.imageurl = context.imageurl + "?" + new Date().getTime();
               window.location.href = "/user/account/profile"
               setChangeAvatar(c => !c)
             })
             .catch((e) => {
-              console.log(e);
               setChangeAvatar(c => !c)
             });
         });
@@ -118,11 +116,9 @@ function Profile() {
       }
       axios.post('/api/v1/users/info/update/profile', updateRequest)
       .then(res => {
-        console.log(res)
         window.location.href = "/user/account/profile"
       })
       .catch(e => {
-        console.log(e)
       })
     }
   }, [updateProfile]);
@@ -164,7 +160,7 @@ function Profile() {
                         " "
                       )
                     }
-                    isActive={() =>
+                    isActive={() =>                                     
                       [
                         "/user/account/profile",
                         "/user/account/password",

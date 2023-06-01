@@ -53,42 +53,42 @@ const flashSales = [
   {
     image: birdFood,
     name: "Nekton",
-    price: "1.777.000",
+    price: "35",
   },
   {
     image: birdFood,
     name: "Amoxy-Tyl",
-    price: "1.000.000",
+    price: "13",
   },
   {
     image: birdFood,
     name: "Bird B.Gone",
-    price: "200.000",
+    price: "12",
   },
   {
     image: birdFood,
     name: "Bird Spikes",
-    price: "77.000",
+    price: "24",
   },
   {
     image: birdFood,
     name: "Shefa",
-    price: "1.120.000",
+    price: "25",
   },
   {
     image: birdFood,
     name: "Shefa",
-    price: "1.120.000",
+    price: "26",
   },
   {
     image: birdFood,
     name: "Shefa",
-    price: "1.120.000",
+    price: "27",
   },
   {
     image: birdFood,
     name: "Shefa",
-    price: "1.120.000",
+    price: "28",
   },
 ];
 
@@ -96,61 +96,61 @@ const bestSeller = [
   {
     image: bird,
     name: "Nekton",
-    price: "1.777.000",
+    price: "15",
     sells: "100+",
   },
   {
     image: bird,
     name: "Amoxy-Tyl",
-    price: "1.000.000",
+    price: "16",
     sells: "100+",
   },
   {
     image: bird,
     name: "Bird B.Gone",
-    price: "200.000",
+    price: "17",
     sells: "200+",
   },
   {
     image: bird,
     name: "Bird Spikes",
-    price: "77.000",
+    price: "18",
     sells: "300+",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "19",
     sells: "400+",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "20",
     sells: "400+",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "21",
     sells: "400+",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "22",
     sells: "400+",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "23",
     sells: "400+",
   },
   {
     image: bird,
     name: "Shefa",
-    price: "1.120.000",
+    price: "24",
     sells: "400+",
   },
 ];
@@ -176,52 +176,52 @@ const shops = [
 const products = [
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Nekton",
     price: "25",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Amoxy-Tyl",
     price: "30",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Bird B.Gone",
     price: "35",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Bird Spikes",
     price: "40",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "45",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "50",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "55",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "60",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "65",
   },
   {
     image: bird,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
+    name: "Shefa",
     price: "70",
   },
 ];
@@ -377,21 +377,16 @@ function Home() {
                     key={index}
                     className={cx("flashSale-items")}
                   >
-                    <div className={cx("best-seller_item")}>
-                      <div className={cx("item-img")}>
+                    <div className={cx("flashSale_item")}>
+                      <div className={cx("flashSale-img")}>
                         <img src={item.image} alt="item-img" />
                       </div>
-                      <div className={cx("item-discount")}>
+                      <div className={cx("flashSale-discount")}>
                         <span className={cx("per-discount")}>-20%</span>
                       </div>
-                      <div className={cx("item-name")}>
-                        <span className={cx("name")}>{item.name}</span>
-                      </div>
-                      <div className={cx("item-price")}>
-                        <span className={cx("price")}>₫</span>
-                        {item.price}
-                      </div>
-                      <div className={cx("item-status")}>
+                      <div className={cx("fitem-name")}>{item.name}</div>
+                      <div className={cx("fitem-price")}>{item.price}$</div>
+                      <div className={cx("flashSale-status")}>
                         <div className={cx("loading")}>
                           <span className={cx("loading-text")}>
                             SELLING WELL
@@ -422,14 +417,41 @@ function Home() {
                         <img src={item.image} alt={item.name} />
                       </div>
                       <div className={cx("bitem-name")}>{item.name}</div>
-                      <div className={cx("item-price")}>{item.price}</div>
-                      <div className={cx("item-sells")}>
+                      <div className={cx("bitem-price")}>{item.price}$</div>
+                      <div className={cx("bitem-sells")}>
                         <span>Monthly Sales {item.sells}</span>
                       </div>
                     </div>
                   </div>
                 ))}
               </Slider>
+            </div>
+          </div>
+
+          {/*-----------------------------------PRODUCTS------------------------------*/}
+          <div className={cx("product_container")}>
+            <div className={cx("product_title")}>
+              <p>DAILY PRODUCTS</p>
+            </div>
+            <div className={cx("product_list")}>
+              {products.map((item, index) => (
+                <div key={index} className={cx("product_items")}>
+                  <div className={cx("product-img")}>
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className={cx("product-name")}>{item.name}</div>
+                  <div className={cx("product-rating")}>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                  </div>
+                  <div className={cx("price_before")}>${item.price}</div>
+                  <div className={cx("product-price")}>${item.price}</div>
+                  <button className={cx("btn_add")}>Buy Now</button>
+                </div>
+              ))}
             </div>
           </div>
           {/* -----------------SHOP TRENDING----------------- */}
@@ -480,32 +502,6 @@ function Home() {
                     </div>
                   </div>
                 </Link>
-              ))}
-            </div>
-          </div>
-          {/*-----------------------------------PRODUCTS------------------------------*/}
-          <div className={cx("product_container")}>
-            <div className={cx("product_title")}>
-              DAILY PRODUCTS
-            </div>
-            <div className={cx("product_list")}>
-              {products.map((item, index) => (
-                <div key={index} className={cx("product_items")}>
-                  <div className={cx("product-img")}>
-                    <img src={item.image} alt={item.name} />
-                  </div>
-                  <div className={cx("product-name")}>{item.name}</div>
-                  <div className={cx("product-rating")}>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  </div>
-                  <div className={cx("price_before")}>${item.price}</div>
-                  <div className={cx("product-price")}>${item.price}</div>
-                  <button className={cx("btn_add")}>Buy Now</button>
-                </div>
               ))}
             </div>
           </div>

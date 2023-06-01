@@ -1,5 +1,6 @@
 .flash_sale-wrapper {
   width: 100%;
+  margin-top: 101px;
   background-color: rgb(244, 244, 244);
 }
 
@@ -190,6 +191,13 @@
       .name-text {
         font-size: 2rem;
         font-weight: 500;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
         color: #333;
       }
     }

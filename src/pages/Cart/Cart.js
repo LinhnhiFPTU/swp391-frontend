@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import classNames from "classnames/bind";
 import { useState } from 'react';
 
@@ -66,19 +66,27 @@ function Cart() {
             setShop(!shop)
         }
     }
+    const [quantity, setQuantity] = useState(1);
+
+    const handleDecrement = () => {
+        setQuantity(prevCount => prevCount - 1);
+    }
+    const handleIncrement = () => {
+        setQuantity(prevCount => prevCount + 1);
+    }
     return (
         <div className={cx('container')}>
             <Header />
             <div className={cx('cart-container')}>
                 <div className={cx('cart-header')}>
-                    <div className={cx('item-1')}>
+                    <div className={cx('item-pick')}>
                         <input type="checkbox" value={products} onChange={() => handleChange("Products")} />
                         <span>Product</span>
                     </div>
-                    <div>Unit Price</div>
-                    <div>Quantity</div>
-                    <div>Total Price</div>
-                    <div>Actions</div>
+                    <div className={cx('item-details')}>Unit Price</div>
+                    <div className={cx('item-details')}>Quantity</div>
+                    <div className={cx('item-details')}>Total Price</div>
+                    <div className={cx('item-details')}>Actions</div>
                 </div>
                 <div className={cx('shop-cart')}>
                     <div className={cx('shop_checkbox')}>
@@ -87,19 +95,54 @@ function Cart() {
                     </div>
                     <div className={cx('product_cart')}>
                         {productCart.map((item, index) => (
-                            <div className={cx('product-item')}>
+                            <div key={index} className={cx('product-item')}>
                                 <div className={cx('product_pick')}>
                                     <input type="checkbox" value={products} onChange={() => handleChange("Products")} />
                                     <img src={bird} alt="Product name" />
                                     <span>Product Name</span>
                                 </div>
-                                <div>Unit Price</div>
-                                <div>Quantity</div>
-                                <div>Total Price</div>
-                                <div>Actions</div>
+                                <div className={cx('product-details')}>$ {item.price}</div>
+                                <div className={cx('product-details')}>
+                                    <button type='button' onClick={handleDecrement} className={cx('product-input')}>-</button>
+                                    <input type='text' className={cx('product-quantity')} value={quantity}></input>
+                                    <button type='button' onClick={handleIncrement} className={cx('product-input')}>+</button>
+                                </div>
+                                <div className={cx('product-details')}>$ {item.totalPrice}</div>
+                                <div className={cx('product-details')}>
+                                    <i className={cx("fa-solid fa-trash-can")}></i>
+                                </div>
+
                             </div>
                         ))}
-
+                    </div>
+                </div>
+            </div>
+            <div className={cx('bottom')}>
+                <div className={cx('cart-left')}>
+                    <div className={cx('selectAll')}>
+                        <input type="checkbox" value={products} onChange={() => handleChange("Products")} />
+                        <p>Select All (10)</p>
+                    </div>
+                    <div className={cx('deleteAll')}>
+                        <p>Delete</p>
+                    </div>
+                </div>
+                <div className={cx('cart-right')}>
+                    <div className={cx('sub-total')}>
+                        <span className={cx('sub-name')}>Subtotal</span>
+                        <span className={cx('sub-price')}>500$</span>
+                    </div>
+                    <div className={cx('shipping-fee')}>
+                        <span className={cx('sub-name')}>Shipping fee</span>
+                        <span className={cx('sub-price')}>10$</span>
+                    </div>
+                    <div className={cx('voucher')}>
+                        <span className={cx('sub-name')}>Voucher</span>
+                        <span className={cx('sub-price')}>No</span>
+                    </div>
+                    <div className={cx('totalPrice')}>
+                        <span className={cx('sub-name')}>Total</span>
+                        <span className={cx('sub-price')}>505$</span>
                     </div>
                 </div>
             </div>
