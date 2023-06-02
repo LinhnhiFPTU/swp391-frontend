@@ -24,6 +24,10 @@ const products = [
     product_price: 200,
     product_sale_percentage: 20,
     product_price_sale: 100,
+    product_quantity: {
+      qAvailable: 200,
+      qSold: 90,
+    },
   },
   {
     product_img: birdMedicine,
@@ -33,6 +37,10 @@ const products = [
     product_price: 200,
     product_sale_percentage: 20,
     product_price_sale: 100,
+    product_quantity: {
+      qAvailable: 200,
+      qSold: 120,
+    },
   },
   {
     product_img: birdCage,
@@ -42,6 +50,10 @@ const products = [
     product_price: 200,
     product_price_sale: 100,
     product_sale_percentage: 20,
+    product_quantity: {
+      qAvailable: 200,
+      qSold: 60,
+    },
   },
   {
     product_img: birdFood,
@@ -51,6 +63,10 @@ const products = [
     product_price: 200,
     product_price_sale: 100,
     product_sale_percentage: 20,
+    product_quantity: {
+      qAvailable: 200,
+      qSold: 170,
+    },
   },
 ];
 function FlashSale() {
@@ -89,12 +105,28 @@ function FlashSale() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (countdown.minute === 0 && countdown.second === 0) {
-  //     setMinute(30);
-  //     setSecond(59);
-  //   }
-  // }, [countdown.minute, countdown.second]);
+  const loading = {
+    maxWidth: "160px",
+    height: "20px",
+    borderRadius: "12px",
+    overflow: "hidden",
+    backgroundColor: "#f3afafcd",
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const beforeLoading = {
+    content: '""',
+    maxWidth: "160px",
+    height: "20px",
+    position: "absolute",
+    top: "0",
+    left: "0",
+    borderRadius: "12px 0 0 12px",
+    backgroundColor: "var(--flash_sale-primary)",
+  };
 
   return (
     <>
@@ -149,156 +181,87 @@ function FlashSale() {
                     -{product.product_sale_percentage}%
                   </span>
                 </div>
-                <div className={cx("product-image")}>
-                  <img src={product.product_img} alt="product-img" />
-                </div>
-                <div className={cx("product-name")}>
-                  <span className={cx("name-text")}>
-                    {product.product_name}
-                  </span>
-                </div>
-                <div className={cx("product-rating")}>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                </div>
-                <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>
-                    ${product.product_price}
-                  </span>
-                  <span className={cx("price-after")}>
-                    ${product.product_price_sale}
-                  </span>
-                </div>
-                <div className={cx("product-feature")}>
-                  <div className={cx("product-status")}>
-                    <div className={cx("loading")}>
-                      <span className={cx("loading-text")}>SELLING FAST</span>
-                    </div>
+                <img
+                  src={product.product_img}
+                  alt="product-img"
+                  className={cx("product-image")}
+                />
+                <div className={cx("product-content")}>
+                  <div className={cx("product-name")}>
+                    <span className={cx("name-text")}>
+                      {product.product_name}
+                    </span>
                   </div>
-                  <button className={cx("buy-btn")}>Buy now</button>
-                </div>
-              </Link>
-            ))}
-            {products.map((product, index) => (
-              <Link to="" className={cx("flash_sale-product")}>
-                <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>
-                    -{product.product_sale_percentage}%
-                  </span>
-                </div>
-                <div className={cx("product-image")}>
-                  <img src={product.product_img} alt="product-img" />
-                </div>
-                <div className={cx("product-name")}>
-                  <span className={cx("name-text")}>
-                    {product.product_name}
-                  </span>
-                </div>
-                <div className={cx("product-rating")}>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                </div>
-                <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>
-                    ${product.product_price}
-                  </span>
-                  <span className={cx("price-after")}>
-                    ${product.product_price_sale}
-                  </span>
-                </div>
-                <div className={cx("product-feature")}>
-                  <div className={cx("product-status")}>
-                    <div className={cx("loading")}>
-                      <span className={cx("loading-text")}>SELLING FAST</span>
-                    </div>
+                  <div className={cx("product-rating")}>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
                   </div>
-                  <button className={cx("buy-btn")}>Buy now</button>
-                </div>
-              </Link>
-            ))}
-            {products.map((product, index) => (
-              <Link to="" className={cx("flash_sale-product")}>
-                <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>
-                    -{product.product_sale_percentage}%
-                  </span>
-                </div>
-                <div className={cx("product-image")}>
-                  <img src={product.product_img} alt="product-img" />
-                </div>
-                <div className={cx("product-name")}>
-                  <span className={cx("name-text")}>
-                    {product.product_name}
-                  </span>
-                </div>
-                <div className={cx("product-rating")}>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                </div>
-                <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>
-                    ${product.product_price}
-                  </span>
-                  <span className={cx("price-after")}>
-                    ${product.product_price_sale}
-                  </span>
-                </div>
-                <div className={cx("product-feature")}>
-                  <div className={cx("product-status")}>
-                    <div className={cx("loading")}>
-                      <span className={cx("loading-text")}>SELLING FAST</span>
-                    </div>
+                  <div className={cx("product-price")}>
+                    <span className={cx("price-before")}>
+                      ${product.product_price}
+                    </span>
+                    <span className={cx("price-after")}>
+                      ${product.product_price_sale}
+                    </span>
                   </div>
-                  <button className={cx("buy-btn")}>Buy Now</button>
-                </div>
-              </Link>
-            ))}
-            {products.map((product, index) => (
-              <Link to="" className={cx("flash_sale-product")}>
-                <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>
-                    -{product.product_sale_percentage}%
-                  </span>
-                </div>
-                <div className={cx("product-image")}>
-                  <img src={product.product_img} alt="product-img" />
-                </div>
-                <div className={cx("product-name")}>
-                  <span className={cx("name-text")}>
-                    {product.product_name}
-                  </span>
-                </div>
-                <div className={cx("product-rating")}>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                </div>
-                <div className={cx("product-price")}>
-                  <span className={cx("price-before")}>
-                    ${product.product_price}
-                  </span>
-                  <span className={cx("price-after")}>
-                    ${product.product_price_sale}
-                  </span>
-                </div>
-                <div className={cx("product-feature")}>
-                  <div className={cx("product-status")}>
-                    <div className={cx("loading")}>
-                      <span className={cx("loading-text")}>SELLING FAST</span>
+                  <div className={cx("product-feature")}>
+                    <div className={cx("product-status")}>
+                      <div
+                        className={cx("loading")}
+                        style={{
+                          ...loading,
+                          width: `calc((${product.product_quantity.qAvailable}) * 1px)`,
+                        }}
+                      >
+                        <div
+                          className={cx("before-element")}
+                          style={{
+                            ...beforeLoading,
+                            width: `calc(((${product.product_quantity.qSold} * 160) / ${product.product_quantity.qAvailable}) * 1px)`,
+                          }}
+                        ></div>
+                        <span className={cx("loading-text")}>
+                          {(() => {
+                            if (
+                              (product.product_quantity.qSold /
+                                product.product_quantity.qAvailable) *
+                                100 <=
+                              50
+                            ) {
+                              return "SELLING FAST";
+                            } else if (
+                              (product.product_quantity.qSold /
+                                product.product_quantity.qAvailable) *
+                                100 >=
+                                50 &&
+                              (product.product_quantity.qSold /
+                                product.product_quantity.qAvailable) *
+                                100 <=
+                                75
+                            ) {
+                              return `${product.product_quantity.qSold} SOLD`;
+                            } else if (
+                              (product.product_quantity.qSold /
+                                product.product_quantity.qAvailable) *
+                                100 >
+                              75
+                            ) {
+                              return `ONLY ${
+                                product.product_quantity.qAvailable -
+                                product.product_quantity.qSold
+                              } LEFT`;
+                            } else {
+                              return "";
+                            }
+                          })()}
+                        </span>
+                      </div>
                     </div>
+                    <button className={cx("buy-btn")}>Buy now</button>
                   </div>
-                  <button className={cx("buy-btn")}>Buy now</button>
                 </div>
               </Link>
             ))}
