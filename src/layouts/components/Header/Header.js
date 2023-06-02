@@ -9,6 +9,7 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 import styles from "./Header.module.scss";
 import { UserContext } from "~/App";
 import axios from "axios";
+import CartDropdown from "../CartDropdown/CartDropdown";
 const cx = classNames.bind(styles);
 
 const Header = () => {
@@ -71,11 +72,8 @@ const Header = () => {
               </Link>
             </div>
           </div>
-          <div className={cx("cart-icon")}>
-            <span className={cx("counter", "disable")}>22</span>
-            <Link to="/cart" className={cx("cart-link")}>
-              <i className={cx("icon", "fa-light fa-cart-shopping")}></i>
-            </Link>
+          <div className={cx("cart")}>
+            <CartDropdown />
           </div>
 
           <div className={cx("notification-icon")}>
@@ -145,7 +143,7 @@ const Header = () => {
                   <Stack direction="row" spacing={2}>
                     <Avatar
                       alt="avatar"
-                      src={user.imageurl}
+                      src={user.image}
                       sx={{ width: 33, height: 33 }}
                     />
                   </Stack>
