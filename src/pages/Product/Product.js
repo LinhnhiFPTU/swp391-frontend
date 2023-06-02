@@ -6,27 +6,46 @@ import axios from "axios";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import Report from "./Report";
+import Comment from "./Comment";
 import product from "~/assets/images/bird-cage.png";
-import product1 from "~/assets/images/bird-food.png";
-import product2 from "~/assets/images/bird-medicine.png";
-import product3 from "~/assets/images/bird.png";
-import product4 from "~/assets/images/bird-accessory.png";
-import product5 from "~/assets/images/product.png";
+
 import avatar from "~/assets/images/user-avatar.png";
 import styles from "./Product.module.scss";
 
 const cx = classNames.bind(styles);
 const filterBtns = ["All", "5 Star", "4 Star", "3 Star", "2 Star", "1 Star"];
-const products = [
+const commentRating = [1, 2, 3, 4, 5];
+const comments = [
   {
-    type: "video",
-    src: "https://play-ws.vod.shopee.com/api/v4/11110103/mms/vn_7a40b4ce-8cbe-4f13-ae8e-355f3aa3d07b_000230.16000461675675278.mp4",
+    cmtAvatar: avatar,
+    cmtName: "User name",
+    cmtRating: 1,
+    cmtDescription:
+      "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
+    cmtImage: [
+      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
+      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
+      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
+      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
+    ],
+    cmtVideo:
+      "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
   },
-  { type: "img", src: product1 },
-  { type: "img", src: product2 },
-  { type: "img", src: product3 },
-  { type: "img", src: product4 },
-  { type: "img", src: product5 },
+  {
+    cmtAvatar: avatar,
+    cmtName: "User name",
+    cmtRating: 2,
+    cmtDescription:
+      "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
+    cmtImage: [
+      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-d3zsnvj133gv08.webp",
+      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-d3zsnvj133gv08.webp",
+      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-d3zsnvj133gv08.webp",
+      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-d3zsnvj133gv08.webp",
+    ],
+    cmtVideo:
+      "https://play-aka.vod.shopee.com/api/v4/11110103/mms/vn_d73b5e54-7bf6-4ec7-afbf-daf5d09d71b3_000234.16000461677044301.mp4",
+  },
 ];
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
@@ -37,17 +56,14 @@ function Product() {
   const [cmtPage, setCmtPage] = useState(1);
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
-  const [openReport, setOpenReport] = useState(false)
-  const videoRef = useRef();
+  const [openReport, setOpenReport] = useState(false);
   const timeID = useRef();
   const location = useLocation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
-  const [comment, setComment] = useState({
-    ratings: [1, 2, 3, 4, 5],
-    rating: 2,
-  });
+
   useEffect(() => {
     axios
       .get("/api/v1/publics/time")
@@ -60,7 +76,6 @@ function Product() {
         timeID.current = setInterval(() => {
           let now = new Date().getTime();
           let distance = end - now;
-
           let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
           let second = Math.floor((distance % (60 * 1000)) / 1000);
           setMinute(minute);
@@ -158,7 +173,7 @@ function Product() {
 
   return (
     <>
-      {openReport && <Report closeReport={setOpenReport}/>}
+      {openReport && <Report closeReport={setOpenReport} />}
       <Header />
       <div className={cx("product-wrapper")}>
         <div className={cx("product-container")}>
@@ -198,7 +213,12 @@ function Product() {
                   </div>
                 </div>
                 <div className={cx("product-status-right")}>
-                  <button className={cx("report-btn")} onClick={() => setOpenReport(true)}>Report</button>
+                  <button
+                    className={cx("report-btn")}
+                    onClick={() => setOpenReport(true)}
+                  >
+                    Report
+                  </button>
                 </div>
               </div>
               {/*------Product Flash Sale------*/}
@@ -429,85 +449,13 @@ function Product() {
                 ))}
               </div>
             </div>
-            <div className={cx("product-comment-list")}>
-              <div className={cx("product-comment")}>
-                <div className={cx("user_avatar")}>
-                  <img src={avatar} alt="user-avatar" />
-                </div>
-                <div className={cx("content_comment")}>
-                  <div className={cx("user_comment")}>
-                    <div className={cx("user_name")}>
-                      <span className={cx("name")}>User name</span>
-                    </div>
-                    <div className={cx("user_rating")}>
-                      {comment.ratings.map((r, index) =>
-                        r <= comment.rating ? (
-                          <i
-                            key={index}
-                            className={cx("fa-solid fa-star", "rate_icon")}
-                          ></i>
-                        ) : (
-                          <i
-                            key={index}
-                            className={cx("fa-regular fa-star", "rate_icon")}
-                          ></i>
-                        )
-                      )}
-                    </div>
-                    <div className={cx("date_time-comment")}>
-                      <span className={cx("date-time")}>2023-05-26 16:00</span>
-                    </div>
-                  </div>
-                  <div className={cx("comment-content")}>
-                    <span className={cx("comment-text")}>
-                      Mua đợt sale nên được giảm giá. Được tặng kèm thêm dưỡng
-                      chất nhỏ xinh. Shop đóng gói cẩn thận, giao hàng nhanh.
-                      Tiếp tục ủng hộ shop
-                    </span>
-                  </div>
-                  <div className={cx("comment-wrapper")}>
-                    <div className={cx("comment-image")}>
-                      {products.map((productMedia, index) => {
-                        if (productMedia.type === "img") {
-                          return (
-                            <img
-                              key={index}
-                              src={productMedia.src}
-                              alt="img-comment"
-                            />
-                          );
-                        }
-                        return (
-                          <div className={cx("comment-video")} key={index}>
-                            <video src="" ref={videoRef} />
-                            <div className={cx("icon-video")}>
-                              <i className={cx("fa-solid fa-video")}></i>
-                              <span>
-                                {(() => {
-                                  let duration =
-                                    videoRef.current &&
-                                    Math.floor(videoRef.current.duration);
-                                  let rs = "00:00";
-                                  if (duration) {
-                                    let minute = Math.floor(duration / 60);
-                                    let seconds = duration % 60;
-                                    let secString = "";
-                                    if (seconds < 10) secString = "0" + seconds;
-                                    else secString = seconds;
-                                    rs = minute + ":" + secString;
-                                  }
-                                  return rs;
-                                })()}
-                              </span>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {comments.map((comment, index) => (
+              <Comment
+                comment={comment}
+                commentRating={commentRating}
+                key={index}
+              />
+            ))}
             <div className={cx("more-comment")}>
               <input
                 className={cx("input-page")}

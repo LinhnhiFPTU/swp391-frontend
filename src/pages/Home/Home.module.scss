@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  padding-top: 30px;
+  padding-top: 131px;
   background-color: rgb(244, 244, 244);
 }
 
@@ -230,30 +230,6 @@
   justify-content: center;
   align-items: center;
   position: relative;
-}
-
-.loading {
-  width: 170px;
-  height: 20px;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: #f3afafcd;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.loading::before {
-  content: "";
-  width: 100px;
-  height: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 12px 0 0 12px;
-  background-color: var(--flash_sale-primary);
 }
 
 .loading-text {

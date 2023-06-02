@@ -25,27 +25,27 @@ const categories = [
   {
     image: bird,
     title: "BIRDS",
-    to: "",
+    to: "/category",
   },
   {
     image: birdFood,
     title: "BIRD FOODS",
-    to: "",
+    to: "/category",
   },
   {
     image: birdMedicine,
     title: "BIRD MEDICINES",
-    to: "",
+    to: "/category",
   },
   {
     image: birdCage,
     title: "BIRD CAGES",
-    to: "",
+    to: "/category",
   },
   {
     image: birdAccessory,
     title: "BIRD ACCESSORIES",
-    to: "",
+    to: "/category",
   },
 ];
 
@@ -54,41 +54,73 @@ const flashSales = [
     image: birdFood,
     name: "Nekton",
     price: "35",
+    quantity: {
+      qAvailable: 200,
+      qSold: 120,
+    },
   },
   {
     image: birdFood,
     name: "Amoxy-Tyl",
     price: "13",
+    quantity: {
+      qAvailable: 200,
+      qSold: 150,
+    },
   },
   {
     image: birdFood,
     name: "Bird B.Gone",
     price: "12",
+    quantity: {
+      qAvailable: 200,
+      qSold: 50,
+    },
   },
   {
     image: birdFood,
     name: "Bird Spikes",
     price: "24",
+    quantity: {
+      qAvailable: 200,
+      qSold: 100,
+    },
   },
   {
     image: birdFood,
     name: "Shefa",
     price: "25",
+    quantity: {
+      qAvailable: 200,
+      qSold: 190,
+    },
   },
   {
     image: birdFood,
     name: "Shefa",
     price: "26",
+    quantity: {
+      qAvailable: 200,
+      qSold: 170,
+    },
   },
   {
     image: birdFood,
     name: "Shefa",
     price: "27",
+    quantity: {
+      qAvailable: 200,
+      qSold: 50,
+    },
   },
   {
     image: birdFood,
     name: "Shefa",
     price: "28",
+    quantity: {
+      qAvailable: 200,
+      qSold: 120,
+    },
   },
 ];
 
@@ -225,13 +257,14 @@ const products = [
     price: "70",
   },
 ];
+
 //Control Flash Sale Button
 const PrevArrowFS = (props) => {
   const { onClick } = props;
   return (
     <div className={cx("controlfs-btn")} onClick={onClick}>
       <button className={cx("prev")}>
-        <i class="fa-regular fa-chevron-left"></i>
+        <i className="fa-regular fa-chevron-left"></i>
       </button>
     </div>
   );
@@ -241,7 +274,7 @@ const NextArrowFS = (props) => {
   return (
     <div className={cx("controlfs-btn")} onClick={onClick}>
       <button className={cx("next")}>
-        <i class="fa-solid fa-chevron-right"></i>
+        <i className="fa-solid fa-chevron-right"></i>
       </button>
     </div>
   );
@@ -312,6 +345,31 @@ function Home() {
       setSecond(59);
     }
   }, [second, minute]);
+
+  const loading = {
+    maxWidth: "170px",
+    height: "20px",
+    borderRadius: "12px",
+    overflow: "hidden",
+    backgroundColor: "#f3afafcd",
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "15px",
+  };
+
+  const beforeLoading = {
+    content: '""',
+    maxWidth: "170px",
+    height: "20px",
+    position: "absolute",
+    top: "0",
+    left: "0",
+    borderRadius: "12px 0 0 12px",
+    backgroundColor: "var(--flash_sale-primary)",
+  };
+
   return (
     <>
       {/* -----------------HEADER----------------- */}
@@ -362,7 +420,7 @@ function Home() {
                 </span>
               </div>
               <div className={cx("flashSale-more")}>
-                <Link to="" className={cx("more-item")}>
+                <Link to="/flash_sale" className={cx("more-item")}>
                   <span className={cx("more-item-text")}>See more </span>
                   <i className={cx("fa-light fa-chevron-up fa-rotate-90")}></i>
                 </Link>
@@ -387,9 +445,32 @@ function Home() {
                       <div className={cx("fitem-name")}>{item.name}</div>
                       <div className={cx("fitem-price")}>{item.price}$</div>
                       <div className={cx("flashSale-status")}>
-                        <div className={cx("loading")}>
+                        <div
+                          className={cx("loading")}
+                          style={{
+                            ...loading,
+                            width: `calc(${item.quantity.qAvailable} * 1px)`,
+                          }}
+                        >
+                          <div
+                            className={cx("before-element")}
+                            style={{
+                              ...beforeLoading,
+                              width: `calc(((${item.quantity.qSold} * 170) / ${item.quantity.qAvailable}) * 1px)`,
+                            }}
+                          ></div>
                           <span className={cx("loading-text")}>
-                            SELLING WELL
+                            {(() => {
+                              if((item.quantity.qSold / item.quantity.qAvailable) * 100 <= 50) {
+                                return "SELLING FAST"
+                              }else if ((item.quantity.qSold / item.quantity.qAvailable) * 100 >= 50 && (item.quantity.qSold / item.quantity.qAvailable) * 100 <= 75) {
+                                return `${item.quantity.qSold} SOLD`
+                              }else if ((item.quantity.qSold / item.quantity.qAvailable) * 100 > 75) {
+                                return `ONLY ${item.quantity.qAvailable - item.quantity.qSold} LEFT`
+                              }else {
+                                return ""
+                              }
+                            })()}
                           </span>
                         </div>
                       </div>
@@ -461,7 +542,7 @@ function Home() {
             </div>
             <div className={cx("shop-trending-content")}>
               {shops.map((shop, index) => (
-                <Link to="/" className={cx("shop-item")} key={index}>
+                <div className={cx("shop-item")} key={index}>
                   <div className={cx("shop-img")}>
                     <img src={shop.image} alt="shop-img" />
                   </div>
@@ -490,7 +571,7 @@ function Home() {
                         ></i>
                         <span className={cx("chat-text")}>Chat</span>
                       </button>
-                      <Link to="" className={cx("view")}>
+                      <Link to="/" className={cx("view")}>
                         <i
                           className={cx(
                             "fa-sharp fa-solid fa-bag-shopping",
@@ -501,7 +582,7 @@ function Home() {
                       </Link>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
