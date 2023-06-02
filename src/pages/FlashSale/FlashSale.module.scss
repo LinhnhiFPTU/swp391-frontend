@@ -88,7 +88,7 @@
 
 .flash_sale-banner {
   width: var(--width);
-  height: 450px;
+  height: 500px;
 
   img {
     width: 100%;
@@ -144,6 +144,7 @@
     transition: 0.25 ease;
     text-decoration: none;
     position: relative;
+    transition: 0.25s ease;
 
     &:hover {
       transform: translateY(-5px);

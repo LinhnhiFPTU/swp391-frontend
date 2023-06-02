@@ -1,5 +1,7 @@
 .overlay {
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 10;
   width: 100%;
   height: 100%;
@@ -189,7 +191,7 @@
 
 
 .popup-footer {
-  margin-top: 200px;
+  margin-top: 230px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -204,6 +206,7 @@
 }
 
 .cancel {
+  width: 80px;
   margin-right: 10px;
   border: 1px solid transparent;
   background-color: #e7e7e7aa;
@@ -215,6 +218,7 @@
 }
 
 .update {
+  width: 80px;
   border: 1px solid transparent;
   background-color: var(--primary);
   color: #fff;

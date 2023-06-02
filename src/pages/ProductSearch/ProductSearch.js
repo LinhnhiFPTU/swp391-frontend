@@ -136,22 +136,22 @@ function ProductSearch() {
               </span>
             </div>
             <div className={cx("shop-related_shop")}>
-              <Link to="" className={cx("shop-related_shop-item")}>
-                <Link to="" className={cx("shop-item_avatar")}>
+              <Link to="/shop" className={cx("shop-related_shop-item")}>
+                <div className={cx("shop-item_avatar")}>
                   <img
                     src={avatar}
                     alt="shop-avatar"
                     className={cx("avatar-shop")}
                   />
-                </Link>
-                <Link to="" className={cx("shop-item_info")}>
+                </div>
+                <div className={cx("shop-item_info")}>
                   <div className={cx("shop-item_nick-name")}>Dirty Coins</div>
                   <div className={cx("shop-item_user-name")}>dirtycoins</div>
                   <div className={cx("shop-item_follow-count")}>
                     <span className={cx("count-number")}>566.8k</span>{" "}
                     <span className={cx("count-text")}>Followers</span>
                   </div>
-                </Link>
+                </div>
                 <div className={cx("shop-related_shop-statistic")}>
                   <div className={cx("seller-info-item")}>
                     <div className={cx("header")}>

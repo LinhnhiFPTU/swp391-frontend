@@ -21,14 +21,15 @@
   }
 
   .contact-header {
+    width: 550px;
     position: absolute;
-    top: 80px;
-    left: 30%;
+    top: 120px;
+    left: 33%;
     transform: translateX(-50%);
     color: #fff;
 
     .title {
-      font-size: 8rem;
+      font-size: 7rem;
       font-weight: 500;
     }
 

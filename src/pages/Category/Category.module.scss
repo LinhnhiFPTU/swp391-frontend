@@ -22,8 +22,8 @@
       .category-header {
         width: 550px;
         position: absolute;
-        top: 80px;
-        left: 30%;
+        top: 120px;
+        left: 33%;
         transform: translateX(-50%);
         color: #fff;
 
@@ -53,6 +53,7 @@
         text-decoration: none;
         color: #333;
         background-color: #fff;
+        transition: 0.25s ease;
 
         &:hover {
           transform: translateY(-3px);

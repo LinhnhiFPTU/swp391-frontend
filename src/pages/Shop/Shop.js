@@ -341,7 +341,7 @@ function Shop() {
               </div>
             </div>
             <div className={cx("right-content")}>
-              <a href="#allProduct" className={cx("shop-totalProducts")}>
+              <a href="#product_list" className={cx("shop-totalProducts")}>
                 <i className={cx("fa-light fa-box", "icon")}></i>
                 <span className={cx("name")}>Products: </span>
                 <span className={cx("number")}> 125</span>
@@ -488,7 +488,7 @@ function Shop() {
               ))}
             </div>
           </div>
-          <div className={cx("shop_sort-bar")} id="allProduct">
+          <div className={cx("shop_sort-bar")} id="product_list">
             <span className={cx("sort-bar-label")}>Sort by</span>
             <div className={cx("sort-by-options")}>
               {sortBarOptions.map((option, index) => {

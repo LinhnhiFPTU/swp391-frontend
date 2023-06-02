@@ -19,13 +19,13 @@ function Footer() {
           <div className={cx("footer-item")}>
             <p className={cx("title")}>SHOP</p>
             <div className={cx("footer-item-text")}>
-              <Link to="/bird" className={cx("link")}>
+              <Link to="/category" className={cx("link")}>
                 <p>Bird</p>
               </Link>
-              <Link to="/bird-food" className={cx("link")}>
+              <Link to="/category" className={cx("link")}>
                 <p>Bird food</p>
               </Link>
-              <Link to="/bird-accessories" className={cx("link")}>
+              <Link to="/category" className={cx("link")}>
                 <p>Bird accessories</p>
               </Link>
               <Link to="/login" className={cx("link")}>
@@ -34,19 +34,6 @@ function Footer() {
               <Link to="/signup" className={cx("link")}>
                 <p>Sign up</p>
               </Link>
-            </div>
-          </div>
-
-          <div className={cx("footer-item")}>
-            <p className={cx("title")}>ABOUT US</p>
-            <div className={cx("intro-project")}>
-              <p className={cx("text-about")}>
-                Welcome to our bird trading platform! We are a passionate team
-                of bird enthusiasts dedicated to connecting bird lovers with
-                their perfect feathered friends. Our platform offers a wide
-                variety of birds for sale, from common species to rare and
-                exotic breeds.
-              </p>
             </div>
           </div>
 
