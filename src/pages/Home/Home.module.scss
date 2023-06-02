@@ -43,7 +43,6 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  transition: 0.25s ease;
 }
 
 .category-item {
@@ -55,6 +54,7 @@
   flex-direction: column;
   text-decoration: none;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  transition: 0.25s ease;
 
   &:hover {
     transform: translateY(-5px);
@@ -458,6 +458,15 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   padding: 20px 15px;
   position: relative;
+  text-decoration: none;
+  color: #333;
+  transition: 0.25s ease;
+
+  &:hover {
+    color: #333;
+    transform: translateY(-5px);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
 }
 
 .product-img {
@@ -486,15 +495,22 @@
 
 .btn_add {
   border: none;
-  background-color: var(--primary);
   color: white;
   padding: 5px;
   position: absolute;
   right: 10px;
   bottom: 20px;
   font-size: 1.4rem;
-  border-radius: 5px;
+  border-radius: 2px;
   margin-right: 10px;
+  background-color: var(--primary);
+  border: 1px solid transparent;
+
+  &:hover {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    background-color: transparent;
+  }
 }
 
 // ---------SHOP TRENDING---------
@@ -514,7 +530,6 @@
 .shop-trending-content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-top: 30px;
 }
 
@@ -532,6 +547,8 @@
 
 .shop-item:hover {
   color: #333;
+  // transform: translateY(-5px);
+  // box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .shop-text {
@@ -579,34 +596,43 @@
   margin-top: 5px;
 
   .chat {
+    height: 29px;
     outline: none;
     padding: 3px 5px;
-    margin-right: 10px;
-    border-radius: 3px;
+    margin-right: 5px;
     font-size: 1.4rem;
     border: 1px solid var(--primary);
     color: var(--primary);
     background-color: transparent;
 
     .icon-chat {
-      margin-right: 10px;
+      margin-right: 5px;
       color: var(--primary);
     }
   }
 
   .view {
-    padding: 3px 5px;
-    border-radius: 3px;
+    padding: 3px 5px 3.7px 5px;
     font-size: 1.4rem;
     text-decoration: none;
     outline: none;
-    border: 1px solid #636262aa;
-    color: #636262aa;
-    background-color: transparent;
+    border: 1px solid transparent;
+    color: #fff;
+    background-color: var(--primary);
+
+    &:hover {
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      background-color: transparent;
+
+      .icon-view {
+        color: var(--primary);
+      }
+    }
 
     .icon-view {
-      margin-right: 10px;
-      color: #636262aa;
+      margin-right: 5px;
+      color: #fff;
     }
   }
 }

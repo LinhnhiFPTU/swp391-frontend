@@ -1,14 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Tippy from "@tippyjs/react/headless";
-import avatar from "~/assets/images/user.png";
+import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import { Wrapper as PopperWrapper } from "~/components/Popper";
-import styles from "./Header.module.scss";
+
+import Search from "~/layouts/components/Header/Search";
+
 import { UserContext } from "~/App";
-import axios from "axios";
+import avatar from "~/assets/images/user.png";
+import styles from "./Header.module.scss";
+
 const cx = classNames.bind(styles);
 
 const Header = () => {
@@ -43,20 +47,10 @@ const Header = () => {
               </span>
             </p>
           </Link>
-          <div className={cx("search-container")}>
-            <form action="" className={cx("search-bar")}>
-              <input
-                type="text"
-                placeholder="Search your product from here"
-              ></input>
-              <button type="submit">
-                <i className={cx("fa-regular fa-magnifying-glass")}></i>
-              </button>
-            </form>
-          </div>
+          <Search />
           <div className={cx("options-content")}>
             <div className={cx("option")}>
-              <Link className={cx("option-link")} to="/all_product">
+              <Link className={cx("option-link")} to="/products">
                 Products
               </Link>
             </div>
@@ -122,7 +116,10 @@ const Header = () => {
                         <Link to="/" className={cx("login-link")}>
                           <span>Seller</span>
                           <i
-                            className={cx("icon-sub", "fa-light fa-circle-dollar")}
+                            className={cx(
+                              "icon-sub",
+                              "fa-light fa-circle-dollar"
+                            )}
                           ></i>
                         </Link>
                       </div>

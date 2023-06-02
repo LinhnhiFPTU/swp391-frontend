@@ -20,9 +20,6 @@ const sortBarOptions = [
     type: "normal",
     title: "Ratings",
   },
-];
-
-const priceSortOptions = [
   {
     type: "price",
     title: "Low to High",
@@ -33,28 +30,7 @@ const priceSortOptions = [
   },
 ];
 
-const categorySortOptions = [
-  {
-    type: "category",
-    title: "Birds",
-  },
-  {
-    type: "category",
-    title: "Bird Foods",
-  },
-  {
-    type: "category",
-    title: "Bird Medicines",
-  },
-  {
-    type: "category",
-    title: "Bird Cages",
-  },
-  {
-    type: "category",
-    title: "Bird Accessories",
-  },
-];
+
 
 const products = [
   {
@@ -96,10 +72,7 @@ const products = [
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 function Products() {
   const [typeSort, setTypeSort] = useState("Top Sales");
-  const [priceSort, setPriceSort] = useState();
-  const [categorySort, setCategorySort] = useState();
   const [priceTitle, setPriceTitle] = useState("Price");
-  const [categoryTitle, setCategoryTitle] = useState("All");
   const [cmtPage, setCmtPage] = useState(1);
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
@@ -151,13 +124,13 @@ function Products() {
       <div className={cx("all_wrapper")}>
         <div className={cx("all_container")}>
           <div className={cx("all_banner")}>
-            <img src={banner} alt="banner" className={cx("all-img")} />
-            <div className={cx("all-header")}>
-              <div className={cx("title")}>Bird Trading Platform</div>
-              <div className={cx("sub-title")}>
-                Connecting the community of bird lovers
+              <img src={banner} alt="banner" className={cx("all-img")} />
+              <div className={cx("all-header")}>
+                <div className={cx("title")}>Bird Trading Platform</div>
+                <div className={cx("sub-title")}>
+                  Connecting the community of bird lovers
+                </div>
               </div>
-            </div>
           </div>
           <div className={cx("all_sort-bar")}>
             <span className={cx("sort-bar-label")}>Sort by</span>
@@ -175,6 +148,7 @@ function Products() {
                       }
                       onClick={() => {
                         setTypeSort(option.title);
+                        setPriceTitle("Price")
                       }}
                     >
                       {option.title}
@@ -183,51 +157,6 @@ function Products() {
                 }
               })}
             </div>
-            {/*Sort by category*/}
-            <Tippy
-              interactive
-              delay={[0, 100]}
-              placement="bottom-end"
-              render={(attrs) => (
-                <div
-                  className={cx("price-sort-options")}
-                  tabIndex="-1"
-                  {...attrs}
-                >
-                  <PopperWrapper>
-                    {categorySortOptions.map((option, index) => {
-                      if (option.type === "category") {
-                        return (
-                          <div
-                            className={cx("option")}
-                            key={index}
-                            onClick={() => {
-                              setCategorySort(option.title);
-                              setCategoryTitle(option.title);
-                            }}
-                          >
-                            {option.title}
-                          </div>
-                        );
-                      }
-                    })}
-                  </PopperWrapper>
-                </div>
-              )}
-            >
-              <div className={cx("sort-by-category")}>
-                <span
-                  className={
-                    categoryTitle === "All"
-                      ? cx("price-text")
-                      : cx("price-text-active")
-                  }
-                >
-                  {categoryTitle}
-                </span>
-                <i className={cx("fa-solid fa-chevron-right fa-rotate-90")}></i>
-              </div>
-            </Tippy>
             {/*Sort by price*/}
             <Tippy
               interactive
@@ -240,14 +169,14 @@ function Products() {
                   {...attrs}
                 >
                   <PopperWrapper>
-                    {priceSortOptions.map((option, index) => {
+                    {sortBarOptions.map((option, index) => {
                       if (option.type === "price") {
                         return (
                           <div
                             className={cx("option")}
                             key={index}
                             onClick={() => {
-                              setPriceSort(option.title);
+                              setTypeSort(option.title);
                               setPriceTitle(option.title);
                             }}
                           >

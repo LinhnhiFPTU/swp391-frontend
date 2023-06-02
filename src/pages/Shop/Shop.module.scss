@@ -93,8 +93,8 @@
   row-gap: 15px;
 
   .shop-totalProducts {
-      text-decoration: none;
-      color: #333;
+    text-decoration: none;
+    color: #333;
   }
 
   .shop-totalProducts,
@@ -183,6 +183,7 @@
   color: #333;
   background-color: #fff;
   transition: 0.1s ease;
+  transition: 0.25s ease;
 
   &:hover {
     color: #333;
@@ -288,7 +289,7 @@
       text-decoration: none;
       color: #333;
       background-color: #fff;
-      transition: 0.1s ease;
+      transition: 0.25s ease;
 
       &:hover {
         color: #333;
@@ -395,7 +396,7 @@
       text-decoration: none;
       color: #333;
       background-color: #fff;
-      transition: 0.1s ease;
+      transition: 0.25s ease;
 
       &:hover {
         color: #333;
@@ -489,7 +490,7 @@
       text-decoration: none;
       color: #333;
       background-color: #fff;
-      transition: 0.1s ease;
+      transition: 0.25s ease;
 
       &:hover {
         color: #333;
@@ -617,7 +618,7 @@
     text-decoration: none;
     color: #333;
     background-color: #fff;
-    transition: 0.1s ease;
+    transition: 0.25s ease;
 
     &:hover {
       color: #333;
@@ -713,4 +714,3 @@
     background-color: var(--primary);
   }
 }
-

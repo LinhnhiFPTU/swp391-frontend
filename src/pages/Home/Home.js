@@ -370,6 +370,7 @@ function Home() {
     backgroundColor: "var(--flash_sale-primary)",
   };
 
+
   return (
     <>
       {/* -----------------HEADER----------------- */}
@@ -516,7 +517,7 @@ function Home() {
             </div>
             <div className={cx("product_list")}>
               {products.map((item, index) => (
-                <div key={index} className={cx("product_items")}>
+                <Link to="" key={index} className={cx("product_items")}>
                   <div className={cx("product-img")}>
                     <img src={item.image} alt={item.name} />
                   </div>
@@ -531,7 +532,7 @@ function Home() {
                   <div className={cx("price_before")}>${item.price}</div>
                   <div className={cx("product-price")}>${item.price}</div>
                   <button className={cx("btn_add")}>Buy Now</button>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -571,7 +572,7 @@ function Home() {
                         ></i>
                         <span className={cx("chat-text")}>Chat</span>
                       </button>
-                      <Link to="/" className={cx("view")}>
+                      <Link to="/shop" className={cx("view")}>
                         <i
                           className={cx(
                             "fa-sharp fa-solid fa-bag-shopping",
