@@ -80,7 +80,7 @@ function Cart() {
             <div className={cx('cart-container')}>
                 <div className={cx('cart-header')}>
                     <div className={cx('item-pick')}>
-                        <input type="checkbox" value={products} onChange={() => handleChange("Products")} />
+                        <input type="checkbox" value={products} />
                         <span>Product</span>
                     </div>
                     <div className={cx('item-details')}>Unit Price</div>
@@ -90,14 +90,14 @@ function Cart() {
                 </div>
                 <div className={cx('shop-cart')}>
                     <div className={cx('shop_checkbox')}>
-                        <input type="checkbox" value={shop} onChange={() => handleChange("Shop name")} />
+                        <input type="checkbox" value={shop} />
                         <span>Shop name</span>
                     </div>
                     <div className={cx('product_cart')}>
                         {productCart.map((item, index) => (
                             <div key={index} className={cx('product-item')}>
                                 <div className={cx('product_pick')}>
-                                    <input type="checkbox" value={products} onChange={() => handleChange("Products")} />
+                                    <input type="checkbox" value={products} />
                                     <img src={bird} alt="Product name" />
                                     <span>Product Name</span>
                                 </div>
@@ -120,7 +120,7 @@ function Cart() {
             <div className={cx('bottom')}>
                 <div className={cx('cart-left')}>
                     <div className={cx('selectAll')}>
-                        <input type="checkbox" value={products} onChange={() => handleChange("Products")} />
+                        <input type="checkbox" value={products} />
                         <p>Select All (10)</p>
                     </div>
                     <div className={cx('deleteAll')}>

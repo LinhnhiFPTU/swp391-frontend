@@ -10,9 +10,14 @@ import Stack from "@mui/material/Stack";
 import Search from "~/layouts/components/Header/Search";
 
 import { UserContext } from "~/App";
+<<<<<<< HEAD
+import axios from "axios";
+import CartDropdown from "../CartDropdown/CartDropdown";
+=======
 import avatar from "~/assets/images/user.png";
 import styles from "./Header.module.scss";
 
+>>>>>>> 4dffe40609c79b477261133cf9b6d996dd78c5c8
 const cx = classNames.bind(styles);
 
 const Header = () => {
@@ -65,11 +70,8 @@ const Header = () => {
               </Link>
             </div>
           </div>
-          <div className={cx("cart-icon")}>
-            <span className={cx("counter", "disable")}>22</span>
-            <Link to="/cart" className={cx("cart-link")}>
-              <i className={cx("icon", "fa-light fa-cart-shopping")}></i>
-            </Link>
+          <div className={cx("cart")}>
+            <CartDropdown />
           </div>
 
           <div className={cx("notification-icon")}>
@@ -142,7 +144,7 @@ const Header = () => {
                   <Stack direction="row" spacing={2}>
                     <Avatar
                       alt="avatar"
-                      src={user.imageurl}
+                      src={user.image}
                       sx={{ width: 33, height: 33 }}
                     />
                   </Stack>
