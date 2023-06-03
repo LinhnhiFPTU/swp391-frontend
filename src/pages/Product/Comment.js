@@ -1,9 +1,9 @@
 import classNames from "classnames/bind";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import styles from "./Product.module.scss";
 const cx = classNames.bind(styles);
 
-function Comment({ comment, commentRating }) {
+function Comment({ feedback, commentRating }) {
   const videoRef = useRef();
   const videoRefPreview = useRef();
   const [imagePreview, setImagePreview] = useState("");
@@ -54,16 +54,16 @@ function Comment({ comment, commentRating }) {
     <div className={cx("product-comment-list")}>
       <div className={cx("product-comment")}>
         <div className={cx("user_avatar")}>
-          <img src={comment.cmtAvatar} alt="user-avatar" />
+          <img src={feedback.user.avatar} alt="user-avatar" />
         </div>
         <div className={cx("content_comment")}>
           <div className={cx("user_comment")}>
             <div className={cx("user_name")}>
-              <span className={cx("name")}>{comment.cmtName}</span>
+              <span className={cx("name")}>{feedback.user.name}</span>
             </div>
             <div className={cx("user_rating")}>
               {commentRating.map((r, index) =>
-                r <= comment.cmtRating ? (
+                r <= feedback.user.rating ? (
                   <i
                     key={index}
                     className={cx("fa-solid fa-star", "rate_icon")}
@@ -77,17 +77,17 @@ function Comment({ comment, commentRating }) {
               )}
             </div>
             <div className={cx("date_time-comment")}>
-              <span className={cx("date-time")}>2023-05-26 16:00</span>
+              <span className={cx("date-time")}>{feedback.date}</span>
             </div>
           </div>
           <div className={cx("comment-content")}>
-            <span className={cx("comment-text")}>{comment.cmtDescription}</span>
+            <span className={cx("comment-text")}>{feedback.description}</span>
           </div>
 
           <div className={cx("comment-list")}>
             <div className={videoPreview ? cx("comment-video-active") : cx("comment-video")}>
               <video
-                src={comment.cmtVideo}
+                src={feedback.feedbackVideo}
                 type="video/mp4"
                 ref={videoRef}
                 onClick={(e) => {
@@ -108,7 +108,7 @@ function Comment({ comment, commentRating }) {
                 <span>{videoDuration}</span>
               </div>
             </div>
-            {comment.cmtImage.map((imageURL, index) => (
+            {feedback.feedbackImages.map((imageURL, index) => (
               <div
                 className={(imagePreview.id === index) ? cx("comment-image-active") : cx("comment-image")}
                 style={{

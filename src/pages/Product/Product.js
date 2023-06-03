@@ -7,7 +7,8 @@ import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import Report from "./Report";
 import Comment from "./Comment";
-import product from "~/assets/images/bird-cage.png";
+import ProductImage from "./ProductImage";
+import StarRating from "~/layouts/components/StarRating";
 
 import avatar from "~/assets/images/user-avatar.png";
 import styles from "./Product.module.scss";
@@ -15,39 +16,114 @@ import styles from "./Product.module.scss";
 const cx = classNames.bind(styles);
 const filterBtns = ["All", "5 Star", "4 Star", "3 Star", "2 Star", "1 Star"];
 const commentRating = [1, 2, 3, 4, 5];
-const comments = [
-  {
-    cmtAvatar: avatar,
-    cmtName: "User name",
-    cmtRating: 1,
-    cmtDescription:
-      "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
-    cmtImage: [
-      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
-      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
-      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
-      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
-    ],
-    cmtVideo:
-      "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
-  },
-  {
-    cmtAvatar: avatar,
-    cmtName: "User name",
-    cmtRating: 2,
-    cmtDescription:
-      "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
-    cmtImage: [
-      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-d3zsnvj133gv08.webp",
-      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-d3zsnvj133gv08.webp",
-      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-d3zsnvj133gv08.webp",
-      "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-d3zsnvj133gv08.webp",
-    ],
-    cmtVideo:
-      "https://play-aka.vod.shopee.com/api/v4/11110103/mms/vn_d73b5e54-7bf6-4ec7-afbf-daf5d09d71b3_000234.16000461677044301.mp4",
-  },
-];
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+const product = {
+  id: 0,
+  name: "Prevue Pet Products Square Roof Parrot Cage, Standing Birdcage, Black",
+  description: `👩 MÔ TẢ SẢN PHẨM 
+
+  - Áo thun nam nữ oversize sử dụng chất vải cotton 65/35 co giãn 4 chiều. Là loại vải có đặc điểm mềm mịn, độ co giãn cao, khả năng thấm hút tốt và được dệt hoàn toàn từ sợi cây bông tự nhiên. Chất vải cotton cực kỳ thân thiện với làn da.
+  
+  - Áo thun nam nữ form rộng cổ tròn thoải mái
+  
+  - Áo phông unisex form rộng dễ phối đồ. Bạn có thể phối với quần jean, chân váy, … kết hợp với một đôi sneaker cho bạn tự tin xuống phố
+  
+  
+  
+  📣 HƯỚNG DẪN BẢO QUẢN ÁO PHÔNG NAM NỮ OVERSIZE VENDER Shop
+  
+  - Lộn trái áo thun nam nữ tay ngắn khi giặt, không giặt chung áo thun unisex trắng với quần áo tối màu. 
+  
+  - Sử dụng xà phòng trung tính, không sử dụng xà phòng có chất tẩy mạnh cho áo thun nam nữ oversize.
+  
+  - Không sử dụng chất tẩy, không ngâm áo phông unisex. 
+  
+  - Phơi ngang, không treo móc khi áo thun unisex ướt, không phơi trực tiếp dưới ánh nắng mặt trời. 
+  
+  
+  
+  ️🎯 Giao hàng đúng size, lỗi 1 đổi 1 
+  
+  ️🎯 Giao COD toàn quốc 
+  
+  ️🎯 Hỗ trợ đổi size và đổi màu trong vòng 7 ngày kể từ khi nhận hàng, sản phẩm đổi phải còn nguyên tem mac và chưa qua sử dụng.
+  
+  ⚠️ LƯU Ý: Khi mở sản phẩm, khách yêu vui lòng quay lại video quá trình mở sản phẩm để được đảm bảo 100% đổi lại sản phẩm mới nếu Áo thun VENDER giao bị lỗi.
+  
+  `,
+  price: 1000,
+  sold: 111200,
+  available: 6162,
+  rating: 3.7,
+  totalRatings: 3000,
+  brand: "No brand",
+  categoryGroup: "Bird Cage",
+  shop: {
+    avatar: avatar,
+    name: "Shop name",
+    active: "Active 11 minutes ago",
+    ratings: "281000",
+    products: "12500",
+    responseRate: "95",
+    responseTime: "within hours",
+    followers: "62150",
+  },
+  productImages: [
+    "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/71+4X8orK7L._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/81haWHiuQ4L._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/71sXkl4vt8L._AC_SL1500_.jpg",
+  ],
+  productVideo:
+    "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
+  attachWith: [
+    {
+      id: 0,
+      image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
+      name: "Prevue Pet Products Square Roof Parrot Cage, Standing Birdcage, Black",
+      price: 1000,
+    },
+  ],
+  feedbacks: [
+    {
+      user: {
+        avatar: avatar,
+        name: "User name",
+        rating: 1,
+      },
+      date: "2023-05-26 16:00",
+      description:
+        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
+      feedbackImages: [
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
+      ],
+      feedbackVideo:
+        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
+    },
+    {
+      user: {
+        avatar: avatar,
+        name: "User name",
+        rating: 1,
+      },
+      date: "2023-05-26 16:00",
+      description:
+        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
+      feedbackImages: [
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
+      ],
+      feedbackVideo:
+        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
+    },
+  ],
+};
 
 function Product() {
   const [type, setType] = useState("All");
@@ -177,38 +253,57 @@ function Product() {
       <Header />
       <div className={cx("product-wrapper")}>
         <div className={cx("product-container")}>
+          {/*------Product main------*/}
           <div className={cx("product-main")}>
             {/*------Product image------*/}
-            <div className={cx("product-img")}>
-              <img src={product} alt="product-img" />
-            </div>
+            <ProductImage
+              previewImage={product.productImages}
+              previewVideo={product.productVideo}
+            />
             <div className={cx("product-content")}>
               {/*------Product Name------*/}
               <div className={cx("product-name")}>
-                <span className={cx("name")}>
-                  Prevue Pet Products Square Roof Parrot Cage, Standing
-                  Birdcage, Black
-                </span>
+                <span className={cx("name")}>{product.name}</span>
               </div>
               {/*------Product Status------*/}
               <div className={cx("product-status")}>
                 <div className={cx("product-status-left")}>
                   <div className={cx("product-rating")}>
-                    <span className={cx("rating-text")}>4.8</span>
-                    <div className={cx("rating-star")}>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    </div>
+                    <span className={cx("rating-text")}>{product.rating}</span>
+                    <StarRating
+                      rating={product.rating}
+                      font={1.6}
+                      color={`var(--flash_sale-primary)`}
+                    />
                   </div>
                   <div className={cx("rating-status")}>
-                    <span className={cx("rating-number")}>8,3k</span>
+                    <span className={cx("rating-number")}>
+                      {(() => {
+                        let rs = "";
+                        if (product.totalRatings >= 1000) {
+                          const rating = product.totalRatings / 1000;
+                          const rounded = Math.round(rating * 10) / 10;
+                          return (rs += rounded + "k");
+                        } else {
+                          return (rs += product.totalRatings);
+                        }
+                      })()}
+                    </span>
                     <span className={cx("rate-status")}>Ratings</span>
                   </div>
                   <div className={cx("selling-status")}>
-                    <span className={cx("sold-number")}>49,8k</span>
+                    <span className={cx("sold-number")}>
+                      {(() => {
+                        let rs = "";
+                        if (product.sold >= 1000) {
+                          const sold = product.sold / 1000;
+                          const rounded = Math.round(sold * 10) / 10;
+                          return (rs += rounded + "k");
+                        } else {
+                          return (rs += product.sold);
+                        }
+                      })()}
+                    </span>
                     <span className={cx("sold-status")}>Sold</span>
                   </div>
                 </div>
@@ -246,8 +341,8 @@ function Product() {
               </div>
               {/*------Product Price------*/}
               <div className={cx("product-price")}>
-                <div className={cx("price-real")}>$3000</div>
-                <div className={cx("price-sale")}>$1000</div>
+                <div className={cx("price-real")}>${product.price}</div>
+                <div className={cx("price-sale")}>${product.price}</div>
                 <div className={cx("sale-percent")}>20% OFF</div>
               </div>
               {/*------Product Description------*/}
@@ -258,7 +353,9 @@ function Product() {
                 </div>
                 <div className={cx("category")}>
                   <span className={cx("content")}>Category</span>
-                  <span className={cx("sub-content")}>Bird cage</span>
+                  <span className={cx("sub-content")}>
+                    {product.categoryGroup}
+                  </span>
                 </div>
                 <div className={cx("shipping")}>
                   <span className={cx("content")}>Shipping</span>
@@ -284,13 +381,19 @@ function Product() {
                   <button className={cx("minus")}>
                     <i className={cx("fa-solid fa-minus", "minus-icon")}></i>
                   </button>
-                  <input type="number" className={cx("text")} />
+                  <input
+                    type="number"
+                    className={cx("text")}
+                    maxLength={product.available}
+                  />
                   <button className={cx("plus")}>
                     <i className={cx("fa-solid fa-plus", "plus-icon")}></i>
                   </button>
                 </div>
                 <div className={cx("quantity-remaining")}>
-                  <span className={cx("remaining-quantity")}>6162</span>
+                  <span className={cx("remaining-quantity")}>
+                    {product.available}
+                  </span>
                   <span className={cx("remaining-text")}>
                     {" "}
                     pieces available
@@ -307,37 +410,47 @@ function Product() {
               </div>
             </div>
           </div>
-          <div className={cx("product-related")}>
-            <div className={cx("related-title")}>
-              <span className={cx("title")}>Related Products</span>
+          {/*------Product bundled------*/}
+          <div className={cx("product-bundled")}>
+            <div className={cx("bundled-title")}>
+              <span className={cx("title")}>Bundled Products</span>
             </div>
-            <div className={cx("related-list")}>
-              <Link to="" className={cx("related-product")}>
-                <div className={cx("product-img")}>
-                  <img src={product} alt="related-product-img" />
-                </div>
-                <div className={cx("product-name")}>
-                  Prevue Pet Products Square Roof Parrot Cage, Standing
-                  Birdcage, Black
-                </div>
-                <div className={cx("product-price")}>
-                  <span className={cx("price")}>$1000</span>
-                </div>
-              </Link>
+            <div className={cx("bundled-list")}>
+              {product.attachWith.map((bundleProduct, index) => (
+                <Link to="" className={cx("bundled-product")} key={index}>
+                  <img
+                    src={bundleProduct.image}
+                    alt="bundled-product-img"
+                    className={cx("product-img")}
+                  />
+
+                  <div className={cx("product-content")}>
+                    <div className={cx("product-name")}>
+                      {bundleProduct.name}
+                    </div>
+                    <div className={cx("product-price")}>
+                      <span className={cx("price")}>
+                        ${bundleProduct.price}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
+          {/*------Shop related------*/}
           <div className={cx("shop-related")}>
             <div className={cx("shop-left")}>
               <div className={cx("shop-avatar")}>
-                <img src={avatar} alt="shop-avatar" />
+                <img src={product.shop.avatar} alt="shop-avatar" />
               </div>
               <div className={cx("shop-info")}>
                 <div className={cx("shop-name")}>
-                  <span className={cx("name")}>Shop name</span>
+                  <span className={cx("name")}>{product.shop.name}</span>
                 </div>
                 <div className={cx("shop-active")}>
                   <span className={cx("time-active")}>
-                    Active 11 minutes ago
+                    {product.shop.active}
                   </span>
                 </div>
                 <div className={cx("shop-contact")}>
@@ -360,26 +473,64 @@ function Product() {
             <div className={cx("shop-right")}>
               <div className={cx("rating", "container")}>
                 <span className={cx("title")}>Ratings</span>
-                <span className={cx("quantity")}>281k</span>
+                <span className={cx("quantity")}>
+                  {(() => {
+                    let rs = "";
+                    if (product.shop.ratings >= 1000) {
+                      const rating = product.shop.ratings / 1000;
+                      const rounded = Math.round(rating * 10) / 10;
+                      return (rs += rounded + "k");
+                    } else {
+                      return (rs += product.shop.ratings);
+                    }
+                  })()}
+                </span>
               </div>
               <div className={cx("response-rate", "container")}>
                 <span className={cx("title")}>Response Rate</span>
-                <span className={cx("quantity")}>95%</span>
+                <span className={cx("quantity")}>
+                  {product.shop.responseRate}%
+                </span>
               </div>
               <div className={cx("follower", "container")}>
                 <span className={cx("title")}>Followers</span>
-                <span className={cx("quantity")}>600,2k</span>
+                <span className={cx("quantity")}>
+                  {(() => {
+                    let rs = "";
+                    if (product.shop.followers >= 1000) {
+                      const follow = product.shop.followers / 1000;
+                      const rounded = Math.round(follow * 10) / 10;
+                      return (rs += rounded + "k");
+                    } else {
+                      return (rs += product.shop.followers);
+                    }
+                  })()}
+                </span>
               </div>
               <div className={cx("products", "container")}>
                 <span className={cx("title")}>Products</span>
-                <span className={cx("quantity")}>100</span>
+                <span className={cx("quantity")}>
+                  {(() => {
+                    let rs = "";
+                    if (product.shop.products >= 1000) {
+                      const pro = product.shop.products / 1000;
+                      const rounded = Math.round(pro * 10) / 10;
+                      return (rs += rounded + "k");
+                    } else {
+                      return (rs += product.shop.products);
+                    }
+                  })()}
+                </span>
               </div>
               <div className={cx("response-time", "container")}>
                 <span className={cx("title")}>Response Time</span>
-                <span className={cx("quantity")}>within hours</span>
+                <span className={cx("quantity")}>
+                  {product.shop.responseTime}
+                </span>
               </div>
             </div>
           </div>
+          {/*------Product detail------*/}
           <div className={cx("product-detail")}>
             <div className={cx("product-specifications")}>
               <div className={cx("specification-title")}>
@@ -388,19 +539,21 @@ function Product() {
               <div className={cx("specification-content")}>
                 <div className={cx("category", "container")}>
                   <span className={cx("title")}>Category</span>
-                  <span className={cx("content")}>Bird cage</span>
+                  <span className={cx("content")}>{product.categoryGroup}</span>
                 </div>
                 <div className={cx("brand", "container")}>
                   <span className={cx("title")}>Brand</span>
-                  <span className={cx("content")}>No brand</span>
+                  <span className={cx("content")}>{product.brand}</span>
                 </div>
                 <div className={cx("quantity_available", "container")}>
-                  <span className={cx("title")}>Quantity available</span>
-                  <span className={cx("content")}>200</span>
+                  <span className={cx("title")}>Stock</span>
+                  <span className={cx("content")}>{product.available}</span>
                 </div>
-                <div className={cx("quantity-remaining", "container")}>
-                  <span className={cx("title")}>Quantity remaining</span>
-                  <span className={cx("content")}>100</span>
+                <div className={cx("ship-from", "container")}>
+                  <span className={cx("title")}>Shops From</span>
+                  <span className={cx("content")}>
+                    HaNoi
+                  </span>
                 </div>
               </div>
             </div>
@@ -409,12 +562,13 @@ function Product() {
               <div className={cx("description-content")}>
                 <pre className={cx("text")}>
                   {`
-                  
+                    ${product.description}
                   `}
                 </pre>
               </div>
             </div>
           </div>
+          {/*------Product rating------*/}
           <div className={cx("product-ratings")}>
             <div className={cx("product-rating-title")}>
               <span className={cx("title")}>Product Ratings</span>
@@ -422,16 +576,16 @@ function Product() {
             <div className={cx("product-rating-container")}>
               <div className={cx("rating-overview")}>
                 <div className={cx("rating-text")}>
-                  <span className={cx("rating-quantity")}>4.9</span>
+                  <span className={cx("rating-quantity")}>
+                    {product.rating}
+                  </span>
                   <span className={cx("rating-total")}> out of 5</span>
                 </div>
-                <div className={cx("rating-star")}>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                  <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                </div>
+                <StarRating
+                  rating={product.rating}
+                  font={2}
+                  color={`var(--flash_sale-primary)`}
+                />
               </div>
               <div className={cx("filter-rating")}>
                 {filterBtns.map((btn, index) => (
@@ -449,9 +603,9 @@ function Product() {
                 ))}
               </div>
             </div>
-            {comments.map((comment, index) => (
+            {product.feedbacks.map((feedback, index) => (
               <Comment
-                comment={comment}
+                feedback={feedback}
                 commentRating={commentRating}
                 key={index}
               />

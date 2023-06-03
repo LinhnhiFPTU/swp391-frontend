@@ -490,7 +490,7 @@ function Home() {
             <div className={cx("best-seller_list")}>
               <Slider {...settings_bestseller}>
                 {bestSeller.map((item, index) => (
-                  <div key={index} className={cx("best-seller_items")}>
+                  <Link to="" key={index} className={cx("best-seller_items")}>
                     <div className={cx("best-seller_item")}>
                       <div className={cx("best-seller_top")}>
                         <p>TOP</p>
@@ -504,7 +504,7 @@ function Home() {
                         <span>Monthly Sales {item.sells}</span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </Slider>
             </div>

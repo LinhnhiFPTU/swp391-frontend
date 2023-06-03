@@ -15,19 +15,6 @@
       display: flex;
       background-color: #fff;
 
-      .product-img {
-        width: 480px;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        img {
-          width: 450px;
-          height: 450px;
-        }
-      }
-
       .product-content {
         width: 720px;
         padding: 20px 35px 0 20px;
@@ -64,16 +51,6 @@
                 font-size: 1.6rem;
                 color: var(--flash_sale-primary);
                 border-bottom: 1px solid var(--flash_sale-primary);
-              }
-
-              .rating-star {
-                margin-right: 5px;
-                padding: 4px 0;
-
-                .rate_icon {
-                  font-size: 1.6rem;
-                  color: var(--flash_sale-primary);
-                }
               }
             }
 
@@ -379,24 +356,24 @@
       }
     }
 
-    .product-related {
+    .product-bundled {
       margin-top: 15px;
       padding: 30px;
       background-color: #fff;
 
-      .related-title {
+      .bundled-title {
         padding-bottom: 25px;
         .title {
           font-size: 1.8rem;
         }
       }
 
-      .related-list {
+      .bundled-list {
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        .related-product {
+        .bundled-product {
           width: 160px;
           height: 250px;
           text-decoration: none;
@@ -405,27 +382,25 @@
           .product-img {
             width: 160px;
             height: 160px;
+          }
 
-            img {
-              width: 100%;
+          .product-content {
+            padding: 5px;
+            .product-name {
+              font-size: 1.4rem;
+              width: 160px;
+              word-wrap: break-word;
+              white-space: normal;
+              overflow: hidden;
+              display: -webkit-box;
+              text-overflow: ellipsis;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
             }
-          }
 
-          .product-name {
-            margin-top: 7px;
-            font-size: 1.4rem;
-            width: 160px;
-            word-wrap: break-word;
-            white-space: normal;
-            overflow: hidden;
-            display: -webkit-box;
-            text-overflow: ellipsis;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-          }
-
-          .product-price {
-            margin-top: 7px;
+            .product-price {
+              margin-top: 7px;
+            }
           }
         }
       }
@@ -577,13 +552,13 @@
 
           .quantity_available {
             .title {
-              margin-right: 100px;
+              margin-right: 190px;
             }
           }
 
-          .quantity-remaining {
+          .ship-from {
             .title {
-              margin-right: 94px;
+              margin-right: 145px;
             }
           }
         }
@@ -643,13 +618,6 @@
             }
 
             .rating-total {
-              font-size: 1.8rem;
-              color: var(--flash_sale-primary);
-            }
-          }
-
-          .rating-star {
-            .rate_icon {
               font-size: 1.8rem;
               color: var(--flash_sale-primary);
             }
@@ -752,8 +720,6 @@
                   height: 72px;
                 }
 
-                
-
                 .icon-video {
                   width: 100%;
                   position: absolute;
@@ -835,29 +801,29 @@
               max-width: fit-content;
               height: 500px;
 
-                img {
-                  max-width: 100%;
-                  max-height: 500px;
-                }
+              img {
+                max-width: 100%;
+                max-height: 500px;
+              }
 
-                video {
-                  cursor: pointer;
-                  min-width: 516px;
-                  max-width: 516px;
-                  min-height: 500px;
-                  max-height: 500px;
-                  background-color: black !important;
-                }
+              video {
+                cursor: pointer;
+                min-width: 516px;
+                max-width: 516px;
+                min-height: 500px;
+                max-height: 500px;
+                background-color: black !important;
+              }
 
-                .svg-icon {
-                  cursor: pointer;
-                  width: 100px;
-                  height: 100px;
-                  position: absolute;
-                  top: 50%;
-                  left: 50%;
-                  transform: translate(-50%, -50%);
-                }
+              .svg-icon {
+                cursor: pointer;
+                width: 100px;
+                height: 100px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+              }
             }
           }
         }

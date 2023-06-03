@@ -309,6 +309,14 @@
   }
 }
 
+.best-seller_items {
+  text-decoration: none;
+  color: #333;
+
+  &:hover {
+    color: #333;
+  }
+}
 .best-seller_item {
   width: 212px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -505,6 +513,7 @@
   margin-right: 10px;
   background-color: var(--primary);
   border: 1px solid transparent;
+  text-decoration: none;
 
   &:hover {
     color: var(--primary);

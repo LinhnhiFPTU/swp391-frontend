@@ -139,7 +139,7 @@
 
   .flash_sale-product {
     background-color: #fff;
-    height: 490px;
+    height: 515px;
     width: 289px;
     transition: 0.25 ease;
     text-decoration: none;
@@ -202,11 +202,8 @@
       }
 
       .product-rating {
-        margin-top: 5px;
-
-        .rate_icon {
-          color: gold;
-        }
+        display: flex;
+        align-items: center;
       }
 
       .product-price {

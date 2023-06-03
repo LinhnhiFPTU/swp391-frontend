@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import { Link, useLocation } from "react-router-dom";
@@ -12,7 +13,15 @@ import fire from "~/assets/images/fire.png";
 import styles from "./Shop.module.scss";
 const cx = classNames.bind(styles);
 
-const navBtns = ["all", "birds", "foods", "medicines", "cages", "accessories"];
+const shop = {
+  avatar: avatar,
+  name: "Dirty Coins",
+  active: "Active 11 minutes ago",
+  products: 125,
+  rating: 4.9,
+  followers: 1000,
+  responseRate: 90,
+}
 const recProducts = [
   {
     image: bird,
@@ -263,7 +272,6 @@ const products = [
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 function Shop() {
-  const [typeBtn, setTypeBtn] = useState("all");
   const [typeSort, setTypeSort] = useState("Popular");
   const [priceTitle, setPriceTitle] = useState("Price");
   const [cmtPage, setCmtPage] = useState(1);
@@ -321,12 +329,12 @@ function Shop() {
           <div className={cx("shop_container")}>
             <div className={cx("shop-left_content")}>
               <div className={cx("shop_avatar")}>
-                <img src={avatar} alt="avatar" />
+                <img src={shop.avatar} alt="avatar" />
               </div>
               <div className={cx("shop-info")}>
-                <div className={cx("shop-name")}>Dirty Coins</div>
+                <div className={cx("shop-name")}>{shop.name}</div>
                 <div className={cx("shop-active")}>
-                  <span>Active 11 minutes ago</span>
+                  <span>{shop.active}</span>
                 </div>
                 <div className={cx("shop-interact")}>
                   <button className={cx("shop-chat")}>
@@ -344,38 +352,25 @@ function Shop() {
               <a href="#product_list" className={cx("shop-totalProducts")}>
                 <i className={cx("fa-light fa-box", "icon")}></i>
                 <span className={cx("name")}>Products: </span>
-                <span className={cx("number")}> 125</span>
+                <span className={cx("number")}> {shop.products}</span>
               </a>
               <div className={cx("shop-totalFollowers")}>
                 <i className={cx("fa-light fa-user", "icon")}></i>
                 <span className={cx("name")}>Followers: </span>
-                <span className={cx("number")}> 100k</span>
+                <span className={cx("number")}> {shop.followers}</span>
               </div>
               <div className={cx("shop-totalRating")}>
                 <i className={cx("fa-light fa-star", "icon")}></i>
                 <span className={cx("name")}>Ratings: </span>
-                <span className={cx("number")}> 4.9</span>
+                <span className={cx("number")}> {shop.rating}</span>
               </div>
               <div className={cx("shop-totalResponseRate")}>
                 <i className={cx("fa-light fa-message-dots", "icon")}></i>
                 <span className={cx("name")}>Response rate: </span>
-                <span className={cx("number")}> 100%</span>
+                <span className={cx("number")}> {shop.responseRate}%</span>
               </div>
             </div>
           </div>
-          {/* <div className={cx("shop_navbar")}>
-            {navBtns.map((btn, index) => (
-              <button
-                className={
-                  typeBtn === btn ? cx("nav-button-active") : cx("nav-button")
-                }
-                key={index}
-                onClick={() => setTypeBtn(btn)}
-              >
-                {btn.toUpperCase()}
-              </button>
-            ))}
-          </div> */}
           <div className={cx("shop-products")}>
             <div className={cx("rec-title")}>
               <span>RECOMMENDED FOR YOU</span>

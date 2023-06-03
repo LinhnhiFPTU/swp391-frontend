@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 
 import Avatar from "react-avatar-edit";
 import { useState, useEffect, useContext } from "react";
-import { NavLink, Navigate, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 
@@ -146,7 +146,7 @@ function Profile() {
                 </div>
                 <div className={cx("user-name")}>
                   <p>
-                    {(user.firstname + " " + user.lastname).trim() || "User"}
+                    {(user.firstname + " " + (user.lastname == null ? "" : user.lastname)).trim() || "User"}
                   </p>
                 </div>
               </div>
@@ -201,7 +201,7 @@ function Profile() {
                         type="text"
                         className={cx("email")}
                         required
-                        value={user.lastname}
+                        value={user.lastname == null ? "" : user.lastname}
                         onChange={(e) =>
                           setUser({ ...user, lastname: e.target.value })
                         }
