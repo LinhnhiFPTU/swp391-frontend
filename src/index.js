@@ -3,15 +3,18 @@ import ReactDOM from "react-dom/client";
 import App from "~/App";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GlobalStyles from "./components/GlobalStyles";
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import reportWebVitals from "./reportWebVitals";
+import { Context } from "./context/Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <GoogleOAuthProvider clientId="96615940146-a6npdnvt227aiaou542u02q3q38v788t.apps.googleusercontent.com">
     <React.StrictMode>
       <GlobalStyles>
-        <App />
+        <Context>
+          <App />
+        </Context>
       </GlobalStyles>
     </React.StrictMode>
   </GoogleOAuthProvider>

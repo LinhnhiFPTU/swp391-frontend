@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Slider from "react-slick";
@@ -19,6 +19,7 @@ import birdCage from "~/assets/images/bird-cage.png";
 import birdAccessory from "~/assets/images/bird-accessory.png";
 import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
+import { Cartcontext } from "~/context/Context";
 
 const cx = classNames.bind(styles);
 const categories = [
@@ -207,54 +208,74 @@ const shops = [
 
 const products = [
   {
+    id: 1,
     image: bird,
     name: "Nekton",
-    price: "25",
+    price: 25,
+    quantity: 1,
   },
   {
+    id: 2,
     image: bird,
     name: "Amoxy-Tyl",
-    price: "30",
+    price: 35,
+    quantity: 1,
   },
   {
+    id: 3,
     image: bird,
     name: "Bird B.Gone",
-    price: "35",
+    price: 45,
+    quantity: 1,
   },
   {
+    id: 4,
     image: bird,
     name: "Bird Spikes",
-    price: "40",
+    price: 25,
+    quantity: 1,
   },
   {
+    id: 5,
     image: bird,
     name: "Shefa",
-    price: "45",
+    price: 55,
+    quantity: 1,
   },
   {
+    id: 6,
     image: bird,
     name: "Shefa",
-    price: "50",
+    price: 65,
+    quantity: 1,
   },
   {
+    id: 6,
     image: bird,
     name: "Shefa",
-    price: "55",
+    price: 75,
+    quantity: 1,
   },
   {
+    id: 7,
     image: bird,
     name: "Shefa",
-    price: "60",
+    price: 85,
+    quantity: 1,
   },
   {
+    id: 8,
     image: bird,
     name: "Shefa",
-    price: "65",
+    price: 95,
+    quantity: 1,
   },
   {
+    id: 9,
     image: bird,
     name: "Shefa",
-    price: "70",
+    price: 15,
+    quantity: 1,
   },
 ];
 
@@ -370,6 +391,10 @@ function Home() {
     backgroundColor: "var(--flash_sale-primary)",
   };
 
+  const Globalstate = useContext(Cartcontext);
+  const dispatch = Globalstate.dispatch;
+
+  console.log(Globalstate);
 
   return (
     <>
@@ -462,14 +487,35 @@ function Home() {
                           ></div>
                           <span className={cx("loading-text")}>
                             {(() => {
-                              if((item.quantity.qSold / item.quantity.qAvailable) * 100 <= 50) {
-                                return "SELLING FAST"
-                              }else if ((item.quantity.qSold / item.quantity.qAvailable) * 100 >= 50 && (item.quantity.qSold / item.quantity.qAvailable) * 100 <= 75) {
-                                return `${item.quantity.qSold} SOLD`
-                              }else if ((item.quantity.qSold / item.quantity.qAvailable) * 100 > 75) {
-                                return `ONLY ${item.quantity.qAvailable - item.quantity.qSold} LEFT`
-                              }else {
-                                return ""
+                              if (
+                                (item.quantity.qSold /
+                                  item.quantity.qAvailable) *
+                                  100 <=
+                                50
+                              ) {
+                                return "SELLING FAST";
+                              } else if (
+                                (item.quantity.qSold /
+                                  item.quantity.qAvailable) *
+                                  100 >=
+                                  50 &&
+                                (item.quantity.qSold /
+                                  item.quantity.qAvailable) *
+                                  100 <=
+                                  75
+                              ) {
+                                return `${item.quantity.qSold} SOLD`;
+                              } else if (
+                                (item.quantity.qSold /
+                                  item.quantity.qAvailable) *
+                                  100 >
+                                75
+                              ) {
+                                return `ONLY ${
+                                  item.quantity.qAvailable - item.quantity.qSold
+                                } LEFT`;
+                              } else {
+                                return "";
                               }
                             })()}
                           </span>
@@ -531,7 +577,12 @@ function Home() {
                   </div>
                   <div className={cx("price_before")}>${item.price}</div>
                   <div className={cx("product-price")}>${item.price}</div>
-                  <button className={cx("btn_add")}>Buy Now</button>
+                  <button
+                    className={cx("btn_add")}
+                    onClick={() => dispatch({ type: "ADD", payload: item })}
+                  >
+                    Buy Now
+                  </button>
                 </Link>
               ))}
             </div>

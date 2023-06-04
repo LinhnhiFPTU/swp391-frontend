@@ -82,8 +82,17 @@
 
 .product-details {
     width: 100px;
+    text-align: center;
+    
+    i {
+        cursor: pointer;
+    }
+}
 
-    input {
+.product-quantity {
+    display: flex;
+    p {
+        font-size: 15px;
         width: 30px;
         text-align: center;
         border: 1px solid rgba(170, 170, 170, 0.5);
@@ -95,9 +104,6 @@
         border: 1px solid rgba(170, 170, 170, 0.5);
     }
 
-    i {
-        cursor: pointer;
-    }
 }
 
 //bottom

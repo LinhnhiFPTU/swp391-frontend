@@ -10,14 +10,10 @@ import Stack from "@mui/material/Stack";
 import Search from "~/layouts/components/Header/Search";
 
 import { UserContext } from "~/App";
-<<<<<<< HEAD
-import axios from "axios";
-import CartDropdown from "../CartDropdown/CartDropdown";
-=======
 import avatar from "~/assets/images/user.png";
 import styles from "./Header.module.scss";
+import CartDropdown from "../CartDropdown/CartDropdown";
 
->>>>>>> 4dffe40609c79b477261133cf9b6d996dd78c5c8
 const cx = classNames.bind(styles);
 
 const Header = () => {
