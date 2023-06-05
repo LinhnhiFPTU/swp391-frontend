@@ -1,4 +1,5 @@
 import classNames from "classnames/bind";
+import { useEffect } from "react";
 
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer/";
@@ -6,7 +7,13 @@ import banner from "~/assets/images/banner1.jpg";
 
 import styles from "./Contact.module.scss";
 const cx = classNames.bind(styles);
+
 function Contact() {
+
+  useEffect(() => {
+    document.title = "Contact Us | Bird Trading Platform";
+  }, []);
+
   return (
     <>
       <Header />

@@ -7,17 +7,13 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 
+import { UserContext } from "~/App";
+import CartDropdown from "../CartDropdown/CartDropdown";
 import Search from "~/layouts/components/Header/Search";
 
-import { UserContext } from "~/App";
-<<<<<<< HEAD
-import axios from "axios";
-import CartDropdown from "../CartDropdown/CartDropdown";
-=======
 import avatar from "~/assets/images/user.png";
 import styles from "./Header.module.scss";
 
->>>>>>> 4dffe40609c79b477261133cf9b6d996dd78c5c8
 const cx = classNames.bind(styles);
 
 const Header = () => {
@@ -116,7 +112,7 @@ const Header = () => {
                       </div>
                       <div className={cx("option-next")}>
                         <Link to="/" className={cx("login-link")}>
-                          <span>Seller</span>
+                          <span>Seller Centre</span>
                           <i
                             className={cx(
                               "icon-sub",

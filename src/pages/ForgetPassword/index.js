@@ -20,6 +20,10 @@ function ForgetPassword() {
   let CurStep = steps[step];
 
   useEffect(() => {
+    document.title = "Reset your password! | Bird Trading Platform";
+  }, []);
+
+  useEffect(() => {
     if (arg) {
       switch (step) {
         case 0:

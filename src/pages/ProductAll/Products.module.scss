@@ -182,17 +182,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .rating {
-              .rate_icon {
-                font-size: 1.2rem;
-                color: gold;
-              }
-            }
-            .sold {
-              padding-right: 20px;
-              font-size: 1.2rem;
-              color: #000000de;
-            }
+
+          .product-rating {
+            display: flex;
+            align-items: center;
+          }
+
+          .sold {
+            padding-left: 40px;
+            font-size: 1.2rem;
+            color: #000000de;
+          }
           }
         }
       }

@@ -121,7 +121,7 @@ input[type="password"]::-ms-clear {
 
 .btn-submit button[disabled] {
   opacity: 0.6;
-  cursor: default;
+  cursor: not-allowed;
 }
 
 .btn-submit button[disabled]:hover {

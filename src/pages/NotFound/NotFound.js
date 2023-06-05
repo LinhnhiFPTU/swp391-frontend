@@ -1,10 +1,16 @@
 import classNames from "classnames/bind";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./NotFound.module.scss";
 
 const cx = classNames.bind(styles);
 
 function NotFound() {
+
+  useEffect(() => {
+    document.title = "404 Page";
+  }, []);
+
   return (
     <div className={cx("main")}>
       <svg
@@ -502,7 +508,9 @@ function NotFound() {
         </g>
       </svg>
 
-      <p className={cx("errorText")}>Oops! The page you're looking for does not exist.</p>
+      <p className={cx("errorText")}>
+        Oops! The page you're looking for does not exist.
+      </p>
       <Link className={cx("errorLink")} to="/">
         HOME
       </Link>

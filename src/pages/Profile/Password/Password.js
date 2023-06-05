@@ -34,9 +34,9 @@ function Password() {
   const [changePassword, setChangePassword] = useState(false);
   const [changePasswordRequest, setChangePasswordRequest] = useState({
     oldpassword: "",
-    newpassword: ""
+    newpassword: "",
   });
-  const [confPassword, setConfPassword] = useState("")
+  const [confPassword, setConfPassword] = useState("");
   const [passwordType, setPasswordType] = useState("password");
   const [passwordNewType, setPasswordNewType] = useState("password");
   const [passwordConfirmType, setPasswordConfirmType] = useState("password");
@@ -45,9 +45,13 @@ function Password() {
     firstname: "",
     lastname: "",
     imageurl: "",
-    gender: ""
+    gender: "",
   });
   const context = useContext(UserContext);
+
+  useEffect(() => {
+    document.title = "Bird Trading Platform | Hot Deals, Best Prices";
+  }, []);
 
   useEffect(() => {
     if (context) {
@@ -66,7 +70,7 @@ function Password() {
         .catch((e) => {
           console.log(e);
           setMsg(e.response.data.message);
-          setChangePassword(false)
+          setChangePassword(false);
         });
     }
   }, [changePassword]);
@@ -157,7 +161,12 @@ function Password() {
                     className={cx("password")}
                     required
                     value={changePasswordRequest.oldpassword}
-                    onChange={e => setChangePasswordRequest({...changePasswordRequest, oldpassword: e.target.value})}
+                    onChange={(e) =>
+                      setChangePasswordRequest({
+                        ...changePasswordRequest,
+                        oldpassword: e.target.value,
+                      })
+                    }
                   />
                   <div className={cx("input-group-btn")}>
                     <button className={cx("eyes-btn")} onClick={togglePassword}>
@@ -177,7 +186,12 @@ function Password() {
                     className={cx("password")}
                     required
                     value={changePasswordRequest.newpassword}
-                    onChange={e => setChangePasswordRequest({...changePasswordRequest, newpassword: e.target.value})}
+                    onChange={(e) =>
+                      setChangePasswordRequest({
+                        ...changePasswordRequest,
+                        newpassword: e.target.value,
+                      })
+                    }
                   />
                   <div className={cx("input-group-btn")}>
                     <button
@@ -200,7 +214,7 @@ function Password() {
                     className={cx("password")}
                     required
                     value={confPassword}
-                    onChange={e => setConfPassword(e.target.value)}
+                    onChange={(e) => setConfPassword(e.target.value)}
                   />
                   <div className={cx("input-group-btn")}>
                     <button

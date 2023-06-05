@@ -11,11 +11,13 @@ function ReportDetail({ titleReport, backToReport, closeSubReport }) {
 
   const handleSendReport = (e) => {
     e.preventDefault();
-    console.log(reportContent)
+    console.log(reportContent);
     if (reportContent === "") {
       setError(true);
-    }else {
-      setError(false)
+    } else if (reportContent.length < 10 || reportContent.length > 50) {
+      setError(true);
+    } else {
+      setError(false);
     }
   };
   return (

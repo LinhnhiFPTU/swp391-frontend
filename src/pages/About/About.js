@@ -1,11 +1,17 @@
-import Header from "~/layouts/components/Header";
-import about from "~/assets/images/about.jpg";
 import classNames from "classnames/bind";
+import { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import about from "~/assets/images/about.jpg";
+import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer/";
+
 import styles from "./About.module.scss";
 const cx = classNames.bind(styles);
 function About() {
+  useEffect(() => {
+    document.title = 'About Us | Bird Trading Platform';
+  }, []);
   return (
     <>
       <Header />

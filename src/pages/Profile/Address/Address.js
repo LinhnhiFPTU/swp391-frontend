@@ -45,6 +45,10 @@ function Address() {
   const context = useContext(UserContext);
 
   useEffect(() => {
+    document.title = "Bird Trading Platform | Hot Deals, Best Prices";
+  }, []);
+  
+  useEffect(() => {
     if (context) {
       setUser(context);
     }
@@ -68,8 +72,8 @@ function Address() {
       axios
         .post("/api/v1/users/info/receives/default/" + defaultId)
         .then((res) => {
-          console.log(res)
-          window.location.href = '/user/account/address'
+          console.log(res);
+          window.location.href = "/user/account/address";
         })
         .catch((e) => {
           console.log(e);
@@ -82,8 +86,8 @@ function Address() {
       axios
         .delete("/api/v1/users/info/receives/delete/" + deleteId)
         .then((res) => {
-          console.log(res)
-          window.location.href = '/user/account/address'
+          console.log(res);
+          window.location.href = "/user/account/address";
         })
         .catch((e) => {
           console.log(e);
@@ -118,12 +122,12 @@ function Address() {
 
   const handleSetDefault = (e, id) => {
     e.preventDefault();
-    setDefaultId(id)
+    setDefaultId(id);
   };
 
   const handleDelete = (e, id) => {
     e.preventDefault();
-    setDeleteId(id)
+    setDeleteId(id);
   };
 
   return (
@@ -197,14 +201,19 @@ function Address() {
                         </span>
                       </div>
                       <div className={cx("address-crud")}>
-                        {!item._default && <button className={cx("crud-delete")} onClick={(e) => handleDelete(e, item.id)}>
-                          <i
-                            className={cx(
-                              "icon-delete",
-                              "fa-sharp fa-solid fa-trash-xmark"
-                            )}
-                          ></i>
-                        </button>}
+                        {!item._default && (
+                          <button
+                            className={cx("crud-delete")}
+                            onClick={(e) => handleDelete(e, item.id)}
+                          >
+                            <i
+                              className={cx(
+                                "icon-delete",
+                                "fa-sharp fa-solid fa-trash-xmark"
+                              )}
+                            ></i>
+                          </button>
+                        )}
                       </div>
                     </div>
                     <div className={cx("address-options")}>

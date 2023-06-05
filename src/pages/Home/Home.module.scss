@@ -71,6 +71,7 @@
 
     img {
       width: 100%;
+      height: 100%;
     }
   }
 
@@ -177,8 +178,8 @@
   width: 100%;
 
   img {
-    width: 100%;
-    height: 90%;
+    width: 212px;
+    height: 250px;
   }
 }
 
@@ -327,11 +328,12 @@
   background-color: white;
 
   .item-img {
-    width: 100%;
+    width: 212px;
+    height: 245px;
 
     img {
-      width: 90%;
-      height: 90%;
+      width: 100%;
+      height: 100%;
     }
   }
 }
@@ -485,9 +487,9 @@
   }
 }
 
-.rate_icon {
-  font-size: 11px;
-  color: #ffd839;
+.product-rating {
+  display: flex;
+  align-items: center;
 }
 
 .price_before {
@@ -581,10 +583,6 @@
   .rating-text {
     margin-right: 10px;
     font-size: 1.4rem;
-  }
-
-  .rating-icon {
-    margin-top: 5px;
   }
 
   .rate {

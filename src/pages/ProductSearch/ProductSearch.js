@@ -7,6 +7,8 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
+import StarRating from "~/layouts/components/StarRating";
+
 import avatar from "~/assets/images/user-avatar.png";
 import productImg from "~/assets/images/bird-food.png";
 import styles from "./ProductSearch.module.scss";
@@ -41,35 +43,40 @@ const products = [
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 3.4,
+    sold: 4400,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 3.4,
+    sold: 4400,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 3.4,
+    sold: 4400,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 3.4,
+    sold: 4400,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 3.4,
+    sold: 4400,
   },
 ];
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -80,9 +87,24 @@ function ProductSearch() {
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
   const location = useLocation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location])
+  }, [location]);
+
+  useEffect(() => {
+    document.title = `${"search"} - Prices and Deals | Bird Trading Platform`;
+  }, []);
+
+  useEffect(() => {
+    const handleReload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("load", handleReload);
+    return () => {
+      window.removeEventListener("load", handleReload);
+    };
+  }, []);
 
   const handleNextCmtPage = (e) => {
     e.preventDefault();
@@ -274,167 +296,34 @@ function ProductSearch() {
                   />
 
                   <div className={cx("item-content")}>
-                    <div className={cx("item-name")}>
-                      {product.name}
-                    </div>
+                    <div className={cx("item-name")}>{product.name}</div>
                     <div className={cx("item-price")}>
-                      <div className={cx("real-price")}>{product.realPrice}$</div>
-                      <span className={cx("sale-price")}>{product.salePrice}$</span>
+                      <div className={cx("real-price")}>
+                        {product.realPrice}$
+                      </div>
+                      <span className={cx("sale-price")}>
+                        {product.salePrice}$
+                      </span>
                     </div>
                     <div className={cx("rating_sold")}>
-                      <div className={cx("rating")}>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                      <StarRating
+                        rating={product.rating}
+                        font={1.4}
+                        color={`gold`}
+                      />
+                      <div className={cx("sold")}>
+                        {(() => {
+                          let rs = "";
+                          if (product.sold >= 1000) {
+                            const sold = product.sold / 1000;
+                            const rounded = Math.round(sold * 10) / 10;
+                            return (rs += rounded + "k");
+                          } else {
+                            return (rs += product.sold);
+                          }
+                        })()}{" "}
+                        sold
                       </div>
-                      <div className={cx("sold")}>{product.sold}k sold</div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-              {products.map((product, index) => (
-                <Link to="" className={cx("result_item")} key={index}>
-                  <img
-                    src={product.img}
-                    alt="item-img"
-                    className={cx("item-image")}
-                  />
-
-                  <div className={cx("item-content")}>
-                    <div className={cx("item-name")}>
-                      {product.name}
-                    </div>
-                    <div className={cx("item-price")}>
-                      <div className={cx("real-price")}>{product.realPrice}$</div>
-                      <span className={cx("sale-price")}>{product.salePrice}$</span>
-                    </div>
-                    <div className={cx("rating_sold")}>
-                      <div className={cx("rating")}>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      </div>
-                      <div className={cx("sold")}>{product.sold}k sold</div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-              {products.map((product, index) => (
-                <Link to="" className={cx("result_item")} key={index}>
-                  <img
-                    src={product.img}
-                    alt="item-img"
-                    className={cx("item-image")}
-                  />
-
-                  <div className={cx("item-content")}>
-                    <div className={cx("item-name")}>
-                      {product.name}
-                    </div>
-                    <div className={cx("item-price")}>
-                      <div className={cx("real-price")}>{product.realPrice}$</div>
-                      <span className={cx("sale-price")}>{product.salePrice}$</span>
-                    </div>
-                    <div className={cx("rating_sold")}>
-                      <div className={cx("rating")}>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      </div>
-                      <div className={cx("sold")}>{product.sold}k sold</div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-              {products.map((product, index) => (
-                <Link to="" className={cx("result_item")} key={index}>
-                  <img
-                    src={product.img}
-                    alt="item-img"
-                    className={cx("item-image")}
-                  />
-
-                  <div className={cx("item-content")}>
-                    <div className={cx("item-name")}>
-                      {product.name}
-                    </div>
-                    <div className={cx("item-price")}>
-                      <div className={cx("real-price")}>{product.realPrice}$</div>
-                      <span className={cx("sale-price")}>{product.salePrice}$</span>
-                    </div>
-                    <div className={cx("rating_sold")}>
-                      <div className={cx("rating")}>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      </div>
-                      <div className={cx("sold")}>{product.sold}k sold</div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-              {products.map((product, index) => (
-                <Link to="" className={cx("result_item")} key={index}>
-                  <img
-                    src={product.img}
-                    alt="item-img"
-                    className={cx("item-image")}
-                  />
-
-                  <div className={cx("item-content")}>
-                    <div className={cx("item-name")}>
-                      {product.name}
-                    </div>
-                    <div className={cx("item-price")}>
-                      <div className={cx("real-price")}>{product.realPrice}$</div>
-                      <span className={cx("sale-price")}>{product.salePrice}$</span>
-                    </div>
-                    <div className={cx("rating_sold")}>
-                      <div className={cx("rating")}>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      </div>
-                      <div className={cx("sold")}>{product.sold}k sold</div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-              {products.map((product, index) => (
-                <Link to="" className={cx("result_item")} key={index}>
-                  <img
-                    src={product.img}
-                    alt="item-img"
-                    className={cx("item-image")}
-                  />
-
-                  <div className={cx("item-content")}>
-                    <div className={cx("item-name")}>
-                      {product.name}
-                    </div>
-                    <div className={cx("item-price")}>
-                      <div className={cx("real-price")}>{product.realPrice}$</div>
-                      <span className={cx("sale-price")}>{product.salePrice}$</span>
-                    </div>
-                    <div className={cx("rating_sold")}>
-                      <div className={cx("rating")}>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                        <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      </div>
-                      <div className={cx("sold")}>{product.sold}k sold</div>
                     </div>
                   </div>
                 </Link>
@@ -442,38 +331,36 @@ function ProductSearch() {
             </div>
           </div>
           <div className={cx("more-products")}>
-              <button className={cx("prev")} onClick={handlePrevCmtPage}>
-                <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
+            <button className={cx("prev")} onClick={handlePrevCmtPage}>
+              <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
+            </button>
+            {commentPageBtns.map(
+              (btn) =>
+                btn <= maxPage &&
+                btn >= minPage && (
+                  <button
+                    key={btn}
+                    className={cmtPage === btn ? cx("page-active") : cx("page")}
+                    onClick={() => setCmtPage(btn)}
+                  >
+                    {btn}
+                  </button>
+                )
+            )}
+            {maxPage !== commentPageBtns.length && (
+              <button className={cx("page")} disabled>
+                {"..."}
               </button>
-              {commentPageBtns.map(
-                (btn) =>
-                  btn <= maxPage &&
-                  btn >= minPage && (
-                    <button
-                      key={btn}
-                      className={
-                        cmtPage === btn ? cx("page-active") : cx("page")
-                      }
-                      onClick={() => setCmtPage(btn)}
-                    >
-                      {btn}
-                    </button>
-                  )
-              )}
-              {maxPage !== commentPageBtns.length && (
-                <button className={cx("page")} disabled>
-                  {"..."}
-                </button>
-              )}
-              <button className={cx("next")} onClick={handleNextCmtPage}>
-                <i
-                  className={cx(
-                    "fa-solid fa-chevron-left fa-rotate-180",
-                    "next-icon"
-                  )}
-                ></i>
-              </button>
-            </div>
+            )}
+            <button className={cx("next")} onClick={handleNextCmtPage}>
+              <i
+                className={cx(
+                  "fa-solid fa-chevron-left fa-rotate-180",
+                  "next-icon"
+                )}
+              ></i>
+            </button>
+          </div>
         </div>
       </div>
       <Footer />

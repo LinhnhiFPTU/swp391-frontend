@@ -34,6 +34,10 @@ function Login() {
   });
 
   useEffect(() => {
+    document.title = "Login now to start shopping! | Bird Trading Platform";
+  }, []);
+
+  useEffect(() => {
     if (user) {
       axios
         .get(

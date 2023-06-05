@@ -273,14 +273,10 @@
               display: flex;
               justify-content: space-between;
               align-items: center;
-              .rating {
-                .rate_icon {
-                  font-size: 1.2rem;
-                  color: gold;
-                }
-              }
+              
               .sold {
-                padding-right: 20px;
+                padding: 4px 0;
+                margin-left: 30px;
                 font-size: 1.2rem;
                 color: #000000de;
               }

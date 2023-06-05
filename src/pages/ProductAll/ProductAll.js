@@ -7,6 +7,8 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
+import StarRating from "~/layouts/components/StarRating";
+
 import banner from "~/assets/images/banner4.jpg";
 import productImg from "~/assets/images/bird.png";
 import styles from "./Products.module.scss";
@@ -30,43 +32,46 @@ const sortBarOptions = [
   },
 ];
 
-
-
 const products = [
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    sold: 4400,
+    rating: 4.5,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    sold: 4400,
+    rating: 4.5,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    sold: 4400,
+    rating: 4.5,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    sold: 4400,
+    rating: 4.5,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    sold: 4400,
+    rating: 4.5,
   },
 ];
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -77,9 +82,25 @@ function Products() {
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
   const location = useLocation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  useEffect(() => {
+    document.title = 'All Products | Bird Trading Platform';
+  }, []);
+
+  useEffect(() => {
+    const handleReload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("load", handleReload);
+    return () => {
+      window.removeEventListener("load", handleReload);
+    };
+  }, []);
+
   const handleNextCmtPage = (e) => {
     e.preventDefault();
     if (cmtPage < maxPage) {
@@ -124,13 +145,13 @@ function Products() {
       <div className={cx("all_wrapper")}>
         <div className={cx("all_container")}>
           <div className={cx("all_banner")}>
-              <img src={banner} alt="banner" className={cx("all-img")} />
-              <div className={cx("all-header")}>
-                <div className={cx("title")}>Bird Trading Platform</div>
-                <div className={cx("sub-title")}>
-                  Connecting the community of bird lovers
-                </div>
+            <img src={banner} alt="banner" className={cx("all-img")} />
+            <div className={cx("all-header")}>
+              <div className={cx("title")}>Bird Trading Platform</div>
+              <div className={cx("sub-title")}>
+                Connecting the community of bird lovers
               </div>
+            </div>
           </div>
           <div className={cx("all_sort-bar")}>
             <span className={cx("sort-bar-label")}>Sort by</span>
@@ -148,7 +169,7 @@ function Products() {
                       }
                       onClick={() => {
                         setTypeSort(option.title);
-                        setPriceTitle("Price")
+                        setPriceTitle("Price");
                       }}
                     >
                       {option.title}
@@ -221,14 +242,26 @@ function Products() {
                     </span>
                   </div>
                   <div className={cx("rating_sold")}>
-                    <div className={cx("rating")}>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <div className={cx("product-rating")}>
+                      <StarRating
+                        rating={product.rating}
+                        font={1.2}
+                        color={`gold`}
+                      />
                     </div>
-                    <div className={cx("sold")}>{product.sold}k sold</div>
+                    <div className={cx("sold")}>
+                      {(() => {
+                        let rs = "";
+                        if (product.sold >= 1000) {
+                          const sold = product.sold / 1000;
+                          const rounded = Math.round(sold * 10) / 10;
+                          return (rs += rounded + "k");
+                        } else {
+                          return (rs += product.sold);
+                        }
+                      })()}{" "}
+                      sold
+                    </div>
                   </div>
                 </div>
               </Link>

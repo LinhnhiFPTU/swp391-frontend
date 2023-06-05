@@ -46,6 +46,10 @@ function Signup() {
   const [passwordConfirmType, setPasswordConfirmType] = useState("password");
 
   useEffect(() => {
+    document.title = "Sign up today! | Bird Trading Platform";
+  }, []);
+
+  useEffect(() => {
     if (submit) {
       axios
         .post("/api/v1/auths/registration", user)

@@ -60,6 +60,10 @@ function Profile() {
     imageurl: "",
   });
 
+  useEffect(() => {
+    document.title = 'Bird Trading Platform | Hot Deals, Best Prices';
+  }, []);
+
   const onClose = () => {
     setPreview(null);
   };

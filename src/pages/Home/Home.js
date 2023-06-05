@@ -1,22 +1,22 @@
 import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import axios from "axios";
 
 import Rating from "@mui/material/Rating";
 
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import Banner from "~/layouts/components/Banner/";
+import StarRating from "~/layouts/components/StarRating";
 
 import bird from "~/assets/images/bird.png";
 import birdFood from "~/assets/images/bird-food.png";
 import birdMedicine from "~/assets/images/bird-medicine.png";
-import birdCage from "~/assets/images/bird-cage.png";
-import birdAccessory from "~/assets/images/bird-accessory.png";
 import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
 
@@ -38,12 +38,12 @@ const categories = [
     to: "/category",
   },
   {
-    image: birdCage,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     title: "BIRD CAGES",
     to: "/category",
   },
   {
-    image: birdAccessory,
+    image: "https://m.media-amazon.com/images/I/81lQoLzgsJL._AC_SL1500_.jpg",
     title: "BIRD ACCESSORIES",
     to: "/category",
   },
@@ -51,7 +51,7 @@ const categories = [
 
 const flashSales = [
   {
-    image: birdFood,
+    image: "https://m.media-amazon.com/images/I/71sXkl4vt8L._AC_SL1500_.jpg",
     name: "Nekton",
     price: "35",
     quantity: {
@@ -60,7 +60,7 @@ const flashSales = [
     },
   },
   {
-    image: birdFood,
+    image: "https://m.media-amazon.com/images/I/71sXkl4vt8L._AC_SL1500_.jpg ",
     name: "Amoxy-Tyl",
     price: "13",
     quantity: {
@@ -69,7 +69,7 @@ const flashSales = [
     },
   },
   {
-    image: birdFood,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Bird B.Gone",
     price: "12",
     quantity: {
@@ -78,7 +78,7 @@ const flashSales = [
     },
   },
   {
-    image: birdFood,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Bird Spikes",
     price: "24",
     quantity: {
@@ -87,7 +87,7 @@ const flashSales = [
     },
   },
   {
-    image: birdFood,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "25",
     quantity: {
@@ -96,7 +96,7 @@ const flashSales = [
     },
   },
   {
-    image: birdFood,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "26",
     quantity: {
@@ -105,7 +105,7 @@ const flashSales = [
     },
   },
   {
-    image: birdFood,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "27",
     quantity: {
@@ -114,7 +114,7 @@ const flashSales = [
     },
   },
   {
-    image: birdFood,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "28",
     quantity: {
@@ -126,61 +126,61 @@ const flashSales = [
 
 const bestSeller = [
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Nekton",
     price: "15",
     sells: "100+",
   },
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Amoxy-Tyl",
     price: "16",
     sells: "100+",
   },
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Bird B.Gone",
     price: "17",
     sells: "200+",
   },
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Bird Spikes",
     price: "18",
     sells: "300+",
   },
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "19",
     sells: "400+",
   },
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "20",
     sells: "400+",
   },
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "21",
     sells: "400+",
   },
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "22",
     sells: "400+",
   },
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "23",
     sells: "400+",
   },
   {
-    image: bird,
+    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     name: "Shefa",
     price: "24",
     sells: "400+",
@@ -210,51 +210,61 @@ const products = [
     image: bird,
     name: "Nekton",
     price: "25",
+    rating: 4,
   },
   {
     image: bird,
     name: "Amoxy-Tyl",
     price: "30",
+    rating: 4,
   },
   {
     image: bird,
     name: "Bird B.Gone",
     price: "35",
+    rating: 4,
   },
   {
     image: bird,
     name: "Bird Spikes",
     price: "40",
+    rating: 4,
   },
   {
     image: bird,
     name: "Shefa",
     price: "45",
+    rating: 4,
   },
   {
     image: bird,
     name: "Shefa",
     price: "50",
+    rating: 4,
   },
   {
     image: bird,
     name: "Shefa",
     price: "55",
+    rating: 4,
   },
   {
     image: bird,
     name: "Shefa",
     price: "60",
+    rating: 4,
   },
   {
     image: bird,
     name: "Shefa",
     price: "65",
+    rating: 4,
   },
   {
     image: bird,
     name: "Shefa",
     price: "70",
+    rating: 4,
   },
 ];
 
@@ -322,29 +332,55 @@ const settings_bestseller = {
 };
 
 function Home() {
-  const [second, setSecond] = useState(59);
-  const [minute, setMinute] = useState(30);
+  const [second, setSecond] = useState(0);
+  const [minute, setMinute] = useState(0);
   const timeID = useRef();
+  const location = useLocation();
 
   useEffect(() => {
-    timeID.current = setInterval(() => {
-      setSecond((pre) => pre - 1);
-      if (second === 0) {
-        setMinute((pre) => pre - 1);
-        setSecond(59);
-      }
-    }, 1000);
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  useEffect(() => {
+    document.title = 'Bird Trading Platform | Hot Deals, Best Prices';
+  }, []);
+
+  useEffect(() => {
+    const handleReload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("load", handleReload);
+    return () => {
+      window.removeEventListener("load", handleReload);
+    };
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/publics/time")
+      .then((res) => {
+        let now2 = new Date(res.data);
+        now2.setHours(now2.getHours() + 1);
+        now2.setMinutes(0);
+        now2.setSeconds(0);
+        let end = now2.getTime();
+        timeID.current = setInterval(() => {
+          let now = new Date().getTime();
+          let distance = end - now;
+
+          let minute = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
+          let second = Math.floor((distance % (60 * 1000)) / 1000);
+          setMinute(minute);
+          setSecond(second);
+        }, 1000);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     return () => {
       clearInterval(timeID.current);
     };
-  });
-
-  useEffect(() => {
-    if (minute === 0 && second === 0) {
-      setMinute(30);
-      setSecond(59);
-    }
-  }, [second, minute]);
+  }, []);
 
   const loading = {
     maxWidth: "170px",
@@ -367,15 +403,13 @@ function Home() {
     top: "0",
     left: "0",
     borderRadius: "12px 0 0 12px",
-    backgroundColor: "var(--flash_sale-primary)",
+    background: "linear-gradient(#ee4d2d, #ff7337)",
   };
-
 
   return (
     <>
       {/* -----------------HEADER----------------- */}
       <Header />
-
       <div className={cx("container")}>
         <div className={cx("content")}>
           {/* -----------------BANNER----------------- */}
@@ -462,14 +496,35 @@ function Home() {
                           ></div>
                           <span className={cx("loading-text")}>
                             {(() => {
-                              if((item.quantity.qSold / item.quantity.qAvailable) * 100 <= 50) {
-                                return "SELLING FAST"
-                              }else if ((item.quantity.qSold / item.quantity.qAvailable) * 100 >= 50 && (item.quantity.qSold / item.quantity.qAvailable) * 100 <= 75) {
-                                return `${item.quantity.qSold} SOLD`
-                              }else if ((item.quantity.qSold / item.quantity.qAvailable) * 100 > 75) {
-                                return `ONLY ${item.quantity.qAvailable - item.quantity.qSold} LEFT`
-                              }else {
-                                return ""
+                              if (
+                                (item.quantity.qSold /
+                                  item.quantity.qAvailable) *
+                                  100 <=
+                                50
+                              ) {
+                                return "SELLING FAST";
+                              } else if (
+                                (item.quantity.qSold /
+                                  item.quantity.qAvailable) *
+                                  100 >=
+                                  50 &&
+                                (item.quantity.qSold /
+                                  item.quantity.qAvailable) *
+                                  100 <=
+                                  75
+                              ) {
+                                return `${item.quantity.qSold} SOLD`;
+                              } else if (
+                                (item.quantity.qSold /
+                                  item.quantity.qAvailable) *
+                                  100 >
+                                75
+                              ) {
+                                return `ONLY ${
+                                  item.quantity.qAvailable - item.quantity.qSold
+                                } LEFT`;
+                              } else {
+                                return "";
                               }
                             })()}
                           </span>
@@ -510,7 +565,7 @@ function Home() {
             </div>
           </div>
 
-          {/*-----------------------------------PRODUCTS------------------------------*/}
+          {/*-----------------------PRODUCTS------------------------*/}
           <div className={cx("product_container")}>
             <div className={cx("product_title")}>
               <p>DAILY PRODUCTS</p>
@@ -523,11 +578,11 @@ function Home() {
                   </div>
                   <div className={cx("product-name")}>{item.name}</div>
                   <div className={cx("product-rating")}>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <StarRating
+                      rating={item.rating}
+                      font={1.2}
+                      color={`gold`}
+                    />
                   </div>
                   <div className={cx("price_before")}>${item.price}</div>
                   <div className={cx("product-price")}>${item.price}</div>
@@ -556,12 +611,10 @@ function Home() {
                         <span className={cx("rate")}>{shop.rating}</span>/5
                       </span>
                       <div className={cx("rating-icon")}>
-                        <Rating
-                          name="half-rating-read"
-                          defaultValue={shop.rating}
-                          precision={0.1}
-                          size="medium"
-                          readOnly
+                        <StarRating
+                          rating={shop.rating}
+                          font={1.2}
+                          color={`gold`}
                         />
                       </div>
                     </div>

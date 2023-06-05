@@ -7,39 +7,41 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
+import StarRating from "~/layouts/components/StarRating";
+
 import avatar from "~/assets/images/user-avatar.png";
 import banner from "~/assets/images/banner4.jpg";
 import productImg from "~/assets/images/bird-accessory.png";
 import styles from "./Category.module.scss";
 
 const cx = classNames.bind(styles);
-const categoryTitle = [
-  {
-    type: "bird",
-    title: "Birds of Wonder",
-    subTitle: "Explore the kingdom of birds",
-  },
-  {
-    type: "bird_food",
-    title: "Bird's Food",
-    subTitle: "Essential Nutrition for Birds",
-  },
-  {
-    type: "bird_medicine",
-    title: "Bird's Medicine",
-    subTitle: "Best health for birds",
-  },
-  {
-    type: "bird_cage",
-    title: "Bird's Cage",
-    subTitle: "Comfortable accommodation for birds",
-  },
-  {
-    type: "bird_accessory",
-    title: "Bird's Accessory",
-    subTitle: "Essential Accessories for Stylish Birds",
-  },
-];
+// const categoryTitle = [
+//   {
+//     type: "bird",
+//     title: "Birds of Wonder",
+//     subTitle: "Explore the kingdom of birds",
+//   },
+//   {
+//     type: "bird_food",
+//     title: "Bird's Food",
+//     subTitle: "Essential Nutrition for Birds",
+//   },
+//   {
+//     type: "bird_medicine",
+//     title: "Bird's Medicine",
+//     subTitle: "Best health for birds",
+//   },
+//   {
+//     type: "bird_cage",
+//     title: "Bird's Cage",
+//     subTitle: "Comfortable accommodation for birds",
+//   },
+//   {
+//     type: "bird_accessory",
+//     title: "Bird's Accessory",
+//     subTitle: "Essential Accessories for Stylish Birds",
+//   },
+// ];
 
 const topShop = [
   {
@@ -88,35 +90,40 @@ const products = [
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 4.3,
+    sold: 4400,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 4.3,
+    sold: 4400,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 4.3,
+    sold: 4400,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 4.3,
+    sold: 4400,
   },
   {
     img: productImg,
     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
     realPrice: "300",
     salePrice: "20",
-    sold: "4,4",
+    rating: 4.3,
+    sold: 4400,
   },
 ];
 
@@ -129,9 +136,24 @@ function Category() {
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
   const location = useLocation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  useEffect(() => {
+    document.title = "Category | Bird Trading Platform";
+  }, []);
+
+  useEffect(() => {
+    const handleReload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("load", handleReload);
+    return () => {
+      window.removeEventListener("load", handleReload);
+    };
+  }, []);
 
   const handleNextCmtPage = (e) => {
     e.preventDefault();
@@ -204,11 +226,11 @@ function Category() {
                       /5
                     </span>
                     <div className={cx("rating-icon")}>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                      <StarRating
+                        rating={shop.shop_rating}
+                        font={1.2}
+                        color={`gold`}
+                      />
                     </div>
                   </div>
                   <div className={cx("shop-contact")}>
@@ -319,130 +341,26 @@ function Category() {
                     </span>
                   </div>
                   <div className={cx("rating_sold")}>
-                    <div className={cx("rating")}>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <div className={cx("product-rating")}>
+                      <StarRating
+                        rating={product.rating}
+                        font={1.2}
+                        color={`gold`}
+                      />
                     </div>
-                    <div className={cx("sold")}>{product.sold}k sold</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-            {products.map((product, index) => (
-              <Link to="" className={cx("category_item")} key={index}>
-                <img
-                  src={product.img}
-                  alt="item-img"
-                  className={cx("item-image")}
-                />
-
-                <div className={cx("item-content")}>
-                  <div className={cx("item-name")}>{product.name}</div>
-                  <div className={cx("item-price")}>
-                    <div className={cx("real-price")}>{product.realPrice}$</div>
-                    <span className={cx("sale-price")}>
-                      {product.salePrice}$
-                    </span>
-                  </div>
-                  <div className={cx("rating_sold")}>
-                    <div className={cx("rating")}>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
+                    <div className={cx("sold")}>
+                      {(() => {
+                        let rs = "";
+                        if (product.sold >= 1000) {
+                          const sold = product.sold / 1000;
+                          const rounded = Math.round(sold * 10) / 10;
+                          return (rs += rounded + "k");
+                        } else {
+                          return (rs += product.sold);
+                        }
+                      })()}{" "}
+                      sold
                     </div>
-                    <div className={cx("sold")}>{product.sold}k sold</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-            {products.map((product, index) => (
-              <Link to="" className={cx("category_item")} key={index}>
-                <img
-                  src={product.img}
-                  alt="item-img"
-                  className={cx("item-image")}
-                />
-
-                <div className={cx("item-content")}>
-                  <div className={cx("item-name")}>{product.name}</div>
-                  <div className={cx("item-price")}>
-                    <div className={cx("real-price")}>{product.realPrice}$</div>
-                    <span className={cx("sale-price")}>
-                      {product.salePrice}$
-                    </span>
-                  </div>
-                  <div className={cx("rating_sold")}>
-                    <div className={cx("rating")}>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    </div>
-                    <div className={cx("sold")}>{product.sold}k sold</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-            {products.map((product, index) => (
-              <Link to="" className={cx("category_item")} key={index}>
-                <img
-                  src={product.img}
-                  alt="item-img"
-                  className={cx("item-image")}
-                />
-
-                <div className={cx("item-content")}>
-                  <div className={cx("item-name")}>{product.name}</div>
-                  <div className={cx("item-price")}>
-                    <div className={cx("real-price")}>{product.realPrice}$</div>
-                    <span className={cx("sale-price")}>
-                      {product.salePrice}$
-                    </span>
-                  </div>
-                  <div className={cx("rating_sold")}>
-                    <div className={cx("rating")}>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    </div>
-                    <div className={cx("sold")}>{product.sold}k sold</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-            {products.map((product, index) => (
-              <Link to="" className={cx("category_item")} key={index}>
-                <img
-                  src={product.img}
-                  alt="item-img"
-                  className={cx("item-image")}
-                />
-
-                <div className={cx("item-content")}>
-                  <div className={cx("item-name")}>{product.name}</div>
-                  <div className={cx("item-price")}>
-                    <div className={cx("real-price")}>{product.realPrice}$</div>
-                    <span className={cx("sale-price")}>
-                      {product.salePrice}$
-                    </span>
-                  </div>
-                  <div className={cx("rating_sold")}>
-                    <div className={cx("rating")}>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                      <i className={cx("fa-solid fa-star", "rate_icon")}></i>
-                    </div>
-                    <div className={cx("sold")}>{product.sold}k sold</div>
                   </div>
                 </div>
               </Link>

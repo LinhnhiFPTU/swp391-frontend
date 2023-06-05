@@ -36,7 +36,7 @@ function Comment({ feedback, commentRating }) {
   };
 
   const handleEnded = (e) => {
-    setIsPause(false)
+    setIsPause(false);
     setIsReload(true);
   };
 
@@ -44,7 +44,7 @@ function Comment({ feedback, commentRating }) {
     setIsReload(false);
     videoRefPreview.current.currentTime = 0;
     videoRefPreview.current.play();
-  }
+  };
 
   const handleClickIcon = (e) => {
     videoRefPreview.current.play();
@@ -81,19 +81,24 @@ function Comment({ feedback, commentRating }) {
             </div>
           </div>
           <div className={cx("comment-content")}>
-            <span className={cx("comment-text")}>{feedback.description}</span>
+            <pre
+              className={cx("comment-text")}
+            >{`${feedback.description}`}</pre>
           </div>
 
           <div className={cx("comment-list")}>
-            <div className={videoPreview ? cx("comment-video-active") : cx("comment-video")}>
+            <div
+              className={
+                videoPreview ? cx("comment-video-active") : cx("comment-video")
+              }
+            >
               <video
                 src={feedback.feedbackVideo}
                 type="video/mp4"
                 ref={videoRef}
                 onClick={(e) => {
-                  setVideoPreview(p => {
-                    if(p)
-                    {
+                  setVideoPreview((p) => {
+                    if (p) {
                       return "";
                     }
                     return e.target.src;
@@ -110,20 +115,23 @@ function Comment({ feedback, commentRating }) {
             </div>
             {feedback.feedbackImages.map((imageURL, index) => (
               <div
-                className={(imagePreview.id === index) ? cx("comment-image-active") : cx("comment-image")}
+                className={
+                  imagePreview.id === index
+                    ? cx("comment-image-active")
+                    : cx("comment-image")
+                }
                 style={{
                   backgroundImage: `url(${imageURL})`,
                 }}
                 key={index}
                 onClick={() => {
-                  setImagePreview(p => {
-                    if(p.id === index)
-                    {
+                  setImagePreview((p) => {
+                    if (p.id === index) {
                       return "";
                     }
                     return {
                       id: index,
-                      src: imageURL
+                      src: imageURL,
                     };
                   });
                   setVideoPreview("");
@@ -207,6 +215,14 @@ function Comment({ feedback, commentRating }) {
                   ></path>
                 </svg>
               )}
+            </div>
+          )}
+          {feedback.shopResponse && (
+            <div className={cx("shop-response")}>
+              <div className={cx("response-title")}>Seller's Response:</div>
+              <div className={cx("response-content")}>
+                {feedback.shopResponse}
+              </div>
             </div>
           )}
         </div>

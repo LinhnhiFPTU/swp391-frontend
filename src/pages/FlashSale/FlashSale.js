@@ -16,7 +16,7 @@ import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-const filterBtns = ["birds", "foods", "medicines", "cages", "accessories"];
+const filterBtns = ["all", "birds", "foods", "medicines", "cages", "accessories"];
 
 const products = [
   {
@@ -545,7 +545,7 @@ const product2 = [
 ];
 function FlashSale() {
   const [dataSource, setDataSource] = useState(products);
-  const [type, setType] = useState("birds");
+  const [type, setType] = useState("all");
   const [second, setSecond] = useState(0);
   const [minute, setMinute] = useState(0);
   const timeID = useRef();
@@ -555,15 +555,30 @@ function FlashSale() {
     window.scrollTo(0, 0);
   }, [location]);
 
+  useEffect(() => {
+    document.title = "Flash Deals | Bird Trading Platform";
+  }, []);
+
+  useEffect(() => {
+    const handleReload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("load", handleReload);
+    return () => {
+      window.removeEventListener("load", handleReload);
+    };
+  }, []);
+
   // useEffect(() => {
-  //   let id = window.addEventListener("scroll", () => {
+  //   const id = () => {
   //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-  //       console.log("AA")
-  //       setDataSource(p => p.concat(product2))
+  //       console.log("AA");
+  //       setDataSource((p) => p.concat(product2));
   //     }
-  //   });
-  //   return () => (window.removeEventListener("scroll", id))
-  // }, [dataSource.length])
+  //   };
+  //   window.addEventListener("scroll", id);
+  //   return () => window.removeEventListener("scroll", id);
+  // }, [dataSource.length]);
 
   useEffect(() => {
     axios
@@ -612,7 +627,7 @@ function FlashSale() {
     top: "0",
     left: "0",
     borderRadius: "12px 0 0 12px",
-    backgroundColor: "var(--flash_sale-primary)",
+    background: "linear-gradient(#ee4d2d,#ff7337)",
   };
 
   return (

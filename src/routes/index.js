@@ -27,7 +27,7 @@ const publicRoutes = [
   { path: "/shop", component: Shop },
   { path: "/flash_sale", component: FlashSale },
   { path: "/product", component: Product },
-  { path: "/  search", component: ProductSearch },
+  { path: "/search", component: ProductSearch },
   { path: "/category", component: Category },
   { path: "/products", component: ProductAll },
   { path: "/cart", component: Cart },

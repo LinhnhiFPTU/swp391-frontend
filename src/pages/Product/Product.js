@@ -6,6 +6,7 @@ import axios from "axios";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import Report from "./Report";
+import Toast from "./Toast";
 import Comment from "./Comment";
 import ProductImage from "./ProductImage";
 import StarRating from "~/layouts/components/StarRating";
@@ -54,7 +55,7 @@ const product = {
   `,
   price: 1000,
   sold: 111200,
-  available: 6162,
+  available: 10,
   rating: 3.7,
   totalRatings: 3000,
   brand: "No brand",
@@ -103,6 +104,8 @@ const product = {
       ],
       feedbackVideo:
         "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
+      shopResponse:
+        "Cảm ơn bạn đã tin tưởng và lựa chọn mua hàng tại shop. Hãy ghé shop thường xuyên để trải nghiệm những sản phẩm và dịch vụ tuyệt vời nhất nhé. Nếu có vấn đề gì chưa hài lòng hãy nhắn lại ngay cho shop để được hỗ trợ và xử lí nhanh nhất ạ. Chúng tôi luôn hy vọng được tiếp tục đồng hành cùng bạn trong tương lai.",
     },
     {
       user: {
@@ -121,6 +124,66 @@ const product = {
       ],
       feedbackVideo:
         "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
+      shopResponse: "",
+    },
+    {
+      user: {
+        avatar: avatar,
+        name: "User name",
+        rating: 1,
+      },
+      date: "2023-05-26 16:00",
+      description:
+        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
+      feedbackImages: [
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
+      ],
+      feedbackVideo:
+        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
+      shopResponse:
+        "Cảm ơn bạn đã tin tưởng và lựa chọn mua hàng tại shop. Hãy ghé shop thường xuyên để trải nghiệm những sản phẩm và dịch vụ tuyệt vời nhất nhé. Nếu có vấn đề gì chưa hài lòng hãy nhắn lại ngay cho shop để được hỗ trợ và xử lí nhanh nhất ạ. Chúng tôi luôn hy vọng được tiếp tục đồng hành cùng bạn trong tương lai.",
+    },
+    {
+      user: {
+        avatar: avatar,
+        name: "User name",
+        rating: 1,
+      },
+      date: "2023-05-26 16:00",
+      description:
+        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
+      feedbackImages: [
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
+      ],
+      feedbackVideo:
+        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
+      shopResponse: "",
+    },
+    {
+      user: {
+        avatar: avatar,
+        name: "User name",
+        rating: 1,
+      },
+      date: "2023-05-26 16:00",
+      description:
+        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
+      feedbackImages: [
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
+        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
+      ],
+      feedbackVideo:
+        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
+      shopResponse:
+        "Cảm ơn bạn đã tin tưởng và lựa chọn mua hàng tại shop. Hãy ghé shop thường xuyên để trải nghiệm những sản phẩm và dịch vụ tuyệt vời nhất nhé. Nếu có vấn đề gì chưa hài lòng hãy nhắn lại ngay cho shop để được hỗ trợ và xử lí nhanh nhất ạ. Chúng tôi luôn hy vọng được tiếp tục đồng hành cùng bạn trong tương lai.",
     },
   ],
 };
@@ -133,12 +196,28 @@ function Product() {
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
   const [openReport, setOpenReport] = useState(false);
+  const [openToast, setOpenToast] = useState(false);
+  const [valueQuantity, setValueQuantity] = useState(1);
   const timeID = useRef();
   const location = useLocation();
 
   useEffect(() => {
+    document.title = `${product.name} | Bird Trading Platform`;
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  useEffect(() => {
+    const handleReload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("load", handleReload);
+    return () => {
+      window.removeEventListener("load", handleReload);
+    };
+  }, []);
 
   useEffect(() => {
     axios
@@ -165,6 +244,17 @@ function Product() {
       clearInterval(timeID.current);
     };
   }, []);
+
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setOpenToast(false);
+    }, 3500);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }, [openToast]);
 
   const handleNextCmtPage = (e) => {
     e.preventDefault();
@@ -247,9 +337,23 @@ function Product() {
     setCmtPage(page);
   };
 
+  const handleDescrease = () => {
+    if (valueQuantity === 1) {
+      return;
+    }
+    setValueQuantity(valueQuantity - 1);
+  };
+
+  const handleIncrease = () => {
+    if (valueQuantity === product.available) {
+      return;
+    }
+    setValueQuantity(valueQuantity + 1);
+  };
   return (
     <>
       {openReport && <Report closeReport={setOpenReport} />}
+      {openToast && <Toast />}
       <Header />
       <div className={cx("product-wrapper")}>
         <div className={cx("product-container")}>
@@ -259,6 +363,7 @@ function Product() {
             <ProductImage
               previewImage={product.productImages}
               previewVideo={product.productVideo}
+              quantitySoldout={product.available}
             />
             <div className={cx("product-content")}>
               {/*------Product Name------*/}
@@ -378,15 +483,22 @@ function Product() {
               <div className={cx("product-quantity")}>
                 <span className={cx("quantity-text")}>Quantity</span>
                 <div className={cx("quantity")}>
-                  <button className={cx("minus")}>
+                  <button className={cx("minus")} onClick={handleDescrease}>
                     <i className={cx("fa-solid fa-minus", "minus-icon")}></i>
                   </button>
                   <input
                     type="number"
                     className={cx("text")}
-                    maxLength={product.available}
+                    value={valueQuantity}
+                    onChange={(e) => {
+                      if (e.target.value > product.available) {
+                        setValueQuantity(product.available);
+                      } else if (e.target.value < product.available) {
+                        setValueQuantity(1);
+                      }
+                    }}
                   />
-                  <button className={cx("plus")}>
+                  <button className={cx("plus")} onClick={handleIncrease}>
                     <i className={cx("fa-solid fa-plus", "plus-icon")}></i>
                   </button>
                 </div>
@@ -402,11 +514,20 @@ function Product() {
               </div>
               {/*------Add to cart & Buy now------*/}
               <div className={cx("product-buy")}>
-                <button className={cx("add")}>
+                <button
+                  className={cx("add")}
+                  disabled={product.available === 0}
+                  onClick={() => setOpenToast(true)}
+                >
                   <i className={cx("fa-sharp fa-light fa-cart-plus")}></i>
                   <span>Add To Cart</span>
                 </button>
-                <button className={cx("buy")}>Buy Now</button>
+                <button
+                  className={cx("buy")}
+                  disabled={product.available === 0}
+                >
+                  Buy Now
+                </button>
               </div>
             </div>
           </div>
@@ -551,9 +672,7 @@ function Product() {
                 </div>
                 <div className={cx("ship-from", "container")}>
                   <span className={cx("title")}>Shops From</span>
-                  <span className={cx("content")}>
-                    HaNoi
-                  </span>
+                  <span className={cx("content")}>HaNoi</span>
                 </div>
               </div>
             </div>
