@@ -1,13 +1,12 @@
 import classNames from "classnames/bind";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Cartcontext } from "~/context/Context";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
-
-import Rating from "@mui/material/Rating";
 
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
@@ -207,60 +206,70 @@ const shops = [
 
 const products = [
   {
+    id: 1,
     image: bird,
     name: "Nekton",
     price: "25",
     rating: 4,
   },
   {
+    id: 2,
     image: bird,
     name: "Amoxy-Tyl",
     price: "30",
     rating: 4,
   },
   {
+    id: 3,
     image: bird,
     name: "Bird B.Gone",
     price: "35",
     rating: 4,
   },
   {
+    id: 4,
     image: bird,
     name: "Bird Spikes",
     price: "40",
     rating: 4,
   },
   {
+    id: 5,
     image: bird,
     name: "Shefa",
     price: "45",
     rating: 4,
   },
   {
+    id: 6,
     image: bird,
     name: "Shefa",
     price: "50",
     rating: 4,
   },
   {
+    id: 6,
     image: bird,
     name: "Shefa",
     price: "55",
     rating: 4,
   },
   {
+    id: 7,
     image: bird,
     name: "Shefa",
     price: "60",
     rating: 4,
   },
   {
+    id: 8,
     image: bird,
     name: "Shefa",
     price: "65",
     rating: 4,
   },
   {
+    id: 9,
     image: bird,
     name: "Shefa",
     price: "70",
@@ -405,6 +414,11 @@ function Home() {
     borderRadius: "12px 0 0 12px",
     background: "linear-gradient(#ee4d2d, #ff7337)",
   };
+
+  const Globalstate = useContext(Cartcontext);
+  const dispatch = Globalstate.dispatch;
+
+  console.log(Globalstate);
 
   return (
     <>
@@ -586,7 +600,12 @@ function Home() {
                   </div>
                   <div className={cx("price_before")}>${item.price}</div>
                   <div className={cx("product-price")}>${item.price}</div>
-                  <button className={cx("btn_add")}>Buy Now</button>
+                  <button
+                    className={cx("btn_add")}
+                    onClick={() => dispatch({ type: "ADD", payload: item })}
+                  >
+                    Buy Now
+                  </button>
                 </Link>
               ))}
             </div>
