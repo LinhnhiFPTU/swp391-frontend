@@ -14,6 +14,15 @@ import productImg from "~/assets/images/bird-food.png";
 import styles from "./ProductSearch.module.scss";
 
 const cx = classNames.bind(styles);
+const shop = {
+  name: "Dirty Coins",
+  nick_name: "dirtycoins",
+  followers: 546000,
+  products: 145,
+  rating: 4.9,
+  response_rate: 96,
+  response_time: "within hours",
+};
 const sortBarOptions = [
   {
     type: "normal",
@@ -167,10 +176,21 @@ function ProductSearch() {
                   />
                 </div>
                 <div className={cx("shop-item_info")}>
-                  <div className={cx("shop-item_nick-name")}>Dirty Coins</div>
-                  <div className={cx("shop-item_user-name")}>dirtycoins</div>
+                  <div className={cx("shop-item_nick-name")}>{shop.name}</div>
+                  <div className={cx("shop-item_user-name")}>
+                    {shop.nick_name}
+                  </div>
                   <div className={cx("shop-item_follow-count")}>
-                    <span className={cx("count-number")}>566.8k</span>{" "}
+                    <span className={cx("count-number")}>{(() => {
+                      let rs = ""
+                      if(shop.followers >= 1000) {
+                        const follower = shop.followers / 1000
+                        const rounded = Math.round((follower * 10) / 10)
+                        return rs += rounded + "k"
+                      }else {
+                        return rs += shop.followers
+                      }
+                    })()}</span>{" "}
                     <span className={cx("count-text")}>Followers</span>
                   </div>
                 </div>
@@ -178,21 +198,21 @@ function ProductSearch() {
                   <div className={cx("seller-info-item")}>
                     <div className={cx("header")}>
                       <i className={cx("fa-light fa-box", "icon")}></i>
-                      <span>138</span>
+                      <span>{shop.products}</span>
                     </div>
                     <div className={cx("text")}>Products</div>
                   </div>
                   <div className={cx("seller-info-item")}>
                     <div className={cx("header")}>
                       <i className={cx("fa-light fa-star", "icon")}></i>
-                      <span>4.9</span>
+                      <span>{shop.rating}</span>
                     </div>
                     <div className={cx("text")}>Ratings</div>
                   </div>
                   <div className={cx("seller-info-item")}>
                     <div className={cx("header")}>
                       <i className={cx("fa-light fa-message-dots", "icon")}></i>
-                      <span>96%</span>
+                      <span>{shop.response_rate}%</span>
                     </div>
                     <div className={cx("text")}>Response Rate</div>
                   </div>
@@ -201,7 +221,7 @@ function ProductSearch() {
                       <i
                         className={cx("fa-sharp fa-light fa-clock", "icon")}
                       ></i>
-                      <span>within hours</span>
+                      <span>{shop.response_time}</span>
                     </div>
                     <div className={cx("text")}>Response Time</div>
                   </div>
