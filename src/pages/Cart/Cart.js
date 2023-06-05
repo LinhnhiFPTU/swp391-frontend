@@ -1,6 +1,7 @@
 // import React from 'react'
 import classNames from "classnames/bind";
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 
 import styles from "./Cart.module.scss";
 import Header from "~/layouts/components/Header";
@@ -9,7 +10,6 @@ import Footer from "~/layouts/components/Footer";
 import bird from "~/assets/images/bird.png";
 import product from "~/assets/images/no-item.png";
 import { Cartcontext } from "~/context/Context";
-import { Link } from "@mui/material";
 const cx = classNames.bind(styles);
 
 function Cart() {

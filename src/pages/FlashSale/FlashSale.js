@@ -16,7 +16,14 @@ import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-const filterBtns = ["all", "birds", "foods", "medicines", "cages", "accessories"];
+const filterBtns = [
+  "all",
+  "birds",
+  "foods",
+  "medicines",
+  "cages",
+  "accessories",
+];
 
 const products = [
   {
@@ -46,7 +53,8 @@ const products = [
     },
   },
   {
-    product_img: birdCage,
+    product_img:
+      "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     product_name:
       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
     product_rating: 4.8,
@@ -98,163 +106,8 @@ const products = [
     },
   },
   {
-    product_img: birdCage,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 4.8,
-    product_price: 200,
-    product_price_sale: 100,
-    product_sale_percentage: 20,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 60,
-    },
-  },
-  {
-    product_img: birdFood,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 3.5,
-    product_price: 200,
-    product_price_sale: 100,
-    product_sale_percentage: 20,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 170,
-    },
-  },
-  {
-    product_img: bird,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 4.6,
-    product_price: 200,
-    product_sale_percentage: 20,
-    product_price_sale: 100,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 90,
-    },
-  },
-  {
-    product_img: birdMedicine,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 4.2,
-    product_price: 200,
-    product_sale_percentage: 20,
-    product_price_sale: 100,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 120,
-    },
-  },
-  {
-    product_img: birdCage,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 4.8,
-    product_price: 200,
-    product_price_sale: 100,
-    product_sale_percentage: 20,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 60,
-    },
-  },
-  {
-    product_img: birdFood,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 3.5,
-    product_price: 200,
-    product_price_sale: 100,
-    product_sale_percentage: 20,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 170,
-    },
-  },
-  {
-    product_img: bird,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 4.6,
-    product_price: 200,
-    product_sale_percentage: 20,
-    product_price_sale: 100,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 90,
-    },
-  },
-  {
-    product_img: birdMedicine,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 4.2,
-    product_price: 200,
-    product_sale_percentage: 20,
-    product_price_sale: 100,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 120,
-    },
-  },
-  {
-    product_img: birdCage,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 4.8,
-    product_price: 200,
-    product_price_sale: 100,
-    product_sale_percentage: 20,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 60,
-    },
-  },
-  {
-    product_img: birdFood,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 3.5,
-    product_price: 200,
-    product_price_sale: 100,
-    product_sale_percentage: 20,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 170,
-    },
-  },
-  {
-    product_img: bird,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 4.6,
-    product_price: 200,
-    product_sale_percentage: 20,
-    product_price_sale: 100,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 90,
-    },
-  },
-  {
-    product_img: birdMedicine,
-    product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
-    product_rating: 4.2,
-    product_price: 200,
-    product_sale_percentage: 20,
-    product_price_sale: 100,
-    product_quantity: {
-      qAvailable: 200,
-      qSold: 120,
-    },
-  },
-  {
-    product_img: birdCage,
+    product_img:
+      "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     product_name:
       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
     product_rating: 4.8,
@@ -676,7 +529,7 @@ function FlashSale() {
             ))}
           </div>
           <div className={cx("flash_sale-list")}>
-            {dataSource.map((product, index) => (
+            {products.map((product, index) => (
               <Link to="" className={cx("flash_sale-product")} key={index}>
                 <div className={cx("product-sale")}>
                   <span className={cx("sale")}>

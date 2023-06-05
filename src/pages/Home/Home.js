@@ -346,9 +346,9 @@ function Home() {
   const timeID = useRef();
   const location = useLocation();
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [location]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     document.title = 'Bird Trading Platform | Hot Deals, Best Prices';
