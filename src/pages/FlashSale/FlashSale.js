@@ -27,9 +27,9 @@ const filterBtns = [
 
 const products = [
   {
-    product_img: bird,
+    product_img: "https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp",
     product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+      "Pet Birds Feeder Food Water Feeding Box For Small Medium Large Birds Parrots",
     product_rating: 4.6,
     product_price: 200,
     product_sale_percentage: 20,
@@ -40,9 +40,9 @@ const products = [
     },
   },
   {
-    product_img: birdMedicine,
+    product_img: "https://birdtoybuilder.com/product_images/uploaded_images/flower-bouquet.jpg",
     product_name:
-      "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+      "Flower Bouquet - Happy Beaks Made In The USA",
     product_rating: 4.2,
     product_price: 200,
     product_sale_percentage: 20,

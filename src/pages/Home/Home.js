@@ -31,11 +31,11 @@ const categories = [
     title: "BIRD FOODS",
     to: "/category",
   },
-  {
-    image: birdMedicine,
-    title: "BIRD MEDICINES",
-    to: "/category",
-  },
+  // {
+  //   image: birdMedicine,
+  //   title: "BIRD MEDICINES",
+  //   to: "/category",
+  // },
   {
     image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     title: "BIRD CAGES",
@@ -189,7 +189,7 @@ const bestSeller = [
     sells: "400+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/61OIc1vK7HL._AC_SL1024_.jpg",
+    image: "https://cdn.shopify.com/s/files/1/0386/6810/7915/products/nomess_1024x1024.png?v=1639034847",
     name: "Lyric Delite Wild Bird Seed, No Waste Bird Food Mix with Shell-Free Nuts and Seeds, 20 lb. Bag & Morning Song 11959 Clean and Free Wild Bird Food, 10-Pound",
     price: "22",
     sells: "400+",
@@ -371,23 +371,23 @@ function Home() {
   const timeID = useRef();
   const location = useLocation();
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [location]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     document.title = "Bird Trading Platform | Hot Deals, Best Prices";
   }, []);
 
-  // useEffect(() => {
-  //   const handleReload = () => {
-  //     window.scrollTo(0, 0);
-  //   };
-  //   window.addEventListener("load", handleReload);
-  //   return () => {
-  //     window.removeEventListener("load", handleReload);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleReload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("load", handleReload);
+    return () => {
+      window.removeEventListener("load", handleReload);
+    };
+  }, []);
 
   useEffect(() => {
     axios

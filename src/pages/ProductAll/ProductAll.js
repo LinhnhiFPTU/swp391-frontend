@@ -91,7 +91,7 @@ const products = [
   },
   {
     img: "https://m.media-amazon.com/images/I/81ZglnvUarL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
-    name: "https://m.media-amazon.com/images/I/81ZglnvUarL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+    name: "Audubon Hopper Feeder with Butterfly Model NA32321",
     realPrice: 60,
     salePrice: 29,
     sold: 140,

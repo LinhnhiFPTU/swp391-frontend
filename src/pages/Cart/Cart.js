@@ -98,7 +98,7 @@ function Cart() {
                           className={cx("checkbox-product")}
                         />
                         <img src={item.image} alt="Product name" />
-                        <span>Product Name</span>
+                        <span>{item.name}</span>
                       </div>
                       <div className={cx("product-details")}>
                         $ {item.price}
