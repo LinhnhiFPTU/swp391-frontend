@@ -49,7 +49,7 @@ function Cart() {
     <>
       <Header />
       <div className={cx("container")}>
-        {state.length < 1 ? (
+        {false ? (
           <div className={cx("no-item")}>
             <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/9bdd8040b334d31946f49e36beaf32db.png?fbclid=IwAR3K0JTocd1P-MQ_umPdQcejgKPwax5CiCtEwDSy6Y4HnJveEwVYnu6ROho" alt="No item"></img>
             <p>Your shopping cart is empty</p>
