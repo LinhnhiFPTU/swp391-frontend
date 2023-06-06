@@ -93,9 +93,18 @@
 .product_pick {
   width: 40%;
   text-align: left;
+  display: flex;
+  align-items: center;
 
   span {
     margin-left: 15px;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   }
 
   img {
@@ -184,7 +193,6 @@
     background-color: var(--primary);
     color: #fff;
   }
-
 }
 
 .totalPrice {

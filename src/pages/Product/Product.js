@@ -126,65 +126,6 @@ const product = {
         "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
       shopResponse: "",
     },
-    {
-      user: {
-        avatar: avatar,
-        name: "User name",
-        rating: 1,
-      },
-      date: "2023-05-26 16:00",
-      description:
-        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
-      feedbackImages: [
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
-      ],
-      feedbackVideo:
-        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
-      shopResponse:
-        "Cảm ơn bạn đã tin tưởng và lựa chọn mua hàng tại shop. Hãy ghé shop thường xuyên để trải nghiệm những sản phẩm và dịch vụ tuyệt vời nhất nhé. Nếu có vấn đề gì chưa hài lòng hãy nhắn lại ngay cho shop để được hỗ trợ và xử lí nhanh nhất ạ. Chúng tôi luôn hy vọng được tiếp tục đồng hành cùng bạn trong tương lai.",
-    },
-    {
-      user: {
-        avatar: avatar,
-        name: "User name",
-        rating: 1,
-      },
-      date: "2023-05-26 16:00",
-      description:
-        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
-      feedbackImages: [
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
-      ],
-      feedbackVideo:
-        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
-      shopResponse: "",
-    },
-    {
-      user: {
-        avatar: avatar,
-        name: "User name",
-        rating: 1,
-      },
-      date: "2023-05-26 16:00",
-      description:
-        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
-      feedbackImages: [
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
-      ],
-      feedbackVideo:
-        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
-      shopResponse:
-        "Cảm ơn bạn đã tin tưởng và lựa chọn mua hàng tại shop. Hãy ghé shop thường xuyên để trải nghiệm những sản phẩm và dịch vụ tuyệt vời nhất nhé. Nếu có vấn đề gì chưa hài lòng hãy nhắn lại ngay cho shop để được hỗ trợ và xử lí nhanh nhất ạ. Chúng tôi luôn hy vọng được tiếp tục đồng hành cùng bạn trong tương lai.",
-    },
   ],
 };
 

@@ -1,6 +1,6 @@
 // import React from 'react'
 import classNames from "classnames/bind";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./Cart.module.scss";
@@ -8,29 +8,32 @@ import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 
 import bird from "~/assets/images/bird.png";
-import product from "~/assets/images/no-item.png";
 import { Cartcontext } from "~/context/Context";
 const cx = classNames.bind(styles);
 
 function Cart() {
-  const [products, setProducts] = useState(true);
-  const [shop, setShop] = useState(true);
-  const handleChange = (data) => {
-    if (data === "Products") {
-      if (products === true) {
-        //Handle products here
-        console.log(data);
-      }
-      setProducts(!products);
-    }
-    if (data === "Shop name") {
-      if (shop === true) {
-        //Handle products here
-        console.log(data);
-      }
-      setShop(!shop);
-    }
-  };
+  // const [products, setProducts] = useState(true);
+  // const [shop, setShop] = useState(true);
+
+  useEffect(() => {
+    document.title = `Shopping Cart`;
+  }, []);
+  // const handleChange = (data) => {
+  //   if (data === "Products") {
+  //     if (products === true) {
+  //       //Handle products here
+  //       console.log(data);
+  //     }
+  //     setProducts(!products);
+  //   }
+  //   if (data === "Shop name") {
+  //     if (shop === true) {
+  //       //Handle products here
+  //       console.log(data);
+  //     }
+  //     setShop(!shop);
+  //   }
+  // };
 
   const Globalstate = useContext(Cartcontext);
   const state = Globalstate.state;
@@ -41,9 +44,8 @@ function Cart() {
   }, 0);
 
   const handleCheckout = () => {
-    alert("Check out successfully")
-  }
-
+    alert("Check out successfully");
+  };
 
   return (
     <>
@@ -51,16 +53,25 @@ function Cart() {
       <div className={cx("container")}>
         {false ? (
           <div className={cx("no-item")}>
-            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/9bdd8040b334d31946f49e36beaf32db.png?fbclid=IwAR3K0JTocd1P-MQ_umPdQcejgKPwax5CiCtEwDSy6Y4HnJveEwVYnu6ROho" alt="No item"></img>
+            <img
+              src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/9bdd8040b334d31946f49e36beaf32db.png?fbclid=IwAR3K0JTocd1P-MQ_umPdQcejgKPwax5CiCtEwDSy6Y4HnJveEwVYnu6ROho"
+              alt="No item"
+            ></img>
             <p>Your shopping cart is empty</p>
-            <Link to="/" className={cx('goback-link')}>Go Shopping Now</Link>
+            <Link to="/" className={cx("goback-link")}>
+              Go Shopping Now
+            </Link>
           </div>
         ) : (
           <>
             <div className={cx("cart-container")}>
               <div className={cx("cart-header")}>
                 <div className={cx("item-pick")}>
-                  <input type="checkbox" value={products} />
+                  <input
+                    type="checkbox"
+                    // value={products}
+                    className={cx("checkbox-all")}
+                  />
                   <span>Product</span>
                 </div>
                 <div className={cx("item-details")}>Unit Price</div>
@@ -70,16 +81,24 @@ function Cart() {
               </div>
               <div className={cx("shop-cart")}>
                 <div className={cx("shop_checkbox")}>
-                  <input type="checkbox" value={shop} />
+                  <input
+                    type="checkbox"
+                    // value={shop}
+                    className={cx("checkbox-shop")}
+                  />
                   <span>Shop name</span>
                 </div>
                 <div className={cx("product_cart")}>
                   {state.map((item, index) => (
                     <div key={index} className={cx("product-item")}>
                       <div className={cx("product_pick")}>
-                        <input type="checkbox" value={products} />
-                        <img src={bird} alt="Product name" />
-                        <span>Product Name</span>
+                        <input
+                          type="checkbox"
+                          // value={products}
+                          className={cx("checkbox-product")}
+                        />
+                        <img src={item.image} alt="Product name" />
+                        <span>{item.name}</span>
                       </div>
                       <div className={cx("product-details")}>
                         $ {item.price}
@@ -126,7 +145,10 @@ function Cart() {
             <div className={cx("bottom")}>
               <div className={cx("cart-left")}>
                 <div className={cx("selectAll")}>
-                  <input type="checkbox" value={products} />
+                  <input
+                    type="checkbox"
+                    // value={products}
+                  />
                   <p>Select All ({state.length})</p>
                 </div>
                 <div className={cx("deleteAll")}>
