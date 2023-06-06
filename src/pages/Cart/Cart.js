@@ -14,25 +14,6 @@ const cx = classNames.bind(styles);
 function Cart() {
   // const [products, setProducts] = useState(true);
   // const [shop, setShop] = useState(true);
-  const [shop, setShop] = useState([
-    {
-      id: "1",
-      shopName: "Shop 1",
-    },
-    {
-      id: "2",
-      shopName: "Shop 2",
-    },
-    {
-      id: "3",
-      shopName: "Shop 3",
-    },
-    {
-      id: "4",
-      shopName: "Shop 4",
-    },
-  ]);
-  const [checked, setChecked] = useState([]);
 
   useEffect(() => {
     document.title = `Shopping Cart`;
@@ -66,23 +47,6 @@ function Cart() {
     alert("Check out successfully");
   };
 
-  const handleCheckAllChange = (e) => {
-    if (e.target.checked) {
-      const allShops = shop.map((s) => s.shopName);
-      setChecked(allShops);
-    } else {
-      setChecked([]);
-    }
-  };
-
-  const handleShopChange = (e, s) => {
-    if (e.target.checked) {
-      setChecked([...checked, s.shopName]);
-    } else {
-      setChecked(checked.filter((item) => item !==  s.shopName));
-    }
-  };
-
   return (
     <>
       <Header />
@@ -107,8 +71,6 @@ function Cart() {
                     type="checkbox"
                     // value={products}
                     className={cx("checkbox-all")}
-                    checked={checked.length === shop.length}
-                    onChange={handleCheckAllChange}
                   />
                   <span>Product</span>
                 </div>
@@ -117,72 +79,68 @@ function Cart() {
                 <div className={cx("item-details")}>Total Price</div>
                 <div className={cx("item-details")}>Actions</div>
               </div>
-              {shop.map((s, index) => (
-                <div className={cx("shop-cart")} key={index}>
-                  <div className={cx("shop_checkbox")}>
-                    <input
-                      type="checkbox"
-                      // value={shop}
-                      className={cx("checkbox-shop")}
-                      checked={checked.includes(s.shopName)}
-                      onChange={(e) => handleShopChange(e, s)}
-                    />
-                    <span>{s.shopName}</span>
-                  </div>
-                  <div className={cx("product_cart")}>
-                    {state.map((item, index) => (
-                      <div key={index} className={cx("product-item")}>
-                        <div className={cx("product_pick")}>
-                          <input
-                            type="checkbox"
-                            // value={products}
-                            className={cx("checkbox-product")}
-                          />
-                          <img src={bird} alt="Product name" />
-                          <span>Product Name</span>
-                        </div>
-                        <div className={cx("product-details")}>
-                          $ {item.price}
-                        </div>
-                        <div className={cx("product-quantity")}>
-                          <button
-                            className={cx("product-input")}
-                            onClick={() => {
-                              if (item.quantity > 1) {
-                                dispatch({ type: "DECREASE", payload: item });
-                              } else {
-                                dispatch({ type: "REMOVE", payload: item });
-                              }
-                            }}
-                          >
-                            -
-                          </button>
-                          <p>{item.quantity}</p>
-                          <button
-                            className={cx("product-input")}
-                            onClick={() =>
-                              dispatch({ type: "INCREASE", payload: item })
-                            }
-                          >
-                            +
-                          </button>
-                        </div>
-                        <div className={cx("product-details")}>
-                          $ {item.quantity * item.price}
-                        </div>
-                        <div className={cx("product-details")}>
-                          <i
-                            className={cx("fa-solid fa-trash-can")}
-                            onClick={() =>
-                              dispatch({ type: "REMOVE", payload: item })
-                            }
-                          ></i>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              <div className={cx("shop-cart")}>
+                <div className={cx("shop_checkbox")}>
+                  <input
+                    type="checkbox"
+                    // value={shop}
+                    className={cx("checkbox-shop")}
+                  />
+                  <span>Shop name</span>
                 </div>
-              ))}
+                <div className={cx("product_cart")}>
+                  {state.map((item, index) => (
+                    <div key={index} className={cx("product-item")}>
+                      <div className={cx("product_pick")}>
+                        <input
+                          type="checkbox"
+                          // value={products}
+                          className={cx("checkbox-product")}
+                        />
+                        <img src={item.image} alt="Product name" />
+                        <span>Product Name</span>
+                      </div>
+                      <div className={cx("product-details")}>
+                        $ {item.price}
+                      </div>
+                      <div className={cx("product-quantity")}>
+                        <button
+                          className={cx("product-input")}
+                          onClick={() => {
+                            if (item.quantity > 1) {
+                              dispatch({ type: "DECREASE", payload: item });
+                            } else {
+                              dispatch({ type: "REMOVE", payload: item });
+                            }
+                          }}
+                        >
+                          -
+                        </button>
+                        <p>{item.quantity}</p>
+                        <button
+                          className={cx("product-input")}
+                          onClick={() =>
+                            dispatch({ type: "INCREASE", payload: item })
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                      <div className={cx("product-details")}>
+                        $ {item.quantity * item.price}
+                      </div>
+                      <div className={cx("product-details")}>
+                        <i
+                          className={cx("fa-solid fa-trash-can")}
+                          onClick={() =>
+                            dispatch({ type: "REMOVE", payload: item })
+                          }
+                        ></i>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
             <div className={cx("bottom")}>
               <div className={cx("cart-left")}>
