@@ -42,6 +42,36 @@
 .inner-subText {
   color: #333;
 }
+.search-results {
+  width: 450px;
+  height: fit-content;
+
+  .result-container {
+    padding: 10px;
+    font-size: 1.4rem;
+    color: #000000de;
+
+    .icon-box {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+
+    &:hover {
+      background-color: #fafafa;
+    }
+  }
+
+  .search-item {
+    padding: 10px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: #000000cc;
+
+    &:hover {
+      background-color: #fafafa;
+    }
+  }
+}
 
 .search-bar {
   width: 450px;
