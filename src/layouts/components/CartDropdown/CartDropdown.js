@@ -26,7 +26,7 @@ function CartDropdown() {
               <div className={cx("product-items")} tabIndex="-1" {...attrs}>
                 {state.length < 1 ? (
                   <div className={cx("no-item")}>
-                    <img src={product} alt="No item"></img>
+                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/9bdd8040b334d31946f49e36beaf32db.png?fbclid=IwAR3K0JTocd1P-MQ_umPdQcejgKPwax5CiCtEwDSy6Y4HnJveEwVYnu6ROho" alt="No item"></img>
                     <p>No item added!</p>
                   </div>
                 ) : (
