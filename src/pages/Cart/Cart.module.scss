@@ -4,6 +4,7 @@
   background-color: rgb(244, 244, 244);
   font-size: 1.5rem;
   padding-top: 131px;
+  padding-bottom: 30px;
 }
 
 .no-item {
@@ -137,56 +138,67 @@
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;
+}
+.cart-left {
+  width: 50%;
+  display: flex;
+  align-items: center;
 
-  .cart-left {
-    width: 50%;
-    display: flex;
-    align-items: center;
+  p {
+    margin: 0;
+    font-size: 16px;
+    padding-left: 20px;
+  }
+}
+.selectAll {
+  display: flex;
+  align-items: center;
+  user-select: none;
 
-    p {
-      margin: 0;
-      font-size: 16px;
-      padding-left: 20px;
-    }
+  input {
+    height: fit-content;
+  }
+}
 
-    .selectAll {
-      display: flex;
-      align-items: center;
+.deleteAll {
+  color: grey;
+  cursor: pointer;
 
-      input {
-        height: fit-content;
-      }
-    }
+  i {
+    color: var(--primary);
+  }
+}
 
-    .deleteAll {
-      color: grey;
-      cursor: pointer;
-    }
+.cart-right {
+  width: 31%;
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  // padding-right: 30px;
+
+  button {
+    width: 180px;
+    padding: 5px 10px;
+    border: none;
+    background-color: var(--primary);
+    color: #fff;
   }
 
-  .cart-right {
-    width: 30%;
-    text-align: center;
+}
 
-    .sub-total,
-    .shipping-fee,
-    .voucher,
-    .totalPrice {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      margin-right: 40px;
-    }
+.totalPrice {
+  width: 120px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  color: red;
+  user-select: none;
+}
 
-    .voucher {
-      border-bottom: 1px solid var(--grey);
-      padding-bottom: 10px;
-    }
-
-    .totalPrice {
-      font-size: 20px;
-      font-weight: 500;
-      color: red;
-    }
-  }
+.popup {
+  position: absolute;
+  background-color: orange;
+  width: 200px;
+  height: 200px;
 }

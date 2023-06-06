@@ -40,6 +40,11 @@ function Cart() {
     return total + item.price * item.quantity;
   }, 0);
 
+  const handleCheckout = () => {
+    alert("Check out successfully")
+  }
+
+
   return (
     <>
       <Header />
@@ -122,29 +127,18 @@ function Cart() {
               <div className={cx("cart-left")}>
                 <div className={cx("selectAll")}>
                   <input type="checkbox" value={products} />
-                  <p>Select All (10)</p>
+                  <p>Select All ({state.length})</p>
                 </div>
                 <div className={cx("deleteAll")}>
                   <p>Delete</p>
                 </div>
               </div>
               <div className={cx("cart-right")}>
-                <div className={cx("sub-total")}>
-                  <span className={cx("sub-name")}>Subtotal</span>
-                  <span className={cx("sub-price")}>{total}$</span>
-                </div>
-                <div className={cx("shipping-fee")}>
-                  <span className={cx("sub-name")}>Shipping fee</span>
-                  <span className={cx("sub-price")}>30$</span>
-                </div>
-                <div className={cx("voucher")}>
-                  <span className={cx("sub-name")}>Voucher</span>
-                  <span className={cx("sub-price")}>No</span>
-                </div>
                 <div className={cx("totalPrice")}>
-                  <span className={cx("sub-name")}>Total</span>
-                  <span className={cx("sub-price")}>{total + 30}$</span>
+                  <span className={cx("sub-name")}>Total:</span>
+                  <span className={cx("sub-price")}>{total} $</span>
                 </div>
+                <button onClick={handleCheckout}>Check out</button>
               </div>
             </div>
           </>

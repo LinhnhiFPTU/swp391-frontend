@@ -5,13 +5,14 @@ import styles from "./CartDropdown.module.scss";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import { Cartcontext } from "~/context/Context";
-import product from '~/assets/images/no-item.png'
+import product from "~/assets/images/no-item.png";
 
 const cx = classNames.bind(styles);
-
 function CartDropdown() {
   const Globalstate = useContext(Cartcontext);
   const state = Globalstate.state;
+
+  const lastFiveItems = state.slice(-5);
   return (
     <div className={cx("cart-icon")}>
       <span className={cx("counter", "disable")}>{state.length}</span>
@@ -32,7 +33,7 @@ function CartDropdown() {
                   <PopperWrapper className={cx("dropdown_container")}>
                     <p className={cx("drop-title")}>Recently Added Products</p>
                     <div className={cx("product-item")}>
-                      {state.map((product) => (
+                      {lastFiveItems.map((product) => (
                         <Link
                           key={product.id}
                           to={product.to}
@@ -52,7 +53,7 @@ function CartDropdown() {
                       <Link to="/product" className={cx("product-link")}></Link>
                     </div>
                     <div className={cx("bottom-item")}>
-                      <p>100 more products in cart</p>
+                      <p>{state.length - lastFiveItems.length} more products in cart</p>
                       <button>View Shopping Cart</button>
                     </div>
                   </PopperWrapper>

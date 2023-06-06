@@ -7,7 +7,11 @@ export const Context = (props) => {
       case "ADD":
         const tempstate = state.filter((item) => action.payload.id === item.id);
         if (tempstate.length > 0) {
-          return state;
+          state.map((item) => {
+            if (item.id === action.payload.id) {
+              return { ...item, quantity: item.quantity + 1 };
+            }
+          });
         } else {
           return [...state, action.payload];
         }
