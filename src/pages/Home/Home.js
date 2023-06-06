@@ -50,8 +50,8 @@ const categories = [
 
 const flashSales = [
   {
-    image: "https://m.media-amazon.com/images/I/71sXkl4vt8L._AC_SL1500_.jpg",
-    name: "Nekton",
+    image: "https://m.media-amazon.com/images/I/81q4JxjG2TL._AC_SL1500_.jpg",
+    name: "Wild Harvest WH-83540 Wild Harvest Advanced Nutrition Diet for Nutrition Diet for Parakeets, 4.5-Pound",
     price: "35",
     quantity: {
       qAvailable: 200,
@@ -59,8 +59,8 @@ const flashSales = [
     },
   },
   {
-    image: "https://m.media-amazon.com/images/I/71sXkl4vt8L._AC_SL1500_.jpg ",
-    name: "Amoxy-Tyl",
+    image: "https://m.media-amazon.com/images/I/81Tb1Ygi1qL._AC_SL1500_.jpg",
+    name: "Prevue Pet Products Large Stainless Steel Play Top Bird Cage, Rust Resistant Metal Cage for Birds with Rooftop Ladder and Playtop",
     price: "13",
     quantity: {
       qAvailable: 200,
@@ -68,8 +68,8 @@ const flashSales = [
     },
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Bird B.Gone",
+    image: "https://m.media-amazon.com/images/I/71-+A4kxeIL._AC_SL1500_.jpg",
+    name: "Super Bird Creations SB747 Mini Flying Trapeze Bird Toy, Small Bird Size, 6” x 7” x 9”",
     price: "12",
     quantity: {
       qAvailable: 200,
@@ -77,8 +77,8 @@ const flashSales = [
     },
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Bird Spikes",
+    image: "https://m.media-amazon.com/images/I/812QoPGSJ8L._AC_SL1500_.jpg",
+    name: "VANFAVORI Bird Diaper Harness Flight Suit Clothes with 80 Inch Flying Leash Rope for Parrots Conure Cockatiel Pet Birds Weight 75-99 Grams, M Size Yellow",
     price: "24",
     quantity: {
       qAvailable: 200,
@@ -86,8 +86,8 @@ const flashSales = [
     },
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    image: "https://m.media-amazon.com/images/I/91DPv4IW6VL._AC_SL1500_.jpg",
+    name: "Prevue Hendryx 91351 Square Roof Bird Cage Kit, Black,1/2",
     price: "25",
     quantity: {
       qAvailable: 200,
@@ -95,8 +95,8 @@ const flashSales = [
     },
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    image: "https://m.media-amazon.com/images/I/61bqxRdW8pL._AC_SL1500_.jpg",
+    name: "Penn-Plax Bird Life Wooden Playpen – Perfect for Parakeets, Lovebirds, and Parrotlets – Small",
     price: "26",
     quantity: {
       qAvailable: 200,
@@ -104,8 +104,8 @@ const flashSales = [
     },
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    image: "https://m.media-amazon.com/images/I/91YCVnYU0wL._AC_SL1500_.jpg",
+    name: "Kaytee Fiesta Big Bites Food For Small Pet Parrots And Conures, 4 Pound",
     price: "27",
     quantity: {
       qAvailable: 200,
@@ -113,8 +113,26 @@ const flashSales = [
     },
   },
   {
+    image: "https://m.media-amazon.com/images/I/81OWipS1uIL._AC_SL1500_.jpg",
+    name: "Prevue Pet Products South Beach Wave Top Bird Cage, Lime Green",
+    price: "28",
+    quantity: {
+      qAvailable: 200,
+      qSold: 120,
+    },
+  },
+  {
     image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    name: "Prevue Pet Products Travel Carrier for Birds, Black",
+    price: "27",
+    quantity: {
+      qAvailable: 200,
+      qSold: 50,
+    },
+  },
+  {
+    image: "https://m.media-amazon.com/images/I/91pfEm7mx6L._AC_SL1500_.jpg",
+    name: "Prevue Pet Products Soft Sided Bird Travel Carrier with Perch Large, Multicolor",
     price: "28",
     quantity: {
       qAvailable: 200,
@@ -126,61 +144,66 @@ const flashSales = [
 const bestSeller = [
   {
     image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Nekton",
+    name: "Prevue Pet Products Travel Carrier for Birds, Black",
     price: "15",
     sells: "100+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Amoxy-Tyl",
+    image: "https://cdn-amz.woka.io/images/I/61HuAfK4BpL.jpg",
+    name: "Ozzptuu Metal Bird Feeder Stand Adjustable Height Rolling Bird Perch Play Stand Parrot Playstand with Universal Wheels and Feeding Bowls",
     price: "16",
     sells: "100+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Bird B.Gone",
+    image:
+      "https://salt.tikicdn.com/cache/750x750/ts/product/23/57/e5/9a003ada893113eec9649d937b00143a.jpg.webp",
+    name: "Wooden Block Bird Parrot Toys for Small Medium Large Parrots and Birds",
     price: "17",
     sells: "200+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Bird Spikes",
+    image:
+      "https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp",
+    name: "Pet Birds Feeder Food Water Feeding Box For Small Medium Large Birds Parrots",
     price: "18",
     sells: "300+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    image:
+      "https://salt.tikicdn.com/cache/750x750/ts/product/1e/75/d1/1b867dbda530301f0f2005c1d2309dbb.jpg.webp",
+    name: "SheNew Chewing Hanging Toy for Small Medium Large Birds Parrots Pet Suppliesfa",
     price: "19",
     sells: "400+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    image:
+      "https://salt.tikicdn.com/cache/750x750/ts/product/d8/65/5e/2e44e6649464c8d2cb15baba53163d81.jpg.webp",
+    name: "Pet Bird Parrot Playground Wooden Ladder Toy Interactive Platform Accessory",
     price: "20",
     sells: "400+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    image: "https://cdn-amz.woka.io/images/I/61SNW+BqM1L.jpg",
+    name: "Flyline Parrot Escape Jumbo Corner Bird Cage Aviary (X-Large)",
     price: "21",
     sells: "400+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    image: "https://m.media-amazon.com/images/I/61OIc1vK7HL._AC_SL1024_.jpg",
+    name: "Lyric Delite Wild Bird Seed, No Waste Bird Food Mix with Shell-Free Nuts and Seeds, 20 lb. Bag & Morning Song 11959 Clean and Free Wild Bird Food, 10-Pound",
     price: "22",
     sells: "400+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    image:
+      "https://salt.tikicdn.com/cache/750x750/ts/product/2e/b7/52/357c2d32502647a2d93611dc340ebe07.jpg.webp",
+    name: "Parrots Swing Encourages Foot Exercise Training Climbing Bird Bridge Ladder",
     price: "23",
     sells: "400+",
   },
   {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Shefa",
+    image: "https://m.media-amazon.com/images/I/91YCVnYU0wL._AC_SL1500_.jpg",
+    name: "Kaytee Fiesta Big Bites Food For Small Pet Parrots And Conures, 4 Pound",
     price: "24",
     sells: "400+",
   },
@@ -207,71 +230,73 @@ const shops = [
 const products = [
   {
     id: 1,
-    image: bird,
-    name: "Nekton",
+    image: "https://m.media-amazon.com/images/I/91YCVnYU0wL._AC_SL1500_.jpg",
+    name: "Kaytee Fiesta Big Bites Food For Small Pet Parrots And Conures, 4 Pound",
     price: 25,
     quantity: 1,
   },
   {
     id: 2,
-    image: bird,
-    name: "Amoxy-Tyl",
+    image:
+      "https://salt.tikicdn.com/cache/750x750/ts/product/9d/d0/49/e1ac62b5c5f57a736d13f493faaaf4cd.jpg.webp",
+    name: "Playground Natural Wooden Bird Parrot Swing Stand Cage Training Toy",
     price: 35,
     quantity: 1,
   },
   {
     id: 3,
-    image: bird,
-    name: "Bird B.Gone",
+    image: "https://m.media-amazon.com/images/I/712J2JbsmVL._AC_SL1500_.jpg",
+    name: "PENN-PLAX Small Bird Starter Kit with Birdcage and Accessories – Great for Parakeets, Lovebirds, Parrotlets, Finches, Canaries, and More – Arch Style Cage – White",
     price: 45,
     quantity: 1,
   },
   {
+    id: 8,
+    image: "https://m.media-amazon.com/images/I/91UF8ogQ8RL._AC_SL1500_.jpg",
+    name: "RoudyBush Daily Maintenance Bird Food, Medium, 10-Pound",
+    price: 95,
+    quantity: 1,
+  },
+  {
     id: 4,
-    image: bird,
-    name: "Bird Spikes",
+    image: "https://m.media-amazon.com/images/I/91FrmIEv+ML._AC_SL1500_.jpg",
+    name: "Prevue Hendryx 91101 Round Roof Bird Cage Kit, Black, 3/8",
     price: 25,
     quantity: 1,
   },
   {
     id: 5,
-    image: bird,
-    name: "Shefa",
+    image: "https://salt.tikicdn.com/cache/750x750/ts/product/b3/d6/fe/bea11bdc2b502b75a8e4a71c1cb1bfc9.jpg.webp",
+    name: "Parrots Wooden Stand Swing Cage Hanging Cockatiels Lovebird Perch Bird Toys",
     price: 55,
     quantity: 1,
   },
   {
     id: 6,
-    image: bird,
-    name: "Shefa",
+    image: "https://m.media-amazon.com/images/I/819ln3wkGTS._AC_SL1500_.jpg",
+    name: "Vision S01 Wire Bird Cage, Bird Home for Budgies, Finches and Canaries, Small",
     price: 65,
     quantity: 1,
   },
   {
-    id: 6,
-    image: bird,
-    name: "Shefa",
+    id: 10,
+    image: "https://m.media-amazon.com/images/I/81Uk05pO+QL._AC_SL1500_.jpg",
+    name: "Prevue Pet Products 446 Bird Cage Stand for 26 x 14 Base Flight Cages, Black",
     price: 75,
     quantity: 1,
   },
   {
     id: 7,
-    image: bird,
-    name: "Shefa",
+    image: "https://m.media-amazon.com/images/I/81q4JxjG2TL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+    name: "Wild Harvest WH-83540 Wild Harvest Advanced Nutrition Diet for Nutrition Diet for Parakeets, 4.5-Pound",
     price: 85,
     quantity: 1,
   },
-  {
-    id: 8,
-    image: bird,
-    name: "Shefa",
-    price: 95,
-    quantity: 1,
-  },
+
   {
     id: 9,
-    image: bird,
-    name: "Shefa",
+    image: "https://salt.tikicdn.com/cache/750x750/ts/product/57/fd/3d/ccf035bb819c2bf9dbd2be78a3fdf86a.jpg.webp",
+    name: "Bird Mirror with Perch Parrots Stand Wooden Toy for Lovebird Cockatoo Parakeet Conure Finch Cockatiels",
     price: 15,
     quantity: 1,
   },
@@ -346,23 +371,23 @@ function Home() {
   const timeID = useRef();
   const location = useLocation();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [location]);
 
   useEffect(() => {
-    document.title = 'Bird Trading Platform | Hot Deals, Best Prices';
+    document.title = "Bird Trading Platform | Hot Deals, Best Prices";
   }, []);
 
-  useEffect(() => {
-    const handleReload = () => {
-      window.scrollTo(0, 0);
-    };
-    window.addEventListener("load", handleReload);
-    return () => {
-      window.removeEventListener("load", handleReload);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleReload = () => {
+  //     window.scrollTo(0, 0);
+  //   };
+  //   window.addEventListener("load", handleReload);
+  //   return () => {
+  //     window.removeEventListener("load", handleReload);
+  //   };
+  // }, []);
 
   useEffect(() => {
     axios

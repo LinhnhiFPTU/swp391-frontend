@@ -74,7 +74,7 @@
               margin-right: 10px;
 
               &:checked {
-                border: none;
+                color: var(--primary);
               }
 
               &:checked + .checkbox-text {
@@ -397,14 +397,14 @@
         width: 100%;
         display: grid;
         grid-template-columns: auto auto auto auto auto;
-        column-gap: 15px;
+        column-gap: 10px;
         row-gap: 15px;
         margin-top: 30px;
 
         .result_item {
           position: relative;
-          width: 186px;
-          height: 340px;
+          width: 190px;
+          height: 380px;
           display: flex;
           flex-direction: column;
           text-decoration: none;
@@ -419,8 +419,8 @@
           }
 
           .item-image {
-            width: 186px;
-            height: 186px;
+            width: 190px;
+            height: 230px;
             padding: 10px 10px 0 10px;
           }
 
