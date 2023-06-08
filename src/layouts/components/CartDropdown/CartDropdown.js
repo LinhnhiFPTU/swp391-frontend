@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import styles from "./CartDropdown.module.scss";
@@ -10,12 +10,30 @@ const cx = classNames.bind(styles);
 function CartDropdown() {
   const Globalstate = useContext(Cartcontext);
   const state = Globalstate.state;
+  const [cartSize, setCartSize] = useState(0);
+  const [lastFiveItems, setLastFiveItems] = useState([]);
 
-  const lastFiveItems = state.slice(-5);
-  console.log(lastFiveItems)
+  useEffect(() => {
+    let size = 0;
+    let count = 0;
+    let fiveItems = [];
+    state.forEach((ci) => {
+      size += ci.cartProducts.length;
+      ci.cartProducts.forEach((p) => {
+        if (count <= 4) {
+          fiveItems.push(p);
+          count++;
+        }
+      });
+    });
+    console.log(fiveItems);
+    setCartSize(size);
+    setLastFiveItems(fiveItems);
+  }, [state]);
+
   return (
     <div className={cx("cart-icon")}>
-      <span className={cx("counter", "disable")}>{state.length}</span>
+      <span className={cx("counter", "disable")}>{cartSize}</span>
       <Link to="/cart" className={cx("cart-link")}>
         <div className={cx("dropdown-cart")}>
           <Tippy
@@ -37,37 +55,34 @@ function CartDropdown() {
                     <p className={cx("drop-title")}>Recently Added Products</p>
                     <div className={cx("product-item")}>
                       {lastFiveItems.map((cartItems) => (
-                        cartItems.cartProducts.map((product) => (
-                          <Link
-                            key={product.product.id}
-                            to={"/product?productId=" + product.product.id}
-                            className={cx("product-link")}
-                          >
-                            <div className={cx("prod-img")}>
-                              <img
-                                src={product.product.images[0].url}
-                                alt="Product"
-                              />
-                            </div>
-                            <div className={cx("prod-name")}>
-                              <p className={cx("type-text")}>
-                                {product.product.name}
-                              </p>
-                            </div>
-                            <div className={cx("prod-price")}>
-                              <p className={cx("type-text")}>
-                                {product.product.price}$
-                              </p>
-                            </div>
-                          </Link>
-                        ))
+                        <Link
+                          key={cartItems.product.id}
+                          to={"/product?productId=" + cartItems.product.id}
+                          className={cx("product-link")}
+                        >
+                          <div className={cx("prod-img")}>
+                            <img
+                              src={cartItems.product.images[0].url}
+                              alt="Product"
+                            />
+                          </div>
+                          <div className={cx("prod-name")}>
+                            <p className={cx("type-text")}>
+                              {cartItems.product.name}
+                            </p>
+                          </div>
+                          <div className={cx("prod-price")}>
+                            <p className={cx("type-text")}>
+                              {cartItems.product.price * (1 - cartItems.salePercent / 100)}$
+                            </p>
+                          </div>
+                        </Link>
                       ))}
                       <Link to="/product" className={cx("product-link")}></Link>
                     </div>
                     <div className={cx("bottom-item")}>
                       <p>
-                        {state.length - lastFiveItems.length} more products in
-                        cart
+                        {cartSize - lastFiveItems.length} more products in cart
                       </p>
                       <button>View Shopping Cart</button>
                     </div>
