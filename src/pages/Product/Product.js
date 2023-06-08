@@ -451,25 +451,40 @@ function Product() {
               </div>
               {/*------Add to cart & Buy now------*/}
               <div className={cx("product-buy")}>
-                <button
-                  className={cx("add")}
-                  disabled={product.available === 0}
-                  onClick={() => {
-                    if (user) {
-                      setOpenToast(true);
-                      dispatch({ type: "ADD", payload: product.id });
-                    } else navigate("/login");
-                  }}
-                >
-                  <i className={cx("fa-sharp fa-light fa-cart-plus")}></i>
-                  <span>Add To Cart</span>
-                </button>
-                <button
-                  className={cx("buy")}
-                  disabled={product.available === 0}
-                >
-                  Buy Now
-                </button>
+                {product.category.name === "Bird" ? (
+                  <>
+                    <button className={cx("contact")}>
+                      <i className={cx("fa-light fa-phone")}></i>
+                      <span>Contact</span>
+                    </button>
+                    <button className={cx("chat")}>
+                      <i className={cx("fa-regular fa-message-dots")}></i>
+                      <span>Chat</span>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className={cx("add")}
+                      disabled={product.available === 0}
+                      onClick={() => {
+                        if (user) {
+                          setOpenToast(true);
+                          dispatch({ type: "ADD", payload: product.id });
+                        } else navigate("/login");
+                      }}
+                    >
+                      <i className={cx("fa-sharp fa-light fa-cart-plus")}></i>
+                      <span>Add To Cart</span>
+                    </button>
+                    <button
+                      className={cx("buy")}
+                      disabled={product.available === 0}
+                    >
+                      Buy Now
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
