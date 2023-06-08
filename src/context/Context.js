@@ -1,49 +1,111 @@
-import { createContext, useReducer } from "react";
+import axios from "axios";
+import { createContext, useEffect, useReducer } from "react";
 
 export const Cartcontext = createContext();
 export const Context = (props) => {
   const reducer = (state, action) => {
     switch (action.type) {
       case "ADD":
-        const tempstate = state.filter((item) => action.payload.id === item.id);
-        if (tempstate.length > 0) {
-          state.map((item) => {
-            if (item.id === action.payload.id) {
-              return { ...item, quantity: item.quantity + 1 };
-            }
+        axios
+          .post("/api/v1/users/cart/" + action.payload)
+          .then((res) => {
+            console.log(res);
+            axios
+              .get("/api/v1/users/cart")
+              .then((res) => {
+                console.log(res);
+                dispatch({
+                  type: "LOAD",
+                  payload: res.data,
+                });
+              })
+              .catch((e) => console.log(e));
+          })
+          .catch((e) => {
+            console.log(e);
           });
-        } else {
-          return [...state, action.payload];
-        }
+        return state;
       case "INCREASE":
-        const tempstate1 = state.map((item) => {
-          if (item.id === action.payload.id) {
-            return { ...item, quantity: item.quantity + 1 };
-          } else {
-            return item;
-          }
-        });
-        return tempstate1;
+        axios
+          .post("/api/v1/users/cart/" + action.payload)
+          .then((res) => {
+            console.log(res);
+            axios
+              .get("/api/v1/users/cart")
+              .then((res) => {
+                console.log(res);
+                dispatch({
+                  type: "LOAD",
+                  payload: res.data,
+                });
+              })
+              .catch((e) => console.log(e));
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+        return state;
       case "DECREASE":
-        const tempstate2 = state.map((item) => {
-          if (item.id === action.payload.id) {
-            return { ...item, quantity: item.quantity - 1 };
-          } else {
-            return item;
-          }
-        });
-        return tempstate2;
+        axios
+          .post("/api/v1/users/cart/" + action.payload + "?quantity=-1")
+          .then((res) => {
+            console.log(res);
+            axios
+              .get("/api/v1/users/cart")
+              .then((res) => {
+                console.log(res);
+                dispatch({
+                  type: "LOAD",
+                  payload: res.data,
+                });
+              })
+              .catch((e) => console.log(e));
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+        return state;
       case "REMOVE":
-        const tempstate3 = state.filter(
-          (item) => item.id !== action.payload.id
-        );
-
-        return tempstate3;
+        axios
+          .delete("/api/v1/users/cart/" + action.payload)
+          .then((res) => {
+            console.log(res);
+            axios
+              .get("/api/v1/users/cart")
+              .then((res) => {
+                console.log(res);
+                dispatch({
+                  type: "LOAD",
+                  payload: res.data,
+                });
+              })
+              .catch((e) => console.log(e));
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+        return state;
+      case "LOAD":
+        return action.payload;
 
       default:
         return state;
     }
   };
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/users/cart")
+      .then((res) => {
+        console.log(res);
+        dispatch({
+          type: "LOAD",
+          payload: res.data,
+        });
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   const [state, dispatch] = useReducer(reducer, []);
   const info = { state, dispatch };
   return (

@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 
@@ -10,21 +10,12 @@ import Footer from "~/layouts/components/Footer/Footer";
 import StarRating from "~/layouts/components/StarRating";
 import ChatPupup from "~/layouts/components/ChatPopup";
 
-import avatar from "~/assets/images/avatar.png";
 import bird from "~/assets/images/bird-cage.png";
 import fire from "~/assets/images/fire.png";
 import styles from "./Shop.module.scss";
+import axios from "axios";
 const cx = classNames.bind(styles);
 
-const shop = {
-  avatar: avatar,
-  name: "Dirty Coins",
-  active: "Active 11 minutes ago",
-  products: 125,
-  rating: 4.9,
-  followers: 1000,
-  responseRate: 90,
-};
 const recProducts = [
   {
     image: bird,
@@ -304,6 +295,16 @@ const sortBarOptions = [
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 function Shop() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [shop, setShop] = useState({
+    shopImage: "",
+    name: "",
+    active: "Active 11 minutes ago",
+    products: [],
+    rating: 5,
+    followers: 0,
+    responseRate: 100,
+  });
   const [typeSort, setTypeSort] = useState("Popular");
   const [priceTitle, setPriceTitle] = useState("Price");
   const [cmtPage, setCmtPage] = useState(1);
@@ -316,7 +317,15 @@ function Shop() {
   }, [location]);
 
   useEffect(() => {
-    document.title = `${shop.name} | Bird Trading Platform`;
+    let shopId = searchParams.get("shopId");
+    axios
+      .get("/api/v1/publics/shop/" + shopId)
+      .then((res) => {
+        console.log(res.data);
+        setShop(prev => ({...prev, ...res.data}));
+        document.title = `${res.data.name} | Bird Trading Platform`;
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   useEffect(() => {
@@ -387,7 +396,7 @@ function Shop() {
           <div className={cx("shop_container")}>
             <div className={cx("shop-left_content")}>
               <div className={cx("shop_avatar")}>
-                <img src={shop.avatar} alt="avatar" />
+                <img src={shop.shopImage} alt="avatar" />
               </div>
               <div className={cx("shop-info")}>
                 <div className={cx("shop-name")}>{shop.name}</div>
@@ -410,7 +419,7 @@ function Shop() {
               <a href="#product_list" className={cx("shop-totalProducts")}>
                 <i className={cx("fa-light fa-box", "icon")}></i>
                 <span className={cx("name")}>Products: </span>
-                <span className={cx("number")}> {shop.products}</span>
+                <span className={cx("number")}> {shop.products.length}</span>
               </a>
               <div className={cx("shop-totalFollowers")}>
                 <i className={cx("fa-light fa-user", "icon")}></i>
@@ -429,7 +438,7 @@ function Shop() {
               </div>
             </div>
           </div>
-          <div className={cx("shop-products")}>
+          {/* <div className={cx("shop-products")}>
             <div className={cx("rec-title")}>
               <span>RECOMMENDED FOR YOU</span>
             </div>
@@ -564,7 +573,7 @@ function Shop() {
                 </Link>
               ))}
             </div>
-          </div>
+          </div> */}
           <div className={cx("shop_sort-bar")} id="product_list">
             <span className={cx("sort-bar-label")}>Sort by</span>
             <div className={cx("sort-by-options")}>
@@ -637,10 +646,10 @@ function Shop() {
 
           <div className={cx("all_products")}>
             <div className={cx("all_product-list")}>
-              {products.map((item, index) => (
-                <Link to="" key={index} className={cx("all_product_items")}>
+              {shop.products.map((item, index) => (
+                <Link to={"/product?productId=" + item.id} key={index} className={cx("all_product_items")}>
                   <img
-                    src={item.image}
+                    src={item.images[0].url}
                     alt={item.name}
                     className={cx("all_product-img")}
                   />

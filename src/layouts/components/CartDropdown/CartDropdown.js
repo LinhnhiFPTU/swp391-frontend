@@ -13,6 +13,7 @@ function CartDropdown() {
   const state = Globalstate.state;
 
   const lastFiveItems = state.slice(-5);
+  console.log(lastFiveItems)
   return (
     <div className={cx("cart-icon")}>
       <span className={cx("counter", "disable")}>{state.length}</span>
@@ -26,34 +27,49 @@ function CartDropdown() {
               <div className={cx("product-items")} tabIndex="-1" {...attrs}>
                 {state.length < 1 ? (
                   <div className={cx("no-item")}>
-                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/9bdd8040b334d31946f49e36beaf32db.png?fbclid=IwAR3K0JTocd1P-MQ_umPdQcejgKPwax5CiCtEwDSy6Y4HnJveEwVYnu6ROho" alt="No item"></img>
+                    <img
+                      src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/9bdd8040b334d31946f49e36beaf32db.png?fbclid=IwAR3K0JTocd1P-MQ_umPdQcejgKPwax5CiCtEwDSy6Y4HnJveEwVYnu6ROho"
+                      alt="No item"
+                    ></img>
                     <p>No item added!</p>
                   </div>
                 ) : (
                   <PopperWrapper className={cx("dropdown_container")}>
                     <p className={cx("drop-title")}>Recently Added Products</p>
                     <div className={cx("product-item")}>
-                      {lastFiveItems.map((product) => (
-                        <Link
-                          key={product.id}
-                          to={product.to}
-                          className={cx("product-link")}
-                        >
-                          <div className={cx("prod-img")}>
-                            <img src={product.image} alt="Product-img"/>
-                          </div>
-                          <div className={cx("prod-name")}>
-                            <p className={cx("type-text")}>{product.name}</p>
-                          </div>
-                          <div className={cx("prod-price")}>
-                            <p className={cx("type-text")}>{product.price}$</p>
-                          </div>
-                        </Link>
+                      {lastFiveItems.map((cartItems) => (
+                        cartItems.cartProducts.map((product) => (
+                          <Link
+                            key={product.product.id}
+                            to={"/product?productId=" + product.product.id}
+                            className={cx("product-link")}
+                          >
+                            <div className={cx("prod-img")}>
+                              <img
+                                src={product.product.images[0].url}
+                                alt="Product image"
+                              />
+                            </div>
+                            <div className={cx("prod-name")}>
+                              <p className={cx("type-text")}>
+                                {product.product.name}
+                              </p>
+                            </div>
+                            <div className={cx("prod-price")}>
+                              <p className={cx("type-text")}>
+                                {product.product.price}$
+                              </p>
+                            </div>
+                          </Link>
+                        ))
                       ))}
                       <Link to="/product" className={cx("product-link")}></Link>
                     </div>
                     <div className={cx("bottom-item")}>
-                      <p>{state.length - lastFiveItems.length} more products in cart</p>
+                      <p>
+                        {state.length - lastFiveItems.length} more products in
+                        cart
+                      </p>
                       <button>View Shopping Cart</button>
                     </div>
                   </PopperWrapper>

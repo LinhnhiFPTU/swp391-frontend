@@ -1,7 +1,6 @@
 import classNames from "classnames/bind";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Cartcontext } from "~/context/Context";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -24,12 +23,12 @@ const categories = [
   {
     image: bird,
     title: "BIRDS",
-    to: "/category",
+    to: "/category?categoryId=1",
   },
   {
     image: birdFood,
     title: "BIRD FOODS",
-    to: "/category",
+    to: "/category?categoryId=2",
   },
   // {
   //   image: birdMedicine,
@@ -39,105 +38,12 @@ const categories = [
   {
     image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
     title: "BIRD CAGES",
-    to: "/category",
+    to: "/category?categoryId=3",
   },
   {
     image: "https://m.media-amazon.com/images/I/81lQoLzgsJL._AC_SL1500_.jpg",
     title: "BIRD ACCESSORIES",
-    to: "/category",
-  },
-];
-
-const flashSales = [
-  {
-    image: "https://m.media-amazon.com/images/I/81q4JxjG2TL._AC_SL1500_.jpg",
-    name: "Wild Harvest WH-83540 Wild Harvest Advanced Nutrition Diet for Nutrition Diet for Parakeets, 4.5-Pound",
-    price: "35",
-    quantity: {
-      qAvailable: 200,
-      qSold: 120,
-    },
-  },
-  {
-    image: "https://m.media-amazon.com/images/I/81Tb1Ygi1qL._AC_SL1500_.jpg",
-    name: "Prevue Pet Products Large Stainless Steel Play Top Bird Cage, Rust Resistant Metal Cage for Birds with Rooftop Ladder and Playtop",
-    price: "13",
-    quantity: {
-      qAvailable: 200,
-      qSold: 150,
-    },
-  },
-  {
-    image: "https://m.media-amazon.com/images/I/71-+A4kxeIL._AC_SL1500_.jpg",
-    name: "Super Bird Creations SB747 Mini Flying Trapeze Bird Toy, Small Bird Size, 6” x 7” x 9”",
-    price: "12",
-    quantity: {
-      qAvailable: 200,
-      qSold: 50,
-    },
-  },
-  {
-    image: "https://m.media-amazon.com/images/I/812QoPGSJ8L._AC_SL1500_.jpg",
-    name: "VANFAVORI Bird Diaper Harness Flight Suit Clothes with 80 Inch Flying Leash Rope for Parrots Conure Cockatiel Pet Birds Weight 75-99 Grams, M Size Yellow",
-    price: "24",
-    quantity: {
-      qAvailable: 200,
-      qSold: 100,
-    },
-  },
-  {
-    image: "https://m.media-amazon.com/images/I/91DPv4IW6VL._AC_SL1500_.jpg",
-    name: "Prevue Hendryx 91351 Square Roof Bird Cage Kit, Black,1/2",
-    price: "25",
-    quantity: {
-      qAvailable: 200,
-      qSold: 190,
-    },
-  },
-  {
-    image: "https://m.media-amazon.com/images/I/61bqxRdW8pL._AC_SL1500_.jpg",
-    name: "Penn-Plax Bird Life Wooden Playpen – Perfect for Parakeets, Lovebirds, and Parrotlets – Small",
-    price: "26",
-    quantity: {
-      qAvailable: 200,
-      qSold: 170,
-    },
-  },
-  {
-    image: "https://m.media-amazon.com/images/I/91YCVnYU0wL._AC_SL1500_.jpg",
-    name: "Kaytee Fiesta Big Bites Food For Small Pet Parrots And Conures, 4 Pound",
-    price: "27",
-    quantity: {
-      qAvailable: 200,
-      qSold: 50,
-    },
-  },
-  {
-    image: "https://m.media-amazon.com/images/I/81OWipS1uIL._AC_SL1500_.jpg",
-    name: "Prevue Pet Products South Beach Wave Top Bird Cage, Lime Green",
-    price: "28",
-    quantity: {
-      qAvailable: 200,
-      qSold: 120,
-    },
-  },
-  {
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Prevue Pet Products Travel Carrier for Birds, Black",
-    price: "27",
-    quantity: {
-      qAvailable: 200,
-      qSold: 50,
-    },
-  },
-  {
-    image: "https://m.media-amazon.com/images/I/91pfEm7mx6L._AC_SL1500_.jpg",
-    name: "Prevue Pet Products Soft Sided Bird Travel Carrier with Perch Large, Multicolor",
-    price: "28",
-    quantity: {
-      qAvailable: 200,
-      qSold: 120,
-    },
+    to: "/category?categoryId=4",
   },
 ];
 
@@ -210,102 +116,6 @@ const bestSeller = [
   },
 ];
 
-const shops = [
-  {
-    name: "Shop",
-    image: avatar,
-    rating: 2,
-  },
-  {
-    name: "Shop name",
-    image: avatar,
-    rating: 4,
-  },
-  {
-    name: "Shop name",
-    image: avatar,
-    rating: 3.5,
-  },
-];
-
-const products = [
-  {
-    id: 1,
-    image: "https://m.media-amazon.com/images/I/91YCVnYU0wL._AC_SL1500_.jpg",
-    name: "Kaytee Fiesta Big Bites Food For Small Pet Parrots And Conures, 4 Pound",
-    price: 25,
-    quantity: 1,
-  },
-  {
-    id: 2,
-    image:
-      "https://salt.tikicdn.com/cache/750x750/ts/product/9d/d0/49/e1ac62b5c5f57a736d13f493faaaf4cd.jpg.webp",
-    name: "Playground Natural Wooden Bird Parrot Swing Stand Cage Training Toy",
-    price: 35,
-    quantity: 1,
-  },
-  {
-    id: 3,
-    image: "https://m.media-amazon.com/images/I/712J2JbsmVL._AC_SL1500_.jpg",
-    name: "PENN-PLAX Small Bird Starter Kit with Birdcage and Accessories – Great for Parakeets, Lovebirds, Parrotlets, Finches, Canaries, and More – Arch Style Cage – White",
-    price: 45,
-    quantity: 1,
-  },
-  {
-    id: 8,
-    image: "https://m.media-amazon.com/images/I/91UF8ogQ8RL._AC_SL1500_.jpg",
-    name: "RoudyBush Daily Maintenance Bird Food, Medium, 10-Pound",
-    price: 95,
-    quantity: 1,
-  },
-  {
-    id: 4,
-    image: "https://m.media-amazon.com/images/I/91FrmIEv+ML._AC_SL1500_.jpg",
-    name: "Prevue Hendryx 91101 Round Roof Bird Cage Kit, Black, 3/8",
-    price: 25,
-    quantity: 1,
-  },
-  {
-    id: 5,
-    image:
-      "https://salt.tikicdn.com/cache/750x750/ts/product/b3/d6/fe/bea11bdc2b502b75a8e4a71c1cb1bfc9.jpg.webp",
-    name: "Parrots Wooden Stand Swing Cage Hanging Cockatiels Lovebird Perch Bird Toys",
-    price: 55,
-    quantity: 1,
-  },
-  {
-    id: 6,
-    image: "https://m.media-amazon.com/images/I/819ln3wkGTS._AC_SL1500_.jpg",
-    name: "Vision S01 Wire Bird Cage, Bird Home for Budgies, Finches and Canaries, Small",
-    price: 65,
-    quantity: 1,
-  },
-  {
-    id: 10,
-    image: "https://m.media-amazon.com/images/I/81Uk05pO+QL._AC_SL1500_.jpg",
-    name: "Prevue Pet Products 446 Bird Cage Stand for 26 x 14 Base Flight Cages, Black",
-    price: 75,
-    quantity: 1,
-  },
-  {
-    id: 7,
-    image:
-      "https://m.media-amazon.com/images/I/81q4JxjG2TL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
-    name: "Wild Harvest WH-83540 Wild Harvest Advanced Nutrition Diet for Nutrition Diet for Parakeets, 4.5-Pound",
-    price: 85,
-    quantity: 1,
-  },
-
-  {
-    id: 9,
-    image:
-      "https://salt.tikicdn.com/cache/750x750/ts/product/57/fd/3d/ccf035bb819c2bf9dbd2be78a3fdf86a.jpg.webp",
-    name: "Bird Mirror with Perch Parrots Stand Wooden Toy for Lovebird Cockatoo Parakeet Conure Finch Cockatiels",
-    price: 15,
-    quantity: 1,
-  },
-];
-
 //Control Flash Sale Button
 const PrevArrowFS = (props) => {
   const { onClick } = props;
@@ -370,6 +180,10 @@ const settings_bestseller = {
 };
 
 function Home() {
+  const [shops, setShops] = useState([]);
+  const [flashSales, setFlashSales] = useState([]);
+  const [daily, setDaily] = useState([]);
+  const [topTen, setTopTen] = useState([]);
   const [second, setSecond] = useState(0);
   const [minute, setMinute] = useState(0);
   const timeID = useRef();
@@ -380,7 +194,38 @@ function Home() {
   }, [location]);
 
   useEffect(() => {
-    document.title = "Bird Trading Platform | Hot Deals, Best Prices";
+    axios
+      .get("/api/v1/publics/event/1")
+      .then((res) => {
+        console.log(res);
+        setFlashSales(res.data);
+      })
+      .catch((e) => console.log(e));
+
+    axios
+      .get("/api/v1/publics/product/daily")
+      .then((res) => {
+        console.log(res);
+        setDaily(res.data);
+      })
+      .catch((e) => console.log(e));
+
+    axios
+      .get("/api/v1/publics/product/top-ten")
+      .then((res) => {
+        console.log(res);
+        setTopTen(res.data);
+      })
+      .catch((e) => console.log(e));
+
+    axios
+      .get("/api/v1/publics/shop/trending")
+      .then((res) => {
+        console.log(res.data);
+        setShops(res.data);
+        document.title = `Bird Trading Platform`;
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   useEffect(() => {
@@ -444,9 +289,9 @@ function Home() {
     background: "linear-gradient(#ee4d2d, #ff7337)",
   };
 
-  const Globalstate = useContext(Cartcontext);
-  const dispatch = Globalstate.dispatch;
-  console.log(Globalstate);
+  const saleCondition = (product) => {
+    return product.productSale && (product.productSale.saleQuantity > product.productSale.sold)
+  }
 
   return (
     <>
@@ -509,62 +354,55 @@ function Home() {
               <Slider {...settings_flashsale}>
                 {flashSales.map((item, index) => (
                   <Link
-                    to="/flash_sale"
+                    to={"/flash_sale?priority=" + item.product.id}
                     key={index}
                     className={cx("flashSale-items")}
                   >
                     <div className={cx("flashSale_item")}>
                       <div className={cx("flashSale-img")}>
-                        <img src={item.image} alt="item-img" />
+                        <img src={item.product.images[0].url} alt="item-img" />
                       </div>
                       <div className={cx("flashSale-discount")}>
-                        <span className={cx("per-discount")}>-20%</span>
+                        <span className={cx("per-discount")}>
+                          -{item.salePercent}%
+                        </span>
                       </div>
-                      <div className={cx("fitem-name")}>{item.name}</div>
-                      <div className={cx("fitem-price")}>{item.price}$</div>
+                      <div className={cx("fitem-name")}>
+                        {item.product.name}
+                      </div>
+                      <div className={cx("fitem-price")}>
+                        {item.product.price}$
+                      </div>
                       <div className={cx("flashSale-status")}>
                         <div
                           className={cx("loading")}
                           style={{
                             ...loading,
-                            width: `calc(${item.quantity.qAvailable} * 1px)`,
+                            width: `calc(${item.saleQuantity} * 170px)`,
                           }}
                         >
                           <div
                             className={cx("before-element")}
                             style={{
                               ...beforeLoading,
-                              width: `calc(((${item.quantity.qSold} * 170) / ${item.quantity.qAvailable}) * 1px)`,
+                              width: `calc(((${item.sold} * 170) / ${item.saleQuantity}) * 1px)`,
                             }}
                           ></div>
                           <span className={cx("loading-text")}>
                             {(() => {
-                              if (
-                                (item.quantity.qSold /
-                                  item.quantity.qAvailable) *
-                                  100 <=
-                                50
-                              ) {
+                              if ((item.sold / item.saleQuantity) * 100 <= 50) {
                                 return "SELLING FAST";
                               } else if (
-                                (item.quantity.qSold /
-                                  item.quantity.qAvailable) *
-                                  100 >=
-                                  50 &&
-                                (item.quantity.qSold /
-                                  item.quantity.qAvailable) *
-                                  100 <=
-                                  75
+                                (item.sold / item.saleQuantity) * 100 >= 50 &&
+                                (item.sold / item.saleQuantity) * 100 <= 75
                               ) {
-                                return `${item.quantity.qSold} SOLD`;
+                                return `${item.sold} SOLD`;
                               } else if (
-                                (item.quantity.qSold /
-                                  item.quantity.qAvailable) *
-                                  100 >
+                                (item.sold / item.saleQuantity) * 100 >
                                 75
                               ) {
                                 return `ONLY ${
-                                  item.quantity.qAvailable - item.quantity.qSold
+                                  item.saleQuantity - item.sold
                                 } LEFT`;
                               } else {
                                 return "";
@@ -587,19 +425,23 @@ function Home() {
             </div>
             <div className={cx("best-seller_list")}>
               <Slider {...settings_bestseller}>
-                {bestSeller.map((item, index) => (
-                  <Link to="" key={index} className={cx("best-seller_items")}>
+                {topTen.map((item, index) => (
+                  <Link
+                    to={"/product?productId=" + item.id}
+                    key={index}
+                    className={cx("best-seller_items")}
+                  >
                     <div className={cx("best-seller_item")}>
                       <div className={cx("best-seller_top")}>
                         <p>TOP</p>
                       </div>
                       <div className={cx("item-img")}>
-                        <img src={item.image} alt={item.name} />
+                        <img src={item.images[0].url} alt={item.name} />
                       </div>
                       <div className={cx("bitem-name")}>{item.name}</div>
                       <div className={cx("bitem-price")}>{item.price}$</div>
                       <div className={cx("bitem-sells")}>
-                        <span>Monthly Sales {item.sells}</span>
+                        <span>Monthly Sales {item.sold || 100}</span>
                       </div>
                     </div>
                   </Link>
@@ -614,10 +456,10 @@ function Home() {
               <p>DAILY PRODUCTS</p>
             </div>
             <div className={cx("product_list")}>
-              {products.map((item, index) => (
-                <Link to="" key={index} className={cx("product_items")}>
+              {daily.map((item, index) => (
+                <Link to={"/product?productId=" + item.id} key={index} className={cx("product_items")}>
                   <div className={cx("product-img")}>
-                    <img src={item.image} alt={item.name} />
+                    <img src={item.images[0].url} alt={item.name} />
                   </div>
                   <div className={cx("product-name")}>{item.name}</div>
                   <div className={cx("product-rating")}>
@@ -627,14 +469,22 @@ function Home() {
                       color={`gold`}
                     />
                   </div>
-                  <div className={cx("price_before")}>${item.price}</div>
-                  <div className={cx("product-price")}>${item.price}</div>
-                  <button
+                  {saleCondition(item) ? (
+                    <>
+                      <div className={cx("price_before")}>${item.price}</div>
+                      <div className={cx("product-price")}>${item.price * (1 - item.productSale.salePercent / 100)}</div>
+                    </>
+                  ) : (
+                    <>
+                      <div className={cx("product-price")}>${item.price}</div>
+                    </>
+                  )}
+                  <Link
                     className={cx("btn_add")}
-                    onClick={() => dispatch({ type: "ADD", payload: item })}
+                    to={"/product?productId=" + item.id}
                   >
                     Buy Now
-                  </button>
+                  </Link>
                 </Link>
               ))}
             </div>
@@ -648,7 +498,7 @@ function Home() {
               {shops.map((shop, index) => (
                 <div className={cx("shop-item")} key={index}>
                   <div className={cx("shop-img")}>
-                    <img src={shop.image} alt="shop-img" />
+                    <img src={shop.shopImage} alt="shop-img" />
                   </div>
                   <div className={cx("shop-text")}>
                     <div className={cx("head-text")}>
@@ -673,7 +523,10 @@ function Home() {
                         ></i>
                         <span className={cx("chat-text")}>Chat</span>
                       </button>
-                      <Link to="/shop" className={cx("view")}>
+                      <Link
+                        to={"/shop?shopId=" + shop.id}
+                        className={cx("view")}
+                      >
                         <i
                           className={cx(
                             "fa-sharp fa-solid fa-bag-shopping",

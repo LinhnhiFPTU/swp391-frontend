@@ -1,8 +1,9 @@
 import classNames from "classnames/bind";
-import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef, useContext } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
+import { UserContext } from "~/App";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import Report from "./Report";
@@ -11,6 +12,7 @@ import Comment from "./Comment";
 import ProductImage from "./ProductImage";
 import StarRating from "~/layouts/components/StarRating";
 import ChatPupup from "~/layouts/components/ChatPopup";
+import { Cartcontext } from "~/context/Context";
 
 import avatar from "~/assets/images/user-avatar.png";
 import styles from "./Product.module.scss";
@@ -20,117 +22,57 @@ const filterBtns = ["All", "5 Star", "4 Star", "3 Star", "2 Star", "1 Star"];
 const commentRating = [1, 2, 3, 4, 5];
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-const product = {
-  id: 0,
-  name: "Prevue Pet Products Square Roof Parrot Cage, Standing Birdcage, Black",
-  description: `👩 MÔ TẢ SẢN PHẨM 
-
-  - Áo thun nam nữ oversize sử dụng chất vải cotton 65/35 co giãn 4 chiều. Là loại vải có đặc điểm mềm mịn, độ co giãn cao, khả năng thấm hút tốt và được dệt hoàn toàn từ sợi cây bông tự nhiên. Chất vải cotton cực kỳ thân thiện với làn da.
-  
-  - Áo thun nam nữ form rộng cổ tròn thoải mái
-  
-  - Áo phông unisex form rộng dễ phối đồ. Bạn có thể phối với quần jean, chân váy, … kết hợp với một đôi sneaker cho bạn tự tin xuống phố
-  
-  
-  
-  📣 HƯỚNG DẪN BẢO QUẢN ÁO PHÔNG NAM NỮ OVERSIZE VENDER Shop
-  
-  - Lộn trái áo thun nam nữ tay ngắn khi giặt, không giặt chung áo thun unisex trắng với quần áo tối màu. 
-  
-  - Sử dụng xà phòng trung tính, không sử dụng xà phòng có chất tẩy mạnh cho áo thun nam nữ oversize.
-  
-  - Không sử dụng chất tẩy, không ngâm áo phông unisex. 
-  
-  - Phơi ngang, không treo móc khi áo thun unisex ướt, không phơi trực tiếp dưới ánh nắng mặt trời. 
-  
-  
-  
-  ️🎯 Giao hàng đúng size, lỗi 1 đổi 1 
-  
-  ️🎯 Giao COD toàn quốc 
-  
-  ️🎯 Hỗ trợ đổi size và đổi màu trong vòng 7 ngày kể từ khi nhận hàng, sản phẩm đổi phải còn nguyên tem mac và chưa qua sử dụng.
-  
-  ⚠️ LƯU Ý: Khi mở sản phẩm, khách yêu vui lòng quay lại video quá trình mở sản phẩm để được đảm bảo 100% đổi lại sản phẩm mới nếu Áo thun VENDER giao bị lỗi.
-  
-  `,
-  price: 1000,
-  sold: 111200,
-  available: 10,
-  rating: 3.7,
-  totalRatings: 3000,
-  brand: "No brand",
-  categoryGroup: "Bird Cage",
-  shop: {
-    avatar: avatar,
-    name: "Shop name",
-    active: "Active 11 minutes ago",
-    ratings: "281000",
-    products: "12500",
-    responseRate: "95",
-    responseTime: "within hours",
-    followers: "62150",
-  },
-  productImages: [
-    "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    "https://m.media-amazon.com/images/I/71+4X8orK7L._AC_SL1500_.jpg",
-    "https://m.media-amazon.com/images/I/81haWHiuQ4L._AC_SL1500_.jpg",
-    "https://m.media-amazon.com/images/I/71sXkl4vt8L._AC_SL1500_.jpg",
-  ],
-  productVideo:
-    "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
-  attachWith: [
-    {
-      id: 0,
-      image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-      name: "Prevue Pet Products Square Roof Parrot Cage, Standing Birdcage, Black",
-      price: 1000,
-    },
-  ],
-  feedbacks: [
-    {
-      user: {
-        avatar: avatar,
-        name: "User name",
-        rating: 1,
-      },
-      date: "2023-05-26 16:00",
-      description:
-        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
-      feedbackImages: [
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
-      ],
-      feedbackVideo:
-        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
-      shopResponse:
-        "Cảm ơn bạn đã tin tưởng và lựa chọn mua hàng tại shop. Hãy ghé shop thường xuyên để trải nghiệm những sản phẩm và dịch vụ tuyệt vời nhất nhé. Nếu có vấn đề gì chưa hài lòng hãy nhắn lại ngay cho shop để được hỗ trợ và xử lí nhanh nhất ạ. Chúng tôi luôn hy vọng được tiếp tục đồng hành cùng bạn trong tương lai.",
-    },
-    {
-      user: {
-        avatar: avatar,
-        name: "User name",
-        rating: 1,
-      },
-      date: "2023-05-26 16:00",
-      description:
-        "Đúng sai đúng màu đủ nhãn mác, đóng gói cẩn thận Áo xinh lắm ạ, chất mềm sờ mát Mình m63 52kg mặc size L qua hông vừa đẹp luôn",
-      feedbackImages: [
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-lwwgi4dwh0gv93.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-k9hh34dwh0gv9f.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-5n4f34dwh0gv08.webp",
-        "https://down-ws-vn.img.susercontent.com/vn-11134103-22090-gtvew5dwh0gv0d.webp",
-      ],
-      feedbackVideo:
-        "https://play-aka.vod.shopee.com/c3/98934353/103/A3oxOHhUAPiMlIUMEUkCACY.mp4",
-      shopResponse: "",
-    },
-  ],
-};
-
 function Product() {
+  const navigate = useNavigate()
+  const user = useContext(UserContext);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [product, setProduct] = useState({
+    id: 0,
+    name: "",
+    description: "",
+    price: 1000,
+    sold: 111200,
+    available: 10,
+    rating: 3.7,
+    totalRatings: 3000,
+    brand: "No brand",
+    category: {
+      id: 0,
+      name: "Bird",
+    },
+    categoryGroup: {
+      id: 0,
+      name: "Red-whiskered bulbul",
+    },
+    shop: {
+      avatar: avatar,
+      name: "Shop name",
+      active: "Active 11 minutes ago",
+      ratings: "281000",
+      products: "12500",
+      responseRate: "95",
+      responseTime: "within hours",
+      followers: "62150",
+    },
+    images: [],
+    productDetailInfos: [],
+    video: "",
+    attachWiths: [
+      {
+        name: "African bird's food",
+        price: 1000,
+        available: 20,
+        sold: 0,
+        images: [
+          {
+            id: 101,
+            url: "/api/v1/product/image/21?imgId=1",
+          },
+        ],
+      },
+    ],
+    feedbacks: [],
+  });
   const [type, setType] = useState("All");
   const [second, setSecond] = useState(0);
   const [minute, setMinute] = useState(0);
@@ -142,10 +84,32 @@ function Product() {
   const [valueQuantity, setValueQuantity] = useState(1);
   const timeID = useRef();
   const location = useLocation();
+  const Globalstate = useContext(Cartcontext);
+  const dispatch = Globalstate.dispatch;
 
   useEffect(() => {
-    document.title = `${product.name} | Bird Trading Platform`;
+    let productId = searchParams.get("productId");
+    axios
+      .get("/api/v1/publics/product/" + productId)
+      .then((res) => {
+        console.log(res.data);
+        setProduct(res.data);
+        document.title = `${res.data.name} | Bird Trading Platform`;
+      })
+      .catch((e) => console.log(e));
   }, []);
+
+  useEffect(() => {
+    let productId = searchParams.get("productId");
+    axios
+      .get("/api/v1/publics/product/" + productId)
+      .then((res) => {
+        console.log(res.data);
+        setProduct(res.data);
+        document.title = `${res.data.name} | Bird Trading Platform`;
+      })
+      .catch((e) => console.log(e));
+  }, [searchParams.get("productId")]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -292,6 +256,13 @@ function Product() {
     }
     setValueQuantity(valueQuantity + 1);
   };
+
+  const saleCondition = () => {
+    return (
+      product.productSale &&
+      product.productSale.saleQuantity > product.productSale.sold
+    );
+  };
   return (
     <>
       {openReport && <Report closeReport={setOpenReport} />}
@@ -304,8 +275,8 @@ function Product() {
           <div className={cx("product-main")}>
             {/*------Product image------*/}
             <ProductImage
-              previewImage={product.productImages}
-              previewVideo={product.productVideo}
+              previewImage={product.images.map((p) => p.url)}
+              previewVideo={product.video}
               quantitySoldout={product.available}
             />
             <div className={cx("product-content")}>
@@ -328,12 +299,12 @@ function Product() {
                     <span className={cx("rating-number")}>
                       {(() => {
                         let rs = "";
-                        if (product.totalRatings >= 1000) {
-                          const rating = product.totalRatings / 1000;
+                        if (product.feedbacks.length >= 1000) {
+                          const rating = product.feedbacks.length / 1000;
                           const rounded = Math.round(rating * 10) / 10;
                           return (rs += rounded + "k");
                         } else {
-                          return (rs += product.totalRatings);
+                          return (rs += product.feedbacks.length);
                         }
                       })()}
                     </span>
@@ -365,33 +336,51 @@ function Product() {
                 </div>
               </div>
               {/*------Product Flash Sale------*/}
-              <div className={cx("product-flash_sale")}>
-                <div className={cx("flash_sale-title")}>
-                  <span className={cx("flash_sale-text1")}>
-                    F<i className={cx("fa-solid fa-bolt-lightning")}></i>
-                    ASH <span className={cx("flash_sale-text2")}>SALE</span>
-                  </span>
-                </div>
-                <div className={cx("flash_sale-countdown")}>
-                  <div className={cx("flash_sale-countdown-end")}>
-                    <i className={cx("fa-light fa-clock", "clock-icon")}></i>
-                    <span>ENDS IN</span>
-                  </div>
-                  <div className={cx("flash_sale-countdown-time")}>
-                    <span className={cx("countdown-minute")}>
-                      {minute < 10 ? "0" + minute : minute}
-                    </span>
-                    <span className={cx("countdown-second")}>
-                      {second < 10 ? "0" + second : second}
+              {saleCondition() && (
+                <div className={cx("product-flash_sale")}>
+                  <div className={cx("flash_sale-title")}>
+                    <span className={cx("flash_sale-text1")}>
+                      F<i className={cx("fa-solid fa-bolt-lightning")}></i>
+                      ASH <span className={cx("flash_sale-text2")}>SALE</span>
                     </span>
                   </div>
+                  <div className={cx("flash_sale-countdown")}>
+                    <div className={cx("flash_sale-countdown-end")}>
+                      <i className={cx("fa-light fa-clock", "clock-icon")}></i>
+                      <span>ENDS IN</span>
+                    </div>
+                    <div className={cx("flash_sale-countdown-time")}>
+                      <span className={cx("countdown-minute")}>
+                        {minute < 10 ? "0" + minute : minute}
+                      </span>
+                      <span className={cx("countdown-second")}>
+                        {second < 10 ? "0" + second : second}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
               {/*------Product Price------*/}
               <div className={cx("product-price")}>
-                <div className={cx("price-real")}>${product.price}</div>
-                <div className={cx("price-sale")}>${product.price}</div>
-                <div className={cx("sale-percent")}>20% OFF</div>
+                <div
+                  className={
+                    saleCondition() ? cx("price-real") : cx("price-sale")
+                  }
+                >
+                  ${product.price}
+                </div>
+                {saleCondition() && (
+                  <div className={cx("price-sale")}>
+                    $
+                    {product.price *
+                      (1 - product.productSale.salePercent / 100)}
+                  </div>
+                )}
+                {saleCondition() && (
+                  <div className={cx("sale-percent")}>
+                    {product.productSale.salePercent}% OFF
+                  </div>
+                )}
               </div>
               {/*------Product Description------*/}
               <div className={cx("product-description")}>
@@ -402,7 +391,7 @@ function Product() {
                 <div className={cx("category")}>
                   <span className={cx("content")}>Category</span>
                   <span className={cx("sub-content")}>
-                    {product.categoryGroup}
+                    {`${product.category.name}/${product.categoryGroup.name}`}
                   </span>
                 </div>
                 <div className={cx("shipping")}>
@@ -460,7 +449,13 @@ function Product() {
                 <button
                   className={cx("add")}
                   disabled={product.available === 0}
-                  onClick={() => setOpenToast(true)}
+                  onClick={() => {
+                    if(user)
+                    {
+                      setOpenToast(true);
+                      dispatch({ type: "ADD", payload: product.id });
+                    }else navigate("/login")
+                  }}
                 >
                   <i className={cx("fa-sharp fa-light fa-cart-plus")}></i>
                   <span>Add To Cart</span>
@@ -475,38 +470,44 @@ function Product() {
             </div>
           </div>
           {/*------Product bundled------*/}
-          <div className={cx("product-bundled")}>
-            <div className={cx("bundled-title")}>
-              <span className={cx("title")}>Bundled Products</span>
-            </div>
-            <div className={cx("bundled-list")}>
-              {product.attachWith.map((bundleProduct, index) => (
-                <Link to="" className={cx("bundled-product")} key={index}>
-                  <img
-                    src={bundleProduct.image}
-                    alt="bundled-product-img"
-                    className={cx("product-img")}
-                  />
+          {product.attachWiths.length > 0 && (
+            <div className={cx("product-bundled")}>
+              <div className={cx("bundled-title")}>
+                <span className={cx("title")}>Bundled Products</span>
+              </div>
+              <div className={cx("bundled-list")}>
+                {product.attachWiths.map((bundleProduct, index) => (
+                  <Link
+                    to={"/product?productId=" + bundleProduct.id}
+                    className={cx("bundled-product")}
+                    key={index}
+                  >
+                    <img
+                      src={bundleProduct.images[0].url}
+                      alt="bundled-product-img"
+                      className={cx("product-img")}
+                    />
 
-                  <div className={cx("product-content")}>
-                    <div className={cx("product-name")}>
-                      {bundleProduct.name}
+                    <div className={cx("product-content")}>
+                      <div className={cx("product-name")}>
+                        {bundleProduct.name}
+                      </div>
+                      <div className={cx("product-price")}>
+                        <span className={cx("price")}>
+                          ${bundleProduct.price}
+                        </span>
+                      </div>
                     </div>
-                    <div className={cx("product-price")}>
-                      <span className={cx("price")}>
-                        ${bundleProduct.price}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           {/*------Shop related------*/}
           <div className={cx("shop-related")}>
             <div className={cx("shop-left")}>
               <div className={cx("shop-avatar")}>
-                <img src={product.shop.avatar} alt="shop-avatar" />
+                <img src={product.shop.shopImage} alt="shop-avatar" />
               </div>
               <div className={cx("shop-info")}>
                 <div className={cx("shop-name")}>
@@ -522,7 +523,10 @@ function Product() {
                     <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
                     <span className={cx("chat-text")}>Chat Now</span>
                   </button>
-                  <Link to="/shop" className={cx("view")}>
+                  <Link
+                    to={"/shop?shopId=" + product.shop.id}
+                    className={cx("view")}
+                  >
                     <i
                       className={cx(
                         "fa-sharp fa-solid fa-bag-shopping",
@@ -540,12 +544,12 @@ function Product() {
                 <span className={cx("quantity")}>
                   {(() => {
                     let rs = "";
-                    if (product.shop.ratings >= 1000) {
-                      const rating = product.shop.ratings / 1000;
+                    if (product.shop.rating >= 1000) {
+                      const rating = product.shop.rating / 1000;
                       const rounded = Math.round(rating * 10) / 10;
                       return (rs += rounded + "k");
                     } else {
-                      return (rs += product.shop.ratings);
+                      return (rs += product.shop.rating);
                     }
                   })()}
                 </span>
@@ -553,7 +557,7 @@ function Product() {
               <div className={cx("response-rate", "container")}>
                 <span className={cx("title")}>Response Rate</span>
                 <span className={cx("quantity")}>
-                  {product.shop.responseRate}%
+                  {/* {product.shop.responseRate}% */ 100}%
                 </span>
               </div>
               <div className={cx("follower", "container")}>
@@ -603,19 +607,25 @@ function Product() {
               <div className={cx("specification-content")}>
                 <div className={cx("category", "container")}>
                   <span className={cx("title")}>Category</span>
-                  <span className={cx("content")}>{product.categoryGroup}</span>
+                  <span
+                    className={cx("content")}
+                  >{`${product.category.name}/${product.categoryGroup.name}`}</span>
                 </div>
-                <div className={cx("brand", "container")}>
-                  <span className={cx("title")}>Brand</span>
-                  <span className={cx("content")}>{product.brand}</span>
-                </div>
+                {product.productDetailInfos.map((item) => (
+                  <div key={item.id} className={cx("brand", "container")}>
+                    <span className={cx("title")}>
+                      {item.categoryDetailInfo.name}
+                    </span>
+                    <span className={cx("content")}>{item.value}</span>
+                  </div>
+                ))}
                 <div className={cx("quantity_available", "container")}>
                   <span className={cx("title")}>Stock</span>
                   <span className={cx("content")}>{product.available}</span>
                 </div>
                 <div className={cx("ship-from", "container")}>
                   <span className={cx("title")}>Shops From</span>
-                  <span className={cx("content")}>HaNoi</span>
+                  <span className={cx("content")}>Ha Noi</span>
                 </div>
               </div>
             </div>

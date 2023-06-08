@@ -140,7 +140,7 @@ const Header = () => {
                   <Stack direction="row" spacing={2}>
                     <Avatar
                       alt="avatar"
-                      src={user.image}
+                      src={user.imageurl}
                       sx={{ width: 33, height: 33 }}
                     />
                   </Stack>

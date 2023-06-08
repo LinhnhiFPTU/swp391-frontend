@@ -1,13 +1,18 @@
 import classNames from "classnames/bind";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./ProductImage.module.scss";
 
 const cx = classNames.bind(styles);
 
 function ProductImage({ previewImage, previewVideo, quantitySoldout }) {
-  const [imgPreview, setImgPreview] = useState(previewImage[0]);
+  const [imgPreview, setImgPreview] = useState();
   const [videoPreview, setVideoPreview] = useState("");
   const videoRef = useRef();
+
+  useEffect(() => {
+    setImgPreview(previewImage[0])
+  }, [previewImage[0]])
+
   return (
     <>
       <div className={cx("product-img")}>

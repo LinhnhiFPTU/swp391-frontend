@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import { useEffect, useState, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 import Header from "~/layouts/components/Header/";
 import Footer from "~/layouts/components/Footer/";
@@ -247,9 +247,401 @@ const products = [
     },
   },
 ];
+// const products = [
+//   {
+//     product_img: "https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp",
+//     product_name:
+//       "Pet Birds Feeder Food Water Feeding Box For Small Medium Large Birds Parrots",
+//     product_rating: 4.6,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 90,
+//     },
+//   },
+//   {
+//     product_img: "https://birdtoybuilder.com/product_images/uploaded_images/flower-bouquet.jpg",
+//     product_name:
+//       "Flower Bouquet - Happy Beaks Made In The USA",
+//     product_rating: 4.2,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 120,
+//     },
+//   },
+//   {
+//     product_img:
+//       "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.8,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 60,
+//     },
+//   },
+//   {
+//     product_img: birdFood,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 3.5,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 170,
+//     },
+//   },
+//   {
+//     product_img: bird,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.6,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 90,
+//     },
+//   },
+//   {
+//     product_img: birdMedicine,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.2,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 120,
+//     },
+//   },
+//   {
+//     product_img:
+//       "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.8,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 60,
+//     },
+//   },
+//   {
+//     product_img: birdFood,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 3.5,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 170,
+//     },
+//   },
+// ];
+
+// const product2 = [
+//   {
+//     product_img: bird,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.6,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 90,
+//     },
+//   },
+//   {
+//     product_img: birdMedicine,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.2,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 120,
+//     },
+//   },
+//   {
+//     product_img: birdCage,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.8,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 60,
+//     },
+//   },
+//   {
+//     product_img: birdFood,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 3.5,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 170,
+//     },
+//   },
+//   {
+//     product_img: bird,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.6,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 90,
+//     },
+//   },
+//   {
+//     product_img: birdMedicine,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.2,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 120,
+//     },
+//   },
+//   {
+//     product_img: birdCage,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.8,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 60,
+//     },
+//   },
+//   {
+//     product_img: birdFood,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 3.5,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 170,
+//     },
+//   },
+//   {
+//     product_img: bird,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.6,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 90,
+//     },
+//   },
+//   {
+//     product_img: birdMedicine,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.2,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 120,
+//     },
+//   },
+//   {
+//     product_img: birdCage,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.8,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 60,
+//     },
+//   },
+//   {
+//     product_img: birdFood,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 3.5,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 170,
+//     },
+//   },
+//   {
+//     product_img: bird,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.6,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 90,
+//     },
+//   },
+//   {
+//     product_img: birdMedicine,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.2,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 120,
+//     },
+//   },
+//   {
+//     product_img: birdCage,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.8,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 60,
+//     },
+//   },
+//   {
+//     product_img: birdFood,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 3.5,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 170,
+//     },
+//   },
+//   {
+//     product_img: bird,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.6,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 90,
+//     },
+//   },
+//   {
+//     product_img: birdMedicine,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.2,
+//     product_price: 200,
+//     product_sale_percentage: 20,
+//     product_price_sale: 100,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 120,
+//     },
+//   },
+//   {
+//     product_img: birdCage,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 4.8,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 60,
+//     },
+//   },
+//   {
+//     product_img: birdFood,
+//     product_name:
+//       "Fruit Blend® Flavor with Natural Flavors Fruit Blend® Flavor with Natural Flavors",
+//     product_rating: 3.5,
+//     product_price: 200,
+//     product_price_sale: 100,
+//     product_sale_percentage: 20,
+//     product_quantity: {
+//       qAvailable: 200,
+//       qSold: 170,
+//     },
+//   },
+// ];
 
 function FlashSale() {
-  const [dataSource, setDataSource] = useState(products);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [productSales, setProductSales] = useState([
+    {
+      product: {
+        id: 0,
+        name: "",
+        price: 0,
+        images: [
+          {
+            id: 0,
+            url: "",
+          }
+        ],
+        rating: 0
+      },
+      salePercent: 0,
+      saleQuantity: 0,
+      sold: 0,
+    },
+  ]);
+
+  const [page, setPage] = useState(1);
   const [type, setType] = useState("all");
   const [second, setSecond] = useState(0);
   const [minute, setMinute] = useState(0);
@@ -286,6 +678,19 @@ function FlashSale() {
   // }, [dataSource.length]);
 
   useEffect(() => {
+    let url = "/api/v1/publics/event/1?page=" + page
+    if (searchParams.get("priority"))
+    {
+      url += "&priority=" + searchParams.get("priority")
+    }
+    axios
+      .get(url)
+      .then((res) => {
+        console.log(res);
+        setProductSales(res.data)
+      })
+      .catch((e) => console.log(e));
+
     axios
       .get("/api/v1/publics/time")
       .then((res) => {
@@ -382,37 +787,33 @@ function FlashSale() {
             ))}
           </div>
           <div className={cx("flash_sale-list")}>
-            {products.map((product, index) => (
-              <Link to="" className={cx("flash_sale-product")} key={index}>
+            {productSales.map((ps, index) => (
+              <Link to={"/product?productId=" + ps.product.id} className={cx("flash_sale-product")} key={index}>
                 <div className={cx("product-sale")}>
-                  <span className={cx("sale")}>
-                    -{product.product_sale_percentage}%
-                  </span>
+                  <span className={cx("sale")}>-{ps.salePercent}%</span>
                 </div>
                 <img
-                  src={product.product_img}
+                  src={ps.product.images[0].url}
                   alt="product-img"
                   className={cx("product-image")}
                 />
                 <div className={cx("product-content")}>
                   <div className={cx("product-name")}>
-                    <span className={cx("name-text")}>
-                      {product.product_name}
-                    </span>
+                    <span className={cx("name-text")}>{ps.product.name}</span>
                   </div>
                   <div className={cx("product-rating")}>
                     <StarRating
-                      rating={product.product_rating}
+                      rating={ps.product.rating}
                       font={1.6}
                       color={`gold`}
                     />
                   </div>
                   <div className={cx("product-price")}>
                     <span className={cx("price-before")}>
-                      ${product.product_price}
+                      ${ps.product.price}
                     </span>
                     <span className={cx("price-after")}>
-                      ${product.product_price_sale}
+                      ${ps.product.price * (1 - ps.salePercent / 100)}
                     </span>
                   </div>
                   <div className={cx("product-feature")}>
@@ -421,45 +822,40 @@ function FlashSale() {
                         className={cx("loading")}
                         style={{
                           ...loading,
-                          width: `calc((${product.product_quantity.qAvailable}) * 1px)`,
+                          width: `calc((${ps.saleQuantity}) * 160px)`,
                         }}
                       >
                         <div
                           className={cx("before-element")}
                           style={{
                             ...beforeLoading,
-                            width: `calc(((${product.product_quantity.qSold} * 160) / ${product.product_quantity.qAvailable}) * 1px)`,
+                            width: `calc(((${ps.sold} * 160) / ${ps.saleQuantity}) * 1px)`,
                           }}
                         ></div>
                         <span className={cx("loading-text")}>
                           {(() => {
                             if (
-                              (product.product_quantity.qSold /
-                                product.product_quantity.qAvailable) *
+                              (ps.sold / ps.saleQuantity) *
                                 100 <=
                               50
                             ) {
                               return "SELLING FAST";
                             } else if (
-                              (product.product_quantity.qSold /
-                                product.product_quantity.qAvailable) *
+                              (ps.sold / ps.saleQuantity) *
                                 100 >=
                                 50 &&
-                              (product.product_quantity.qSold /
-                                product.product_quantity.qAvailable) *
+                              (ps.sold / ps.saleQuantity) *
                                 100 <=
                                 75
                             ) {
-                              return `${product.product_quantity.qSold} SOLD`;
+                              return `${ps.sold} SOLD`;
                             } else if (
-                              (product.product_quantity.qSold /
-                                product.product_quantity.qAvailable) *
+                              (ps.sold / ps.saleQuantity) *
                                 100 >
                               75
                             ) {
                               return `ONLY ${
-                                product.product_quantity.qAvailable -
-                                product.product_quantity.qSold
+                                ps.saleQuantity - ps.sold
                               } LEFT`;
                             } else {
                               return "";
