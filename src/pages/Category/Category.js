@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 
@@ -13,6 +13,7 @@ import avatar from "~/assets/images/user-avatar.png";
 import banner from "~/assets/images/banner4.jpg";
 import productImg from "~/assets/images/bird-accessory.png";
 import styles from "./Category.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 // const categoryTitle = [
@@ -84,52 +85,11 @@ const sortBarOptions = [
   },
 ];
 
-const products = [
-  {
-    img: productImg,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    realPrice: "300",
-    salePrice: "20",
-    rating: 4.3,
-    sold: 4400,
-  },
-  {
-    img: productImg,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    realPrice: "300",
-    salePrice: "20",
-    rating: 4.3,
-    sold: 4400,
-  },
-  {
-    img: productImg,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    realPrice: "300",
-    salePrice: "20",
-    rating: 4.3,
-    sold: 4400,
-  },
-  {
-    img: productImg,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    realPrice: "300",
-    salePrice: "20",
-    rating: 4.3,
-    sold: 4400,
-  },
-  {
-    img: productImg,
-    name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-    realPrice: "300",
-    salePrice: "20",
-    rating: 4.3,
-    sold: 4400,
-  },
-];
-
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 function Category() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [products, setProducts] = useState([]);
   const [typeSort, setTypeSort] = useState("Relevance");
   const [priceTitle, setPriceTitle] = useState("Price");
   const [cmtPage, setCmtPage] = useState(1);
@@ -142,7 +102,15 @@ function Category() {
   }, [location]);
 
   useEffect(() => {
-    document.title = "Category | Bird Trading Platform";
+    let categoryId = searchParams.get("categoryId");
+    axios
+      .get("/api/v1/publics/category/" + categoryId)
+      .then((res) => {
+        console.log(res.data);
+        setProducts(res.data);
+        document.title = `${res.data[0].category.name} | Bird Trading Platform`;
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   useEffect(() => {
@@ -192,6 +160,13 @@ function Category() {
       setMinPage((m) => m - distance);
       setCmtPage((c) => (distance > 0 ? c - 1 : c));
     }
+  };
+
+  const saleCondition = (product) => {
+    return (
+      product.productSale &&
+      product.productSale.saleQuantity > product.productSale.sold
+    );
   };
 
   return (
@@ -327,19 +302,29 @@ function Category() {
             {products.map((product, index) => (
               <Link to="" className={cx("category_item")} key={index}>
                 <img
-                  src={product.img}
+                  src={product.images[0].url}
                   alt="item-img"
                   className={cx("item-image")}
                 />
 
                 <div className={cx("item-content")}>
                   <div className={cx("item-name")}>{product.name}</div>
-                  <div className={cx("item-price")}>
-                    <div className={cx("real-price")}>{product.realPrice}$</div>
-                    <span className={cx("sale-price")}>
-                      {product.salePrice}$
-                    </span>
-                  </div>
+                  {saleCondition(product) ? (
+                    <div className={cx("item-price")}>
+                      <div className={cx("real-price")}>
+                        {product.price}$
+                      </div>
+                      <span className={cx("sale-price")}>
+                        {product.price * (1 - product.productSale.salePercent / 100)}$
+                      </span>
+                    </div>
+                  ) : (
+                    <div className={cx("item-price")}>
+                      <span className={cx("sale-price")}>
+                        {product.price}$
+                      </span>
+                    </div>
+                  )}
                   <div className={cx("rating_sold")}>
                     <div className={cx("product-rating")}>
                       <StarRating

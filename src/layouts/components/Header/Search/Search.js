@@ -24,7 +24,14 @@ function Search() {
     }
 
     //CALL API HERE
-    
+    axios
+      .get("/api/v1/publics/product/search?keyword=" + debounced)
+      .then((res) => {
+        console.log(res.data);
+        let searchResult = res.data.products.map(p => p.product.name).slice(-5)
+        setSearchResult(searchResult)
+      })
+      .catch((e) => console.log(e));
   }, [debounced]);
 
   const handleChange = (e) => {
@@ -50,19 +57,23 @@ function Search() {
               <div className={cx("result-container")}>
                 <i className={cx("fa-light fa-box", "icon-box")}></i>
                 <span>
-                  Search "<span>{searchValue}</span>"
+                  Search "<span>{debounced}</span>"
                 </span>
               </div>
-              <Link
-                to={`/search?keyword=${""}`}
-                className={cx("search-item")}
-              ></Link>
+              {searchResult.map((p, index) => (
+                <Link
+                  key={index}
+                  to={`/search?search=${p}`}
+                  className={cx("search-item")}
+                >{p}</Link>
+              ))}
             </PropperWrapper>
           </div>
         )}
         onClickOutside={handleHideResults}
       >
-        <form action="" className={cx("search-bar")}>
+        <form action="/search" className={cx("search-bar")}>
+          <input hidden name="search" value={searchValue}/>
           <input
             type="text"
             placeholder="Search your product from here"

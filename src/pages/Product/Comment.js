@@ -54,16 +54,16 @@ function Comment({ feedback, commentRating }) {
     <div className={cx("product-comment-list")}>
       <div className={cx("product-comment")}>
         <div className={cx("user_avatar")}>
-          <img src={feedback.user.avatar} alt="user-avatar" />
+          <img src={feedback.userImageUrl} alt="user-avatar" />
         </div>
         <div className={cx("content_comment")}>
           <div className={cx("user_comment")}>
             <div className={cx("user_name")}>
-              <span className={cx("name")}>{feedback.user.name}</span>
+              <span className={cx("name")}>{feedback.userName}</span>
             </div>
             <div className={cx("user_rating")}>
               {commentRating.map((r, index) =>
-                r <= feedback.user.rating ? (
+                r <= feedback.rate ? (
                   <i
                     key={index}
                     className={cx("fa-solid fa-star", "rate_icon")}
@@ -77,7 +77,7 @@ function Comment({ feedback, commentRating }) {
               )}
             </div>
             <div className={cx("date_time-comment")}>
-              <span className={cx("date-time")}>{feedback.date}</span>
+              <span className={cx("date-time")}>{feedback.time}</span>
             </div>
           </div>
           <div className={cx("comment-content")}>
@@ -91,9 +91,10 @@ function Comment({ feedback, commentRating }) {
               className={
                 videoPreview ? cx("comment-video-active") : cx("comment-video")
               }
+              hidden={!feedback.videoUrl}
             >
               <video
-                src={feedback.feedbackVideo}
+                src={feedback.videoUrl}
                 type="video/mp4"
                 ref={videoRef}
                 onClick={(e) => {
@@ -113,7 +114,7 @@ function Comment({ feedback, commentRating }) {
                 <span>{videoDuration}</span>
               </div>
             </div>
-            {feedback.feedbackImages.map((imageURL, index) => (
+            {feedback.images.map((img, index) => (
               <div
                 className={
                   imagePreview.id === index
@@ -121,7 +122,7 @@ function Comment({ feedback, commentRating }) {
                     : cx("comment-image")
                 }
                 style={{
-                  backgroundImage: `url(${imageURL})`,
+                  backgroundImage: `url(${img.url})`,
                 }}
                 key={index}
                 onClick={() => {
@@ -131,7 +132,7 @@ function Comment({ feedback, commentRating }) {
                     }
                     return {
                       id: index,
-                      src: imageURL,
+                      src: img.url,
                     };
                   });
                   setVideoPreview("");
