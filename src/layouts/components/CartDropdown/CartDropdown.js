@@ -5,7 +5,6 @@ import styles from "./CartDropdown.module.scss";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import { Cartcontext } from "~/context/Context";
-import product from "~/assets/images/no-item.png";
 
 const cx = classNames.bind(styles);
 function CartDropdown() {
@@ -47,7 +46,7 @@ function CartDropdown() {
                             <div className={cx("prod-img")}>
                               <img
                                 src={product.product.images[0].url}
-                                alt="Product image"
+                                alt="Product"
                               />
                             </div>
                             <div className={cx("prod-name")}>

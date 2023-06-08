@@ -117,9 +117,9 @@ function Comment({ feedback, commentRating }) {
             {feedback.images.map((img, index) => (
               <div
                 className={
-                  videoPreview
-                    ? cx("comment-video-active")
-                    : cx("comment-video")
+                  imagePreview.id === index
+                    ? cx("comment-image-active")
+                    : cx("comment-image")
                 }
                 style={{
                   backgroundImage: `url(${img.url})`,
@@ -141,121 +141,93 @@ function Comment({ feedback, commentRating }) {
             ))}
           </div>
 
-          <div className={cx("icon-video")}>
-            <i className={cx("fa-solid fa-video")}></i>
-            <span>{videoDuration}</span>
-          </div>
+          {imagePreview && (
+            <div className={cx("comment-preview")}>
+              <img src={imagePreview.src} alt="img-preview" />
+            </div>
+          )}
+
+          {videoPreview && (
+            <div className={cx("comment-preview")}>
+              <video
+                src={videoPreview}
+                ref={videoRefPreview}
+                controls
+                onPause={handlePause}
+                onPlay={handlePlay}
+                onEnded={handleEnded}
+                autoPlay
+              />
+
+              {isPause && (
+                <svg
+                  enableBackground="new 0 0 15 15"
+                  viewBox="0 0 15 15"
+                  x="0"
+                  y="0"
+                  className={cx("svg-icon")}
+                  onClick={handleClickIcon}
+                >
+                  <g opacity=".54">
+                    <g>
+                      <circle cx="7.5" cy="7.5" fill="#040000" r="7.3"></circle>
+                      <path
+                        d="m7.5.5c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7m0-.5c-4.1 0-7.5 3.4-7.5 7.5s3.4 7.5 7.5 7.5 7.5-3.4 7.5-7.5-3.4-7.5-7.5-7.5z"
+                        fill="#ffffff"
+                      ></path>
+                    </g>
+                  </g>
+                  <path
+                    d="m6.1 5.1c0-.2.1-.3.3-.2l3.3 2.3c.2.1.2.3 0 .4l-3.3 2.4c-.2.1-.3.1-.3-.2z"
+                    fill="#ffffff"
+                  ></path>
+                </svg>
+              )}
+
+              {isReload && (
+                <svg
+                  enableBackground="new 0 0 15 15"
+                  viewBox="0 0 15 15"
+                  x="0"
+                  y="0"
+                  className={cx("svg-icon")}
+                  onClick={handleReplay}
+                >
+                  <g opacity=".54">
+                    <g>
+                      <circle cx="7.5" cy="7.5" fill="#040000" r="7.3"></circle>
+                      <path
+                        d="m7.5.5c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7m0-.5c-4.1 0-7.5 3.4-7.5 7.5s3.4 7.5 7.5 7.5 7.5-3.4 7.5-7.5-3.4-7.5-7.5-7.5z"
+                        fill="#ffffff"
+                      ></path>
+                    </g>
+                  </g>
+                  <path
+                    clipRule="evenodd"
+                    d="m10.2 5.3c.5.7.8 1.4.8 2.2 0 1.9-1.6 3.5-3.5 3.5s-3.5-1.6-3.5-3.5 1.6-3.5 3.5-3.5v.5c-1.6 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3c0-.7-.2-1.3-.6-1.8-.1-.1-.1-.1-.1-.1-.1-.1-.1-.3 0-.4s.3-.1.4.1c0-.1 0 0 0 0z"
+                    fill="#ffffff"
+                    fillRule="evenodd"
+                  ></path>
+                  <path
+                    clipRule="evenodd"
+                    d="m7.5 2.9c0-.1.1-.1.1-.1l1.4 1.5-1.4 1.4c0 .1-.1.1-.1 0z"
+                    fill="#ffffff"
+                    fillRule="evenodd"
+                  ></path>
+                </svg>
+              )}
+            </div>
+          )}
+          {feedback.shopResponse && (
+            <div className={cx("shop-response")}>
+              <div className={cx("response-title")}>Seller's Response:</div>
+              <div className={cx("response-content")}>
+                {feedback.shopResponse}
+              </div>
+            </div>
+          )}
         </div>
-        {feedback.feedbackImages.map((imageURL, index) => (
-          <div
-            className={
-              imagePreview.id === index
-                ? cx("comment-image-active")
-                : cx("comment-image")
-            }
-            style={{
-              backgroundImage: `url(${imageURL})`,
-            }}
-            key={index}
-            onClick={() => {
-              setImagePreview((p) => {
-                if (p.id === index) {
-                  return "";
-                }
-                return {
-                  id: index,
-                  src: imageURL,
-                };
-              });
-              setVideoPreview("");
-            }}
-          ></div>
-        ))}
       </div>
-
-      {imagePreview && (
-        <div className={cx("comment-preview")}>
-          <img src={imagePreview.src} alt="img-preview" />
-        </div>
-      )}
-
-      {videoPreview && (
-        <div className={cx("comment-preview")}>
-          <video
-            src={videoPreview}
-            ref={videoRefPreview}
-            controls
-            onPause={handlePause}
-            onPlay={handlePlay}
-            onEnded={handleEnded}
-            autoPlay
-          />
-
-          {isPause && (
-            <svg
-              enableBackground="new 0 0 15 15"
-              viewBox="0 0 15 15"
-              x="0"
-              y="0"
-              className={cx("svg-icon")}
-              onClick={handleClickIcon}
-            >
-              <g opacity=".54">
-                <g>
-                  <circle cx="7.5" cy="7.5" fill="#040000" r="7.3"></circle>
-                  <path
-                    d="m7.5.5c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7m0-.5c-4.1 0-7.5 3.4-7.5 7.5s3.4 7.5 7.5 7.5 7.5-3.4 7.5-7.5-3.4-7.5-7.5-7.5z"
-                    fill="#ffffff"
-                  ></path>
-                </g>
-              </g>
-              <path
-                d="m6.1 5.1c0-.2.1-.3.3-.2l3.3 2.3c.2.1.2.3 0 .4l-3.3 2.4c-.2.1-.3.1-.3-.2z"
-                fill="#ffffff"
-              ></path>
-            </svg>
-          )}
-
-          {isReload && (
-            <svg
-              enableBackground="new 0 0 15 15"
-              viewBox="0 0 15 15"
-              x="0"
-              y="0"
-              className={cx("svg-icon")}
-              onClick={handleReplay}
-            >
-              <g opacity=".54">
-                <g>
-                  <circle cx="7.5" cy="7.5" fill="#040000" r="7.3"></circle>
-                  <path
-                    d="m7.5.5c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7m0-.5c-4.1 0-7.5 3.4-7.5 7.5s3.4 7.5 7.5 7.5 7.5-3.4 7.5-7.5-3.4-7.5-7.5-7.5z"
-                    fill="#ffffff"
-                  ></path>
-                </g>
-              </g>
-              <path
-                clipRule="evenodd"
-                d="m10.2 5.3c.5.7.8 1.4.8 2.2 0 1.9-1.6 3.5-3.5 3.5s-3.5-1.6-3.5-3.5 1.6-3.5 3.5-3.5v.5c-1.6 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3c0-.7-.2-1.3-.6-1.8-.1-.1-.1-.1-.1-.1-.1-.1-.1-.3 0-.4s.3-.1.4.1c0-.1 0 0 0 0z"
-                fill="#ffffff"
-                fillRule="evenodd"
-              ></path>
-              <path
-                clipRule="evenodd"
-                d="m7.5 2.9c0-.1.1-.1.1-.1l1.4 1.5-1.4 1.4c0 .1-.1.1-.1 0z"
-                fill="#ffffff"
-                fillRule="evenodd"
-              ></path>
-            </svg>
-          )}
-        </div>
-      )}
-      {feedback.shopResponse && (
-        <div className={cx("shop-response")}>
-          <div className={cx("response-title")}>Seller's Response:</div>
-          <div className={cx("response-content")}>{feedback.shopResponse}</div>
-        </div>
-      )}
     </div>
   );
 }

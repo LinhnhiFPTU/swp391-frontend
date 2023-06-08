@@ -1,6 +1,11 @@
 import classNames from "classnames/bind";
 import { useState, useEffect, useRef, useContext } from "react";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import axios from "axios";
 
 import { UserContext } from "~/App";
@@ -23,7 +28,7 @@ const commentRating = [1, 2, 3, 4, 5];
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 function Product() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = useContext(UserContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [product, setProduct] = useState({
@@ -155,7 +160,7 @@ function Product() {
     const timeId = setTimeout(() => {
       // After 3 seconds set the show value to false
       setOpenToast(false);
-    }, 3500);
+    }, 1000);
 
     return () => {
       clearTimeout(timeId);
@@ -450,11 +455,10 @@ function Product() {
                   className={cx("add")}
                   disabled={product.available === 0}
                   onClick={() => {
-                    if(user)
-                    {
+                    if (user) {
                       setOpenToast(true);
                       dispatch({ type: "ADD", payload: product.id });
-                    }else navigate("/login")
+                    } else navigate("/login");
                   }}
                 >
                   <i className={cx("fa-sharp fa-light fa-cart-plus")}></i>
@@ -506,13 +510,13 @@ function Product() {
           {/*------Shop related------*/}
           <div className={cx("shop-related")}>
             <div className={cx("shop-left")}>
-              <div className={cx("shop-avatar")}>
-                <img src={product.shop.shopImage} alt="shop-avatar" />
-              </div>
+              <img
+                src={product.shop.shopImage}
+                alt="shop-avatar"
+                className={cx("shop-avatar")}
+              />
               <div className={cx("shop-info")}>
-                <div className={cx("shop-name")}>
-                  <span className={cx("name")}>{product.shop.name}</span>
-                </div>
+                <div className={cx("shop-name")}>{product.shop.name}</div>
                 <div className={cx("shop-active")}>
                   <span className={cx("time-active")}>
                     {product.shop.active}
@@ -606,26 +610,26 @@ function Product() {
               </div>
               <div className={cx("specification-content")}>
                 <div className={cx("category", "container")}>
-                  <span className={cx("title")}>Category</span>
-                  <span
+                  <div className={cx("title")}>Category</div>
+                  <div
                     className={cx("content")}
-                  >{`${product.category.name}/${product.categoryGroup.name}`}</span>
+                  >{`${product.category.name}/${product.categoryGroup.name}`}</div>
                 </div>
                 {product.productDetailInfos.map((item) => (
-                  <div key={item.id} className={cx("brand", "container")}>
-                    <span className={cx("title")}>
+                  <div key={item.id} className={cx("detail", "container")}>
+                    <div className={cx("title")}>
                       {item.categoryDetailInfo.name}
-                    </span>
-                    <span className={cx("content")}>{item.value}</span>
+                    </div>
+                    <div className={cx("content")}>{item.value}</div>
                   </div>
                 ))}
                 <div className={cx("quantity_available", "container")}>
-                  <span className={cx("title")}>Stock</span>
-                  <span className={cx("content")}>{product.available}</span>
+                  <div className={cx("title")}>Stock</div>
+                  <div className={cx("content")}>{product.available}</div>
                 </div>
                 <div className={cx("ship-from", "container")}>
-                  <span className={cx("title")}>Shops From</span>
-                  <span className={cx("content")}>Ha Noi</span>
+                  <div className={cx("title")}>Shops From</div>
+                  <div className={cx("content")}>Ha Noi</div>
                 </div>
               </div>
             </div>

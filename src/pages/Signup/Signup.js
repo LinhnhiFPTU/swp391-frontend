@@ -146,7 +146,7 @@ function Signup() {
           subMessage="to verify"
         />
       )}
-      <HeaderForm />
+      <HeaderForm text="Register"/>
       {!openModal && (
         <>
           <div className={cx("container")}>

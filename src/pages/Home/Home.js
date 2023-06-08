@@ -290,8 +290,11 @@ function Home() {
   };
 
   const saleCondition = (product) => {
-    return product.productSale && (product.productSale.saleQuantity > product.productSale.sold)
-  }
+    return (
+      product.productSale &&
+      product.productSale.saleQuantity > product.productSale.sold
+    );
+  };
 
   return (
     <>
@@ -299,7 +302,7 @@ function Home() {
       <Header />
       <div className={cx("container")}>
         <div className={cx("content")}>
-          <ChatPupup color={"var(--primary)"}/>
+          <ChatPupup color={"var(--primary)"} />
           {/* -----------------BANNER----------------- */}
           <Banner />
           {/* -----------------CATEGORIES----------------- */}
@@ -457,7 +460,11 @@ function Home() {
             </div>
             <div className={cx("product_list")}>
               {daily.map((item, index) => (
-                <Link to={"/product?productId=" + item.id} key={index} className={cx("product_items")}>
+                <Link
+                  to={"/product?productId=" + item.id}
+                  key={index}
+                  className={cx("product_items")}
+                >
                   <div className={cx("product-img")}>
                     <img src={item.images[0].url} alt={item.name} />
                   </div>
@@ -472,7 +479,9 @@ function Home() {
                   {saleCondition(item) ? (
                     <>
                       <div className={cx("price_before")}>${item.price}</div>
-                      <div className={cx("product-price")}>${item.price * (1 - item.productSale.salePercent / 100)}</div>
+                      <div className={cx("product-price")}>
+                        ${item.price * (1 - item.productSale.salePercent / 100)}
+                      </div>
                     </>
                   ) : (
                     <>
@@ -497,12 +506,15 @@ function Home() {
             <div className={cx("shop-trending-content")}>
               {shops.map((shop, index) => (
                 <div className={cx("shop-item")} key={index}>
-                  <div className={cx("shop-img")}>
-                    <img src={shop.shopImage} alt="shop-img" />
-                  </div>
+                  <img
+                    src={shop.shopImage}
+                    alt="shop-img"
+                    className={cx("shop-img")}
+                  />
+
                   <div className={cx("shop-text")}>
                     <div className={cx("head-text")}>
-                      <h3>{shop.name}</h3>
+                      <span>{shop.name}</span>
                     </div>
                     <div className={cx("rating")}>
                       <span className={cx("rating-text")}>

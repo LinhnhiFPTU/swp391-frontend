@@ -125,7 +125,7 @@ function Login() {
 
   return (
     <>
-      <HeaderForm />
+      <HeaderForm text="Login"/>
       {!isLogin && (
         <div className={cx("container")}>
           <div className={cx("content")}>

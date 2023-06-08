@@ -95,7 +95,7 @@ function ForgetPassword() {
 
   return (
     <>
-      <HeaderForm />
+      <HeaderForm text="Forget Password"/>
       <CurStep
         onClick={handleSubmit}
         errMsg={errMsg}

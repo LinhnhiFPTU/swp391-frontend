@@ -15,7 +15,7 @@ function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [showResults, setShowResults] = useState(true);
 
-  const debounced = useDebounce(searchValue, 500);
+  const debounced = useDebounce(searchValue, 200);
 
   useEffect(() => {
     if (!debounced.trim()) {

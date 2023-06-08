@@ -261,13 +261,12 @@ function ProductSearch() {
                         to={"/shop?shopId=" + search.shop.id}
                         className={cx("shop-related_shop-item")}
                       >
-                        <div className={cx("shop-item_avatar")}>
-                          <img
-                            src={search.shop.shopImage}
-                            alt="shop-avatar"
-                            className={cx("avatar-shop")}
-                          />
-                        </div>
+                        <img
+                          src={search.shop.shopImage}
+                          alt="shop-avatar"
+                          className={cx("avatar-shop")}
+                        />
+
                         <div className={cx("shop-item_info")}>
                           <div className={cx("shop-item_nick-name")}>
                             {search.shop.name}

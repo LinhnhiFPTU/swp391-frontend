@@ -435,29 +435,37 @@
       justify-content: space-between;
 
       .shop-left {
-        width: 350px;
+        width: 400px;
         display: flex;
         align-items: center;
 
         .shop-avatar {
-          width: 78.4px;
-          height: 78.4px;
-          margin-right: 20px;
-          img {
-            width: 100%;
-          }
+          width: 70px;
+          height: 70px;
+          border: 1px solid #dbdbdb;
+          border-radius: 50%;
+        }
+
+        .shop-info {
+          margin-left: 10px;
         }
 
         .shop-name {
-          .name {
-            font-size: 1.6rem;
-            color: #000000de;
-          }
+          width: 250px;
+          font-size: 1.4rem;
+          word-wrap: break-word;
+          white-space: normal;
+          overflow: hidden;
+          display: -webkit-box;
+          text-overflow: ellipsis;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+          color: #000000de;
         }
 
         .shop-active {
           .time-active {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #0000008a;
           }
         }
@@ -552,34 +560,30 @@
 
           .container {
             margin: 18px;
-
             .title {
+              width: 230px;
               color: #00000066;
             }
           }
 
           .category {
-            .title {
-              margin-right: 163px;
-            }
+            display: flex;
+            align-items: center;
           }
 
-          .brand {
-            .title {
-              margin-right: 186px;
-            }
+          .detail {
+            display: flex;
+            align-items: center;
           }
 
           .quantity_available {
-            .title {
-              margin-right: 190px;
-            }
+            display: flex;
+            align-items: center;
           }
 
           .ship-from {
-            .title {
-              margin-right: 145px;
-            }
+            display: flex;
+            align-items: center;
           }
         }
       }
