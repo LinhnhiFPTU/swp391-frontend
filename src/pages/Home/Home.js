@@ -12,10 +12,10 @@ import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import Banner from "~/layouts/components/Banner/";
 import StarRating from "~/layouts/components/StarRating";
+import ChatPupup from "~/layouts/components/ChatPopup";
 
 import bird from "~/assets/images/bird.png";
 import birdFood from "~/assets/images/bird-food.png";
-import birdMedicine from "~/assets/images/bird-medicine.png";
 import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
 
@@ -189,7 +189,8 @@ const bestSeller = [
     sells: "400+",
   },
   {
-    image: "https://cdn.shopify.com/s/files/1/0386/6810/7915/products/nomess_1024x1024.png?v=1639034847",
+    image:
+      "https://cdn.shopify.com/s/files/1/0386/6810/7915/products/nomess_1024x1024.png?v=1639034847",
     name: "Lyric Delite Wild Bird Seed, No Waste Bird Food Mix with Shell-Free Nuts and Seeds, 20 lb. Bag & Morning Song 11959 Clean and Free Wild Bird Food, 10-Pound",
     price: "22",
     sells: "400+",
@@ -266,7 +267,8 @@ const products = [
   },
   {
     id: 5,
-    image: "https://salt.tikicdn.com/cache/750x750/ts/product/b3/d6/fe/bea11bdc2b502b75a8e4a71c1cb1bfc9.jpg.webp",
+    image:
+      "https://salt.tikicdn.com/cache/750x750/ts/product/b3/d6/fe/bea11bdc2b502b75a8e4a71c1cb1bfc9.jpg.webp",
     name: "Parrots Wooden Stand Swing Cage Hanging Cockatiels Lovebird Perch Bird Toys",
     price: 55,
     quantity: 1,
@@ -287,7 +289,8 @@ const products = [
   },
   {
     id: 7,
-    image: "https://m.media-amazon.com/images/I/81q4JxjG2TL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+    image:
+      "https://m.media-amazon.com/images/I/81q4JxjG2TL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
     name: "Wild Harvest WH-83540 Wild Harvest Advanced Nutrition Diet for Nutrition Diet for Parakeets, 4.5-Pound",
     price: 85,
     quantity: 1,
@@ -295,7 +298,8 @@ const products = [
 
   {
     id: 9,
-    image: "https://salt.tikicdn.com/cache/750x750/ts/product/57/fd/3d/ccf035bb819c2bf9dbd2be78a3fdf86a.jpg.webp",
+    image:
+      "https://salt.tikicdn.com/cache/750x750/ts/product/57/fd/3d/ccf035bb819c2bf9dbd2be78a3fdf86a.jpg.webp",
     name: "Bird Mirror with Perch Parrots Stand Wooden Toy for Lovebird Cockatoo Parakeet Conure Finch Cockatiels",
     price: 15,
     quantity: 1,
@@ -450,6 +454,7 @@ function Home() {
       <Header />
       <div className={cx("container")}>
         <div className={cx("content")}>
+          <ChatPupup color={"var(--primary)"}/>
           {/* -----------------BANNER----------------- */}
           <Banner />
           {/* -----------------CATEGORIES----------------- */}

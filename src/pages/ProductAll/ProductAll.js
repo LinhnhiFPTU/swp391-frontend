@@ -8,9 +8,9 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import StarRating from "~/layouts/components/StarRating";
+import ChatPupup from "~/layouts/components/ChatPopup";
 
 import banner from "~/assets/images/banner4.jpg";
-import productImg from "~/assets/images/bird.png";
 import styles from "./Products.module.scss";
 const cx = classNames.bind(styles);
 const sortBarOptions = [
@@ -52,7 +52,7 @@ const products = [
   {
     img: "https://cdn.shopify.com/s/files/1/0386/6810/7915/products/ScreenShot2020-12-08at2.04.30PM_1024x1024.png?v=1607432954",
     name: "Zupreem - Pure Fun Medium Birds (0.9kg)",
-    realPrice: 80.50,
+    realPrice: 80.5,
     salePrice: 72.45,
     sold: 200,
     rating: 4.6,
@@ -61,7 +61,7 @@ const products = [
     img: "https://cdn.shopify.com/s/files/1/0386/6810/7915/products/nomess_1024x1024.png?v=1639034847",
     name: "Armitage - Wild Bird No Mess Seed Mix (2kg)",
     realPrice: 50,
-    salePrice: 47.50,
+    salePrice: 47.5,
     sold: 4200,
     rating: 5.0,
   },
@@ -248,7 +248,7 @@ function Products() {
   }, [location]);
 
   useEffect(() => {
-    document.title = 'All Products | Bird Trading Platform';
+    document.title = "All Products | Bird Trading Platform";
   }, []);
 
   useEffect(() => {
@@ -304,6 +304,7 @@ function Products() {
       <Header />
       <div className={cx("all_wrapper")}>
         <div className={cx("all_container")}>
+          <ChatPupup />
           <div className={cx("all_banner")}>
             <img src={banner} alt="banner" className={cx("all-img")} />
             <div className={cx("all-header")}>

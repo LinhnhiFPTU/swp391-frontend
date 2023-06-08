@@ -8,6 +8,7 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer/Footer";
 import StarRating from "~/layouts/components/StarRating";
+import ChatPupup from "~/layouts/components/ChatPopup";
 
 import avatar from "~/assets/images/avatar.png";
 import bird from "~/assets/images/bird-cage.png";
@@ -382,6 +383,7 @@ function Shop() {
       <Header />
       <div className={cx("wrapper")}>
         <div className={cx("container")}>
+          <ChatPupup />
           <div className={cx("shop_container")}>
             <div className={cx("shop-left_content")}>
               <div className={cx("shop_avatar")}>

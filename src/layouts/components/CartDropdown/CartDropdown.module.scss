@@ -117,5 +117,13 @@
   
   .prod-name {
     width: 250px;
+    height: 25px;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   }
   

@@ -9,6 +9,7 @@ import axios from "axios";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import StarRating from "~/layouts/components/StarRating";
+import ChatPupup from "~/layouts/components/ChatPopup";
 
 import avatar from "~/assets/images/user-avatar.png";
 import styles from "./ProductSearch.module.scss";
@@ -307,6 +308,7 @@ function ProductSearch() {
       <div className={cx("product-search_wrapper")}>
         {show ? (
           <div className={cx("product-search_container")}>
+            <ChatPupup />
             <div className={cx("product-search_filter-panel")}>
               <div className={cx("product-search_filter-status")}>
                 <i

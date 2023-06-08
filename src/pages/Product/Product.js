@@ -10,6 +10,7 @@ import Toast from "./Toast";
 import Comment from "./Comment";
 import ProductImage from "./ProductImage";
 import StarRating from "~/layouts/components/StarRating";
+import ChatPupup from "~/layouts/components/ChatPopup";
 
 import avatar from "~/assets/images/user-avatar.png";
 import styles from "./Product.module.scss";
@@ -298,6 +299,7 @@ function Product() {
       <Header />
       <div className={cx("product-wrapper")}>
         <div className={cx("product-container")}>
+          <ChatPupup color={"var(--flash_sale-primary)"} />
           {/*------Product main------*/}
           <div className={cx("product-main")}>
             {/*------Product image------*/}

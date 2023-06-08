@@ -40,7 +40,7 @@ function CartDropdown() {
                           className={cx("product-link")}
                         >
                           <div className={cx("prod-img")}>
-                            <img src={product.image} alt="Product image" />
+                            <img src={product.image} alt="Product-img"/>
                           </div>
                           <div className={cx("prod-name")}>
                             <p className={cx("type-text")}>{product.name}</p>

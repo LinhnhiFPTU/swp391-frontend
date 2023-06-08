@@ -8,6 +8,7 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import StarRating from "~/layouts/components/StarRating";
+import ChatPupup from "~/layouts/components/ChatPopup";
 
 import avatar from "~/assets/images/user-avatar.png";
 import banner from "~/assets/images/banner4.jpg";
@@ -199,6 +200,7 @@ function Category() {
       <Header />
       <div className={cx("category_wrapper")}>
         <div className={cx("category_container")}>
+          <ChatPupup color={"var(--primary)"} />
           <div className={cx("category_banner")}>
             <img src={banner} alt="banner" className={cx("category-img")} />
             <div className={cx("category-header")}>
