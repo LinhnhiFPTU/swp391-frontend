@@ -418,7 +418,7 @@ function ProductSearch() {
                 </div>
                 <div className={cx("product-result_list")}>
                   {search.products.map((product, index) => (
-                    <Link to="" className={cx("result_item")} key={index}>
+                    <Link to={"/product?productId=" + product.product.id} className={cx("result_item")} key={index}>
                       <img
                         src={product.product.images[0].url}
                         alt="item-img"

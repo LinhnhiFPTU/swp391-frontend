@@ -179,7 +179,7 @@ function Category() {
           <div className={cx("category_banner")}>
             <img src={banner} alt="banner" className={cx("category-img")} />
             <div className={cx("category-header")}>
-              <div className={cx("title")}>Bird's Accessory</div>
+              <div className={cx("title")}>{products[0] ? products[0].category.name : "Category"}</div>
               <div className={cx("sub-title")}>
                 Essential Accessories for Stylish Birds
               </div>
@@ -302,7 +302,7 @@ function Category() {
           </div>
           <div className={cx("category_list-product")}>
             {products.map((product, index) => (
-              <Link to="" className={cx("category_item")} key={index}>
+              <Link to={"/product?productId=" + product.id} className={cx("category_item")} key={index}>
                 <img
                   src={product.images[0].url}
                   alt="item-img"
