@@ -304,7 +304,7 @@ function Products() {
       <Header />
       <div className={cx("all_wrapper")}>
         <div className={cx("all_container")}>
-          <ChatPupup />
+          <ChatPupup/>
           <div className={cx("all_banner")}>
             <img src={banner} alt="banner" className={cx("all-img")} />
             <div className={cx("all-header")}>

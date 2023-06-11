@@ -7,16 +7,15 @@ import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
-function ChatPupup({ color = "var(--primary)" }) {
+function ChatPupup() {
   const [openChat, setOpenChat] = useState(false);
 
   return (
     <>
-      {openChat && <ChatWindow closeChat={setOpenChat} color={color}/>}
+      {openChat && <ChatWindow closeChat={setOpenChat}/>}
       <div className={cx("chat_popup")}>
         <button
           className={cx("chat-btn")}
-          style={{ color: color }}
           onClick={() => setOpenChat(true)}
         >
           <i className={cx("fa-solid fa-messages", "chat-icon")}></i>

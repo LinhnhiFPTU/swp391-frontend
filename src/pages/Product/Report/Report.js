@@ -1,11 +1,11 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReportDetail from "./ReportDetail";
 import styles from "./Report.module.scss";
 
 const cx = classNames.bind(styles);
 
-const reports = [
+const reportsProduct = [
   "Prohibited products (wild animals, 18+, ...)",
   "Fake product",
   "Products of unknown origin",
@@ -14,9 +14,29 @@ const reports = [
   "The product name does not match",
   "Other...",
 ];
-function Report({ closeReport }) {
+
+const reportShop = [
+  "Prohibited item",
+  "Scam",
+  "Counterfeit",
+  "Offensive chat messages / images / videos",
+  "Directing transaction outside of Shopee",
+  "Data privacy violation",
+  "Posting pornographic, obscene and vulgar content",
+  "Other..."
+]
+function Report({ closeReport, type }) {
   const [openReport, setOpenReport] = useState(false);
   const [titleReport, setTitleReport] = useState("");
+  const [arrayReport, setArrayReport] = useState(reportsProduct)
+
+  useEffect(() => {
+    if(type === "product") {
+      setArrayReport(reportsProduct)
+    }else {
+      setArrayReport(reportShop)
+    }
+  }, [])
 
   const handleReport = (report) => {
     setOpenReport(true);
@@ -35,7 +55,7 @@ function Report({ closeReport }) {
                 <i className={cx("fa-light fa-xmark", "x-icon")} onClick={() => closeReport(false)}></i>
               </div>
               <ul className={cx("report_list")}>
-                {reports.map((report, index) => (
+                {arrayReport.map((report, index) => (
                   <li
                     className={cx("report_item")}
                     key={index}

@@ -270,12 +270,12 @@ function Product() {
   };
   return (
     <>
-      {openReport && <Report closeReport={setOpenReport} />}
+      {openReport && <Report closeReport={setOpenReport} type="product"/>}
       {openToast && <Toast />}
       <Header />
       <div className={cx("product-wrapper")}>
         <div className={cx("product-container")}>
-          <ChatPupup color={"var(--flash_sale-primary)"} />
+          <ChatPupup/>
           {/*------Product main------*/}
           <div className={cx("product-main")}>
             {/*------Product image------*/}

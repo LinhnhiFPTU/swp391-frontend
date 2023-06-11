@@ -25,7 +25,7 @@ const filterBtns = [
 //   {
 //     product_img: "https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp",
 //     product_name:
-//       "Pet Birds Feeder Food Water Feeding Box For Small Medium Large Birds Parrots",
+//       "c",
 //     product_rating: 4.6,
 //     product_price: 200,
 //     product_sale_percentage: 20,
