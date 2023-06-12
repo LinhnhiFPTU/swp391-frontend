@@ -11,6 +11,7 @@ function ProductImage({ previewImage, previewVideo, quantitySoldout }) {
 
   useEffect(() => {
     setImgPreview(previewImage[0])
+    setVideoPreview("")
   }, [previewImage[0]])
 
   return (
