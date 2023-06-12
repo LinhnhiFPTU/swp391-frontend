@@ -17,51 +17,32 @@ import styles from "./Category.module.scss";
 import axios from "axios";
 
 const cx = classNames.bind(styles);
-// const categoryTitle = [
-//   {
-//     type: "bird",
-//     title: "Birds of Wonder",
-//     subTitle: "Explore the kingdom of birds",
-//   },
-//   {
-//     type: "bird_food",
-//     title: "Bird's Food",
-//     subTitle: "Essential Nutrition for Birds",
-//   },
-//   {
-//     type: "bird_medicine",
-//     title: "Bird's Medicine",
-//     subTitle: "Best health for birds",
-//   },
-//   {
-//     type: "bird_cage",
-//     title: "Bird's Cage",
-//     subTitle: "Comfortable accommodation for birds",
-//   },
-//   {
-//     type: "bird_accessory",
-//     title: "Bird's Accessory",
-//     subTitle: "Essential Accessories for Stylish Birds",
-//   },
-// ];
-
-const topShop = [
-  {
-    shop_avatar: avatar,
-    shop_name: "Shop Name",
-    shop_rating: 4.5,
+const categoryTitle = {
+  "bird": {
+    title: "Birds of Wonder",
+    subTitle: "Explore the kingdom of birds",
   },
-  {
-    shop_avatar: avatar,
-    shop_name: "Shop Name 1",
-    shop_rating: 4.9,
+  "bird food": {
+    title: "Bird's Food",
+    subTitle: "Essential Nutrition for Birds",
   },
-  {
-    shop_avatar: avatar,
-    shop_name: "Shop Name 2",
-    shop_rating: 4.3,
+  "bird medicine": {
+    title: "Bird's Medicine",
+    subTitle: "Best health for birds",
   },
-];
+  "bird cage": {
+    title: "Bird's Cage",
+    subTitle: "Comfortable accommodation for birds",
+  },
+  "bird accessory": {
+    title: "Bird's Accessory",
+    subTitle: "Essential Accessories for Stylish Birds",
+  },
+  "default" : {
+    title: "Birds of Wonder",
+    subTitle: "Explore the kingdom of birds",
+  }
+};
 
 const sortBarOptions = [
   {
@@ -86,11 +67,14 @@ const sortBarOptions = [
   },
 ];
 
-const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-
 function Category() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [products, setProducts] = useState([]);
+  const [commentPageBtns, setCommentPageBtns] = useState([]);
+  const [categoryDetails, setCategoryDetails] = useState({
+    shops: [],
+    ps: [],
+    categoryName: "default"
+  });
   const [typeSort, setTypeSort] = useState("Relevance");
   const [priceTitle, setPriceTitle] = useState("Price");
   const [cmtPage, setCmtPage] = useState(1);
@@ -104,15 +88,73 @@ function Category() {
 
   useEffect(() => {
     let categoryId = searchParams.get("categoryId");
+    let categoryGroupId = searchParams.get("categoryGroupId");
+    if (!categoryId) {
+      axios
+        .get("/api/v1/publics/category/category-group/" + categoryGroupId)
+        .then((res) => {
+          console.log(res.data);
+          setCategoryDetails(res.data);
+          document.title = `${res.data[0].categoryGroup.name} | Bird Trading Platform`;
+        })
+        .catch((e) => console.log(e));
+    } else {
+      axios
+        .get("/api/v1/publics/category/" + categoryId)
+        .then((res) => {
+          console.log(res.data);
+          setCategoryDetails(res.data);
+          document.title = `${res.data[0].category.name} | Bird Trading Platform`;
+        })
+        .catch((e) => console.log(e));
+    }
+  }, []);
+
+  useEffect(() => {
+    let categoryId = searchParams.get("categoryId");
+    setCategoryDetails((prev) => ({ ...prev, ps: [] }));
     axios
-      .get("/api/v1/publics/category/" + categoryId)
+      .get(
+        "/api/v1/publics/category/" +
+          categoryId +
+          "?filter=" +
+          typeSort.toLowerCase()
+      )
       .then((res) => {
+        setCmtPage(1);
+        window.scrollTo(0, 0);
         console.log(res.data);
-        setProducts(res.data);
-        document.title = `${res.data[0].category.name} | Bird Trading Platform`;
+        let cmtPage = [];
+        for (let i = 1; i <= res.data.maxPage; i++) {
+          cmtPage.push(i);
+        }
+        setCommentPageBtns(cmtPage);
+        if (res.data.maxPage <= 5) setMaxPage(res.data.maxPage);
+        setCategoryDetails(res.data);
+        document.title = `${res.data.categoryName} | Bird Trading Platform`;
       })
       .catch((e) => console.log(e));
-  }, []);
+  }, [typeSort]);
+
+  useEffect(() => {
+    let categoryId = searchParams.get("categoryId");
+    setCategoryDetails((prev) => ({ ...prev, ps: [] }));
+    axios
+      .get(
+        "/api/v1/publics/category/" +
+          categoryId +
+          "?filter=" +
+          typeSort.toLowerCase() +
+          "&page=" +
+          cmtPage
+      )
+      .then((res) => {
+        window.scrollTo(0, 0);
+        console.log(res.data);
+        setCategoryDetails(res.data);
+      })
+      .catch((e) => console.log(e));
+  }, [cmtPage]);
 
   useEffect(() => {
     const handleReload = () => {
@@ -164,10 +206,7 @@ function Category() {
   };
 
   const saleCondition = (product) => {
-    return (
-      product.productSale &&
-      product.productSale.saleQuantity > product.productSale.sold
-    );
+    return product.saleQuantity > product.sold;
   };
 
   return (
@@ -179,32 +218,34 @@ function Category() {
           <div className={cx("category_banner")}>
             <img src={banner} alt="banner" className={cx("category-img")} />
             <div className={cx("category-header")}>
-              <div className={cx("title")}>{products[0] ? products[0].category.name : "Category"}</div>
+              <div className={cx("title")}>
+                {categoryTitle[categoryDetails.categoryName.toLowerCase()].title}
+              </div>
               <div className={cx("sub-title")}>
-                Essential Accessories for Stylish Birds
+                {categoryTitle[categoryDetails.categoryName.toLowerCase()].subTitle}
               </div>
             </div>
           </div>
           <div className={cx("category_top-shop")}>
-            {topShop.map((shop, index) => (
+            {categoryDetails.shops.map((shop, index) => (
               <Link to="" className={cx("shop_item")} key={index}>
                 <img
-                  src={shop.shop_avatar}
+                  src={shop.shopImage}
                   alt="avatar-shop"
                   className={cx("shop-avatar")}
                 />
                 <div className={cx("shop-info")}>
-                  <div className={cx("shop-name")}>{shop.shop_name}</div>
+                  <div className={cx("shop-name")}>{shop.name}</div>
                   <div className={cx("shop-rating")}>
                     <span className={cx("rating-total")}>
                       <span className={cx("rating-real")}>
-                        {shop.shop_rating}
+                        {shop.rating}
                       </span>
                       /5
                     </span>
                     <div className={cx("rating-icon")}>
                       <StarRating
-                        rating={shop.shop_rating}
+                        rating={shop.rating}
                         font={1.2}
                         color={`gold`}
                       />
@@ -217,7 +258,7 @@ function Category() {
                       ></i>
                       <span>Chat</span>
                     </button>
-                    <Link to="" className={cx("view")}>
+                    <Link to={"/shop?shopId=" + shop.id} className={cx("view")}>
                       <i
                         className={cx(
                           "fa-sharp fa-solid fa-bag-shopping",
@@ -301,36 +342,43 @@ function Category() {
             </Tippy>
           </div>
           <div className={cx("category_list-product")}>
-            {products.map((product, index) => (
-              <Link to={"/product?productId=" + product.id} className={cx("category_item")} key={index}>
+            {categoryDetails.ps.map((ps, index) => (
+              <Link
+                to={"/product?productId=" + ps.product.id}
+                className={cx("category_item")}
+                key={index}
+              >
                 <img
-                  src={product.images[0].url}
+                  src={ps.product.images[0].url}
                   alt="item-img"
                   className={cx("item-image")}
                 />
 
                 <div className={cx("item-content")}>
-                  <div className={cx("item-name")}>{product.name}</div>
-                  {saleCondition(product) ? (
+                  <div className={cx("item-name")}>{ps.product.name}</div>
+                  {saleCondition(ps) ? (
                     <div className={cx("item-price")}>
                       <div className={cx("real-price")}>
-                        {product.price}$
+                        {ps.product.price}$
                       </div>
                       <span className={cx("sale-price")}>
-                        {product.price * (1 - product.productSale.salePercent / 100)}$
+                        {Math.round(
+                          ps.product.price * (1 - ps.salePercent / 100)
+                        )}
+                        $
                       </span>
                     </div>
                   ) : (
                     <div className={cx("item-price")}>
                       <span className={cx("sale-price")}>
-                        {product.price}$
+                        {ps.product.price}$
                       </span>
                     </div>
                   )}
                   <div className={cx("rating_sold")}>
                     <div className={cx("product-rating")}>
                       <StarRating
-                        rating={product.rating}
+                        rating={ps.product.rating}
                         font={1.2}
                         color={`gold`}
                       />
@@ -338,12 +386,12 @@ function Category() {
                     <div className={cx("sold")}>
                       {(() => {
                         let rs = "";
-                        if (product.sold >= 1000) {
-                          const sold = product.sold / 1000;
+                        if (ps.product.sold >= 1000) {
+                          const sold = ps.product.sold / 1000;
                           const rounded = Math.round(sold * 10) / 10;
                           return (rs += rounded + "k");
                         } else {
-                          return (rs += product.sold);
+                          return (rs += ps.product.sold);
                         }
                       })()}{" "}
                       sold
@@ -354,7 +402,11 @@ function Category() {
             ))}
           </div>
           <div className={cx("category_more-products")}>
-            <button className={cx("prev")} onClick={handlePrevCmtPage}>
+            <button
+              className={cx("prev")}
+              onClick={handlePrevCmtPage}
+              disabled={cmtPage === 1}
+            >
               <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
             </button>
             {commentPageBtns.map(
@@ -375,7 +427,11 @@ function Category() {
                 {"..."}
               </button>
             )}
-            <button className={cx("next")} onClick={handleNextCmtPage}>
+            <button
+              className={cx("next")}
+              onClick={handleNextCmtPage}
+              disabled={cmtPage == commentPageBtns.length}
+            >
               <i
                 className={cx(
                   "fa-solid fa-chevron-left fa-rotate-180",

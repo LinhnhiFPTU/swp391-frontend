@@ -85,6 +85,8 @@ export const Context = (props) => {
             console.log(e);
           });
         return state;
+      case "REMOVE_ALL":
+        return state
       case "LOAD":
         return action.payload;
 

@@ -292,18 +292,21 @@ const sortBarOptions = [
   },
 ];
 
-const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-
 function Shop() {
+  const [commentPageBtns, setCommentPageBtns] = useState([])
   const [searchParams, setSearchParams] = useSearchParams();
   const [shop, setShop] = useState({
-    shopImage: "",
+    shopDetails: {
+      shopImage: "",
     name: "",
     active: "Active 11 minutes ago",
-    products: [],
+    products: 0,
     rating: 5,
     followers: 0,
     responseRate: 100,
+    },
+    products: [],
+    maxPage: 0
   });
   const [typeSort, setTypeSort] = useState("Popular");
   const [priceTitle, setPriceTitle] = useState("Price");
@@ -318,15 +321,30 @@ function Shop() {
 
   useEffect(() => {
     let shopId = searchParams.get("shopId");
+    setShop(prev => ({...prev, products: []}))
     axios
-      .get("/api/v1/publics/shop/" + shopId)
+      .get(
+        "/api/v1/publics/shop/" +
+          shopId +
+          "?page=" +
+          cmtPage +
+          "&filter=" +
+          typeSort.toLowerCase()
+      )
       .then((res) => {
         console.log(res.data);
-        setShop((prev) => ({ ...prev, ...res.data }));
+        setShop(res.data);
+        let cmtPage = []
+        for(let i = 1; i <= res.data.maxPage; i++)
+        {
+          cmtPage.push(i)
+        }
+        setCommentPageBtns(cmtPage)
+        if(res.data.maxPage <= 5) setMaxPage(res.data.maxPage)
         document.title = `${res.data.name} | Bird Trading Platform`;
       })
       .catch((e) => console.log(e));
-  }, []);
+  }, [typeSort, cmtPage]);
 
   useEffect(() => {
     const handleReload = () => {
@@ -396,12 +414,12 @@ function Shop() {
           <div className={cx("shop_container")}>
             <div className={cx("shop-left_content")}>
               <img
-                src={shop.shopImage}
+                src={shop.shopDetails.shopImage}
                 alt="avatar"
                 className={cx("shop_avatar")}
               />
               <div className={cx("shop-info")}>
-                <div className={cx("shop-name")}>{shop.name}</div>
+                <div className={cx("shop-name")}>{shop.shopDetails.name}</div>
                 <div className={cx("shop-active")}>
                   <span>{shop.active}</span>
                 </div>
@@ -421,22 +439,22 @@ function Shop() {
               <a href="#product_list" className={cx("shop-totalProducts")}>
                 <i className={cx("fa-light fa-box", "icon")}></i>
                 <span className={cx("name")}>Products: </span>
-                <span className={cx("number")}> {shop.products.length}</span>
+                <span className={cx("number")}> {shop.shopDetails.products}</span>
               </a>
               <div className={cx("shop-totalFollowers")}>
                 <i className={cx("fa-light fa-user", "icon")}></i>
                 <span className={cx("name")}>Followers: </span>
-                <span className={cx("number")}> {shop.followers}</span>
+                <span className={cx("number")}> {shop.shopDetails.followers}</span>
               </div>
               <div className={cx("shop-totalRating")}>
                 <i className={cx("fa-light fa-star", "icon")}></i>
                 <span className={cx("name")}>Ratings: </span>
-                <span className={cx("number")}> {shop.rating}</span>
+                <span className={cx("number")}> {shop.shopDetails.rating}</span>
               </div>
               <div className={cx("shop-totalResponseRate")}>
                 <i className={cx("fa-light fa-message-dots", "icon")}></i>
                 <span className={cx("name")}>Response rate: </span>
-                <span className={cx("number")}> {shop.responseRate}%</span>
+                <span className={cx("number")}> 100%</span>
               </div>
             </div>
           </div>
@@ -690,7 +708,7 @@ function Shop() {
             </div>
           </div>
           <div className={cx("more-products")}>
-            <button className={cx("prev")} onClick={handlePrevCmtPage}>
+            <button className={cx("prev")} onClick={handlePrevCmtPage} disabled={cmtPage == 1}>
               <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
             </button>
             {commentPageBtns.map(
@@ -711,7 +729,7 @@ function Shop() {
                 {"..."}
               </button>
             )}
-            <button className={cx("next")} onClick={handleNextCmtPage}>
+            <button className={cx("next")} onClick={handleNextCmtPage} disabled={cmtPage == shop.maxPage}>
               <i
                 className={cx(
                   "fa-solid fa-chevron-left fa-rotate-180",

@@ -50,7 +50,7 @@ function AddressPopup({ closeModel }) {
           }))
           .filter(
             (p) =>
-              p.name.toLowerCase().indexOf(searchP.toLowerCase()) !== -1
+              p.name.toLowerCase().indexOf(searchP.trim().toLowerCase()) !== -1
           );
         setProvinces(Array.from(newArr));
       });
@@ -78,7 +78,7 @@ function AddressPopup({ closeModel }) {
             }))
             .filter(
               (d) =>
-                d.name.toLowerCase().indexOf(searchD.toLowerCase()) !==
+                d.name.toLowerCase().indexOf(searchD.trim().toLowerCase()) !==
                 -1
             );
           setDistricts(Array.from(newArr));
@@ -108,7 +108,7 @@ function AddressPopup({ closeModel }) {
             }))
             .filter(
               (w) =>
-                w.name.toLowerCase().indexOf(searchW.toLowerCase()) !==
+                w.name.toLowerCase().indexOf(searchW.trim().toLowerCase()) !==
                 -1
             );
           setWards(Array.from(newArr));
@@ -130,9 +130,12 @@ function AddressPopup({ closeModel }) {
     if (Add) {
       let AddReceiveRequest = {
         ...receiveInfo,
-        province: receiveInfo.province.name,
-        district: receiveInfo.district.name,
-        ward: receiveInfo.ward.name
+        provinceId: receiveInfo.province.id,
+        provinceName: receiveInfo.province.name,
+        districtId: receiveInfo.district.id,
+        districtName: receiveInfo.district.name,
+        wardId: receiveInfo.ward.id,
+        wardName: receiveInfo.ward.name
       }
       axios
         .post("/api/v1/users/info/receives", AddReceiveRequest)
@@ -234,7 +237,7 @@ function AddressPopup({ closeModel }) {
                       setSearchP("")
                     }}
                     value={searchP}
-                    onChange={(e) => setSearchP(e.target.value.trim())}
+                    onChange={(e) => setSearchP(e.target.value)}
                     required
                   />
                   <label htmlFor="text" className={cx("form-label")}>
@@ -282,7 +285,7 @@ function AddressPopup({ closeModel }) {
                     required
                     disabled={!receiveInfo.province}
                     value={searchD}
-                    onChange={(e) => setSearchD(e.target.value.trim())}
+                    onChange={(e) => setSearchD(e.target.value)}
                   />
                   <label htmlFor="text" className={cx("form-label")}>
                     District
@@ -327,7 +330,7 @@ function AddressPopup({ closeModel }) {
                     required
                     disabled={!receiveInfo.district}
                     value={searchW}
-                    onChange={(e) => setSearchW(e.target.value.trim())}
+                    onChange={(e) => setSearchW(e.target.value)}
                   />
                   <label htmlFor="text" className={cx("form-label")}>
                     Ward

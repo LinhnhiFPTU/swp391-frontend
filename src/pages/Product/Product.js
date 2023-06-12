@@ -58,6 +58,20 @@ function Product() {
       responseRate: "95",
       responseTime: "within hours",
       followers: "62150",
+      address: {
+        province: {
+          id: 0,
+          name: "",
+        },
+        district: {
+          id: 0,
+          name: "",
+        },
+        ward: {
+          id: 0,
+          name: "",
+        },
+      },
     },
     images: [],
     productDetailInfos: [],
@@ -80,6 +94,8 @@ function Product() {
   });
   const [type, setType] = useState("All");
   const [second, setSecond] = useState(0);
+  const [calculatObject, setCalculateObject] = useState();
+  const [shippingFee, setShippingFee] = useState("0");
   const [minute, setMinute] = useState(0);
   const [cmtPage, setCmtPage] = useState(1);
   const [maxPage, setMaxPage] = useState(5);
@@ -99,10 +115,57 @@ function Product() {
       .then((res) => {
         console.log(res.data);
         setProduct(res.data);
+
         document.title = `${res.data.name} | Bird Trading Platform`;
       })
       .catch((e) => console.log(e));
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setCalculateObject({
+        from_province_id: 201,
+        from_district_id: 3440,
+        service_id: 53320,
+        service_type_id: 2,
+        to_province_id: user.defaultReceiveInfo.province.id,
+        to_district_id: user.defaultReceiveInfo.district.id,
+        to_ward_code: "" + user.defaultReceiveInfo.ward.id,
+        height: 50,
+        length: 20,
+        weight: 200,
+        width: 20,
+        insurance_value: 10000,
+        cod_failed_amount: 2000,
+        coupon: null,
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (calculatObject) {
+      axios
+        .post(
+          "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+          calculatObject,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Token: "fc0ea700-c65d-11ed-ab31-3eeb4194879e",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          let formatter = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "VND",
+          });
+          setShippingFee(formatter.format(res.data.data.total));
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [calculatObject]);
 
   useEffect(() => {
     let productId = searchParams.get("productId");
@@ -377,8 +440,10 @@ function Product() {
                 {saleCondition() && (
                   <div className={cx("price-sale")}>
                     $
-                    {product.price *
-                      (1 - product.productSale.salePercent / 100)}
+                    {Math.round(
+                      product.price *
+                        (1 - product.productSale.salePercent / 100)
+                    )}
                   </div>
                 )}
                 {saleCondition() && (
@@ -391,12 +456,27 @@ function Product() {
               <div className={cx("product-description")}>
                 <div className={cx("available")}>
                   <span className={cx("content")}>Availability</span>
-                  <span className={cx("sub-content")}>In stock</span>
+                  <span className={cx("sub-content")}>
+                    {product.available === 0 ? "Sold out" : "In stock"}
+                  </span>
                 </div>
                 <div className={cx("category")}>
                   <span className={cx("content")}>Category</span>
                   <span className={cx("sub-content")}>
-                    {`${product.category.name}/${product.categoryGroup.name}`}
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={"/category?categoryId=" + product.category.id}
+                    >
+                      {product.category.name + " > "}
+                    </Link>
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={
+                        "/category?categoryGroupId=" + product.categoryGroup.id
+                      }
+                    >
+                      {product.categoryGroup.name}
+                    </Link>
                   </span>
                 </div>
                 <div className={cx("shipping")}>
@@ -406,12 +486,16 @@ function Product() {
                       <i className={cx("fa-light fa-truck", "truck-icon")}></i>
                       <span className={cx("text")}>Shipping To</span>
                       <span className={cx("shipping-content")}>
-                        Vinhome Grand Park
+                        {user && user.defaultReceiveInfo
+                          ? `${user.defaultReceiveInfo.ward.name}, ${user.defaultReceiveInfo.district.name}, ${user.defaultReceiveInfo.province.name}`
+                          : "Phường Tràng Tiền, Quận Hoàn Kiếm, Hà Nội"}
                       </span>
                     </div>
                     <div className={cx("shipping-fee")}>
                       <span className={cx("text")}>Shipping Fee</span>
-                      <span className={cx("shipping-content")}>35.000</span>
+                      <span className={cx("shipping-content")}>
+                        {shippingFee}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -626,9 +710,22 @@ function Product() {
               <div className={cx("specification-content")}>
                 <div className={cx("category", "container")}>
                   <div className={cx("title")}>Category</div>
-                  <div
-                    className={cx("content")}
-                  >{`${product.category.name}/${product.categoryGroup.name}`}</div>
+                  <div className={cx("content")}>
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={"/category?categoryId=" + product.category.id}
+                    >
+                      {product.category.name + " > "}
+                    </Link>
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={
+                        "/category?categoryGroupId=" + product.categoryGroup.id
+                      }
+                    >
+                      {product.categoryGroup.name}
+                    </Link>
+                  </div>
                 </div>
                 {product.productDetailInfos.map((item) => (
                   <div key={item.id} className={cx("detail", "container")}>
@@ -644,7 +741,9 @@ function Product() {
                 </div>
                 <div className={cx("ship-from", "container")}>
                   <div className={cx("title")}>Shops From</div>
-                  <div className={cx("content")}>Ha Noi</div>
+                  <div className={cx("content")}>
+                    {/* {product.shop.address.province.name} */ "Ha Noi"}
+                  </div>
                 </div>
               </div>
             </div>
