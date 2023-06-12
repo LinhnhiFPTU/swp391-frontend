@@ -67,6 +67,17 @@
         }
 
         .shop-info {
+          .shop-name {
+            width: 215px;
+            height: 24px;
+            word-wrap: break-word;
+            white-space: normal;
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+          }
           .shop-rating {
             display: flex;
             align-items: center;

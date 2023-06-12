@@ -708,7 +708,7 @@ function Shop() {
             </div>
           </div>
           <div className={cx("more-products")}>
-            <button className={cx("prev")} onClick={handlePrevCmtPage} disabled={cmtPage == 1}>
+            <button className={cx("prev")} onClick={handlePrevCmtPage} disabled={cmtPage === 1}>
               <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
             </button>
             {commentPageBtns.map(
@@ -729,7 +729,7 @@ function Shop() {
                 {"..."}
               </button>
             )}
-            <button className={cx("next")} onClick={handleNextCmtPage} disabled={cmtPage == shop.maxPage}>
+            <button className={cx("next")} onClick={handleNextCmtPage} disabled={cmtPage === shop.maxPage}>
               <i
                 className={cx(
                   "fa-solid fa-chevron-left fa-rotate-180",

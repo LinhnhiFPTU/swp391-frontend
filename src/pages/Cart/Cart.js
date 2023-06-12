@@ -1,7 +1,7 @@
 // import React from 'react'
 import classNames from "classnames/bind";
 import { useContext, useState, useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import { UserContext } from "~/App";
 import styles from "./Cart.module.scss";
@@ -18,6 +18,7 @@ function Cart() {
   const Globalstate = useContext(Cartcontext);
   const state = Globalstate.state;
   const dispatch = Globalstate.dispatch;
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.title = `Shopping Cart`;
@@ -46,7 +47,7 @@ function Cart() {
   }, [checkedProducts]);
 
   const handleCheckout = () => {
-    alert("Check out successfully");
+    navigate("/checkout");
   };
 
   /*
