@@ -214,7 +214,7 @@ function Category() {
       <Header />
       <div className={cx("category_wrapper")}>
         <div className={cx("category_container")}>
-          <ChatPupup color={"var(--primary)"} />
+          <ChatPupup/>
           <div className={cx("category_banner")}>
             <img src={banner} alt="banner" className={cx("category-img")} />
             <div className={cx("category-header")}>

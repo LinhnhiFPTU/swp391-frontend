@@ -16,6 +16,12 @@ import Cart from "~/pages/Cart";
 import Category from "~/pages/Category";
 import ProductAll from "~/pages/ProductAll";
 import Checkout from "~/pages/Checkout";
+import Purchase from '~/pages/Purchase'
+import Cancelled from '~/pages/Purchase/Cancelled'
+import Completed from '~/pages/Purchase/Completed'
+import Pending from '~/pages/Purchase/Pending'
+import Shipping from '~/pages/Purchase/Shipping'
+
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -33,6 +39,11 @@ const publicRoutes = [
   { path: "/products", component: ProductAll },
   { path: "/cart", component: Cart },
   { path: "/checkout", component: Checkout },
+  { path: "/purchase/all", component: Purchase },
+  { path: "/purchase/pending", component: Pending },
+  { path: "/purchase/shipping", component: Shipping },
+  { path: "/purchase/complete", component: Completed },
+  { path: "/purchase/cancel", component: Cancelled },
 ];
 
 const privateRoutes = [

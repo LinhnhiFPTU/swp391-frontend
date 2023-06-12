@@ -302,7 +302,7 @@ function Home() {
       <Header />
       <div className={cx("container")}>
         <div className={cx("content")}>
-          <ChatPupup color={"var(--primary)"} />
+          <ChatPupup/>
           {/* -----------------BANNER----------------- */}
           <Banner />
           {/* -----------------CATEGORIES----------------- */}

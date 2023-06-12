@@ -100,7 +100,7 @@ const Header = () => {
                         </Link>
                       </div>
                       <div className={cx("option-next")}>
-                        <Link to="/" className={cx("login-link")}>
+                        <Link to="/purchase" className={cx("login-link")}>
                           <span>My purchase</span>
                           <i
                             className={cx(
@@ -111,7 +111,7 @@ const Header = () => {
                         </Link>
                       </div>
                       <div className={cx("option-next")}>
-                        <Link to="/" className={cx("login-link")}>
+                        <Link to="/seller/register" className={cx("login-link")}>
                           <span>Seller Centre</span>
                           <i
                             className={cx(
