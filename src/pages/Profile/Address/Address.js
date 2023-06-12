@@ -197,7 +197,7 @@ function Address() {
                     <div className={cx("address-detail")}>
                       <div className={cx("address-name")}>
                         <span className={cx("address")}>
-                          {`${item.specific_address}, ${item.ward}, ${item.district}, ${item.province}`}
+                          {`${item.specific_address}, ${item.ward.name}, ${item.district.name}, ${item.province.name}`}
                         </span>
                       </div>
                       <div className={cx("address-crud")}>

@@ -38,9 +38,9 @@ const sortBarOptions = [
   },
 ];
 
-const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 function ProductSearch() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [commentPageBtns, setCommentPageBtns] = useState([])
   const [search, setSearch] = useState({
     shop: {
       id: 1,
@@ -64,23 +64,60 @@ function ProductSearch() {
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
-
-  useEffect(() => {
-    document.title = `${search} - Prices and Deals | Bird Trading Platform`;
-  }, []);
+    let search = searchParams.get("search");
+    setSearch(prev => ({...prev, products: []}))
+    axios
+      .get(
+        "/api/v1/publics/product/search?keyword=" +
+          search +
+          "&filter=" +
+          typeSort.toLowerCase()
+      )
+      .then((res) => {
+        setCmtPage(1)
+        window.scrollTo(0, 0);
+        console.log(res.data);
+        let cmtPage = []
+        for(let i = 1; i <= res.data.maxPage; i++)
+        {
+          cmtPage.push(i)
+        }
+        setCommentPageBtns(cmtPage)
+        if(res.data.maxPage <= 5) setMaxPage(res.data.maxPage)
+        setSearch(res.data);
+      })
+      .catch((e) => console.log(e));
+  }, [typeSort, searchParams.get("search")]);
 
   useEffect(() => {
     let search = searchParams.get("search");
+    setSearch(prev => ({...prev, products: []}))
     axios
-      .get("/api/v1/publics/product/search?keyword=" + search)
+      .get(
+        "/api/v1/publics/product/search?keyword=" +
+          search +
+          "&filter=" +
+          typeSort.toLowerCase() +
+          "&page=" +
+          cmtPage
+      )
       .then((res) => {
+        window.scrollTo(0, 0);
         console.log(res.data);
         setSearch(res.data);
       })
       .catch((e) => console.log(e));
-  }, [searchParams.get("search")]);
+  }, [cmtPage]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  useEffect(() => {
+    document.title = `${searchParams.get(
+      "search"
+    )} - Prices and Deals | Bird Trading Platform`;
+  }, []);
 
   useEffect(() => {
     const handleReload = () => {
@@ -418,7 +455,11 @@ function ProductSearch() {
                 </div>
                 <div className={cx("product-result_list")}>
                   {search.products.map((product, index) => (
-                    <Link to={"/product?productId=" + product.product.id} className={cx("result_item")} key={index}>
+                    <Link
+                      to={"/product?productId=" + product.product.id}
+                      className={cx("result_item")}
+                      key={index}
+                    >
                       <img
                         src={product.product.images[0].url}
                         alt="item-img"
@@ -434,8 +475,10 @@ function ProductSearch() {
                               {product.product.price}$
                             </div>
                             <span className={cx("sale-price")}>
-                              {product.product.price *
-                                (1 - product.salePercent / 100)}
+                              {Math.round(
+                                product.product.price *
+                                  (1 - product.salePercent / 100)
+                              )}
                               $
                             </span>
                           </div>
@@ -472,7 +515,7 @@ function ProductSearch() {
                 </div>
               </div>
               <div className={cx("more-products")}>
-                <button className={cx("prev")} onClick={handlePrevCmtPage}>
+                <button className={cx("prev")} onClick={handlePrevCmtPage} disabled={cmtPage == 1}>
                   <i
                     className={cx("fa-solid fa-chevron-left", "prev-icon")}
                   ></i>
@@ -497,7 +540,7 @@ function ProductSearch() {
                     {"..."}
                   </button>
                 )}
-                <button className={cx("next")} onClick={handleNextCmtPage}>
+                <button className={cx("next")} onClick={handleNextCmtPage} disabled={cmtPage == search.maxPage}>
                   <i
                     className={cx(
                       "fa-solid fa-chevron-left fa-rotate-180",

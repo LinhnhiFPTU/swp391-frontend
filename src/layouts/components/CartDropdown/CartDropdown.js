@@ -73,7 +73,7 @@ function CartDropdown() {
                           </div>
                           <div className={cx("prod-price")}>
                             <p className={cx("type-text")}>
-                              {cartItems.product.price * (1 - cartItems.salePercent / 100)}$
+                              {Math.round(cartItems.product.price * (1 - cartItems.salePercent / 100))}$
                             </p>
                           </div>
                         </Link>

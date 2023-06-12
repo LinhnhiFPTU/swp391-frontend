@@ -480,7 +480,7 @@ function Home() {
                     <>
                       <div className={cx("price_before")}>${item.price}</div>
                       <div className={cx("product-price")}>
-                        ${item.price * (1 - item.productSale.salePercent / 100)}
+                        ${Math.round(item.price * (1 - item.productSale.salePercent / 100))}
                       </div>
                     </>
                   ) : (

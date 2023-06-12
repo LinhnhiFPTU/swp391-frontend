@@ -1,6 +1,6 @@
 // import React from 'react'
 import classNames from "classnames/bind";
-import { useContext, useState, useRef, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import { UserContext } from "~/App";
@@ -8,45 +8,28 @@ import styles from "./Cart.module.scss";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 
-import bird from "~/assets/images/bird.png";
 import { Cartcontext } from "~/context/Context";
-import axios from "axios";
 const cx = classNames.bind(styles);
 
 function Cart() {
   const user = useContext(UserContext);
   const [total, setTotal] = useState(0);
-  // const [products, setProducts] = useState(true);
-  // const [shop, setShop] = useState(true);
-
-  useEffect(() => {
-    document.title = `Shopping Cart`;
-  }, []);
-  // const handleChange = (data) => {
-  //   if (data === "Products") {
-  //     if (products === true) {
-  //       //Handle products here
-  //       console.log(data);
-  //     }
-  //     setProducts(!products);
-  //   }
-  //   if (data === "Shop name") {
-  //     if (shop === true) {
-  //       //Handle products here
-  //       console.log(data);
-  //     }
-  //     setShop(!shop);
-  //   }
-  // };
-
+  const [checkedProducts, setCheckedProducts] = useState([])
   const Globalstate = useContext(Cartcontext);
   const state = Globalstate.state;
   const dispatch = Globalstate.dispatch;
 
   useEffect(() => {
-    let newTotal = 0;
+    document.title = `Shopping Cart`;
+  }, []);
+
+  useEffect(() => {
+    let totalPrice = 0;
+    let totalQuantity = 0;
     state.forEach((i) => {
-      newTotal += i.cartProducts.reduce((total, item) => {
+      totalQuantity += i.cartProducts.length
+      let products = i.cartProducts.filter(it => checkedProducts.indexOf(it.product.id) !== -1)
+      totalPrice += products.reduce((total, item) => {
         let price = item.product.price;
         if (item.salePercent && item.saleQuantity > item.saleSold) {
           price = price - (price * item.salePercent) / 100;
@@ -54,13 +37,103 @@ function Cart() {
         return total + price * item.quantity;
       }, 0);
     });
-    console.log(newTotal);
-    setTotal(newTotal);
-  }, [state]);
+    console.log(totalPrice);
+    setTotal({
+      totalPrice: Math.round(totalPrice),
+        totalQuantity: totalQuantity
+    });
+
+  }, [checkedProducts]);
 
   const handleCheckout = () => {
     alert("Check out successfully");
   };
+
+  /*
+    item {
+      shop: {
+
+      },
+      cartProducts: [{
+        product: {
+
+        }
+      }]
+    }
+  */
+
+  const handleCheckShop = (e, item) => 
+  {
+    let products = item.cartProducts.map(cp => cp.product.id)
+    let checked = checkedProducts.every(cp => (products.indexOf(cp) === -1))
+    if (checked)
+    {
+      setCheckedProducts(prev => [...prev, ...products])
+      return
+    }
+    
+    if(shopCheckedCondition(item))
+    {
+      let filter = checkedProducts.filter(cp => (products.indexOf(cp) === -1))
+      setCheckedProducts(filter)
+      return
+    }
+
+    let filter = products.filter(cp => (checkedProducts.indexOf(cp) === -1))
+    setCheckedProducts(prev => [...prev, ...filter])
+  }
+
+  const handleCheckProduct = (e, item, product) => 
+  {
+    let isChecked = checkedProducts.indexOf(product.id) !== -1
+    if(isChecked)
+    {
+      let filter = checkedProducts.filter(p => p !== product.id)
+      setCheckedProducts(filter)
+      return
+    }
+
+    setCheckedProducts(prev => [...prev, product.id])
+  }
+
+  const handleCheckAll = () => 
+  {
+    let allProducts = []
+    state.forEach((item, index )=> {
+      let products = item.cartProducts.map(cp => cp.product.id)
+      allProducts = [...allProducts, ...products]
+    })
+
+    let isCheckedAll = allProducts.every(cp => checkedProducts.indexOf(cp) !== -1)
+
+    if (isCheckedAll)
+    {
+      setCheckedProducts([])
+      return
+    }
+
+    let remainingProducts = allProducts.filter(p => checkedProducts.indexOf(p) === -1)
+    console.log(remainingProducts)
+    setCheckedProducts(prev => [...prev, ...remainingProducts])
+  }
+
+  const shopCheckedCondition = (item) =>
+  {
+    let products = item.cartProducts.map(cp => cp.product.id)
+    let checked = products.every(cp => (checkedProducts.indexOf(cp) !== -1))
+    return checked
+  }
+
+  const allCheckedCondition = () =>
+  {
+    let allProducts = []
+    state.forEach((item, index )=> {
+      let products = item.cartProducts.map(cp => cp.product.id)
+      allProducts = [...allProducts, ...products]
+    })
+    let checked = allProducts.every(cp => (checkedProducts.indexOf(cp) !== -1))
+    return checked
+  }
 
   return (
     <>
@@ -87,6 +160,7 @@ function Cart() {
                       type="checkbox"
                       // value={products}
                       className={cx("checkbox-all")}
+                      style={{opacity: 0}}
                     />
                     <span>Product</span>
                   </div>
@@ -102,16 +176,20 @@ function Cart() {
                         type="checkbox"
                         // value={shop}
                         className={cx("checkbox-shop")}
+                        checked={shopCheckedCondition(item)}
+                        onChange={(e) => handleCheckShop(e, item)}
                       />
                       <span>{item.shop.name}</span>
                     </div>
                     <div className={cx("product_cart")}>
                       {item.cartProducts.map((p, i) => (
-                        <div key={index} className={cx("product-item")}>
+                        <div key={i} className={cx("product-item")}>
                           <div className={cx("product_pick")}>
                             <input
                               type="checkbox"
+                              checked={checkedProducts.indexOf(p.product.id) !== -1}
                               // value={products}
+                              onChange={(e) => handleCheckProduct(e, item, p.product)}
                               className={cx("checkbox-product")}
                             />
                             <img
@@ -123,7 +201,7 @@ function Cart() {
                           <div className={cx("product-details")}>
                             ${" "}
                             {p.salePercent
-                              ? p.product.price * (1 - p.salePercent / 100)
+                              ? Math.round(p.product.price * (1 - p.salePercent / 100))
                               : p.product.price}
                           </div>
                           <div className={cx("product-quantity")}>
@@ -161,7 +239,7 @@ function Cart() {
                           <div className={cx("product-details")}>
                             ${" "}
                             {(p.salePercent
-                              ? p.product.price * (1 - p.salePercent / 100)
+                              ? Math.round(p.product.price * (1 - p.salePercent / 100))
                               : p.product.price) * p.quantity}
                           </div>
                           <div className={cx("product-details")}>
@@ -186,9 +264,11 @@ function Cart() {
                   <div className={cx("selectAll")}>
                     <input
                       type="checkbox"
+                      checked={allCheckedCondition()}
                       // value={products}
+                      onChange={() => handleCheckAll()}
                     />
-                    <p>Select All ({state.length})</p>
+                    <p>Select All ({total.totalQuantity})</p>
                   </div>
                   <div className={cx("deleteAll")}>
                     <p>Delete</p>
@@ -197,7 +277,7 @@ function Cart() {
                 <div className={cx("cart-right")}>
                   <div className={cx("totalPrice")}>
                     <span className={cx("sub-name")}>Total:</span>
-                    <span className={cx("sub-price")}>{total} $</span>
+                    <span className={cx("sub-price")}>{total.totalPrice} $</span>
                   </div>
                   <button onClick={handleCheckout}>Check out</button>
                 </div>
