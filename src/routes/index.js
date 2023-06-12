@@ -21,6 +21,8 @@ import Cancelled from '~/pages/Purchase/Cancelled'
 import Completed from '~/pages/Purchase/Completed'
 import Pending from '~/pages/Purchase/Pending'
 import Shipping from '~/pages/Purchase/Shipping'
+import Seller from '~/pages/Seller'
+import Register from '~/pages/Seller/Register'
 
 
 const publicRoutes = [
@@ -44,6 +46,8 @@ const publicRoutes = [
   { path: "/purchase/shipping", component: Shipping },
   { path: "/purchase/complete", component: Completed },
   { path: "/purchase/cancel", component: Cancelled },
+  { path: "/seller", component: Seller },
+  { path: "/seller/register", component: Register },
 ];
 
 const privateRoutes = [

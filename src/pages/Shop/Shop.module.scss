@@ -28,8 +28,11 @@
   align-items: center;
 }
 
-.shop_avatar img {
-  width: 90px;
+.shop_avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid #c9c7c78a;
 }
 
 .shop-info {
@@ -37,7 +40,16 @@
 }
 
 .shop-name {
+  width: 190px;
+  height: 30px;
   font-size: 2rem;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .shop-active {
@@ -413,7 +425,7 @@
           margin-top: 13px;
           display: flex;
           align-items: center;
-          
+
           .sold {
             padding: 4px 0;
             margin-left: 140px;
@@ -618,7 +630,7 @@
       .all_rating_sold {
         display: flex;
         align-items: center;
-        
+
         .sold {
           padding: 4px 0;
           margin-left: 80px;
