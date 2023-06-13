@@ -11,7 +11,6 @@ import Footer from "~/layouts/components/Footer";
 import StarRating from "~/layouts/components/StarRating";
 import ChatPupup from "~/layouts/components/ChatPopup";
 
-import avatar from "~/assets/images/user-avatar.png";
 import styles from "./ProductSearch.module.scss";
 
 const cx = classNames.bind(styles);
@@ -43,7 +42,7 @@ function ProductSearch() {
   const [commentPageBtns, setCommentPageBtns] = useState([])
   const [search, setSearch] = useState({
     shop: {
-      id: 1,
+      id: 0,
       name: "",
       shopImage: "",
       rating: 5,
@@ -60,7 +59,6 @@ function ProductSearch() {
   const [locationFilter, setLocationFilter] = useState([]);
   const [searchP, setSearchP] = useState("");
   // const [searchFilter, setSearchFilter] = useState();
-  const [show, setShow] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -199,7 +197,7 @@ function ProductSearch() {
     <>
       <Header />
       <div className={cx("product-search_wrapper")}>
-        {show ? (
+        {search.products.length > 0 ? (
           <div className={cx("product-search_container")}>
             <ChatPupup />
             <div className={cx("product-search_filter-panel")}>
@@ -283,7 +281,7 @@ function ProductSearch() {
             </div>
             <div className={cx("product-search_content")}>
               <div className={cx("product-search_shop-related")}>
-                {search.shop && (
+                {search.shop && search.shop.name && (
                   <>
                     <div className={cx("shop-related_header")}>
                       <span className={cx("shop-related_title")}>

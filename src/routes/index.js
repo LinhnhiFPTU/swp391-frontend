@@ -16,14 +16,19 @@ import Cart from "~/pages/Cart";
 import Category from "~/pages/Category";
 import ProductAll from "~/pages/ProductAll";
 import Checkout from "~/pages/Checkout";
-import Purchase from '~/pages/Purchase'
-import Cancelled from '~/pages/Purchase/Cancelled'
-import Completed from '~/pages/Purchase/Completed'
-import Pending from '~/pages/Purchase/Pending'
-import Shipping from '~/pages/Purchase/Shipping'
-import Seller from '~/pages/Seller'
-import Register from '~/pages/Seller/Register'
-
+import Purchase from "~/pages/Purchase";
+import Cancelled from "~/pages/Purchase/Cancelled";
+import Completed from "~/pages/Purchase/Completed";
+import Pending from "~/pages/Purchase/Pending";
+import Shipping from "~/pages/Purchase/Shipping";
+import Seller from "~/pages/Seller";
+import Register from "~/pages/Seller/Register";
+import Dashboard from "~/pages/SellerPortal/Dashboard";
+import OrderMng from "~/pages/SellerPortal/OrderMng";
+import ProductMng from "~/pages/SellerPortal/ProductMng";
+import ShopMng from "~/pages/SellerPortal/ShopMng";
+import SaleMng from "~/pages/SellerPortal/SaleMng";
+import Chart from "~/pages/SellerPortal/Chart";
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -48,6 +53,12 @@ const publicRoutes = [
   { path: "/purchase/cancel", component: Cancelled },
   { path: "/seller", component: Seller },
   { path: "/seller/register", component: Register },
+  { path: "/seller/portal/dashboard", component: Dashboard},
+  { path: "/seller/portal/order", component: OrderMng},
+  { path: "/seller/portal/product", component: ProductMng},
+  { path: "/seller/portal/shop", component: ShopMng},
+  { path: "/seller/portal/finance", component: SaleMng},
+  { path: "/seller/portal/chart", component: Chart},
 ];
 
 const privateRoutes = [

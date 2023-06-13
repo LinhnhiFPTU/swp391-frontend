@@ -248,6 +248,8 @@
               margin-left: 60px;
 
               .shipping-to {
+                display: flex;
+                align-items: center;
                 .truck-icon {
                   margin-right: 10px;
                   margin-left: 5px;
@@ -261,7 +263,15 @@
 
                 .shipping-content {
                   margin-left: 40px;
+                  width: 300px;
                   font-size: 1.4rem;
+                  word-wrap: break-word;
+                  white-space: normal;
+                  overflow: hidden;
+                  display: -webkit-box;
+                  text-overflow: ellipsis;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 1;
                   color: #000;
                 }
               }

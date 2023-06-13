@@ -1,0 +1,17 @@
+.sale_wrapper {
+  width: 100%;
+  margin-top: 71px;
+  height: 1000px;
+  display: flex;
+  align-items: center;
+
+  .sale_sidebar {
+    width: 13%;
+  }
+
+  .sale_container {
+    width: 87%;
+    height: 1000px;
+    background-color: #f6f6f6;
+  }
+}
