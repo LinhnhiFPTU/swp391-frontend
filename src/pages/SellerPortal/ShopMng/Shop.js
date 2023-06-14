@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 function Shop() {
   return (
     <>
-      <HeaderSeller title="Shop Management" />
+      <HeaderSeller title="Shop" />
       <div className={cx("shop_wrapper")}>
         <div className={cx("shop_sidebar")}>
           <SideBar />

@@ -441,6 +441,7 @@
       background-color: #fff;
 
       .bundled-title {
+        padding-left: 10px;
         padding-bottom: 25px;
         .title {
           font-size: 1.8rem;
@@ -990,6 +991,88 @@
           color: #fff;
           border: 1px solid var(--flash_sale-primary);
           background-color: var(--flash_sale-primary);
+        }
+      }
+    }
+
+    .product-related {
+      margin-top: 15px;
+      padding: 25px;
+      background-color: #fff;
+
+      .related-header {
+        padding-left: 15px;
+        padding-bottom: 25px;
+        font-size: 1.8rem;
+        color: #333;
+      }
+
+      .related-list {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+        row-gap: 20px;
+        column-gap: 20px;
+
+        .related-item {
+          width: 214px;
+          height: 340px;
+          text-decoration: none;
+          background-color: #fff;
+          color: #333;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+          }
+
+          .related-img {
+            width: 214px;
+            height: 214px;
+          }
+
+          .item-content {
+            padding: 15px;
+
+            .name {
+              width: 100%;
+              height: 42px;
+              font-size: 1.4rem;
+              word-wrap: break-word;
+              white-space: normal;
+              overflow: hidden;
+              display: -webkit-box;
+              text-overflow: ellipsis;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+            }
+
+            .price-sold {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-top: 15px;
+              .price {
+                display: flex;
+                align-items: center;
+
+                .real-price {
+                  font-size: 1.2rem;
+                  text-decoration: line-through;
+                }
+
+                .sale-price {
+                  font-size: 2rem;
+                  margin-left: 5px;
+                  color: var(--flash_sale-primary);
+                }
+              }
+
+              .sold {
+                font-size: 1.3rem;
+                color: #0000008a;
+              }
+            }
+          }
         }
       }
     }

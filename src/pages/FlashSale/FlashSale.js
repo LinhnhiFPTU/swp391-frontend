@@ -63,7 +63,7 @@ function FlashSale() {
   }, []);
 
   useEffect(() => {
-    if (page != 1 && !end) {
+    if (page !== 1 && !end) {
       let url = "/api/v1/publics/event/1?page=" + page;
       if (searchParams.get("priority")) {
         url += "&priority=" + searchParams.get("priority");
@@ -72,7 +72,7 @@ function FlashSale() {
         .get(url)
         .then((res) => {
           console.log(res);
-          if(res.data.length == 0)
+          if(res.data.length === 0)
           {
             setEnd(true)
             return;

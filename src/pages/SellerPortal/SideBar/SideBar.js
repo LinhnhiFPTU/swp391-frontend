@@ -16,13 +16,13 @@ const sideBarOptions = [
     id: 1,
     title: "Order Management",
     icon: "fa-thin fa-clipboard-list",
-    path: "/seller/portal/order",
+    path: "/seller/portal/order/all",
   },
   {
     id: 2,
     title: "Product Management",
     icon: "fa-sharp fa-light fa-box-dollar",
-    path: "/seller/portal/product",
+    path: "/seller/portal/product/all",
   },
   {
     id: 3,
@@ -62,8 +62,8 @@ function SideBar() {
                 isActive={() =>
                   [
                     "/seller/portal/dashboard",
-                    "/seller/portal/order",
-                    "/seller/portal/product",
+                    "/seller/portal/order/all", 
+                    "/seller/portal/product/all",
                     "/seller/portal/shop",
                     "/seller/portal/finance",
                     "/seller/portal/chart",

@@ -11,7 +11,6 @@ import styles from "./HeaderSeller.module.scss";
 const cx = className.bind(styles);
 
 function HeaderSeller({ title }) {
-  console.log(title)
   return (
     <div className={cx("header")}>
       <div className={cx("header-content")}>

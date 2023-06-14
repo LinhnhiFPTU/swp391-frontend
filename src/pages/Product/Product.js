@@ -128,9 +128,15 @@ function Product() {
         from_district_id: 3440,
         service_id: 53320,
         service_type_id: 2,
-        to_province_id: user.defaultReceiveInfo ? user.defaultReceiveInfo.province.id : 201,
-        to_district_id: user.defaultReceiveInfo ? user.defaultReceiveInfo.district.id : 1489,
-        to_ward_code: user.defaultReceiveInfo ? "" + user.defaultReceiveInfo.ward.id : "1A0218",
+        to_province_id: user.defaultReceiveInfo
+          ? user.defaultReceiveInfo.province.id
+          : 201,
+        to_district_id: user.defaultReceiveInfo
+          ? user.defaultReceiveInfo.district.id
+          : 1489,
+        to_ward_code: user.defaultReceiveInfo
+          ? "" + user.defaultReceiveInfo.ward.id
+          : "1A0218",
         height: 50,
         length: 20,
         weight: 200,
@@ -333,12 +339,12 @@ function Product() {
   };
   return (
     <>
-      {openReport && <Report closeReport={setOpenReport} type="product"/>}
+      {openReport && <Report closeReport={setOpenReport} type="product" />}
       {openToast && <Toast />}
       <Header />
       <div className={cx("product-wrapper")}>
         <div className={cx("product-container")}>
-          <ChatPupup/>
+          <ChatPupup />
           {/*------Product main------*/}
           <div className={cx("product-main")}>
             {/*------Product image------*/}
@@ -837,6 +843,32 @@ function Product() {
                   )}
                 ></i>
               </button>
+            </div>
+          </div>
+          {/*------Product related------*/}
+          <div className={cx("product-related")}>
+            <div className={cx("related-header")}>Product Related</div>
+            <div className={cx("related-list")}>
+              <Link className={cx("related-item")}>
+                <img
+                  src="https://salt.tikicdn.com/cache/750x750/ts/product/23/57/e5/9a003ada893113eec9649d937b00143a.jpg.webp"
+                  alt="related-img"
+                  className={cx("related-img")}
+                />
+                <div className={cx("item-content")}>
+                  <div className={cx("name")}>
+                    Wooden Block Bird Parrot Toys for Small Medium Large Parrots
+                    and Birds
+                  </div>
+                  <div className={cx("price-sold")}>
+                    <div className={cx("price")}>
+                      <div className={cx("real-price")}>1000$</div>
+                      <div className={cx("sale-price")}>800$</div>
+                    </div>
+                    <div className={cx("sold")}>400 sold</div>
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>

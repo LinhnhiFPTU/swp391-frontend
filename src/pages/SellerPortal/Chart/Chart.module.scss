@@ -6,12 +6,12 @@
   align-items: center;
 
   .chart_sidebar {
-    width: 13%;
+    width: 248px;
   }
 
   .chart_container {
-    width: 87%;
-    height: 1000px;
+    width: calc(100% - 248px);
+    height: 100%;
     background-color: #f6f6f6;
   }
 }
