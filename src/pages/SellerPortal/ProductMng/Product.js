@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import { useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
+import { Link } from "react-router-dom";
 
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
@@ -122,12 +123,12 @@ function Product() {
               <div className={cx("product-count")}>0 Product</div>
               <div className={cx("product-options")}>
                 <div className={cx("product-add")}>
-                  <button className={cx("add-btn")}>
+                  <Link to = "/seller/portal/product/new" className={cx("add-btn")}>
                     <i
                       className={cx("fa-sharp fa-light fa-plus", "add-icon")}
                     ></i>
                     Add new product
-                  </button>
+                  </Link>
                 </div>
                 <Tippy
                   interactive

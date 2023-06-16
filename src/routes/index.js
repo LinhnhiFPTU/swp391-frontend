@@ -37,10 +37,12 @@ import Active from "~/pages/SellerPortal/ProductMng/Active";
 import SoldOut from "~/pages/SellerPortal/ProductMng/SoldOut";
 import PendingProduct from "~/pages/SellerPortal/ProductMng/Pending";
 import Band from "~/pages/SellerPortal/ProductMng/Band";
+import AddProduct from "~/pages/SellerPortal/ProductMng/AddProduct";
 
 import ShopMng from "~/pages/SellerPortal/ShopMng";
 import SaleMng from "~/pages/SellerPortal/SaleMng";
 import Chart from "~/pages/SellerPortal/Chart";
+
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -80,10 +82,12 @@ const publicRoutes = [
   { path: "/seller/portal/product/soldout", component: SoldOut },
   { path: "/seller/portal/product/pending", component: PendingProduct },
   { path: "/seller/portal/product/band", component: Band },
+  { path: "/seller/portal/product/new", component: AddProduct },
 
   { path: "/seller/portal/shop", component: ShopMng },
   { path: "/seller/portal/finance", component: SaleMng },
   { path: "/seller/portal/chart", component: Chart },
+
 ];
 
 const privateRoutes = [

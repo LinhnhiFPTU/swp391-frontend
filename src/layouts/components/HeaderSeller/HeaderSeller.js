@@ -10,20 +10,22 @@ import styles from "./HeaderSeller.module.scss";
 
 const cx = className.bind(styles);
 
-function HeaderSeller({ title }) {
+function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
   return (
     <div className={cx("header")}>
       <div className={cx("header-content")}>
-        <Link to="/seller/portal/dashboard" className={cx("link")}>
-          {/* <img src={images} alt="Bird" className={cx('logo')} /> */}
-          <p className={cx("text")}>
-            <span className={cx("sub-text")}>B</span>ird
-            <span className={cx("inner-subText")}>
-              <span className={cx("sub-text")}>T</span>rading
-            </span>
-          </p>
-          <div className={cx("otherText")}>{title}</div>
-        </Link>
+        <div className={cx("header-link")}>
+          <Link to={path} className={cx("link")}>
+            {/* <img src={images} alt="Bird" className={cx('logo')} /> */}
+            <p className={cx("text")}>
+              <span className={cx("sub-text")}>B</span>ird
+              <span className={cx("inner-subText")}>
+                <span className={cx("sub-text")}>T</span>rading
+              </span>
+            </p>
+            <div className={cx("otherText")}>{title}</div>
+          </Link>
+        </div>
         <div className={cx("header-info")}>
           <Tippy
             interactive
