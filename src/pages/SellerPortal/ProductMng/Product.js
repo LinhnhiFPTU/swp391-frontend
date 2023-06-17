@@ -122,14 +122,7 @@ function Product() {
             <div className={cx("product-manage")}>
               <div className={cx("product-count")}>0 Product</div>
               <div className={cx("product-options")}>
-                <div className={cx("product-add")}>
-                  <Link to = "/seller/portal/product/new" className={cx("add-btn")}>
-                    <i
-                      className={cx("fa-sharp fa-light fa-plus", "add-icon")}
-                    ></i>
-                    Add new product
-                  </Link>
-                </div>
+                
                 <Tippy
                   interactive
                   delay={[0, 300]}
@@ -167,6 +160,14 @@ function Product() {
                     ></i>
                   </div>
                 </Tippy>
+                <div className={cx("product-add")}>
+                  <Link to = "/seller/portal/product/new" className={cx("add-btn")}>
+                    <i
+                      className={cx("fa-sharp fa-light fa-plus", "add-icon")}
+                    ></i>
+                    Add new product
+                  </Link>
+                </div>
               </div>
             </div>
             <div className={cx("product-table")}>

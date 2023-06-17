@@ -6,11 +6,11 @@
   align-items: center;
 
   .order_sidebar {
-    width: 13%;
+    width: 198px;
   }
 
   .order_container {
-    width: 87%;
+    width: calc(100% - 198px);
     height: 100%;
     display: flex;
     justify-content: center;

@@ -1,5 +1,5 @@
 .side-bar_wrapper {
-  width: 248px;
+  width: 198px;
   min-height: 940px;
   position: fixed;
   left: 0;
@@ -13,7 +13,7 @@
     .side-bar_menu-item {
       display: flex;
       flex-direction: column;
-      padding: 5px 0;
+      padding: 2px 0;
 
       .nav-item {
         cursor: pointer;
@@ -29,7 +29,8 @@
         }
 
         .nav-text {
-          width: 185px;
+          font-size: 1.5rem;
+          width: 100px;
         }
 
         .nav-icon {

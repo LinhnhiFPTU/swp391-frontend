@@ -6,12 +6,49 @@
   align-items: center;
 
   .dashboard_sidebar {
-    width: 248px;
+    width: 198px;
   }
 
   .dashboard_container {
-    width: calc(100% - 248px);
+    width: calc(100% - 198px);
     height: 100%;
+    display: flex;
+    justify-content: center;
     background-color: #f6f6f6;
+    .dashboard_content {
+      width: 1300px;  
+      height: 100%;
+
+      .daily-information {
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        column-gap: 20px;
+        margin-top: 20px;
+      }
+
+      .chart_overview {
+        width: 100%;
+        height: 400px;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .chart-total-revenue {
+          width: 59%;
+          height: 100%;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+          background-color: #fff;
+        }
+
+        .chart-revenue-by-category {
+          width: 40%;
+          height: 100%;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+          background-color: #fff;
+        }
+      }
+    }
   }
 }
