@@ -4,8 +4,6 @@ import styles from "./Table.module.scss";
 
 const cx = classNames.bind(styles);
 
-
-
 const statusStyle = (status) => {
   if (status === "Completed") {
     return {

@@ -4,7 +4,7 @@ import styles from "./Widget.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Widget({ widget }) {
+function Widget({ widget, setDataChart }) {
   const styleIcon = (type) => {
     if (type === "Revenue") {
       return {
@@ -46,7 +46,7 @@ function Widget({ widget }) {
   };
   return (
     <>
-      <div className={cx("widget_container")}>
+      <div className={cx("widget_container")} onClick={() => setDataChart(widget)}>
         <div className={cx("widget_header")}>
           <div
             className={cx("icon-widget")}

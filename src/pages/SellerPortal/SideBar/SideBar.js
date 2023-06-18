@@ -32,9 +32,9 @@ const sideBarOptions = [
   },
   {
     id: 4,
-    title: "Sale",
-    icon: "fa-light fa-wallet",
-    path: "/seller/portal/finance",
+    title: "Feedback",
+    icon: "fa-light fa-comment-exclamation",
+    path: "/seller/portal/feedback",
   },
   {
     id: 5,
@@ -62,7 +62,7 @@ function SideBar() {
                 isActive={() =>
                   [
                     "/seller/portal/dashboard",
-                    "/seller/portal/order/all", 
+                    "/seller/portal/order/all",
                     "/seller/portal/product/all",
                     "/seller/portal/shop",
                     "/seller/portal/finance",

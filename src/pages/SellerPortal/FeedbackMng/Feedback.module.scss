@@ -1,15 +1,15 @@
-.sale_wrapper {
+.feedback_wrapper {
   width: 100%;
   margin-top: 71px;
-  height: 1000px;
+  height: 110vh;
   display: flex;
   align-items: center;
 
-  .sale_sidebar {
+  .feedback_sidebar {
     width: 198px;
   }
 
-  .sale_container {
+  .feedback_container {
     width: calc(100% - 198px);
     height: 100%;
     background-color: #f6f6f6;
