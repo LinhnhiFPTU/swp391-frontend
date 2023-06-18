@@ -85,7 +85,12 @@ const publicRoutes = [
   { path: "/seller/portal/product/new", component: AddProduct },
 
   { path: "/seller/portal/shop", component: ShopMng },
+
   { path: "/seller/portal/feedback", component: FeedbackMng },
+
+
+
+
   { path: "/seller/portal/chart", component: Chart },
 
 ];

@@ -14,6 +14,10 @@
     .head-text {
       width: 192px;
     }
+
+    .payment-head {
+      text-align: center;
+    }
   }
   .table-body {
     display: flex;
@@ -46,6 +50,10 @@
         border: 1px solid ;
         text-align: center;
       }
+    }
+
+    .payment {
+      text-align: center;
     }
   }
 }

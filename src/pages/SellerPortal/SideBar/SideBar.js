@@ -26,16 +26,17 @@ const sideBarOptions = [
   },
   {
     id: 3,
-    title: "Shop",
-    icon: "fa-light fa-bag-shopping",
-    path: "/seller/portal/shop",
-  },
-  {
-    id: 4,
     title: "Feedback",
     icon: "fa-light fa-comment-exclamation",
     path: "/seller/portal/feedback",
   },
+  {
+    id: 4,
+    title: "Shop",
+    icon: "fa-light fa-bag-shopping",
+    path: "/seller/portal/shop",
+  },
+
   {
     id: 5,
     title: "Data Chart",
