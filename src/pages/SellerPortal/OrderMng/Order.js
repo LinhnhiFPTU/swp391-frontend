@@ -24,7 +24,7 @@ const orders = [
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
     price: 1234,
     status: "Completed",
-    payment: "Cart",
+    payment: "Zalo",
   },
   {
     orderId: 123456,
@@ -32,7 +32,7 @@ const orders = [
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
     price: 1234,
     status: "Pending",
-    payment: "Cart",
+    payment: "VnPay",
   },
   {
     orderId: 123456,
@@ -40,7 +40,7 @@ const orders = [
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
     price: 1234,
     status: "Shipping",
-    payment: "Cart",
+    payment: "Zalo",
   },
   {
     orderId: 123456,
@@ -48,7 +48,7 @@ const orders = [
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
     price: 1234,
     status: "Canceled",
-    payment: "Cart",
+    payment: "VnPay",
   },
   {
     orderId: 123456,

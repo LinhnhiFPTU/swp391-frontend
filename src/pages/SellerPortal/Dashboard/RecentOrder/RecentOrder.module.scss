@@ -1,0 +1,85 @@
+.recent-orders {
+  margin-top: 20px;
+  width: 100%;
+
+  .order-header {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background-color: #f6f6f6;
+
+    .orderId {
+      width: 90px;
+      margin-right: 20px;
+    }
+
+    .product {
+      width: 300px;
+      margin-right: 10px;
+    }
+
+    .date {
+      width: 120px;
+      margin-right: 15px;
+    }
+
+    .status {
+      width: 180px;
+      margin-right: 10px;
+    }
+
+    .amount {
+      width: 60px;
+    }
+  }
+
+  .order-content {
+    display: flex;
+    align-items: center;
+    padding: 24px 12px;
+
+    .orderId {
+      width: 90px;
+      margin-right: 20px;
+    }
+
+    .product {
+      width: 300px;
+      margin-right: 10px;
+
+      .name {
+        width: 270px;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+      }
+    }
+
+    .date {
+      width: 120px;
+      margin-right: 15px;
+    }
+
+    .status {
+      width: 180px;
+      margin-right: 10px;
+      .inside-status {
+        width: 100px;
+        padding: 3px 10px;
+        font-size: 1.4rem;
+        border-radius: 5px;
+        border: 1px solid;
+        text-align: center;
+      }
+    }
+
+    .amount {
+      width: 60px;
+      text-align: center;
+    }
+  }
+}

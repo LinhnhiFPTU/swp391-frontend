@@ -4,8 +4,6 @@ import styles from "./Table.module.scss";
 
 const cx = classNames.bind(styles);
 
-
-
 const statusStyle = (status) => {
   if (status === "Completed") {
     return {
@@ -37,11 +35,11 @@ function Table({ orders}) {
         <div className={cx("head-text")}>Order</div>
         <div className={cx("head-text")}>Price</div>
         <div className={cx("head-text")}>Delivery Status</div>
-        <div className={cx("head-text")}>Payment</div>
+        <div className={cx("head-text", "payment-head")}>Payment</div>
       </div>
       {orders.map((item, index) => (
         <div className={cx("table-body")} key={index}>
-          <div className={cx("body-text", "orderId")}>{item.orderId}</div>
+          <div className={cx("body-text", "orderId")}>#{item.orderId}</div>
           <div className={cx("body-text", "order")}>{item.order}</div>
           <div className={cx("body-text", "price")}>${item.price}</div>
           <div className={cx("body-text", "status")}>

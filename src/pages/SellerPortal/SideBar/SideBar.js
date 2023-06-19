@@ -26,16 +26,17 @@ const sideBarOptions = [
   },
   {
     id: 3,
+    title: "Feedback",
+    icon: "fa-light fa-comment-exclamation",
+    path: "/seller/portal/feedback",
+  },
+  {
+    id: 4,
     title: "Shop",
     icon: "fa-light fa-bag-shopping",
     path: "/seller/portal/shop",
   },
-  {
-    id: 4,
-    title: "Sale",
-    icon: "fa-light fa-wallet",
-    path: "/seller/portal/finance",
-  },
+
   {
     id: 5,
     title: "Data Chart",
@@ -62,7 +63,7 @@ function SideBar() {
                 isActive={() =>
                   [
                     "/seller/portal/dashboard",
-                    "/seller/portal/order/all", 
+                    "/seller/portal/order/all",
                     "/seller/portal/product/all",
                     "/seller/portal/shop",
                     "/seller/portal/finance",

@@ -40,7 +40,7 @@ import Band from "~/pages/SellerPortal/ProductMng/Band";
 import AddProduct from "~/pages/SellerPortal/ProductMng/AddProduct";
 
 import ShopMng from "~/pages/SellerPortal/ShopMng";
-import SaleMng from "~/pages/SellerPortal/SaleMng";
+import FeedbackMng from "~/pages/SellerPortal/FeedbackMng";
 import Chart from "~/pages/SellerPortal/Chart";
 
 import DashboardAdmin from "~/pages/Admin/Dashboard";
@@ -91,7 +91,12 @@ const publicRoutes = [
   { path: "/seller/portal/product/new", component: AddProduct },
 
   { path: "/seller/portal/shop", component: ShopMng },
-  { path: "/seller/portal/finance", component: SaleMng },
+
+  { path: "/seller/portal/feedback", component: FeedbackMng },
+
+
+
+
   { path: "/seller/portal/chart", component: Chart },
 
   { path: "/admin/portal/dashboard", component: DashboardAdmin},
