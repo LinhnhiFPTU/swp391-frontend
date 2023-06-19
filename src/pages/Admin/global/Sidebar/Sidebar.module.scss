@@ -1,0 +1,14 @@
+.side-bar_menu-item {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #333;
+    padding: 30px;
+    &:hover {
+        color: var(--primary);
+    }
+}

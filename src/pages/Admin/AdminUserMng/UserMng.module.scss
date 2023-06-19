@@ -1,0 +1,46 @@
+.user-wrapper {
+  margin-top: 150px;
+}
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 25%;
+  height: 100vh;
+  border: 1px solid black;
+}
+
+.user-container {
+  width: 75%;
+  height: 100vh;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+
+/* Table */
+.react-data-table-component {
+  font-size: 25px;
+}
+
+/* Header */
+.react-data-table-component .rdt_TableHeadRow {
+  background-color: red;
+}
+
+/* Rows */
+.react-data-table-component .rdt_TableRow {
+  background-color: blue;
+}
+
+/* Selected Rows */
+.react-data-table-component .rdt_TableRow.rdt_selected {
+  background-color: orange;
+}
+
+/* Cells */
+.react-data-table-component .rdt_TableCell {
+  padding: 10px;
+}
