@@ -17,16 +17,20 @@ import Category from "~/pages/Category";
 import ProductAll from "~/pages/ProductAll";
 
 import Checkout from "~/pages/Checkout";
+
 import Purchase from "~/pages/Purchase";
 import Cancelled from "~/pages/Purchase/Cancelled";
 import Completed from "~/pages/Purchase/Completed";
+import ContactPurchase from "~/pages/Purchase/Contact";
 import Pending from "~/pages/Purchase/Pending";
 import Shipping from "~/pages/Purchase/Shipping";
+
 import Seller from "~/pages/Seller";
 import Register from "~/pages/Seller/Register";
 import Dashboard from "~/pages/SellerPortal/Dashboard";
 
 import OrderMng from "~/pages/SellerPortal/OrderMng";
+import ContactOrder from "~/pages/SellerPortal/OrderMng/ContactOrder";
 import PendingOrder from "~/pages/SellerPortal/OrderMng/Pending";
 import ShippingOrder from "~/pages/SellerPortal/OrderMng/Shipping";
 import CompleteOrder from "~/pages/SellerPortal/OrderMng/Completed";
@@ -39,11 +43,13 @@ import PendingProduct from "~/pages/SellerPortal/ProductMng/Pending";
 import Band from "~/pages/SellerPortal/ProductMng/Band";
 import AddProduct from "~/pages/SellerPortal/ProductMng/AddProduct";
 
-import ShopMng from "~/pages/SellerPortal/ShopMng";
 import FeedbackMng from "~/pages/SellerPortal/FeedbackMng";
+import FeedbackDetail from "~/pages/SellerPortal/FeedbackMng/FeedbackDetail";
+
+import ShopMng from "~/pages/SellerPortal/ShopMng";
 import Chart from "~/pages/SellerPortal/Chart";
 
-
+  
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
@@ -62,6 +68,7 @@ const publicRoutes = [
   { path: "/checkout", component: Checkout },
 
   { path: "/purchase/all", component: Purchase },
+  { path: "/purchase/contact", component: ContactPurchase },
   { path: "/purchase/pending", component: Pending },
   { path: "/purchase/shipping", component: Shipping },
   { path: "/purchase/complete", component: Completed },
@@ -72,6 +79,7 @@ const publicRoutes = [
   { path: "/seller/portal/dashboard", component: Dashboard },
 
   { path: "/seller/portal/order/all", component: OrderMng },
+  { path: "/seller/portal/order/contact", component: ContactOrder },
   { path: "/seller/portal/order/pending", component: PendingOrder },
   { path: "/seller/portal/order/shipping", component: ShippingOrder },
   { path: "/seller/portal/order/complete", component: CompleteOrder },
@@ -84,15 +92,12 @@ const publicRoutes = [
   { path: "/seller/portal/product/band", component: Band },
   { path: "/seller/portal/product/new", component: AddProduct },
 
+  { path: "/seller/portal/feedback", component: FeedbackMng },
+  { path: "/seller/portal/feedback/detail", component: FeedbackDetail },
+
   { path: "/seller/portal/shop", component: ShopMng },
 
-  { path: "/seller/portal/feedback", component: FeedbackMng },
-
-
-
-
   { path: "/seller/portal/chart", component: Chart },
-
 ];
 
 const privateRoutes = [

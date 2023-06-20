@@ -1,4 +1,5 @@
 import classNames from "classnames/bind";
+import NoOrder from "../NoOrder";
 
 import styles from "./Table.module.scss";
 
@@ -27,20 +28,25 @@ const statusStyle = (status) => {
     };
   }
 };
-function Table({ orders}) {
+function Table({ orders }) {
+  if (!orders || orders.length === 0) {
+    return <NoOrder />;
+  }
   return (
     <div className={cx("table_data")}>
       <div className={cx("table-head")}>
-        <div className={cx("head-text")}>Order ID</div>
-        <div className={cx("head-text")}>Order</div>
-        <div className={cx("head-text")}>Price</div>
-        <div className={cx("head-text")}>Delivery Status</div>
-        <div className={cx("head-text", "payment-head")}>Payment</div>
+        <div className={cx("head-text", "orderId")}>Order ID</div>
+        <div className={cx("head-text", "order")}>Order</div>
+        <div className={cx("head-text", "date")}>Date</div>
+        <div className={cx("head-text", "price")}>Price</div>
+        <div className={cx("head-text", "status")}>Status</div>
+        <div className={cx("head-text", "payment")}>Payment</div>
       </div>
       {orders.map((item, index) => (
         <div className={cx("table-body")} key={index}>
           <div className={cx("body-text", "orderId")}>#{item.orderId}</div>
           <div className={cx("body-text", "order")}>{item.order}</div>
+          <div className={cx("body-text", "date")}>{item.date}</div>
           <div className={cx("body-text", "price")}>${item.price}</div>
           <div className={cx("body-text", "status")}>
             <div

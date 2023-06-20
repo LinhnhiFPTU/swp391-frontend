@@ -343,7 +343,7 @@
 
           .contact {
             cursor: pointer;
-            width: 150px;
+            width: 250px;
             margin-right: 10px;
             padding: 14px;
             border-radius: 2px;
@@ -871,8 +871,9 @@
                 margin-right: 10px;
                 margin-bottom: 10px;
                 background-repeat: no-repeat;
-                background-position: 50%;
+                background-position: center;
                 background-size: cover;
+                
                 cursor: zoom-in;
               }
 

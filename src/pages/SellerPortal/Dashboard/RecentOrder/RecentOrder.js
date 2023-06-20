@@ -1,5 +1,4 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
 import styles from "./RecentOrder.module.scss";
 
 const cx = classNames.bind(styles);
