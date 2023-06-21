@@ -34,7 +34,7 @@ function Checkout() {
 
   return (
     <>
-      {<CheckoutPopup />}
+      {/* {<CheckoutPopup />} */}
       {show && <MyAddress close={setShow} />}
       <div className={cx("checkout_wrapper")}>
         {/*------------------HEADER-------------------*/}

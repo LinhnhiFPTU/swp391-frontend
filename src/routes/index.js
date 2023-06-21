@@ -46,6 +46,8 @@ import AddProduct from "~/pages/SellerPortal/ProductMng/AddProduct";
 import FeedbackMng from "~/pages/SellerPortal/FeedbackMng";
 import FeedbackDetail from "~/pages/SellerPortal/FeedbackMng/FeedbackDetail";
 
+import Message from "~/pages/SellerPortal/Message";
+
 import ShopMng from "~/pages/SellerPortal/ShopMng";
 import Chart from "~/pages/SellerPortal/Chart";
 
@@ -96,6 +98,9 @@ const publicRoutes = [
 
   { path: "/seller/portal/feedback", component: FeedbackMng },
   { path: "/seller/portal/feedback/detail", component: FeedbackDetail },
+
+  { path: "/seller/portal/message", component: Message },
+
 
   { path: "/seller/portal/shop", component: ShopMng },
 
