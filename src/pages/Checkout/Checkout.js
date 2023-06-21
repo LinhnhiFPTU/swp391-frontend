@@ -1,11 +1,12 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import ChatPupup from "~/layouts/components/ChatPopup";
 import MyAddress from "./MyAddress";
 import PaymentMethod from "./PaymentMethod";
 import CheckoutPopup from "./CheckoutPopup";
+import { UserContext } from "~/App";
 
 import Footer from "~/layouts/components/Footer";
 import styles from "./Checkout.module.scss";
@@ -31,10 +32,36 @@ const payments = [
 function Checkout() {
   const [show, setShow] = useState(false);
   const [paymentId, setPaymentId] = useState(1);
+  const [checkoutItem, setCheckoutItem] = useState([])
+  const [defaultReceiveInfo, setDefaultReceiveInfo] = useState({
+    id: 0,
+    fullname: "",
+    phone: "",
+    province: {
+      id:  0,
+      name: ""
+    },
+    district: {
+      id:  0,
+      name: ""
+    },
+    ward: {
+      id:  0,
+      name: ""
+    },
+    specific_address: ""
+  })
+  const context = useContext(UserContext);
+
+  useEffect(() => {
+    if (context) {
+      setDefaultReceiveInfo(context.defaultReceiveInfo);
+    }
+  }, [context]);
 
   return (
     <>
-      {<CheckoutPopup />}
+      {/* {<CheckoutPopup />} */}
       {show && <MyAddress close={setShow} />}
       <div className={cx("checkout_wrapper")}>
         {/*------------------HEADER-------------------*/}
@@ -68,10 +95,10 @@ function Checkout() {
               </div>
               <div className={cx("address_detail")}>
                 <div className={cx("address-info")}>
-                  <span className={cx("name")}>Lê Vũ Đình Duy</span>
-                  <span className={cx("phone")}>0123456789</span>
+                  <span className={cx("name")}>{defaultReceiveInfo.fullname}</span>
+                  <span className={cx("phone")}>{defaultReceiveInfo.phone}</span>
                   <span className={cx("address")}>
-                    Phước Thành, Phường 7, Thành Phố Đà Lạt, Lâm Đồng
+                  {`${defaultReceiveInfo.specific_address}, ${defaultReceiveInfo.ward.name}, ${defaultReceiveInfo.district.name}, ${defaultReceiveInfo.province.name}`}
                   </span>
                   <span className={cx("default")}>Default</span>
                 </div>
@@ -95,6 +122,74 @@ function Checkout() {
               </div>
             </div>
             {/*------------------PRODUCT ORDER DETAIL-------------------*/}
+            <div className={cx("product_order_detail")}>
+              <div className={cx("shop")}>
+                <div className={cx("shop-name")}>Shop name</div>
+                <div className={cx("chat-now")}>
+                  <button className={cx("chat-btn")}>
+                    <i className={cx("fa-solid fa-messages", "chat-icon")}></i>
+                    <span className={cx("btn-chat-text")}>Chat now</span>
+                  </button>
+                </div>
+              </div>
+              <div className={cx("product-order")}>
+                <div className={cx("product")}>
+                  <div className={cx("product-info")}>
+                    <img
+                      src="https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp"
+                      alt="product-img"
+                      className={cx("product-img")}
+                    />
+                    <div className={cx("product-name")}>
+                      Pet Birds Feeder Food Water Feeding Box For Small Medium
+                      Large Birds Parrots
+                    </div>
+                  </div>
+                  <div className={cx("product-type")}>
+                    <div className={cx("product-unit-price")}>$1000</div>
+                    <div className={cx("product-amount")}>1</div>
+                    <div className={cx("product-total-price")}>$1000</div>
+                  </div>
+                </div>
+                <div className={cx("product")}>
+                  <div className={cx("product-info")}>
+                    <img
+                      src="https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp"
+                      alt="product-img"
+                      className={cx("product-img")}
+                    />
+                    <div className={cx("product-name")}>
+                      Pet Birds Feeder Food Water Feeding Box For Small Medium
+                      Large Birds Parrots
+                    </div>
+                  </div>
+                  <div className={cx("product-type")}>
+                    <div className={cx("product-unit-price")}>$1000</div>
+                    <div className={cx("product-amount")}>1</div>
+                    <div className={cx("product-total-price")}>$1000</div>
+                  </div>
+                </div>
+              </div>
+              <div className={cx("product-shipping")}>
+                <div className={cx("shipping-title")}>Shipping Option:</div>
+                <div className={cx("shipping-info")}>
+                  <div className={cx("shipping-detail")}>
+                    <div className={cx("name")}>GHTK</div>
+                    <div className={cx("receive-date")}>
+                      Receive by 14 Th06 - 16 Th06
+                    </div>
+                  </div>
+                </div>
+
+                <div className={cx("shipping-price")}>$20</div>
+              </div>
+              <div className={cx("product-total")}>
+                <span className={cx("order-total")}>
+                  Order Total (<span>{1} Item</span>):
+                </span>
+                <span className={cx("price-total")}>$2000</span>
+              </div>
+            </div>
             <div className={cx("product_order_detail")}>
               <div className={cx("shop")}>
                 <div className={cx("shop-name")}>Shop name</div>

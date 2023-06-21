@@ -4,6 +4,8 @@ import SideBar from "~/pages/SellerPortal/SideBar";
 import NavBar from "../NavBar";
 import Table from "../Table";
 import styles from "./Complete.module.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -64,7 +66,17 @@ const orders = [
   },
 ];
 
-function Pending() {
+function Complete() {
+
+  const [orders, setOrders] = useState([])
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    axios.get("/api/v1/shop/orders/search?filter=COMPLETED&page=" + page)
+    .then(res => setOrders(res.data))
+    .catch(e => console.log(e))
+  }, [])
+
   return (
     <>
       <HeaderSeller title="Completed" />
@@ -116,4 +128,4 @@ function Pending() {
   );
 }
 
-export default Pending;
+export default Complete;

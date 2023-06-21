@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "./AddressPopup.module.scss";
+import styles from "./ShopAddressPopup.module.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Tippy from "@tippyjs/react/headless";
@@ -7,15 +7,12 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 
 const cx = classNames.bind(styles);
 
-function AddressPopup({ closeModel }) {
+function ShopAddressPopup({ closeModel , shopAddress}) {
   const [receiveInfo, setReceiveInfo] = useState({
-    fullname: "",
-    phone: "",
     province: undefined,
     district: undefined,
     ward: undefined,
     specific_address: "",
-    _default: false,
   });
   const [Add, setAdd] = useState(false);
 
@@ -128,24 +125,17 @@ function AddressPopup({ closeModel }) {
 
   useEffect(() => {
     if (Add) {
-      let AddReceiveRequest = {
-        ...receiveInfo,
+      let addShopAddress = {
         provinceId: receiveInfo.province.id,
         provinceName: receiveInfo.province.name,
         districtId: receiveInfo.district.id,
         districtName: receiveInfo.district.name,
         wardId: receiveInfo.ward.id,
-        wardName: receiveInfo.ward.name
+        wardName: receiveInfo.ward.name,
+        ...receiveInfo
       }
-      axios
-        .post("/api/v1/users/info/receives", AddReceiveRequest)
-        .then((res) => {
-          window.location.href = '/user/account/address'
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      shopAddress(addShopAddress)
+      closeModel(false)
     }
 
   }, [Add]);
@@ -160,39 +150,9 @@ function AddressPopup({ closeModel }) {
       <div className={cx("addr-popup")}>
         <div className={cx("addr-container")}>
           <div className={cx("popup-head")}>
-            <span className={cx("popup-head-text")}>New receive info</span>
+            <span className={cx("popup-head-text")}>Shop Address Info</span>
           </div>
           <div className={cx("popup-content")}>
-            <div className={cx("addr-content")}>
-              <div className={cx("addr-field", "text-name")}>
-                <input
-                  type="text"
-                  className={cx("form-input")}
-                  placeholder=" "
-                  required
-                  value={receiveInfo.fullname}
-                  onChange={(e) =>
-                    setReceiveInfo({ ...receiveInfo, fullname: e.target.value })
-                  }
-                />
-                <label className={cx("form-label")}>Full name</label>
-              </div>
-              <div className={cx("addr-field", "text-phone")}>
-                <input
-                  type="text"
-                  className={cx("form-input")}
-                  placeholder=" "
-                  required
-                  value={receiveInfo.phone}
-                  onChange={(e) =>
-                    setReceiveInfo({ ...receiveInfo, phone: e.target.value })
-                  }
-                />
-                <label htmlFor="text" className={cx("form-label")}>
-                  Phone
-                </label>
-              </div>
-            </div>
             <div className={cx("addr-detail")}>
               <Tippy
                 interactive
@@ -381,4 +341,4 @@ function AddressPopup({ closeModel }) {
   );
 }
 
-export default AddressPopup;
+export default ShopAddressPopup;

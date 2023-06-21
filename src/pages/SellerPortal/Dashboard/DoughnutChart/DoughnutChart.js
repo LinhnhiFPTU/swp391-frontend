@@ -7,7 +7,7 @@ import styles from "./DoughnutChart.module.scss";
 const cx = classNames.bind(styles);
 
 function DoughnutChart() {
-  const data = [213, 112, 342, 765];
+  const data = [0, 4, 2, 0];
   const options = {
     labels: ["Bird", "Bird Food", "Bird Cage", "Bird Accessory"],
     plotOptions: {

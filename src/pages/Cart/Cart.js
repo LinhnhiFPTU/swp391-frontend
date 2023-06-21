@@ -47,7 +47,22 @@ function Cart() {
   }, [checkedProducts]);
 
   const handleCheckout = () => {
-    navigate("/checkout");
+    let item = state.filter((item, index) => {
+      return item.cartProducts.filter((cp, i) => (
+        checkedProducts.indexOf(cp.product.id) !== -1
+      )).length > 0
+    })
+    item = item.map((item, index) => {
+      let filtered = item.cartProducts.filter((cp, i) => (
+        checkedProducts.indexOf(cp.product.id) !== -1
+      ))
+
+      return {...item,
+        cartProducts: filtered
+      }
+    })
+     console.log(item)
+    // navigate("/checkout");
   };
 
   /*
