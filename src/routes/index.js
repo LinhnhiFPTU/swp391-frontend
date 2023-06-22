@@ -51,6 +51,12 @@ import Message from "~/pages/SellerPortal/Message";
 import ShopMng from "~/pages/SellerPortal/ShopMng";
 import Chart from "~/pages/SellerPortal/Chart";
 
+import DashboardAdmin from "~/pages/Admin/Dashboard";
+import AdminProductMng from "~/pages/Admin/AdminProductMng";
+import AdminShopMng from "~/pages/Admin/AdminShopMng";
+import AdminUserMng from "~/pages/Admin/AdminUserMng";
+
+
 
 import CheckoutPopup from "~/pages/Checkout/CheckoutPopup/Checkout";
 
@@ -105,6 +111,12 @@ const publicRoutes = [
   { path: "/seller/portal/shop", component: ShopMng },
 
   { path: "/seller/portal/chart", component: Chart },
+
+  { path: "/admin/portal/dashboard", component: DashboardAdmin},
+  { path: "/admin/portal/usermng", component: AdminUserMng},
+  { path: "/admin/portal/shopmng", component: AdminShopMng},
+  { path: "/admin/portal/productmng", component: AdminProductMng},
+
   { path: "/ccc", component: CheckoutPopup },
 ];
 

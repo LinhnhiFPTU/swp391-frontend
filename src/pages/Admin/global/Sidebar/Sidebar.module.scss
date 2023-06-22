@@ -1,0 +1,26 @@
+.sidebar {
+  height: 100vh;
+  border-right: 1px solid #333;
+}
+
+.side-bar_menu-item {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #999999;
+  padding: 30px 10px;
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+.nav-icon {
+  padding-right: 10px;
+}
+.nav-active {
+  color: var(--primary);
+}
