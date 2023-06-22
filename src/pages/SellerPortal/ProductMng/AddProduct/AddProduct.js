@@ -9,12 +9,21 @@ import ImageItem from "./ImageItem";
 import CancelPopup from "./CancelPopup";
 
 import styles from "./AddProduct.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-const categoryOptions = ["Bird", "Bird Food", "Bird Cage", "Bird Accessory"];
-
 function AddProduct() {
+  const [categories, setCategories] = useState([]);
+  const [categoryGroups, setCategoryGroups] = useState([]);
+  const [detailInfos, setDetailInfos] = useState([]);
+  const [videoObj, setVideoObj] = useState();
+  const [images, setImages] = useState([]);
+  const [categoryGroup, setCategoryGroup] = useState({
+    id: undefined,
+    name: "Select a category group",
+  })
+
   const fileInputImageRef = useRef();
   const fileInputVideoRef = useRef();
   const videoPreview = useRef();
@@ -27,7 +36,10 @@ function AddProduct() {
   const [countInput, setCountInput] = useState(0);
   const [inputNameProduct, setInputNameProduct] = useState("");
   const [inputNameProductError, setInputNameProductError] = useState("");
-  const [categoryTitles, setCategoryTitles] = useState("Select a category");
+  const [category, setCategory] = useState({
+    id: undefined,
+    name: "Select a category",
+  });
   const [countTextarea, setCountTextarea] = useState(0);
   const [inputTextarea, setInputTextarea] = useState("");
   const [errorTextarea, setErrorTextarea] = useState("");
@@ -36,6 +48,31 @@ function AddProduct() {
   const [quantity, setQuantity] = useState(0);
   const [quantityError, setQuantityError] = useState("");
   const [showCancelPopup, setShowCancelPopup] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/publics/category/all")
+      .then((res) => setCategories(res.data))
+      .catch((e) => console.log(e));
+  }, []);
+
+  useEffect(() => {
+    if (category.id) {
+      axios
+        .get("/api/v1/publics/category/details/" + category.id)
+        .then((res) => {
+          setDetailInfos(res.data);
+        })
+        .catch((e) => console.log(e));
+
+      axios
+        .get("/api/v1/publics/category/group/" + category.id)
+        .then((res) => {
+          setCategoryGroups(res.data)
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [category.id]);
 
   useEffect(() => {
     return () => {
@@ -103,6 +140,10 @@ function AddProduct() {
 
   const handlePreviewImage = (e) => {
     const file = e.target.files[0];
+
+    images.push(file);
+    setImages(Array.from(images));
+
     file.preview = URL.createObjectURL(file);
     setListImage((prev) => [...prev, file.preview]);
     setQuantityImage((pre) => pre + 1);
@@ -120,6 +161,7 @@ function AddProduct() {
       } else {
         file.preview = URL.createObjectURL(file);
         setVideo(file.preview);
+        setVideoObj(file);
         setVideoError("");
       }
     }
@@ -180,9 +222,48 @@ function AddProduct() {
       setQuantityError("");
     }
   };
+
+  const handleUploadProduct = (e) => {
+    e.preventDefault();
+    let request = {
+      name: inputNameProduct,
+      description: inputTextarea,
+      price: price,
+      available: quantity,
+      categoryGroup: categoryGroup.id,
+      productDetailRequests: detailInfos,
+    };
+
+    console.log(request);
+    console.log(videoObj);
+    console.log(images);
+
+    const formData = new FormData();
+    formData.append("video", videoObj);
+    images.forEach((item) => {
+      formData.append("images", item);
+    });
+
+    formData.append("product", JSON.stringify(request));
+
+    axios
+      .post("/api/v1/shop/products/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   return (
     <>
-    {showCancelPopup && <CancelPopup setShowCancelPopup={setShowCancelPopup}/>}
+      {showCancelPopup && (
+        <CancelPopup setShowCancelPopup={setShowCancelPopup} />
+      )}
       <HeaderSeller title="New Product" path="/seller/portal/product/all" />
       <div className={cx("add-new_wrapper")}>
         <div className={cx("add-new_side-bar")}>
@@ -359,13 +440,13 @@ function AddProduct() {
                         {...attrs}
                       >
                         <PopperWrapper>
-                          {categoryOptions.map((category, index) => (
+                          {categories.map((category, index) => (
                             <div
                               className={cx("option")}
                               key={index}
-                              onClick={() => setCategoryTitles(category)}
+                              onClick={() => setCategory(category)}
                             >
-                              {category}
+                              {category && category.name}
                             </div>
                           ))}
                         </PopperWrapper>
@@ -375,12 +456,61 @@ function AddProduct() {
                     <div className={cx("category-select")}>
                       <span
                         className={
-                          categoryTitles === "Select a category"
+                          category.name === "Select a category"
                             ? cx("title-select")
                             : cx("title-select-active")
                         }
                       >
-                        {categoryTitles}
+                        {category.name}
+                      </span>
+                      <i
+                        className={cx(
+                          "fa-light fa-chevron-down",
+                          "select-icon"
+                        )}
+                      ></i>
+                    </div>
+                  </Tippy>
+                </div>
+              </div>
+              <div className={cx("upload-category")}>
+                <div className={cx("category-main")}>
+                  <div className={cx("title")}>
+                    <span className={cx("required")}>* </span> Category Group
+                  </div>
+                  <Tippy
+                    interactive
+                    delay={[0, 100]}
+                    placement="bottom-end"
+                    render={(attrs) => (
+                      <div
+                        className={cx("select-options")}
+                        tabIndex="-1"
+                        {...attrs}
+                      >
+                        <PopperWrapper>
+                          {categoryGroups.map((group, index) => (
+                            <div
+                              className={cx("option")}
+                              key={index}
+                              onClick={() => setCategoryGroup(group)}
+                            >
+                              {group && group.name}
+                            </div>
+                          ))}
+                        </PopperWrapper>
+                      </div>
+                    )}
+                  >
+                    <div className={cx("category-select")}>
+                      <span
+                        className={
+                          categoryGroup.name === "Select a category group"
+                            ? cx("title-select")
+                            : cx("title-select-active")
+                        }
+                      >
+                        {categoryGroup.name}
                       </span>
                       <i
                         className={cx(
@@ -455,7 +585,7 @@ function AddProduct() {
               </div>
             </div>
           </div>
-          {categoryTitles === "Select a category" ? (
+          {category.name === "Select a category" ? (
             <div className={cx("detail_content-disable")}>
               <div className={cx("header")}>Detail Information</div>
               <div className={cx("content")}>
@@ -468,26 +598,43 @@ function AddProduct() {
             <div className={cx("detail_content")}>
               <div className={cx("header")}>Detail Information</div>
               <div className={cx("content")}>
-                <div className={cx("upload-item")}>
-                  <div className={cx("title")}>Brand</div>
-                  <div className={cx("item-content")}>
-                    <input
-                      type="text"
-                      className={cx("item-input")}
-                      placeholder="Brand"
-                    />
+                {detailInfos.map((detail, index) => (
+                  <div className={cx("upload-item")} key={index}>
+                    <div className={cx("title")}>{detail.name}</div>
+                    <div className={cx("item-content")}>
+                      <input
+                        type="text"
+                        className={cx("item-input")}
+                        placeholder={detail.name}
+                        value={detailInfos[index].value}
+                        onChange={(e) => {
+                          detailInfos[index].value = e.target.value;
+                          setDetailInfos(Array.from(detailInfos));
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           )}
           <div className={cx("save-product-action")}>
             <div className={cx("content")}>
               <div className={cx("cancel")}>
-                <button className={cx("cancel-btn")} onClick={() => setShowCancelPopup(true)}>Cancel</button>
+                <button
+                  className={cx("cancel-btn")}
+                  onClick={() => setShowCancelPopup(true)}
+                >
+                  Cancel
+                </button>
               </div>
               <div className={cx("save")}>
-                <button className={cx("save-btn")}>Save</button>
+                <button
+                  className={cx("save-btn")}
+                  onClick={handleUploadProduct}
+                >
+                  Save
+                </button>
               </div>
             </div>
           </div>

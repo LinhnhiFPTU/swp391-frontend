@@ -147,7 +147,7 @@ function AddressPopup({ closeModel }) {
           console.log(e);
         });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [Add]);
 
   const handleAddNewReceive = (e) => {

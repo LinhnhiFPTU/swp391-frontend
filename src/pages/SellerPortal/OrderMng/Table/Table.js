@@ -6,22 +6,22 @@ import styles from "./Table.module.scss";
 const cx = classNames.bind(styles);
 
 const statusStyle = (status) => {
-  if (status === "Completed") {
+  if (status === "COMPLETED") {
     return {
       backgroundColor: "#EBF9F4",
       color: "#39B588",
     };
-  } else if (status === "Canceled") {
+  } else if (status === "CANCELED") {
     return {
       backgroundColor: "#FDF4F6",
       color: "#E36482",
     };
-  } else if (status === "Pending") {
+  } else if (status === "PENDING") {
     return {
       backgroundColor: "#FFF7E6",
       color: "#FFB619",
     };
-  } else if (status === "Shipping") {
+  } else if (status === "SHIPPING") {
     return {
       backgroundColor: "#F2F4F8",
       color: "#1B4780",
@@ -42,25 +42,25 @@ function Table({ orders }) {
         <div className={cx("head-text", "status")}>Status</div>
         <div className={cx("head-text", "payment")}>Payment</div>
       </div>
-      <div className={cx("table-content")}>
-        {orders.map((item, index) => (
-          <div className={cx("table-body")} key={index}>
-            <div className={cx("body-text", "orderId")}>#{item.orderId}</div>
-            <div className={cx("body-text", "order")}>{item.order}</div>
-            <div className={cx("body-text", "date")}>{item.date}</div>
-            <div className={cx("body-text", "price")}>${item.price}</div>
-            <div className={cx("body-text", "status")}>
-              <div
-                className={cx("inside-status")}
-                style={statusStyle(item.status)}
-              >
-                {item.status}
-              </div>
+      {orders.map((item, index) => (
+        <div className={cx("table-body")} key={index}>
+          <div className={cx("body-text", "orderId")}>#{item.id}</div>
+          <div className={cx("body-text", "order")}>{item.description}</div>
+          <div className={cx("body-text", "date")}>
+            {new Date(item.createdTime).toLocaleString()}
+          </div>
+          <div className={cx("body-text", "price")}>${item.realPrice}</div>
+          <div className={cx("body-text", "status")}>
+            <div
+              className={cx("inside-status")}
+              style={statusStyle(item.status)}
+            >
+              {item.status}
             </div>
             <div className={cx("body-text", "payment")}>{item.payment}</div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
 
       <div className={cx("prev-next")}>
         <button className={cx("icon-left")}>

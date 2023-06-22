@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import { Link } from "react-router-dom";
@@ -11,6 +11,8 @@ import HeaderFilter from "./HeaderFilter";
 import Table from "./Table";
 
 import styles from "./Product.module.scss";
+import axios from "axios";
+import soldOut from "~/pages/SellerPortal/ProductMng/SoldOut";
 
 const cx = classNames.bind(styles);
 
@@ -21,9 +23,11 @@ const items = [
       data: [
         {
           title: "A-Z",
+          syntax: "a-z",
         },
         {
           title: "Z-A",
+          syntax: "z-a",
         },
       ],
     },
@@ -34,9 +38,11 @@ const items = [
       data: [
         {
           title: "High to Low",
+          syntax: "h-l",
         },
         {
           title: "Low to High",
+          syntax: "l-h",
         },
       ],
     },
@@ -47,9 +53,11 @@ const items = [
       data: [
         {
           title: "Ascending",
+          syntax: "asc",
         },
         {
           title: "Descending",
+          syntax: "desc",
         },
       ],
     },
@@ -145,7 +153,22 @@ function Product() {
   const current = history[history.length - 1];
   const [headerTitle, setHeaderTitle] = useState("");
   const [typeSort, setTypeSort] = useState("");
+  const [filter, setFilter] = useState("");
   const [titleFilter, setTitleFilter] = useState("Filter");
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    let fil = headerTitle.toLowerCase()
+      ? headerTitle.toLowerCase() + "." + filter
+      : "default";
+    axios
+      .get("/api/v1/shop/products?page=" + page + "&filter=" + fil)
+      .then((res) => {
+        setProducts(res.data.filter((item, index) => index < 5));
+      })
+      .catch((e) => console.log(e));
+  }, [filter]);
 
   const renderItems = () => {
     return current.data.map((item, index) => {
@@ -161,6 +184,7 @@ function Product() {
               setHeaderTitle(item.title);
             } else {
               setTypeSort(item.title);
+              setFilter(item.syntax);
               setTitleFilter(item.title);
             }
           }}
@@ -204,7 +228,9 @@ function Product() {
               </form>
             </div>
             <div className={cx("product-manage")}>
-              <div className={cx("product-count")}>{products.length} {products.length > 1 ? "Products" : "Product"}</div>
+              <div className={cx("product-count")}>
+                {products.length} {products.length > 1 ? "Products" : "Product"}
+              </div>
               <div className={cx("product-options")}>
                 <Tippy
                   interactive

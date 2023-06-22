@@ -1,112 +1,125 @@
 import classNames from "classnames/bind";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import ContentMessage from "./ContentMessage";
 import styles from "./Message.module.scss";
+import SockJS from "sockjs-client";
+import { over } from "stompjs";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
+var stompClient = null;
 function Message() {
   const [inputSend, setInputSend] = useState("");
-  const [conversations, setConversations] = useState([
-    {
-      id: 0,
-      name: "Nguyen Hong Thai",
-      messages: [
-        {
-          from: "Nguyen Hong Thai",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "RECEIVE",
-          date: new Date(),
-        },
-        {
-          from: "Le Vu Dinh Duy",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "SELF",
-          date: new Date(),
-        },
-        {
-          from: "Le Vu Dinh Duy",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "SELF",
-          date: new Date(),
-        },
-        {
-          from: "Nguyen Hong Thai",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "RECEIVE",
-          date: new Date(),
-        },
-
-        {
-          from: "Nguyen Hong Thai",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "RECEIVE",
-          date: new Date(),
-        },
-        {
-          from: "Le Vu Dinh Duy",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "SELF",
-          date: new Date(),
-        },
-        {
-          from: "Nguyen Hong Thai",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "RECEIVE",
-          date: new Date(),
-        },
-
-        {
-          from: "Nguyen Hong Thai",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "RECEIVE",
-          date: new Date(),
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: "Nguyen Thi Thai",
-      messages: [
-        {
-          from: "Nguyen Hong Thai",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "RECEIVE",
-          date: new Date(),
-        },
-        {
-          from: "Le Vu Dinh Duy",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "SELF",
-          date: new Date(),
-        },
-        {
-          from: "Le Vu Dinh Duy",
-          content:
-            "an x64 payload from an http server. Custom shellcode stage. Listen for an IPv6 connection with UUID Support (Windows x64)",
-          type: "SELF",
-          date: new Date(),
-        },
-      ],
-    },
-  ]);
+  const [conversations, setConversations] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [showEmoji, setShowEmoji] = useState(false);
   const fileInputImageRef = useRef();
   const fileInputVideoRef = useRef();
   const textInputRef = useRef();
+  const [shop, setShop] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        if (res.data.shopDTO) {
+          for (const key in res.data.shopDTO) {
+            shop[key] = res.data.shopDTO[key];
+          }
+          setShop(shop);
+
+          let Sock = new SockJS("http://localhost:8080/ws");
+          stompClient = over(Sock);
+          stompClient.connect({}, onConnected, onError);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
+  const onConnected = () => {
+    setShop({ ...shop, connected: true });
+    stompClient.subscribe("/personal/SHOP-" + shop.id, onMessageReceived);
+    stompClient.subscribe(
+      "/conversation-request/" + shop.id,
+      onNewConversation
+    );
+    userJoin();
+  };
+
+  const userJoin = () => {
+    let request = {
+      fromId: shop.id,
+      sendTime: new Date(),
+      chatterType: "SHOP",
+    };
+
+    stompClient.send("/app/personal", {}, JSON.stringify(request));
+  };
+
+  const onNewConversation = (payload) => {
+    const data = JSON.parse(payload.body);
+    data.messages = data.messages || [];
+    console.log(data)
+    stompClient.subscribe("/conversation/" + data.id, onPrivateMessage);
+    if (!conversations.find(it => it.id == data.id))
+    {
+      conversations.push(data);
+      setConversations(Array.from(conversations));
+    }
+  };
+
+  const onMessageReceived = (payload) => {
+    var data = JSON.parse(payload.body);
+    console.log(data);
+    data.forEach((item, index) => {
+      stompClient.subscribe("/conversation/" + item.id, onPrivateMessage);
+      if (!conversations.find(it => it.id == item.id))
+      {
+        conversations.push(item);
+      }
+      setConversations(Array.from(conversations));
+    });
+  };
+
+  const onPrivateMessage = (payload) => {
+    var payloadData = JSON.parse(payload.body);
+    let conversation = conversations.filter(
+      (it) => it.id === payloadData.conId
+    )[0];
+    console.log(conversation);
+    let index = conversations.indexOf(conversation);
+    if (!conversations[index].messages.find(it => it.id == payloadData.id))
+    {
+      conversations[index].messages.push(payloadData);
+      setConversations([...conversations]);
+    }
+  };
+
+  const onError = (err) => {
+    console.log(err);
+  };
+
+  const sendPrivateValue = (e) => {
+    e.preventDefault();
+    if (stompClient) {
+      var chatMessage = {
+        fromId: shop.id,
+        content: inputSend,
+        sendTime: new Date(),
+        conversationId: conversations[activeTab].id,
+        chatterType: "SHOP",
+      };
+
+      stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
+      setInputSend("");
+    }
+  };
+
   const handleCall = () => {
     alert("This feature will be update in the future");
   };
@@ -128,6 +141,7 @@ function Message() {
     textInputRef.current.focus();
     setShowEmoji(false);
   };
+
   return (
     <>
       <HeaderSeller title="Message" />
@@ -155,31 +169,40 @@ function Message() {
                 </div>
               </div>
               <div className={cx("list-container")}>
-                {conversations.map((con, index) => (
-                  <div
-                    key={index}
-                    className={cx("user-chat", { active: index === activeTab })}
-                    onClick={() => setActiveTab(index)}
-                  >
-                    <img
-                      src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/214791551_2650224011947626_6942113418228182148_n.jpg?stp=dst-jpg_p100x100&_nc_cat=106&ccb=1-7&_nc_sid=7206a8&_nc_ohc=lwxiuBuoCfYAX8gQidR&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn2-5.fna&oh=00_AfCtUXfzL3RhdVT3QZzXDZk5SikWUwnGsoVa1qz7YqJu0g&oe=64971610"
-                      alt="avatar"
-                      className={cx("user-avatar")}
-                    />
-                    <div className={cx("user-content")}>
-                      <div className={cx("above")}>
-                        <div className={cx("user-name")}>{con.name}</div>
-                        <div className={cx("date")}>01/01/23</div>
-                      </div>
-                      <div className={cx("under")}>
-                        <div className={cx("content-chat")}>
-                          Troi hom nay deo cuc
+                {conversations.map((con, index) => {
+                  let len = con.messages.length
+                  return con.conversationChatters
+                    .filter((it) => {
+                      return !it.shop;
+                    })
+                    .map((it, itIndex) => (
+                      <div
+                        key={index}
+                        className={cx("user-chat", {
+                          active: index === activeTab,
+                        })}
+                        onClick={() => setActiveTab(index)}
+                      >
+                        <img
+                          src={"/api/v1/publics/user/avatar/" + it.user.email}
+                          alt="avatar"
+                          className={cx("user-avatar")}
+                        />
+                        <div className={cx("user-content")}>
+                          <div className={cx("above")}>
+                            <div className={cx("user-name")}>{it.user.firstname + " " + it.user.lastname}</div>
+                            <div className={cx("date")}>{(new Date(con.messages[len - 1].sendTime)).toLocaleDateString()}</div>
+                          </div>
+                          <div className={cx("under")}>
+                            <div className={cx("content-chat")}>
+                              {con.messages[len - 1].content}
+                            </div>
+                            <div className={cx("time")}>{(new Date(con.messages[len - 1].sendTime)).toLocaleTimeString()}</div>
+                          </div>
                         </div>
-                        <div className={cx("time")}>14:00</div>
                       </div>
-                    </div>
-                  </div>
-                ))}
+                    ));
+                })}
               </div>
             </div>
             <div className={cx("content-right")}>
@@ -196,11 +219,23 @@ function Message() {
               <div className={cx("chat-header")}>
                 <div className={cx("header-left")}>
                   <img
-                    src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/214791551_2650224011947626_6942113418228182148_n.jpg?stp=dst-jpg_p100x100&_nc_cat=106&ccb=1-7&_nc_sid=7206a8&_nc_ohc=lwxiuBuoCfYAX8gQidR&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn2-5.fna&oh=00_AfCtUXfzL3RhdVT3QZzXDZk5SikWUwnGsoVa1qz7YqJu0g&oe=64971610"
+                    src={
+                      conversations[activeTab] &&
+                      conversations[activeTab].conversationChatters
+                      .filter(it => !it.shop)
+                      .map(it => "/api/v1/publics/user/avatar/" + it.user.email)[0]
+                    }
                     alt="avatar"
                     className={cx("avatar")}
                   />
-                  <span className={cx("name")}>{conversations[activeTab].name}</span>
+                  <span className={cx("name")}>
+                    {
+                      conversations[activeTab] &&
+                      conversations[activeTab].conversationChatters
+                      .filter(it => !it.shop)
+                      .map(it => it.user.firstname + " " + it.user.lastname)[0]
+                    }
+                  </span>
                 </div>
                 <div className={cx("header-right")}>
                   <button className={cx("phone-btn")} onClick={handleCall}>
@@ -215,7 +250,11 @@ function Message() {
               </div>
               <div className={cx("chat-container")}>
                 <ContentMessage
-                  messages={[...conversations[activeTab].messages].reverse()}
+                  messages={
+                    conversations[activeTab] &&
+                    [...conversations[activeTab].messages].reverse()
+                  }
+                  shop={shop}
                 />
               </div>
               <div className={cx("chat-footer")}>
@@ -260,6 +299,12 @@ function Message() {
                     value={inputSend}
                     onChange={(e) => setInputSend(e.target.value)}
                     className={cx("input-chat")}
+                    onKeyDown={(e) => {
+                      if(e.keyCode === 13)
+                      {
+                        sendPrivateValue(e)
+                      }
+                    }}
                   />
 
                   <div className={cx("emoji")}>
@@ -269,7 +314,7 @@ function Message() {
                     ></i>
                   </div>
                 </div>
-                <div className={cx("send-chat")}>
+                <div className={cx("send-chat")} onClick={sendPrivateValue}>
                   <i
                     className={
                       inputSend

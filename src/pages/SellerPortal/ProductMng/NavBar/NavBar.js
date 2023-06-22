@@ -19,11 +19,7 @@ const orderNavs = [
     to: "/seller/portal/product/soldout",
   },
   {
-    title: "Pending",
-    to: "/seller/portal/product/pending",
-  },
-  {
-    title: "Band",
+    title: "Ban",
     to: "/seller/portal/product/band",
   },
 ];
@@ -44,8 +40,7 @@ function NavBar() {
               "/seller/portal/product/all",
               "/seller/portal/product/active",
               "/seller/portal/product/soldout",
-              "/seller/portal/product/pending",
-              "/seller/portal/product/band",
+              "/seller/portal/product/ban",
             ].includes(pathname)
           }
         >

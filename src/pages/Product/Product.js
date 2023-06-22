@@ -91,6 +91,19 @@ function Product() {
       },
     ],
     feedbacks: [],
+    relatedTo: [{
+      product: {
+        name: "",
+        images: [
+          {
+            url: ""
+          }
+        ]
+      },
+      salePercent: undefined,
+      saleQuantity: 0,
+      sold: 0
+    }]
   });
   const [type, setType] = useState("All");
   const [second, setSecond] = useState(0);
@@ -331,7 +344,15 @@ function Product() {
     setValueQuantity(valueQuantity + 1);
   };
 
-  const saleCondition = () => {
+  const saleCondition = (item) => {
+    if (item)
+    {
+      return (
+        item.salePercent &&
+        item.saleQuantity > item.sold
+      )
+    }
+
     return (
       product.productSale &&
       product.productSale.saleQuantity > product.productSale.sold
@@ -748,7 +769,7 @@ function Product() {
                 <div className={cx("ship-from", "container")}>
                   <div className={cx("title")}>Shops From</div>
                   <div className={cx("content")}>
-                    {/* {product.shop.address.province.name} */ "Ha Noi"}
+                    {product.shop.address.province.name}
                   </div>
                 </div>
               </div>
@@ -849,26 +870,31 @@ function Product() {
           <div className={cx("product-related")}>
             <div className={cx("related-header")}>Product Related</div>
             <div className={cx("related-list")}>
-              <Link className={cx("related-item")}>
-                <img
-                  src="https://salt.tikicdn.com/cache/750x750/ts/product/23/57/e5/9a003ada893113eec9649d937b00143a.jpg.webp"
-                  alt="related-img"
-                  className={cx("related-img")}
-                />
-                <div className={cx("item-content")}>
-                  <div className={cx("name")}>
-                    Wooden Block Bird Parrot Toys for Small Medium Large Parrots
-                    and Birds
-                  </div>
-                  <div className={cx("price-sold")}>
-                    <div className={cx("price")}>
-                      <div className={cx("real-price")}>1000$</div>
-                      <div className={cx("sale-price")}>800$</div>
+              {/* {product.relatedTo.map((item, index) => (
+                <Link key={index} className={cx("related-item")}>
+                  <img
+                    src={item.product.images[0].url}
+                    alt="related-img"
+                    className={cx("related-img")}
+                  />
+                  <div className={cx("item-content")}>
+                    <div className={cx("name")}>{item.product.name}</div>
+                    <div className={cx("price-sold")}>
+                      {saleCondition(item) ? (
+                        <div className={cx("price")}>
+                          <div className={cx("real-price")}>{item.product.price}$</div>
+                          <div className={cx("sale-price")}>{Math.round(item.product.price * (1 - item.salePercent / 100))}$</div>
+                        </div>
+                      ) : (
+                        <div className={cx("price")}>
+                          <div className={cx("sale-price")}>{item.product.price}$</div>
+                        </div>
+                      )}
+                      <div className={cx("sold")}>item.product.sold</div>
                     </div>
-                    <div className={cx("sold")}>400 sold</div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              ))} */}
             </div>
           </div>
         </div>

@@ -5,67 +5,22 @@ import NavBar from "../NavBar";
 import Table from "../Table";
 
 import styles from "./Shipping.module.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-const orders = [
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Shipping",
-    payment: "Cash",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Shipping",
-    payment: "Zalo",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Shipping",
-    payment: "VnPay",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Shipping",
-    payment: "Zalo",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Shipping",
-    payment: "VnPay",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Shipping",
-    payment: "Cash",
-  },
-];
-
 function Pending() {
+
+  const [orders, setOrders] = useState([])
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    axios.get("/api/v1/shop/orders/search?filter=SHIPPING&page=" + page)
+    .then(res => setOrders(res.data))
+    .catch(e => console.log(e))
+  }, [])
+
   return (
     <>
       <HeaderSeller title="Shipping" />
@@ -98,7 +53,7 @@ function Pending() {
                 </button>
               </form>
             </div>
-            <div className={cx("order_count")}>0 Orders</div>
+            <div className={cx("order_count")}>{orders.length} Orders</div>
             <div className={cx("order_table")}>
               <Table orders={orders} />
             </div>
