@@ -103,14 +103,7 @@ function Order() {
             <div className={cx("order_table")}>
               <Table orders={orders} />
             </div>
-            <div className={cx("prev-next")}>
-              <button className={cx("icon-left")}>
-                <i className={cx("fa-light fa-angle-left")}></i>
-              </button>
-              <button className={cx("icon-right")}>
-                <i className={cx("fa-light fa-angle-right")}></i>
-              </button>
-            </div>
+
           </div>
         </div>
       </div>

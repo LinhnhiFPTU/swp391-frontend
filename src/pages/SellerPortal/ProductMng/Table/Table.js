@@ -1,51 +1,13 @@
 import classNames from "classnames/bind";
+import { useState } from "react";
 
 import styles from "./Table.module.scss";
+import EditProduct from "../EditProduct/EditProduct";
+import NoProduct from "../NoProduct";
 
 const cx = classNames.bind(styles);
 
-const products = [
-  {
-    id: 0,
-    image: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    name: "Prevue Pet Products Travel Carrier for Birds, Black",
-    price: 1200,
-    quantity: 100,
-    status: "Pending",
-  },
-  {
-    id: 1,
-    image: "https://m.media-amazon.com/images/I/81OfgffymML._AC_SL1500_.jpg",
-    name: "Prevue Pet Products Travel Carrier for Birds, Black",
-    price: 1200,
-    quantity: 100,
-    status: "Active",
-  },
-  {
-    id: 2,
-    image: "https://m.media-amazon.com/images/I/61Dq2+9h7xL._AC_SL1081_.jpg",
-    name: "Prevue Pet Products Travel Carrier for Birds, Black",
-    price: 1200,
-    quantity: 0,
-    status: "Sold out",
-  },
-  {
-    id: 3,
-    image: "https://m.media-amazon.com/images/I/71tMJsLvMSL._AC_SL1200_.jpg",
-    name: "Prevue Pet Products Travel Carrier for Birds, Black",
-    price: 1200,
-    quantity: 100,
-    status: "Band",
-  },
-  {
-    id: 4,
-    image: "https://m.media-amazon.com/images/I/71XKmGkVUOL._AC_SL1500_.jpg",
-    name: "Prevue Pet Products Travel Carrier for Birds, Black",
-    price: 1200,
-    quantity: 100,
-    status: "Pending",
-  },
-];
+
 
 const statusStyle = (status) => {
   if (status === "Active") {
@@ -71,55 +33,86 @@ const statusStyle = (status) => {
   }
 };
 
-function Table() {
+function Table({ products}) {
+  const [showEdit, setShowEdit] = useState(false);
+  const [productEdit, setProductEdit] = useState();
+
+  const handleEditProduct = (product) => {
+    setShowEdit(true);
+    setProductEdit(product);
+  };
+
+  if (!products || products.length === 0) {
+    return <NoProduct />;
+  }
   return (
-    <div className={cx("table_data")}>
-      <div className={cx("table-head")}>
-        <div className={cx("head-product")}>Product</div>
-        <div className={cx("head-price")}>Price</div>
-        <div className={cx("head-quantity")}>Quantity</div>
-        <div className={cx("head-status")}>Status</div>
-        <div className={cx("head-edit")}>Edit</div>
-        <div className={cx("head-delete")}>Delete</div>
-      </div>
-      {products.map((product) => (
-        <div className={cx("table-body")} key={product.id}>
-          <div className={cx("body-text", "body-product")}>
-            <img
-              src={product.image}
-              alt="product-img"
-              className={cx("product-img")}
-            />
-            <div className={cx("product-name")}>{product.name}</div>
-          </div>
-          <div className={cx("body-text", "body-price")}>${product.price}</div>
-          <div className={cx("body-text", "body-quantity")}>
-            {product.quantity}
-          </div>
-          <div className={cx("body-text", "body-status")}>
-            <div
-              className={cx("inside-status")}
-              style={statusStyle(product.status)}
-            >
-              {product.status}
-            </div>
-          </div>
-          <div className={cx("body-text", "body-edit")}>
-            <button className={cx("edit-btn")}>
-              <i className={cx("fa-regular fa-pen-to-square", "edit-icon")}></i>
-            </button>
-          </div>
-          <div className={cx("body-text", "body-delete")}>
-            <button className={cx("delete-btn")}>
-              <i className={cx("fa-regular fa-trash", "delete-icon")}></i>
-            </button>
-          </div>
+    <>
+      {showEdit && (
+        <EditProduct product={productEdit} setShowEdit={setShowEdit} />
+      )}
+      <div className={cx("table_data")}>
+        <div className={cx("table-head")}>
+          <div className={cx("head-product")}>Product</div>
+          <div className={cx("head-price")}>Price</div>
+          <div className={cx("head-quantity")}>Quantity</div>
+          <div className={cx("head-status")}>Status</div>
+          <div className={cx("head-edit")}>Edit</div>
+          <div className={cx("head-delete")}>Delete</div>
         </div>
-      ))}
-      <div className={"more-page"}>
-        
+        <div className={cx("table-content")}>
+          {products.map((product) => (
+            <div className={cx("table-body")} key={product.productId}>
+              <div className={cx("body-text", "body-product")}>
+                <img
+                  src={product.listImage[0]}
+                  alt="product-img"
+                  className={cx("product-img")}
+                />
+                <div className={cx("product-name")}>{product.productName}</div>
+              </div>
+              <div className={cx("body-text", "body-price")}>
+                ${product.productPrice}
+              </div>
+              <div className={cx("body-text", "body-quantity")}>
+                {product.productQuantity}
+              </div>
+              <div className={cx("body-text", "body-status")}>
+                <div
+                  className={cx("inside-status")}
+                  style={statusStyle(product.productStatus)}
+                >
+                  {product.productStatus}
+                </div>
+              </div>
+              <div className={cx("body-text", "body-edit")}>
+                <button
+                  className={cx("edit-btn")}
+                  onClick={() => handleEditProduct(product)}
+                >
+                  <i
+                    className={cx("fa-regular fa-pen-to-square", "edit-icon")}
+                  ></i>
+                </button>
+              </div>
+              <div className={cx("body-text", "body-delete")}>
+                <button className={cx("delete-btn")}>
+                  <i className={cx("fa-regular fa-trash", "delete-icon")}></i>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className={cx("prev-next")}>
+          <button className={cx("icon-left")}>
+            <i className={cx("fa-light fa-angle-left")}></i>
+          </button>
+          <button className={cx("icon-right")}>
+            <i className={cx("fa-light fa-angle-right")}></i>
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

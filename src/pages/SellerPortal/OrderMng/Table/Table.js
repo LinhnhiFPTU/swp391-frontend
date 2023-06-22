@@ -42,23 +42,34 @@ function Table({ orders }) {
         <div className={cx("head-text", "status")}>Status</div>
         <div className={cx("head-text", "payment")}>Payment</div>
       </div>
-      {orders.map((item, index) => (
-        <div className={cx("table-body")} key={index}>
-          <div className={cx("body-text", "orderId")}>#{item.orderId}</div>
-          <div className={cx("body-text", "order")}>{item.order}</div>
-          <div className={cx("body-text", "date")}>{item.date}</div>
-          <div className={cx("body-text", "price")}>${item.price}</div>
-          <div className={cx("body-text", "status")}>
-            <div
-              className={cx("inside-status")}
-              style={statusStyle(item.status)}
-            >
-              {item.status}
+      <div className={cx("table-content")}>
+        {orders.map((item, index) => (
+          <div className={cx("table-body")} key={index}>
+            <div className={cx("body-text", "orderId")}>#{item.orderId}</div>
+            <div className={cx("body-text", "order")}>{item.order}</div>
+            <div className={cx("body-text", "date")}>{item.date}</div>
+            <div className={cx("body-text", "price")}>${item.price}</div>
+            <div className={cx("body-text", "status")}>
+              <div
+                className={cx("inside-status")}
+                style={statusStyle(item.status)}
+              >
+                {item.status}
+              </div>
             </div>
+            <div className={cx("body-text", "payment")}>{item.payment}</div>
           </div>
-          <div className={cx("body-text", "payment")}>{item.payment}</div>
-        </div>
-      ))}
+        ))}
+      </div>
+
+      <div className={cx("prev-next")}>
+        <button className={cx("icon-left")}>
+          <i className={cx("fa-light fa-angle-left")}></i>
+        </button>
+        <button className={cx("icon-right")}>
+          <i className={cx("fa-light fa-angle-right")}></i>
+        </button>
+      </div>
     </div>
   );
 }

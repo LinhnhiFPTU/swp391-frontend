@@ -51,9 +51,6 @@ import Message from "~/pages/SellerPortal/Message";
 import ShopMng from "~/pages/SellerPortal/ShopMng";
 import Chart from "~/pages/SellerPortal/Chart";
 
-
-import CheckoutPopup from "~/pages/Checkout/CheckoutPopup/Checkout";
-
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
@@ -101,11 +98,9 @@ const publicRoutes = [
 
   { path: "/seller/portal/message", component: Message },
 
-
   { path: "/seller/portal/shop", component: ShopMng },
 
   { path: "/seller/portal/chart", component: Chart },
-  { path: "/ccc", component: CheckoutPopup },
 ];
 
 const privateRoutes = [

@@ -14,21 +14,21 @@ const sideBarOptions = [
   },
   {
     id: 1,
+    title: "Data Chart",
+    icon: "fa-light fa-chart-line-up",
+    path: "/seller/portal/chart",
+  },
+  {
+    id: 2,
     title: "Order",
     icon: "fa-thin fa-clipboard-list",
     path: "/seller/portal/order/all",
   },
   {
-    id: 2,
+    id: 3,
     title: "Product",
     icon: "fa-sharp fa-light fa-box-dollar",
     path: "/seller/portal/product/all",
-  },
-  {
-    id: 3,
-    title: "Feedback",
-    icon: "fa-light fa-comment-exclamation",
-    path: "/seller/portal/feedback",
   },
   {
     id: 4,
@@ -37,17 +37,16 @@ const sideBarOptions = [
     path: "/seller/portal/message",
   },
   {
-    id: 5,  
+    id: 5,
     title: "Shop",
     icon: "fa-light fa-bag-shopping",
     path: "/seller/portal/shop",
   },
-
   {
     id: 6,
-    title: "Data Chart",
-    icon: "fa-light fa-chart-line-up",
-    path: "/seller/portal/chart",
+    title: "Feedback",
+    icon: "fa-light fa-comment-exclamation",
+    path: "/seller/portal/feedback",
   },
 ];
 
