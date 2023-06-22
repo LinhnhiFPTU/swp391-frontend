@@ -3,13 +3,14 @@ import classNames from "classnames/bind";
 import styles from "./DashboardAdmin.module.scss";
 import Sidebar from "../global/Sidebar";
 import Header from "~/layouts/components/Header/Header";
+import HeaderSeller from "~/layouts/components/HeaderSeller/HeaderSeller";
 
 const cx = classNames.bind(styles);
 
 function DashboardAdmin() {
   return (
     <div className={cx("dashboard-wrapper")}>
-      <Header />
+      <HeaderSeller title="Dashboard" />
       <div className={cx("container")}>
         <div className={cx("sidebar")}>
           <Sidebar />
