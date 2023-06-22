@@ -19,7 +19,6 @@
     .head-quantity,
     .head-status {
       width: 180px;
-      text-align: center;
     }
 
     .head-edit,
@@ -42,8 +41,8 @@
         align-items: center;
 
         .product-img {
-          width: 100px;
-          height: 100px;
+          width: 80px;
+          height: 100%;
         }
 
         .product-name {
@@ -64,13 +63,9 @@
       .body-quantity,
       .body-status {
         width: 180px;
-        text-align: center;
       }
 
       .body-status {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         .inside-status {
           width: 90px;
           padding: 3px 10px;
@@ -111,33 +106,37 @@
         }
       }
     }
-  }
 
-  .prev-next {
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .prev-next {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
 
-    .icon-left,
-    .icon-right {
-      outline: none;
-      border: none;
-      background-color: transparent;
+      .icon-left,
+      .icon-right {
+        outline: none;
+        border: none;
+        background-color: transparent;
 
-      i {
-        font-size: 2.8rem;
-        color: #999999;
+        i {
+          font-size: 2.8rem;
+          color: #999999;
+
+          &:hover {
+            color: var(--primary);
+          }
+        }
       }
-    }
 
-    .icon-left {
-      margin-right: 30px;
-    }
+      .icon-left {
+        margin-right: 30px;
+      }
 
-    .icon-right {
-      margin-left: 30px;
+      .icon-right {
+        margin-left: 30px;
+      }
     }
   }
 }

@@ -56,10 +56,6 @@ import AdminProductMng from "~/pages/Admin/AdminProductMng";
 import AdminShopMng from "~/pages/Admin/AdminShopMng";
 import AdminUserMng from "~/pages/Admin/AdminUserMng";
 
-
-
-import CheckoutPopup from "~/pages/Checkout/CheckoutPopup/Checkout";
-
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
@@ -116,7 +112,6 @@ const publicRoutes = [
   { path: "/admin/portal/shopmng", component: AdminShopMng},
   { path: "/admin/portal/productmng", component: AdminProductMng},
 
-  { path: "/ccc", component: CheckoutPopup },
 ];
 
 const privateRoutes = [

@@ -127,14 +127,7 @@ function ContactOrder() {
             </div>
             <div className={cx("order_count")}>0 Orders</div>
             <OrderData orders={orderDatas} />
-            <div className={cx("prev-next")}>
-              <button className={cx("icon-left")}>
-                <i className={cx("fa-light fa-angle-left")}></i>
-              </button>
-              <button className={cx("icon-right")}>
-                <i className={cx("fa-light fa-angle-right")}></i>
-              </button>
-            </div>
+            
           </div>
         </div>
       </div>

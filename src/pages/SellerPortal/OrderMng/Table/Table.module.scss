@@ -16,12 +16,12 @@
     }
 
     .order {
-      width: 300px;
+      width: 250px;
       text-align: center;
     }
 
     .date {
-      width: 170px;
+      width: 220px;
       text-align: center;
     }
 
@@ -40,7 +40,6 @@
       text-align: center;
     }
   }
-
   .table-content {
     .table-body {
       display: flex;
@@ -56,20 +55,23 @@
       }
 
       .date {
-        width: 170px;
+        width: 220px;
         text-align: center;
       }
 
       .order {
-        width: 300px;
+        width: 250px;
         text-align: center;
-        word-wrap: break-word;
-        white-space: normal;
-        overflow: hidden;
-        display: -webkit-box;
-        text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
+        .show-list-order {
+          border: none;
+          outline: none;
+          text-decoration: underline;
+          background-color: transparent;
+
+          &:hover {
+            color: var(--primary);
+          }
+        }
       }
 
       .status {
@@ -97,33 +99,37 @@
         text-align: center;
       }
     }
-  }
 
-  .prev-next {
-    width: 100%;
-    padding: 20px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .prev-next {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
 
-    .icon-left,
-    .icon-right {
-      outline: none;
-      border: none;
-      background-color: transparent;
+      .icon-left,
+      .icon-right {
+        outline: none;
+        border: none;
+        background-color: transparent;
 
-      i {
-        font-size: 2.8rem;
-        color: #999999;
+        i {
+          font-size: 2.8rem;
+          color: #999999;
+
+          &:hover {
+            color: var(--primary);
+          }
+        }
       }
-    }
 
-    .icon-left {
-      margin-right: 30px;
-    }
+      .icon-left {
+        margin-right: 30px;
+      }
 
-    .icon-right {
-      margin-left: 30px;
+      .icon-right {
+        margin-left: 30px;
+      }
     }
   }
 }

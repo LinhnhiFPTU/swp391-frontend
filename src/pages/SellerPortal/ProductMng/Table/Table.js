@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 
+import NoProduct from "../NoProduct";
 import styles from "./Table.module.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -26,6 +27,9 @@ const statusStyle = (status) => {
 };
 
 function Table({ products }) {
+  if (!products || products.length === 0) {
+    return <NoProduct />;
+  }
   return (
     <div className={cx("table_data")}>
       <div className={cx("table-head")}>
@@ -36,47 +40,60 @@ function Table({ products }) {
         <div className={cx("head-edit")}>Edit</div>
         <div className={cx("head-delete")}>Delete</div>
       </div>
-      {products.map((product) => {
-        let status = "Active";
-        if (product.ban) status = "Ban";
-        if (product.available === 0) status = "Sold out";
+      <div className={cx("table-content")}>
+        {products.map((product) => {
+          let status = "Active";
+          if (product.ban) status = "Ban";
+          if (product.available === 0) status = "Sold out";
 
-        return (
-          <div className={cx("table-body")} key={product.id}>
-            <div className={cx("body-text", "body-product")}>
-              <img
-                src={product.images[0].url}
-                alt="product-img"
-                className={cx("product-img")}
-              />
-              <div className={cx("product-name")}>{product.name}</div>
-            </div>
-            <div className={cx("body-text", "body-price")}>
-              ${product.price}
-            </div>
-            <div className={cx("body-text", "body-quantity")}>
-              {product.available}
-            </div>
-            <div className={cx("body-text", "body-status")}>
-              <div className={cx("inside-status")} style={statusStyle(status)}>
-                {status}
+          return (
+            <div className={cx("table-body")} key={product.id}>
+              <div className={cx("body-text", "body-product")}>
+                <img
+                  src={product.images[0].url}
+                  alt="product-img"
+                  className={cx("product-img")}
+                />
+                <div className={cx("product-name")}>{product.name}</div>
+              </div>
+              <div className={cx("body-text", "body-price")}>
+                ${product.price}
+              </div>
+              <div className={cx("body-text", "body-quantity")}>
+                {product.available}
+              </div>
+              <div className={cx("body-text", "body-status")}>
+                <div
+                  className={cx("inside-status")}
+                  style={statusStyle(status)}
+                >
+                  {status}
+                </div>
+              </div>
+              <div className={cx("body-text", "body-edit")}>
+                <button className={cx("edit-btn")}>
+                  <i
+                    className={cx("fa-regular fa-pen-to-square", "edit-icon")}
+                  ></i>
+                </button>
+              </div>
+              <div className={cx("body-text", "body-delete")}>
+                <button className={cx("delete-btn")}>
+                  <i className={cx("fa-regular fa-trash", "delete-icon")}></i>
+                </button>
               </div>
             </div>
-            <div className={cx("body-text", "body-edit")}>
-              <button className={cx("edit-btn")}>
-                <i
-                  className={cx("fa-regular fa-pen-to-square", "edit-icon")}
-                ></i>
-              </button>
-            </div>
-            <div className={cx("body-text", "body-delete")}>
-              <button className={cx("delete-btn")}>
-                <i className={cx("fa-regular fa-trash", "delete-icon")}></i>
-              </button>
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+        <div className={cx("prev-next")}>
+          <button className={cx("icon-left")}>
+            <i className={cx("fa-light fa-angle-left")}></i>
+          </button>
+          <button className={cx("icon-right")}>
+            <i className={cx("fa-light fa-angle-right")}></i>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

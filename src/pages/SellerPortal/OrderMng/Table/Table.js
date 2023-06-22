@@ -42,33 +42,36 @@ function Table({ orders }) {
         <div className={cx("head-text", "status")}>Status</div>
         <div className={cx("head-text", "payment")}>Payment</div>
       </div>
-      {orders.map((item, index) => (
-        <div className={cx("table-body")} key={index}>
-          <div className={cx("body-text", "orderId")}>#{item.id}</div>
-          <div className={cx("body-text", "order")}>{item.description}</div>
-          <div className={cx("body-text", "date")}>
-            {new Date(item.createdTime).toLocaleString()}
-          </div>
-          <div className={cx("body-text", "price")}>${item.realPrice}</div>
-          <div className={cx("body-text", "status")}>
-            <div
-              className={cx("inside-status")}
-              style={statusStyle(item.status)}
-            >
-              {item.status}
+      <div className={cx("table-content")}>
+        {orders.map((item, index) => (
+          <div className={cx("table-body")} key={index}>
+            <div className={cx("body-text", "orderId")}>#{item.id}</div>
+            <div className={cx("body-text", "order")}>
+              <button className={cx("show-list-order")}>List Order({item.orderDetails.length})</button>
+            </div>
+            <div className={cx("body-text", "date")}>
+              {new Date(item.createdTime).toLocaleString()}
+            </div>
+            <div className={cx("body-text", "price")}>${item.realPrice}</div>
+            <div className={cx("body-text", "status")}>
+              <div
+                className={cx("inside-status")}
+                style={statusStyle(item.status)}
+              >
+                {item.status}
+              </div>
             </div>
             <div className={cx("body-text", "payment")}>{item.payment}</div>
           </div>
+        ))}
+        <div className={cx("prev-next")}>
+          <button className={cx("icon-left")}>
+            <i className={cx("fa-light fa-angle-left")}></i>
+          </button>
+          <button className={cx("icon-right")}>
+            <i className={cx("fa-light fa-angle-right")}></i>
+          </button>
         </div>
-      ))}
-
-      <div className={cx("prev-next")}>
-        <button className={cx("icon-left")}>
-          <i className={cx("fa-light fa-angle-left")}></i>
-        </button>
-        <button className={cx("icon-right")}>
-          <i className={cx("fa-light fa-angle-right")}></i>
-        </button>
       </div>
     </div>
   );

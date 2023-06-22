@@ -79,7 +79,10 @@ function Register() {
         .then(res => {
           window.location.href = "/seller/portal/dashboard"
         })
-        .catch(e => console.log(e))
+        .catch(e => {
+          console.log(e)
+          window.location.href = "/seller/portal/dashboard"
+        })
   }
   return (
     <>

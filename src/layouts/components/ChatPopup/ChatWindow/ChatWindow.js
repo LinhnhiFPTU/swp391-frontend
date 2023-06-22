@@ -5,7 +5,6 @@ import EmojiPicker from "emoji-picker-react";
 
 import Report from "~/pages/Product/Report";
 import Message from "./Message";
-import avatar from "~/assets/images/user-avatar.png";
 import styles from "./ChatWindow.module.scss";
 import axios from "axios";
 import SockJS from "sockjs-client";
@@ -44,6 +43,7 @@ function ChatWindow({ closeChat, color }) {
       .catch((e) => {
         console.log(e);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onConnected = () => {
@@ -70,7 +70,7 @@ function ChatWindow({ closeChat, color }) {
     const data = JSON.parse(payload.body);
     data.messages = data.messages || [];
     stompClient.subscribe("/conversation/" + data.id, onPrivateMessage);
-    if (!conversations.find((it) => it.id == data.id)) {
+    if (!conversations.find((it) => it.id === data.id)) {
       conversations.push(data);
       setConversations(Array.from(conversations));
     }
@@ -81,7 +81,7 @@ function ChatWindow({ closeChat, color }) {
     console.log(data);
     data.forEach((item, index) => {
       stompClient.subscribe("/conversation/" + item.id, onPrivateMessage);
-      if (!conversations.find((it) => it.id == item.id)) {
+      if (!conversations.find((it) => it.id === item.id)) {
         conversations.push(item);
       }
       setConversations(Array.from(conversations));
@@ -95,7 +95,7 @@ function ChatWindow({ closeChat, color }) {
     )[0];
     console.log(conversation);
     let index = conversations.indexOf(conversation);
-    if (!conversations[index].messages.find((it) => it.id == payloadData.id)) {
+    if (!conversations[index].messages.find((it) => it.id === payloadData.id)) {
       conversations[index].messages.push(payloadData);
       setConversations([...conversations]);
     }

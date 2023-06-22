@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import ContentMessage from "./ContentMessage";
@@ -39,6 +39,7 @@ function Message() {
       .catch((e) => {
         console.log(e);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onConnected = () => {
@@ -66,7 +67,7 @@ function Message() {
     data.messages = data.messages || [];
     console.log(data)
     stompClient.subscribe("/conversation/" + data.id, onPrivateMessage);
-    if (!conversations.find(it => it.id == data.id))
+    if (!conversations.find(it => it.id === data.id))
     {
       conversations.push(data);
       setConversations(Array.from(conversations));
@@ -78,7 +79,7 @@ function Message() {
     console.log(data);
     data.forEach((item, index) => {
       stompClient.subscribe("/conversation/" + item.id, onPrivateMessage);
-      if (!conversations.find(it => it.id == item.id))
+      if (!conversations.find(it => it.id === item.id))
       {
         conversations.push(item);
       }
@@ -93,7 +94,7 @@ function Message() {
     )[0];
     console.log(conversation);
     let index = conversations.indexOf(conversation);
-    if (!conversations[index].messages.find(it => it.id == payloadData.id))
+    if (!conversations[index].messages.find(it => it.id === payloadData.id))
     {
       conversations[index].messages.push(payloadData);
       setConversations([...conversations]);
