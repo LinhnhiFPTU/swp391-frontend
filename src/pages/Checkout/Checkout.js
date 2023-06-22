@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ChatPupup from "~/layouts/components/ChatPopup";
 import MyAddress from "./MyAddress";
 import PaymentMethod from "./PaymentMethod";
+import CheckoutPopup from "./CheckoutPopup";
 
 import Footer from "~/layouts/components/Footer";
 import styles from "./Checkout.module.scss";
@@ -33,6 +34,7 @@ function Checkout() {
 
   return (
     <>
+      {/* {<CheckoutPopup />} */}
       {show && <MyAddress close={setShow} />}
       <div className={cx("checkout_wrapper")}>
         {/*------------------HEADER-------------------*/}

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import EmojiPicker from "emoji-picker-react";
 
 import Report from "~/pages/Product/Report";
-
+import Message from "./Message";
 import avatar from "~/assets/images/user-avatar.png";
 import styles from "./ChatWindow.module.scss";
 
@@ -15,6 +15,100 @@ function ChatWindow({ closeChat, color }) {
   const [openReport, setOpenReport] = useState(false);
   const [inputSend, setInputSend] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
+  const [conversations, setConversations] = useState([
+    {
+      id: 0,
+      name: "Nguyen Hong Thai",
+      messages: [
+        {
+          from: "Nguyen Hong Thai",
+          content: "Anh iu oi toi nay anh ranh hong do",
+          type: "RECEIVE",
+          date: new Date(),
+        },
+        {
+          from: "Le Vu Dinh Duy",
+          content: "dep cai dau buoi",
+          type: "SELF",
+          date: new Date(),
+        },
+        {
+          from: "Le Vu Dinh Duy",
+          content: "nung loz a",
+          type: "SELF",
+          date: new Date(),
+        },
+        {
+          from: "Nguyen Hong Thai",
+          content: "xao loz",
+          type: "RECEIVE",
+          date: new Date(),
+        },
+
+        {
+          from: "Nguyen Hong Thai",
+          content: "xao loz",
+          type: "RECEIVE",
+          date: new Date(),
+        },
+        {
+          from: "Le Vu Dinh Duy",
+          content: "cac",
+          type: "SELF",
+          date: new Date(),
+        },
+      ],
+    },
+    {
+      id: 1,
+      name: "Bray",
+      messages: [
+        {
+          from: "Nguyen Hong Thai",
+          content: "wtf",
+          type: "RECEIVE",
+          date: new Date(),
+        },
+        {
+          from: "Le Vu Dinh Duy",
+          content: "M nam thao",
+          type: "SELF",
+          date: new Date(),
+        },
+        {
+          from: "Le Vu Dinh Duy",
+          content: "nhu lao",
+          type: "SELF",
+          date: new Date(),
+        },
+        {
+          from: "Nguyen Hong Thai",
+          content: "wtf",
+          type: "RECEIVE",
+          date: new Date(),
+        },
+        {
+          from: "Le Vu Dinh Duy",
+          content: "M nam thao",
+          type: "SELF",
+          date: new Date(),
+        },
+        {
+          from: "Nguyen Hong Thai",
+          content: "wtf",
+          type: "RECEIVE",
+          date: new Date(),
+        },
+        {
+          from: "Le Vu Dinh Duy",
+          content: "M nam thao",
+          type: "SELF",
+          date: new Date(),
+        },
+      ],
+    },
+  ]);
+  const [activeTab, setActiveTab] = useState(0);
   const fileInputImageRef = useRef();
   const fileInputVideoRef = useRef();
   const textInputRef = useRef();
@@ -70,18 +164,34 @@ function ChatWindow({ closeChat, color }) {
                 placeholder="Search..."
               />
             </div>
-            <div className={cx("shop_chat")}>
-              <img src={avatar} alt="shop-img" className={cx("shop-avatar")} />
-              <div className={cx("shop-info")}>
-                <div className={cx("shop-name")}>Shop name</div>
-                <div className={cx("message-date")}>09/06/23</div>
-              </div>
+            <div className={cx("list-chat")}>
+              {conversations.map((con, index) => (
+                <div
+                  key={index}
+                  className={cx("shop_chat", { active: index === activeTab })}
+                  onClick={() => setActiveTab(index)}
+                >
+                  <img
+                    src={avatar}
+                    alt="shop-img"
+                    className={cx("shop-avatar")}
+                  />
+                  <div className={cx("shop-info")}>
+                    <div className={cx("shop-name")}>{con.name}</div>
+                    <div className={cx("message-date")}>09/06/23</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           <div className={cx("chat_content")}>
             <div className={cx("chat-header")}>
-              <div className={cx("shop-name")}>Shop name </div>
-
+              <div className={cx("shop-info")}>
+              <img src={avatar} alt="avatar-shop" className={cx("shop-avatar")}/>
+                <div className={cx("shop-name")}>
+                  {conversations[activeTab].name}
+                </div>
+              </div>
               <div className={cx("options")}>
                 <button
                   className={cx("dot-btn")}
@@ -106,7 +216,12 @@ function ChatWindow({ closeChat, color }) {
                 )}
               </div>
             </div>
-            <div className={cx("chat-container")}></div>
+            <div className={cx("chat-container")}>
+              <Message
+                messages={[...conversations[activeTab].messages].reverse()}
+              />
+            </div>
+
             <div className={cx("chat-footer")}>
               <div className={cx("input-text")}>
                 <textarea
@@ -167,7 +282,7 @@ function ChatWindow({ closeChat, color }) {
                           )
                         : cx("fa-regular fa-paper-plane-top", "icon-send")
                     }
-                  ></i> 
+                  ></i>
                 </div>
               </div>
             </div>

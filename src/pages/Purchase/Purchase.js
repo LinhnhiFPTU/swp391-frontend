@@ -1,111 +1,167 @@
 import classNames from "classnames/bind";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
+import NavBar from "./NavBar";
+
 import styles from "./Purchase.module.scss";
 
 const cx = classNames.bind(styles);
 
-const statusNav = [
+const orders = [
   {
-    title: "All",
-    to: "/purchase/all",
+    shop: {
+      id: 1,
+      name: "Baboon’s Toys Shop",
+    },
+    status: "Completed",
+    total: 2400,
+    product: [
+      {
+        pid: 1,
+        pimage:
+          "https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp",
+        pname:
+          "Pet Birds Feeder Food Water Feeding Box For Small Medium Large Birds Parrots",
+        pquantity: 2,
+        pprice: 1200,
+      },
+    ],
   },
   {
-    title: "Pending",
-    to: "/purchase/pending",
+    shop: {
+      id: 1,
+      name: "Baboon’s Toys Shop",
+    },
+    status: "Canceled",
+    total: 2400,
+    product: [
+      {
+        pid: 1,
+        pimage:
+          "https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp",
+        pname:
+          "Pet Birds Feeder Food Water Feeding Box For Small Medium Large Birds Parrots",
+        pquantity: 2,
+        pprice: 1200,
+      },
+    ],
   },
   {
-    title: "Shipping",
-    to: "/purchase/shipping",
+    shop: {
+      id: 1,
+      name: "Baboon’s Toys Shop",
+    },
+    status: "Pending",
+    total: 2400,
+    product: [
+      {
+        pid: 1,
+        pimage:
+          "https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp",
+        pname:
+          "Pet Birds Feeder Food Water Feeding Box For Small Medium Large Birds Parrots",
+        pquantity: 2,
+        pprice: 1200,
+      },
+    ],
   },
   {
-    title: "Completed",
-    to: "/purchase/complete",
-  },
-  {
-    title: "Cancelled",
-    to: "/purchase/cancel",
+    shop: {
+      id: 1,
+      name: "Baboon’s Toys Shop",
+    },
+    status: "Shipping",
+    total: 2400,
+    product: [
+      {
+        pid: 1,
+        pimage:
+          "https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp",
+        pname:
+          "Pet Birds Feeder Food Water Feeding Box For Small Medium Large Birds Parrots",
+        pquantity: 2,
+        pprice: 1200,
+      },
+    ],
   },
 ];
 
-function Purchase() {
-  const { pathname } = useLocation();
+const styleStatus = (status) => {
+  if (status === "Completed") {
+    return {
+      color: "var(--primary)",
+    };
+  } else if (status === "Canceled") {
+    return {
+      color: "#ff1616",
+    };
+  } else if (status === "Pending") {
+    return {
+      color: "#feb019",
+    };
+  } else {
+    return {
+      color: "#008ffb",
+    };
+  }
+};
 
+function Purchase() {
   return (
     <>
       <Header />
       <div className={cx("purchase_wrapper")}>
         <div className={cx("purchase_container")}>
-          <div className={cx("purchase_header-nav")}>
-            {statusNav.map((status, index) => (
-              <NavLink
-                key={index}
-                to={status.to}
-                className={({ isActive }) =>
-                  [cx("nav"), isActive ? cx("nav-active") : null].join(" ")
-                }
-                isActive={() =>
-                  [
-                    "/purchase/all",
-                    "/purchase/pending",
-                    "/purchase/shipping",
-                    "/purchase/complete",
-                    "/purchase/cancel",
-                  ].includes(pathname)
-                }
-              >
-                <span className={cx("nav-text")}>{status.title}</span>
-              </NavLink>
-            ))}
-          </div>
-
-          <div className={cx("purchase_item")}>
-            <div className={cx("purchase_item-info")}>
-              <div className={cx("purchase_item-header")}>
-                <div className={cx("shop-name")}>Baboon’s Toys Shop</div>
-                <div className={cx("status")}>COMPLETED</div>
-              </div>
-              <div className={cx("purchase_item-detail")}>
-                <div className={cx("content")}>
-                  <img
-                    src="https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp"
-                    alt="product-img"
-                    className={cx("product-img")}
-                  />
-                  <div className={cx("product-name")}>
-                    Pet Birds Feeder Food Water Feeding Box For Small Medium
-                    Large Birds Parrots
+          <NavBar />
+          {orders.map((order, index) => (
+            <div className={cx("purchase_item")} key={index}>
+              <div className={cx("purchase_item-info")}>
+                <div className={cx("purchase_item-header")}>
+                  <div className={cx("shop-name")}>{order.shop.name}</div>
+                  <div
+                    className={cx("status")}
+                    style={styleStatus(order.status)}
+                  >
+                    {order.status.toUpperCase()}
                   </div>
                 </div>
-                <div className={cx("price")}>$1000</div>
+                {order.product.map((item) => (
+                  <div className={cx("purchase_item-detail")} key={item.pid}>
+                    <div className={cx("content")}>
+                      <img
+                        src={item.pimage}
+                        alt="product-img"
+                        className={cx("product-img")}
+                      />
+                      <div className={cx("product-content")}>
+                        <div className={cx("product-name")}>{item.pname}</div>
+                        <div className={cx("quantity")}>x{item.pquantity}</div>
+                      </div>
+                    </div>
+                    <div className={cx("price")}>${item.pprice}</div>
+                  </div>
+                ))}
+              </div>
+              <div className={cx("purchase_item_order-total")}>
+                <div className={cx("order-total-detail")}>
+                  <div className={cx("text")}>Order Total:</div>
+                  <div className={cx("price")}>${order.total}</div>
+                </div>
+              </div>
+              <div className={cx("purchase_item-options")}>
+                <div className={cx("text")}>No rating received</div>
+                <div className={cx("button")}>
+                  {(order.status === "Completed" ||
+                    order.status === "Canceled") && (
+                      <Link to="/product" className={cx("buy-btn")}>Buy Again</Link>
+                    )}
+                  <button className={cx("contact-btn")}>Contact Seller</button>
+                </div>
               </div>
             </div>
-            <div className={cx("purchase_item_order-total")}>
-              <div className={cx("order-total-detail")}>
-                <div className={cx("text")}>Order Total:</div>
-                <div className={cx("price")}>$1000</div>
-              </div>
-            </div>
-            <div className={cx("purchase_item-options")}>
-              <div className={cx("text")}>No rating received</div>
-              <div className={cx("button")}>
-                <button className={cx("buy-btn")}>Buy Again</button>
-                <button className={cx("contact-btn")}>Contact Seller</button>
-              </div>
-            </div>
-          </div>
-          {/* <div className={cx("no-purchase_item")}>
-            <div className={cx("no-purchase_item-content")}>
-              <img
-                src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/5fafbb923393b712b96488590b8f781f.png"
-                alt="img"
-                className={cx("no_item-img")}
-              />
-              <span className={cx("text")}>No orders yet</span>
-            </div>
-          </div> */}
+          ))}
         </div>
       </div>
       <Footer />

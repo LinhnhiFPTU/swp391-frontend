@@ -14,14 +14,16 @@ const orders = [
     orderId: 123456,
     order:
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
+    date: "01-01-2032 12:43",
     price: 1234,
     status: "Completed",
-    payment: "Cart",
+    payment: "Cash",
   },
   {
     orderId: 123456,
     order:
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
+    date: "01-01-2032 12:43",
     price: 1234,
     status: "Completed",
     payment: "Zalo",
@@ -30,6 +32,7 @@ const orders = [
     orderId: 123456,
     order:
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
+    date: "01-01-2032 12:43",
     price: 1234,
     status: "Pending",
     payment: "VnPay",
@@ -38,6 +41,7 @@ const orders = [
     orderId: 123456,
     order:
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
+    date: "01-01-2032 12:43",
     price: 1234,
     status: "Shipping",
     payment: "Zalo",
@@ -46,6 +50,7 @@ const orders = [
     orderId: 123456,
     order:
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
+    date: "01-01-2032 12:43",
     price: 1234,
     status: "Canceled",
     payment: "VnPay",
@@ -54,9 +59,10 @@ const orders = [
     orderId: 123456,
     order:
       "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
+    date: "01-01-2032 12:43",
     price: 1234,
     status: "Pending",
-    payment: "Cart",
+    payment: "Cash",
   },
 ];
 
@@ -96,6 +102,14 @@ function Order() {
             <div className={cx("order_count")}>0 Orders</div>
             <div className={cx("order_table")}>
               <Table orders={orders} />
+            </div>
+            <div className={cx("prev-next")}>
+              <button className={cx("icon-left")}>
+                <i className={cx("fa-light fa-angle-left")}></i>
+              </button>
+              <button className={cx("icon-right")}>
+                <i className={cx("fa-light fa-angle-right")}></i>
+              </button>
             </div>
           </div>
         </div>

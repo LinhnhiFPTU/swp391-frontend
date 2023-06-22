@@ -544,8 +544,8 @@ function Product() {
                 {product.category.name === "Bird" ? (
                   <>
                     <button className={cx("contact")}>
-                      <i className={cx("fa-light fa-phone")}></i>
-                      <span>Contact</span>
+                      <i className={cx("fa-light fa-paper-plane")}></i>
+                      <span>Send Request</span>
                     </button>
                     <button className={cx("chat")}>
                       <i className={cx("fa-regular fa-message-dots")}></i>

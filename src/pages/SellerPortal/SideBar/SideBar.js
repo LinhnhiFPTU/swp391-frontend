@@ -32,13 +32,19 @@ const sideBarOptions = [
   },
   {
     id: 4,
+    title: "Message",
+    icon: "fa-light fa-comment-dots",
+    path: "/seller/portal/message",
+  },
+  {
+    id: 5,  
     title: "Shop",
     icon: "fa-light fa-bag-shopping",
     path: "/seller/portal/shop",
   },
 
   {
-    id: 5,
+    id: 6,
     title: "Data Chart",
     icon: "fa-light fa-chart-line-up",
     path: "/seller/portal/chart",

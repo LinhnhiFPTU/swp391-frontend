@@ -155,7 +155,7 @@ function FeedBack() {
               </div>
 
               {feedbacks.map((data, index) => (
-                <div className={cx("body-content")}>
+                <div className={cx("body-content")} key={index}>
                   <div className={cx("user-information-body")}>
                     <img
                       src={data.user.avatarUrl}
@@ -187,7 +187,7 @@ function FeedBack() {
                     </span>
                   </div>
                   <div className={cx("see-detail-body")}>
-                    <Link to="" className={cx("forward-detail")}>
+                    <Link to="/seller/portal/feedback/detail" className={cx("forward-detail")}>
                       Detail
                     </Link>
                   </div>

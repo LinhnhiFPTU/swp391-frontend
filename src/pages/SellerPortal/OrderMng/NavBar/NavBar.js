@@ -11,6 +11,10 @@ const orderNavs = [
     to: "/seller/portal/order/all",
   },
   {
+    title: "Contact",
+    to: "/seller/portal/order/contact",
+  },
+  {
     title: "Pending",
     to: "/seller/portal/order/pending",
   },

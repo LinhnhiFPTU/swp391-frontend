@@ -1,70 +1,27 @@
 import classNames from "classnames/bind";
-import { NavLink, useLocation } from "react-router-dom";
 
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
+import NavBar from "../NavBar";
+import NoPurchase from "../NoPurchase";
+
 import styles from "./Pending.module.scss";
 
 const cx = classNames.bind(styles);
 
-const statusNav = [
-  {
-    title: "All",
-    to: "/purchase/all",
-  },
-  {
-    title: "Pending",
-    to: "/purchase/pending",
-  },
-  {
-    title: "Shipping",
-    to: "/purchase/shipping",
-  },
-  {
-    title: "Completed",
-    to: "/purchase/complete",
-  },
-  {
-    title: "Cancelled",
-    to: "/purchase/cancel",
-  },
-];
-
 function Pending() {
-  const { pathname } = useLocation();
   return (
     <>
       <Header />
       <div className={cx("pending_wrapper")}>
         <div className={cx("pending_container")}>
-          <div className={cx("pending_header-nav")}>
-            {statusNav.map((status, index) => (
-              <NavLink
-                key={index}
-                to={status.to}
-                className={({ isActive }) =>
-                  [cx("nav"), isActive ? cx("nav-active") : null].join(" ")
-                }
-                isActive={() =>
-                  [
-                    "/purchase/all",
-                    "/purchase/pending",
-                    "/purchase/shipping",
-                    "/purchase/complete",
-                    "/purchase/cancel",
-                  ].includes(pathname)
-                }
-              >
-                <span className={cx("nav-text")}>{status.title}</span>
-              </NavLink>
-            ))}
-          </div>
-          
-          {/* <div className={cx("purchase_item")}>
+          <NavBar />
+
+          <div className={cx("purchase_item")}>
             <div className={cx("purchase_item-info")}>
               <div className={cx("purchase_item-header")}>
                 <div className={cx("shop-name")}>Baboon’s Toys Shop</div>
-                <div className={cx("status")}>COMPLETED</div>
+                <div className={cx("status")}>PENDING</div>
               </div>
               <div className={cx("purchase_item-detail")}>
                 <div className={cx("content")}>
@@ -73,9 +30,12 @@ function Pending() {
                     alt="product-img"
                     className={cx("product-img")}
                   />
-                  <div className={cx("product-name")}>
-                    Pet Birds Feeder Food Water Feeding Box For Small Medium
-                    Large Birds Parrots
+                  <div className={cx("product-content")}>
+                    <div className={cx("product-name")}>
+                      Pet Birds Feeder Food Water Feeding Box For Small Medium
+                      Large Birds Parrots
+                    </div>
+                    <div className={cx("quantity")}>x2</div>
                   </div>
                 </div>
                 <div className={cx("price")}>$1000</div>
@@ -92,16 +52,6 @@ function Pending() {
               <div className={cx("button")}>
                 <button className={cx("contact-btn")}>Contact Seller</button>
               </div>
-            </div>
-          </div> */}
-          <div className={cx("no-purchase_item")}>
-            <div className={cx("no-purchase_item-content")}>
-              <img
-                src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/5fafbb923393b712b96488590b8f781f.png"
-                alt="img"
-                className={cx("no_item-img")}
-              />
-              <span className={cx("text")}>No orders yet</span>
             </div>
           </div>
         </div>
