@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import HeaderSeller from "~/layouts/components/HeaderSeller";
@@ -11,47 +11,9 @@ import RecentOrder from "./RecentOrder";
 import TopSale from "./TopSale";
 
 import styles from "./Dashboard.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
-
-const widgets = [
-  {
-    type: "Revenue",
-    icon: "fa-solid fa-sack-dollar",
-    isMoney: true,
-    data: 12878,
-    title: "Today profit",
-    changeData: 21312,
-    changePercent: 8.42,
-  },
-  {
-    type: "Order",
-    icon: "fa-solid fa-cart-shopping",
-    isMoney: false,
-    data: 23987,
-    title: "Today orders",
-    changeData: -21312,
-    changePercent: -8.42,
-  },
-  {
-    type: "Follower",
-    icon: "fa-solid fa-user-plus",
-    isMoney: false,
-    data: 3987,
-    title: "Today followers",
-    changeData: 0,
-    changePercent: 0,
-  },
-  {
-    type: "Feedback",
-    icon: "fa-solid fa-messages-question",
-    isMoney: false,
-    data: 987,
-    title: "Today feedbacks",
-    changeData: 21312,
-    changePercent: 8.42,
-  },
-];
 
 const colorData = (type) => {
   if (type === "Revenue") {
@@ -74,6 +36,49 @@ const colorData = (type) => {
 };
 
 function Dashboard() {
+  const [widgets, setWidgets] = useState([
+    {
+      id: 1,
+      type: "Revenue",
+      icon: "fa-solid fa-sack-dollar",
+      isMoney: true,
+      data: 12878,
+      title: "Today profit",
+      changeData: 21312,
+      changePercent: 8.42,
+    },
+    {
+      id: 2,
+      type: "Order",
+      icon: "fa-solid fa-cart-shopping",
+      isMoney: false,
+      data: 23987,
+      title: "Today orders",
+      changeData: -21312,
+      changePercent: -8.42,
+    },
+    {
+      id: 3,
+      type: "Follower",
+      icon: "fa-solid fa-user-plus",
+      isMoney: false,
+      data: 3987,
+      title: "Today followers",
+      changeData: 0,
+      changePercent: 0,
+    },
+    {
+      id: 4,
+      type: "Feedback",
+      icon: "fa-solid fa-messages-question",
+      isMoney: false,
+      data: 987,
+      title: "Today feedbacks",
+      changeData: 21312,
+      changePercent: 8.42,
+    },
+  ])
+
   const [dataChart, setDataChart] = useState({
     type: "Revenue",
     icon: "fa-solid fa-sack-dollar",
@@ -83,7 +88,23 @@ function Dashboard() {
     changeData: 21312,
     changePercent: 8.42,
   });
-  console.log(dataChart);
+
+  useEffect(() => {
+    axios.get("/api/v1/shop/revenue/real-time")
+    .then(res => {
+      let revenues = res.data
+      var revenue =  widgets.find(it => it.id === 1)
+      revenue.data = revenues[0]
+      revenue.changeData = revenues[0] - revenues[1]
+      if (revenues[1] == 0)
+      {
+        revenue.changePercent = revenues[0] - revenues[1]
+      }else revenue.changePercent = (revenues[0] / revenues[1]) * 100 - 100
+      console.log(revenue)
+      setWidgets(Array.from(widgets))
+    })
+    .catch(e => console.log(e))
+  }, [])
 
   return (
     <>

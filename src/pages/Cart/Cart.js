@@ -44,7 +44,7 @@ function Cart() {
         totalQuantity: totalQuantity
     });
 
-  }, [checkedProducts]);
+  }, [checkedProducts, state]);
 
   const handleCheckout = () => {
     let item = state.filter((item, index) => {
@@ -62,7 +62,13 @@ function Cart() {
       }
     })
      console.log(item)
-    // navigate("/checkout");
+     
+    navigate("/checkout", {
+      state: {
+        item: item,
+        total: total.totalPrice
+      }
+    });
   };
 
   /*

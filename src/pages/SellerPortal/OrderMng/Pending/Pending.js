@@ -54,7 +54,7 @@ function Cancel() {
                 </button>
               </form>
             </div>
-            <div className={cx("order_count")}>0 Orders</div>
+            <div className={cx("order_count")}>{orders.length} Orders</div>
             <div className={cx("order_table")}>
               <TableEdit orders={orders} />
             </div>

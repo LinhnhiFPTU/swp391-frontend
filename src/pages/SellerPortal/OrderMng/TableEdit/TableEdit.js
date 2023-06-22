@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import NoOrder from "../NoOrder";
 
 import styles from "./Table.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -29,9 +30,31 @@ const statusStyle = (status) => {
   }
 };
 function Table({ orders }) {
+
   if (!orders || orders.length === 0) {
     return <NoOrder />;
   }
+
+  const handleApproveOrder = (e, orderId) => {
+    e.preventDefault()
+    axios.post("/api/v1/shop/order/confirm/" + orderId)
+    .then(res => {
+      console.log(res)
+      window.location.href = "/seller/portal/order/pending";
+    })
+    .catch(e => console.log(e))
+  }
+
+  const handleRejectOrder = (e, orderId) => {
+    e.preventDefault()
+    axios.post("/api/v1/shop/order/reject/" + orderId)
+    .then(res => {
+      console.log(res)
+      window.location.href = "/seller/portal/order/pending";
+    })
+    .catch(e => console.log(e))
+  }
+
   return (
     <div className={cx("table_data")}>
       <div className={cx("table-head")}>
@@ -47,8 +70,8 @@ function Table({ orders }) {
         <div className={cx("table-body")} key={index}>
           <div className={cx("body-text", "orderId")}>#{item.id}</div>
           <div className={cx("body-text", "name")}>{item.description }</div>
-          <div className={cx("body-text", "date")}>{item.createdTime}</div>
-          <div className={cx("body-text", "price")}>${item.totalPrice}</div>
+          <div className={cx("body-text", "date")}>{(new Date(item.createdTime)).toLocaleString()}</div>
+          <div className={cx("body-text", "price")}>${item.realPrice}</div>
           <div className={cx("body-text", "status")}>
             <div
               className={cx("inside-status")}
@@ -59,10 +82,10 @@ function Table({ orders }) {
           </div>
           <div className={cx("body-text", "payment")}>{item.payment}</div>
           <div className={cx("body-text", "edit")}>
-            <button className={cx("approve-btn")}>
+            <button className={cx("approve-btn")} onClick={(e) => handleApproveOrder(e, item.id)}>
               <i className={cx("fa-solid fa-check")}></i>
             </button>
-            <button className={cx("reject-btn")}>
+            <button className={cx("reject-btn")} onClick={(e) => handleRejectOrder(e, item.id)}>
               <i className={cx("fa-solid fa-xmark")}></i>
             </button>
           </div>

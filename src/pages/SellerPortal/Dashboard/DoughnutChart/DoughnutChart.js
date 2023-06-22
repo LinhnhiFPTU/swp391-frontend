@@ -3,13 +3,28 @@ import classNames from "classnames/bind";
 import Chart from "react-apexcharts";
 
 import styles from "./DoughnutChart.module.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function DoughnutChart() {
-  const data = [0, 4, 2, 0];
+  const [revenues, setRevenues] = useState([0, 4, 2, 0])
+  const [categories, setCategories] = useState(["Bird", "Bird Food", "Bird Cage", ""])
+
+  useEffect(() => {
+    axios.get("/api/v1/shop/category/all")
+    .then(res => setCategories(res.data.map(item => item.name)))
+    .catch(e => console.log(e))
+
+    axios.get("/api/v1/shop/category/revenue")
+    .then(res => setRevenues(res.data))
+    .catch(e => console.log(e))
+
+  }, [])
+
   const options = {
-    labels: ["Bird", "Bird Food", "Bird Cage", "Bird Accessory"],
+    labels: categories,
     plotOptions: {
       pie: {
         expandOnClick: false,
@@ -52,7 +67,7 @@ function DoughnutChart() {
   };
   return (
     <div className={cx("chart-donut")}>
-      <Chart type="donut" width="500" height="450" series={data} options={options} />
+      <Chart type="donut" width="500" height="450" series={revenues} options={options} />
     </div>
   );
 }

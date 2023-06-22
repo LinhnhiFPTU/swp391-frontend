@@ -57,13 +57,13 @@ function RecentOrder() {
               {order.description}
             </div>
           </div>
-          <div className={cx("date")}>{order.createdTime}</div>
+          <div className={cx("date")}>{(new Date(order.createdTime)).toLocaleTimeString()}</div>
           <div className={cx("status")}>
             <div className={cx("inside-status")} style={statusStyle(order.status)}>
               {order.status}
             </div>
           </div>
-          <div className={cx("amount")}>${order.totalPrice}</div>
+          <div className={cx("amount")}>${order.realPrice}</div>
         </div>
       ))}
     </div>
