@@ -20,6 +20,7 @@ function Message() {
   const fileInputVideoRef = useRef();
   const textInputRef = useRef();
   const [shop, setShop] = useState({});
+  const [mediaMessages, setMediaMessages] = useState([]);
 
   useEffect(() => {
     axios
@@ -39,7 +40,7 @@ function Message() {
       .catch((e) => {
         console.log(e);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onConnected = () => {
@@ -65,10 +66,9 @@ function Message() {
   const onNewConversation = (payload) => {
     const data = JSON.parse(payload.body);
     data.messages = data.messages || [];
-    console.log(data)
+    console.log(data);
     stompClient.subscribe("/conversation/" + data.id, onPrivateMessage);
-    if (!conversations.find(it => it.id === data.id))
-    {
+    if (!conversations.find((it) => it.id === data.id)) {
       conversations.push(data);
       setConversations(Array.from(conversations));
     }
@@ -79,8 +79,7 @@ function Message() {
     console.log(data);
     data.forEach((item, index) => {
       stompClient.subscribe("/conversation/" + item.id, onPrivateMessage);
-      if (!conversations.find(it => it.id === item.id))
-      {
+      if (!conversations.find((it) => it.id === item.id)) {
         conversations.push(item);
       }
       setConversations(Array.from(conversations));
@@ -94,8 +93,7 @@ function Message() {
     )[0];
     console.log(conversation);
     let index = conversations.indexOf(conversation);
-    if (!conversations[index].messages.find(it => it.id === payloadData.id))
-    {
+    if (!conversations[index].messages.find((it) => it.id === payloadData.id)) {
       conversations[index].messages.push(payloadData);
       setConversations([...conversations]);
     }
@@ -129,8 +127,32 @@ function Message() {
     fileInputImageRef.current.click();
   };
 
+  const handlePreviewImage = (e) => {
+    let length = e.target.files.length;
+    for (let i = 0; i < length; i++) {
+      let mediaMsg = {
+        type: "IMG",
+        file: e.target.files[i],
+      };
+      mediaMessages.push(mediaMsg);
+      setMediaMessages(Array.from(mediaMessages));
+    }
+  };
+
   const handleClickVideo = () => {
     fileInputVideoRef.current.click();
+  };
+
+  const handlePreviewVideo = (e) => {
+    let length = e.target.files.length;
+    for (let i = 0; i < length; i++) {
+      let mediaMsg = {
+        type: "VIDEO",
+        file: e.target.files[i],
+      };
+      mediaMessages.push(mediaMsg);
+      setMediaMessages(Array.from(mediaMessages));
+    }
   };
 
   const handleClickEmoji = () => {
@@ -171,7 +193,7 @@ function Message() {
               </div>
               <div className={cx("list-container")}>
                 {conversations.map((con, index) => {
-                  let len = con.messages.length
+                  let len = con.messages.length;
                   return con.conversationChatters
                     .filter((it) => {
                       return !it.shop;
@@ -191,14 +213,24 @@ function Message() {
                         />
                         <div className={cx("user-content")}>
                           <div className={cx("above")}>
-                            <div className={cx("user-name")}>{it.user.firstname + " " + it.user.lastname}</div>
-                            <div className={cx("date")}>{(new Date(con.messages[len - 1].sendTime)).toLocaleDateString()}</div>
+                            <div className={cx("user-name")}>
+                              {it.user.firstname + " " + it.user.lastname}
+                            </div>
+                            <div className={cx("date")}>
+                              {new Date(
+                                con.messages[len - 1].sendTime
+                              ).toLocaleDateString()}
+                            </div>
                           </div>
                           <div className={cx("under")}>
                             <div className={cx("content-chat")}>
                               {con.messages[len - 1].content}
                             </div>
-                            <div className={cx("time")}>{(new Date(con.messages[len - 1].sendTime)).toLocaleTimeString()}</div>
+                            <div className={cx("time")}>
+                              {new Date(
+                                con.messages[len - 1].sendTime
+                              ).toLocaleTimeString()}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -223,19 +255,21 @@ function Message() {
                     src={
                       conversations[activeTab] &&
                       conversations[activeTab].conversationChatters
-                      .filter(it => !it.shop)
-                      .map(it => "/api/v1/publics/user/avatar/" + it.user.email)[0]
+                        .filter((it) => !it.shop)
+                        .map(
+                          (it) => "/api/v1/publics/user/avatar/" + it.user.email
+                        )[0]
                     }
                     alt="avatar"
                     className={cx("avatar")}
                   />
                   <span className={cx("name")}>
-                    {
-                      conversations[activeTab] &&
+                    {conversations[activeTab] &&
                       conversations[activeTab].conversationChatters
-                      .filter(it => !it.shop)
-                      .map(it => it.user.firstname + " " + it.user.lastname)[0]
-                    }
+                        .filter((it) => !it.shop)
+                        .map(
+                          (it) => it.user.firstname + " " + it.user.lastname
+                        )[0]}
                   </span>
                 </div>
                 <div className={cx("header-right")}>
@@ -271,6 +305,7 @@ function Message() {
                       multiple
                       style={{ display: "none" }}
                       accept="image/*"
+                      onChange={handlePreviewImage}
                     />
                   </div>
                   <div className={cx("video")}>
@@ -287,34 +322,128 @@ function Message() {
                       multiple
                       style={{ display: "none" }}
                       accept="video/*"
+                      onChange={handlePreviewVideo}
                     />
                   </div>
                 </div>
-                <div className={cx("text-input")}>
-                  <input
-                    ref={textInputRef}
-                    type="text"
-                    placeholder="Aa"
-                    spellCheck={false}
-                    autoFocus
-                    value={inputSend}
-                    onChange={(e) => setInputSend(e.target.value)}
-                    className={cx("input-chat")}
-                    onKeyDown={(e) => {
-                      if(e.keyCode === 13)
-                      {
-                        sendPrivateValue(e)
-                      }
-                    }}
-                  />
+                <div className={cx("input-container")}>
+                  {mediaMessages.length > 0 && (
+                    <div className={cx("list-preview-image")}>
+                      {mediaMessages.map((media, index) => {
+                        if (media.type === "IMG") {
+                          return (
+                            <div className={cx("load-image-preview")}>
+                              <img
+                                src={URL.createObjectURL(media.file)}
+                                alt="img-preview"
+                                className={cx("image-preview")}
+                              />
+                              <div
+                                className={cx("close")}
+                                onClick={() => {
+                                  let newMediaMsg = mediaMessages.filter(
+                                    (md, i) => i !== index
+                                  );
+                                  setMediaMessages(Array.from(newMediaMsg));
+                                }}
+                              >
+                                <i
+                                  className={cx(
+                                    "fa-regular fa-xmark",
+                                    "close-icon"
+                                  )}
+                                ></i>
+                              </div>
+                            </div>
+                          );
+                        }
+                        return (
+                          <div className={cx("load-video-preview")}>
+                            <video
+                              src={URL.createObjectURL(media.file)}
+                              type="video/mp4"
+                              className={cx("video-preview")}
+                            />
+                            <div
+                              className={cx("close")}
+                              onClick={() => {
+                                let newMediaMsg = mediaMessages.filter(
+                                  (md, i) => i !== index
+                                );
+                                setMediaMessages(Array.from(newMediaMsg));
+                              }}
+                            >
+                              <i
+                                className={cx(
+                                  "fa-regular fa-xmark",
+                                  "close-icon"
+                                )}
+                              ></i>
+                            </div>
+                            <div className={cx("pause")}>
+                              <svg
+                                enableBackground="new 0 0 15 15"
+                                viewBox="0 0 15 15"
+                                x="0"
+                                y="0"
+                                className={cx("svg-icon")}
+                              >
+                                <g opacity=".54">
+                                  <g>
+                                    <circle
+                                      cx="7.5"
+                                      cy="7.5"
+                                      fill="#040000"
+                                      r="7.3"
+                                    ></circle>
+                                    <path
+                                      d="m7.5.5c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7m0-.5c-4.1 0-7.5 3.4-7.5 7.5s3.4 7.5 7.5 7.5 7.5-3.4 7.5-7.5-3.4-7.5-7.5-7.5z"
+                                      fill="#ffffff"
+                                    ></path>
+                                  </g>
+                                </g>
+                                <path
+                                  d="m6.1 5.1c0-.2.1-.3.3-.2l3.3 2.3c.2.1.2.3 0 .4l-3.3 2.4c-.2.1-.3.1-.3-.2z"
+                                  fill="#ffffff"
+                                ></path>
+                              </svg>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
 
-                  <div className={cx("emoji")}>
-                    <i
-                      className={cx("fa-regular fa-face-smile", "icon-emoji")}
-                      onClick={handleClickEmoji}
-                    ></i>
+                  <div
+                    className={cx("text-input", {
+                      active: mediaMessages.length > 0,
+                    })}
+                  >
+                    <input
+                      ref={textInputRef}
+                      type="text"
+                      placeholder="Aa"
+                      spellCheck={false}
+                      autoFocus
+                      value={inputSend}
+                      onChange={(e) => setInputSend(e.target.value)}
+                      className={cx("input-chat")}
+                      onKeyDown={(e) => {
+                        if (e.keyCode === 13) {
+                          sendPrivateValue(e);
+                        }
+                      }}
+                    />
+
+                    <div className={cx("emoji")}>
+                      <i
+                        className={cx("fa-regular fa-face-smile", "icon-emoji")}
+                        onClick={handleClickEmoji}
+                      ></i>
+                    </div>
                   </div>
                 </div>
+
                 <div className={cx("send-chat")} onClick={sendPrivateValue}>
                   <i
                     className={

@@ -24,8 +24,9 @@ function ChatWindow({ closeChat, color }) {
   const fileInputVideoRef = useRef();
   const textInputRef = useRef();
   const [user, setUser] = useState({});
-  const [images, setImages] = useState([])
-  const [videos, setVideos] = useState([])
+  const [images, setImages] = useState([]);
+  const [videos, setVideos] = useState([]);
+  const [mediaMessages, setMediaMessages] = useState([]);
 
   useEffect(() => {
     axios
@@ -45,7 +46,7 @@ function ChatWindow({ closeChat, color }) {
       .catch((e) => {
         console.log(e);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onConnected = () => {
@@ -121,11 +122,11 @@ function ChatWindow({ closeChat, color }) {
       const formData = new FormData();
       videos.forEach((video, index) => {
         formData.append("videos", video);
-      })
+      });
 
       images.forEach((image, index) => {
         formData.append("images", image);
-      })
+      });
 
       formData.append("message", JSON.stringify(chatMessage));
 
@@ -137,7 +138,7 @@ function ChatWindow({ closeChat, color }) {
         })
         .then((res) => {
           setInputSend("");
-          textInputRef.current.focus()
+          textInputRef.current.focus();
           console.log(res);
         })
         .catch((e) => {
@@ -171,12 +172,30 @@ function ChatWindow({ closeChat, color }) {
   };
 
   const handleChangeVideo = (e) => {
-    videos.push(e.target.files[0])
-  }
+    videos.push(e.target.files[0]);
+    let length = e.target.files.length;
+    for (let i = 0; i < length; i++) {
+      let mediaMsg = {
+        type: "VIDEO",
+        file: e.target.files[i],
+      };
+      mediaMessages.push(mediaMsg);
+      setMediaMessages(Array.from(mediaMessages));
+    }
+  };
 
   const handleChangeImage = (e) => {
-    images.push(e.target.files[0])
-  }
+    images.push(e.target.files[0]);
+    let length = e.target.files.length;
+    for (let i = 0; i < length; i++) {
+      let mediaMsg = {
+        type: "IMG",
+        file: e.target.files[i],
+      };
+      mediaMessages.push(mediaMsg);
+      setMediaMessages(Array.from(mediaMessages));
+    }
+  };
 
   return (
     <>
@@ -305,20 +324,109 @@ function ChatWindow({ closeChat, color }) {
             </div>
 
             <div className={cx("chat-footer")}>
-              <div className={cx("input-text")}>
-                <textarea
-                  ref={textInputRef}
-                  placeholder="Enter the text of the message"
-                  spellCheck="false"
-                  value={inputSend}
-                  autoFocus
-                  onChange={(e) => setInputSend(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.keyCode === 13) {
-                      sendPrivateValue(e);
-                    }
-                  }}
-                ></textarea>
+              <div className={cx("input-container")}>
+                {mediaMessages.length > 0 && (
+                  <div className={cx("list-preview-image")}>
+                    {mediaMessages.map((media, index) => {
+                      if (media.type === "IMG") {
+                        return (
+                          <div className={cx("load-image-preview")}>
+                            <img
+                              src={URL.createObjectURL(media.file)}
+                              alt="img-preview"
+                              className={cx("image-preview")}
+                            />
+                            <div
+                              className={cx("close")}
+                              onClick={() => {
+                                let newMediaMsg = mediaMessages.filter(
+                                  (md, i) => i !== index
+                                );
+                                setMediaMessages(Array.from(newMediaMsg));
+                              }}
+                            >
+                              <i
+                                className={cx(
+                                  "fa-regular fa-xmark",
+                                  "close-icon"
+                                )}
+                              ></i>
+                            </div>
+                          </div>
+                        );
+                      }
+                      return (
+                        <div className={cx("load-video-preview")}>
+                          <video
+                            src={URL.createObjectURL(media.file)}
+                            type="video/mp4"
+                            className={cx("video-preview")}
+                          />
+                          <div
+                            className={cx("close")}
+                            // onClick={() => {
+                            //   let newMediaMsg = mediaMessages.filter(
+                            //     (md, i) => i !== index
+                            //   );
+                            //   setMediaMessages(Array.from(newMediaMsg));
+                            // }}
+                          >
+                            <i
+                              className={cx(
+                                "fa-regular fa-xmark",
+                                "close-icon"
+                              )}
+                            ></i>
+                          </div>
+                          <div className={cx("pause")}>
+                            <svg
+                              enableBackground="new 0 0 15 15"
+                              viewBox="0 0 15 15"
+                              x="0"
+                              y="0"
+                              className={cx("svg-icon")}
+                            >
+                              <g opacity=".54">
+                                <g>
+                                  <circle
+                                    cx="7.5"
+                                    cy="7.5"
+                                    fill="#040000"
+                                    r="7.3"
+                                  ></circle>
+                                  <path
+                                    d="m7.5.5c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7m0-.5c-4.1 0-7.5 3.4-7.5 7.5s3.4 7.5 7.5 7.5 7.5-3.4 7.5-7.5-3.4-7.5-7.5-7.5z"
+                                    fill="#ffffff"
+                                  ></path>
+                                </g>
+                              </g>
+                              <path
+                                d="m6.1 5.1c0-.2.1-.3.3-.2l3.3 2.3c.2.1.2.3 0 .4l-3.3 2.4c-.2.1-.3.1-.3-.2z"
+                                fill="#ffffff"
+                              ></path>
+                            </svg>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                <div className={cx("input-text")}>
+                  <textarea
+                    ref={textInputRef}
+                    placeholder="Enter the text of the message"
+                    spellCheck="false"
+                    value={inputSend}
+                    autoFocus
+                    onChange={(e) => setInputSend(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.keyCode === 13) {
+                        sendPrivateValue(e);
+                      }
+                    }}
+                  ></textarea>
+                </div>
               </div>
 
               <div className={cx("send-options")}>
