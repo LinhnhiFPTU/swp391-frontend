@@ -1,13 +1,14 @@
 import classNames from "classnames/bind";
 import styles from "./AddressPopup.module.scss";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 
 const cx = classNames.bind(styles);
 
-function AddressPopup({ closeModel }) {
+function AddressPopup({ closeModel, path = "", subText = "" }) {
   const [receiveInfo, setReceiveInfo] = useState({
     fullname: "",
     phone: "",
@@ -31,6 +32,8 @@ function AddressPopup({ closeModel }) {
   const [focusD, setFocusD] = useState(false);
   const [focusW, setFocusW] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get(
@@ -46,7 +49,7 @@ function AddressPopup({ closeModel }) {
         let newArr = res.data.data
           .map((p) => ({
             id: p.ProvinceID,
-            name: p.NameExtension[0]
+            name: p.NameExtension[0],
           }))
           .filter(
             (p) =>
@@ -135,24 +138,35 @@ function AddressPopup({ closeModel }) {
         districtId: receiveInfo.district.id,
         districtName: receiveInfo.district.name,
         wardId: receiveInfo.ward.id,
-        wardName: receiveInfo.ward.name
-      }
+        wardName: receiveInfo.ward.name,
+      };
       axios
         .post("/api/v1/users/info/receives", AddReceiveRequest)
         .then((res) => {
-          window.location.href = '/user/account/address'
-          console.log(res);
+          if (subText === "") {
+            window.location.href = "/user/account/address";
+          } else {
+            window.location.href = "/checkout";
+          }
         })
         .catch((e) => {
           console.log(e);
         });
     }
-
   }, [Add]);
 
   const handleAddNewReceive = (e) => {
     e.preventDefault();
     setAdd(true);
+  };
+
+  const handleCloseCancel = () => {
+    if (path === "/cart") {
+      closeModel(false);
+      navigate("/cart");
+    } else {
+      closeModel(false);
+    }
   };
 
   return (
@@ -161,6 +175,7 @@ function AddressPopup({ closeModel }) {
         <div className={cx("addr-container")}>
           <div className={cx("popup-head")}>
             <span className={cx("popup-head-text")}>New receive info</span>
+            {subText !== "" && <div className={cx("sub-head")}>{subText}</div>}
           </div>
           <div className={cx("popup-content")}>
             <div className={cx("addr-content")}>
@@ -208,9 +223,9 @@ function AddressPopup({ closeModel }) {
                           className={cx("province-item")}
                           onClick={() => {
                             setFocusP((f) => !f);
-                            setSearchP(item.name)
-                            setSearchD("")
-                            setSearchW("")
+                            setSearchP(item.name);
+                            setSearchD("");
+                            setSearchW("");
                             setReceiveInfo({
                               ...receiveInfo,
                               province: item,
@@ -233,8 +248,8 @@ function AddressPopup({ closeModel }) {
                     className={cx("form-input")}
                     placeholder=" "
                     onFocus={() => {
-                      setFocusP(true)
-                      setSearchP("")
+                      setFocusP(true);
+                      setSearchP("");
                     }}
                     value={searchP}
                     onChange={(e) => setSearchP(e.target.value)}
@@ -260,9 +275,13 @@ function AddressPopup({ closeModel }) {
                           className={cx("province-item")}
                           onClick={() => {
                             setFocusD((f) => !f);
-                            setSearchD(item.name)
-                            setSearchW("")
-                            setReceiveInfo({ ...receiveInfo, district: item, ward: undefined});
+                            setSearchD(item.name);
+                            setSearchW("");
+                            setReceiveInfo({
+                              ...receiveInfo,
+                              district: item,
+                              ward: undefined,
+                            });
                           }}
                         >
                           {item.name}
@@ -279,8 +298,8 @@ function AddressPopup({ closeModel }) {
                     className={cx("form-input")}
                     placeholder=" "
                     onFocus={() => {
-                      setFocusD(true)
-                      setSearchD("")
+                      setFocusD(true);
+                      setSearchD("");
                     }}
                     required
                     disabled={!receiveInfo.province}
@@ -306,7 +325,7 @@ function AddressPopup({ closeModel }) {
                           className={cx("province-item")}
                           onClick={() => {
                             setFocusW((f) => !f);
-                            setSearchW(item.name)
+                            setSearchW(item.name);
                             setReceiveInfo({ ...receiveInfo, ward: item });
                           }}
                         >
@@ -324,8 +343,8 @@ function AddressPopup({ closeModel }) {
                     className={cx("form-input")}
                     placeholder=" "
                     onFocus={() => {
-                      setFocusW(true)
-                      setSearchW("")
+                      setFocusW(true);
+                      setSearchW("");
                     }}
                     required
                     disabled={!receiveInfo.district}
@@ -359,21 +378,21 @@ function AddressPopup({ closeModel }) {
               </div>
             </div>
           </div>
-          <div className={cx("popup-footer")}>
-            <div className={cx("popup-btn")}>
-              <button
-                className={cx("cancel", "p-btn")}
-                onClick={() => closeModel(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className={cx("update", "p-btn")}
-                onClick={handleAddNewReceive}
-              >
-                Add
-              </button>
-            </div>
+        </div>
+        <div className={cx("popup-footer")}>
+          <div className={cx("popup-btn")}>
+            <button
+              className={cx("cancel", "p-btn")}
+              onClick={handleCloseCancel}
+            >
+              Cancel
+            </button>
+            <button
+              className={cx("update", "p-btn")}
+              onClick={handleAddNewReceive}
+            >
+              Add
+            </button>
           </div>
         </div>
       </div>

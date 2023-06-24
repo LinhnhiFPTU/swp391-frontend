@@ -87,7 +87,7 @@
 }
 
 .addr-detail {
-  margin-top: 70px;
+  margin-top: 40px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -191,10 +191,14 @@
 
 
 .popup-footer {
-  margin-top: 230px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  padding: 30px;
 }
 
 .p-btn {

@@ -15,7 +15,6 @@ import ChatPupup from "~/layouts/components/ChatPopup";
 
 import bird from "~/assets/images/bird.png";
 import birdFood from "~/assets/images/bird-food.png";
-import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
@@ -258,7 +257,7 @@ function Home() {
       chatterType: "USER",
     };
     stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
-    setOpenChat(true)
+    setOpenChat(true);
   };
 
   return (
@@ -267,7 +266,7 @@ function Home() {
       <Header />
       <div className={cx("container")}>
         <div className={cx("content")}>
-          <ChatPupup openChat={openChat} setOpenChat={setOpenChat}/>
+          <ChatPupup openChat={openChat} setOpenChat={setOpenChat} />
           {/* -----------------BANNER----------------- */}
           <Banner />
           {/* -----------------CATEGORIES----------------- */}
@@ -425,11 +424,7 @@ function Home() {
             </div>
             <div className={cx("product_list")}>
               {daily.map((item, index) => (
-                <Link
-                  to={"/product?productId=" + item.id}
-                  key={index}
-                  className={cx("product_items")}
-                >
+                <div key={index} className={cx("product_items")}>
                   <div className={cx("product-img")}>
                     <img src={item.images[0].url} alt={item.name} />
                   </div>
@@ -462,7 +457,7 @@ function Home() {
                   >
                     Buy Now
                   </Link>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

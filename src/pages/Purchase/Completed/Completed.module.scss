@@ -96,7 +96,7 @@
       }
 
       .purchase_item-options {
-        padding: 15px 24px;
+        padding: 14.5px 24px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -110,7 +110,6 @@
         .button {
           .buy-btn {
             width: 150px;
-            height: 40px;
             font-size: 1.4rem;
             padding: 10px 40px;
             border-radius: 4px;
@@ -121,11 +120,13 @@
             background-color: var(--primary);
           }
 
-          .contact-btn {
+          .feedback-btn {
             width: 150px;
-            height: 40px;
             font-size: 1.4rem;
+            padding: 9px 40px;
             border-radius: 4px;
+            text-decoration: none;
+            border: none;
             outline: none;
             color: #555;
             border: 1px solid rgba(0, 0, 0, 0.09);

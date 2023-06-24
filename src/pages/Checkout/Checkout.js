@@ -2,10 +2,10 @@ import classNames from "classnames/bind";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import ChatPupup from "~/layouts/components/ChatPopup";
 import MyAddress from "./MyAddress";
 import PaymentMethod from "./PaymentMethod";
 import CheckoutPopup from "./CheckoutPopup";
+import AddressPopup from "~/layouts/components/AddressPopup";
 import { UserContext } from "~/App";
 
 import Footer from "~/layouts/components/Footer";
@@ -31,10 +31,11 @@ const payments = [
   },
 ];
 function Checkout() {
-  const { state} = useLocation();
+  const { state } = useLocation();
   const [show, setShow] = useState(false);
-  const [showCheckOutPopup, setShowCheckOutPopup] = useState(false)
+  const [showCheckOutPopup, setShowCheckOutPopup] = useState(false);
   const [paymentId, setPaymentId] = useState(1);
+  const [openAddress, setOpenAddress] = useState(true);
   const [defaultReceiveInfo, setDefaultReceiveInfo] = useState({
     id: 0,
     fullname: "",
@@ -64,14 +65,14 @@ function Checkout() {
 
   useEffect(() => {
     if (state) {
-      setCartItem(state.item)
+      setCartItem(state.item);
     }
   }, [state]);
 
   console.log(state);
 
   const saleCondition = (item) => {
-    console.log(item)
+    console.log(item);
     if (item) {
       return item.salePercent && item.saleQuantity > item.saleSold;
     }
@@ -92,22 +93,28 @@ function Checkout() {
     let request = cartItem.map((ci, index) => ({
       shippingFee: ci.shippingFee,
       shopId: ci.shop.id,
-      checkOutItems: ci.cartProducts.map((cp, i) => (
-        {
-          ...cp,
-          product: undefined,
-          productId: cp.product.id
-        }
-      ))
-    }))
-    e.preventDefault()
-    axios.post('/api/v1/users/order/create', request)
-    .then(res => setShowCheckOutPopup(true))
-    .catch(e => console.log(e))
-  }
+      checkOutItems: ci.cartProducts.map((cp, i) => ({
+        ...cp,
+        product: undefined,
+        productId: cp.product.id,
+      })),
+    }));
+    e.preventDefault();
+    axios
+      .post("/api/v1/users/order/create", request)
+      .then((res) => setShowCheckOutPopup(true))
+      .catch((e) => console.log(e));
+  };
 
   return (
     <>
+      {openAddress &&
+        defaultReceiveInfo.specific_address === "" &&
+        defaultReceiveInfo.ward.name === "" &&
+        defaultReceiveInfo.district.name === "" &&
+        defaultReceiveInfo.province.name === "" && (
+          <AddressPopup closeModel={setOpenAddress} path="/cart" subText="To place order, please add a delivery address"/>
+        )}
       {showCheckOutPopup && <CheckoutPopup />}
       {show && <MyAddress close={setShow} />}
       <div className={cx("checkout_wrapper")}>
@@ -126,7 +133,6 @@ function Checkout() {
           </div>
         </div>
         <div className={cx("checkout_container")}>
-          <ChatPupup />
           <div className={cx("checkout_inner")}>
             {/*------------------DELIVERY ADDRESS-------------------*/}
             <div className={cx("style_address")}></div>
@@ -148,10 +154,15 @@ function Checkout() {
                   <span className={cx("phone")}>
                     {defaultReceiveInfo.phone}
                   </span>
-                  <span className={cx("address")}>
-                    {`${defaultReceiveInfo.specific_address}, ${defaultReceiveInfo.ward.name}, ${defaultReceiveInfo.district.name}, ${defaultReceiveInfo.province.name}`}
-                  </span>
-                  <span className={cx("default")}>Default</span>
+                  {defaultReceiveInfo.specific_address !== "" && (
+                    <span className={cx("address")}>
+                      {`${defaultReceiveInfo.specific_address}, ${defaultReceiveInfo.ward.name}, ${defaultReceiveInfo.district.name}, ${defaultReceiveInfo.province.name}`}
+                    </span>
+                  )}
+
+                  {defaultReceiveInfo.specific_address !== "" && (
+                    <span className={cx("default")}>Default</span>
+                  )}
                 </div>
                 <div className={cx("address-change")}>
                   <button
@@ -228,15 +239,12 @@ function Checkout() {
                       <div className={cx("name")}>GHN</div>
                       <div className={cx("receive-date")}>
                         Receive by {new Date().toLocaleDateString()} -{" "}
-                        {new Date()
-                          .toLocaleDateString()}
+                        {new Date().toLocaleDateString()}
                       </div>
                     </div>
                   </div>
 
-                  <div className={cx("shipping-price")}>
-                    ${0}
-                  </div>
+                  <div className={cx("shipping-price")}>${0}</div>
                 </div>
                 <div className={cx("product-total")}>
                   <span className={cx("order-total")}>

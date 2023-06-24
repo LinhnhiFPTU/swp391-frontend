@@ -13,13 +13,12 @@
 
 .addr-popup {
   width: 700px;
-  height: 700px;
+  height: 90%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 4px 4px 70px 10px rgb(0 0 0/11%);
-  border-radius: 5px;
   background-color: #fff;
 }
 
@@ -35,6 +34,11 @@
     font-size: 2.6rem;
     font-weight: 500;
     color: var(--primary);
+  }
+
+  .sub-head {
+    font-size: 1.4rem;
+    color: #999999;
   }
 }
 
@@ -191,10 +195,14 @@
 
 
 .popup-footer {
-  margin-top: 230px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  padding: 30px;
 }
 
 .p-btn {

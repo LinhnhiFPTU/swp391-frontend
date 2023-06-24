@@ -35,14 +35,14 @@ function App() {
               return <Route key={index} path={route.path} element={<Page />} />;
             })}
 
-            <Route element={<PrivateRoutes/>}>
+            {/* <Route element={<PrivateRoutes/>}>
               {privateRoutes.map((route, index) => {
                 let Page = route.component;
                 return (
                   <Route key={index} path={route.path} element={<Page />} />
                 );
               })}
-            </Route>
+            </Route> */}
           </Routes>
         </div>
       </UserContext.Provider>

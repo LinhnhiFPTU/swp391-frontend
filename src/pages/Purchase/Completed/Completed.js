@@ -4,14 +4,18 @@ import { Link } from "react-router-dom";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import NavBar from "../NavBar";
+import SendFeedback from "./SendFeedback";
 
 import styles from "./Completed.module.scss";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
 function Completed() {
+  const [openFeedback, setOpenFeedback] = useState(false);
   return (
     <>
+      {openFeedback && <SendFeedback setOpenFeedback={setOpenFeedback} />}
       <Header />
       <div className={cx("completed_wrapper")}>
         <div className={cx("completed_container")}>
@@ -50,8 +54,16 @@ function Completed() {
             <div className={cx("purchase_item-options")}>
               <div className={cx("text")}>No rating received</div>
               <div className={cx("button")}>
-                <Link to="/product" className={cx("buy-btn")}>Buy Again</Link>
-                <button className={cx("contact-btn")}>Send Feedback</button>
+                <Link to="/product" className={cx("buy-btn")}>
+                  Buy Again
+                </Link>
+                <button
+                  to="/purchase/complete/feedback"
+                  className={cx("feedback-btn")}
+                  onClick={() => setOpenFeedback(true)}
+                >
+                  Feedback
+                </button>
               </div>
             </div>
           </div>

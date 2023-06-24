@@ -73,6 +73,10 @@ const publicRoutes = [
   { path: "/cart", component: Cart },
   { path: "/checkout", component: Checkout },
 
+  { path: "/user/account/profile", component: Account },
+  { path: "/user/account/password", component: Password },
+  { path: "/user/account/address", component: Address },
+
   { path: "/purchase/all", component: Purchase },
   { path: "/purchase/contact", component: ContactPurchase },
   { path: "/purchase/pending", component: Pending },
@@ -107,17 +111,14 @@ const publicRoutes = [
 
   { path: "/seller/portal/chart", component: Chart },
 
-  { path: "/admin/portal/dashboard", component: DashboardAdmin},
-  { path: "/admin/portal/usermng", component: AdminUserMng},
-  { path: "/admin/portal/shopmng", component: AdminShopMng},
-  { path: "/admin/portal/productmng", component: AdminProductMng},
-
+  { path: "/admin/portal/dashboard", component: DashboardAdmin },
+  { path: "/admin/portal/usermng", component: AdminUserMng },
+  { path: "/admin/portal/shopmng", component: AdminShopMng },
+  { path: "/admin/portal/productmng", component: AdminProductMng },
 ];
 
 const privateRoutes = [
-  { path: "/user/account/profile", component: Account },
-  { path: "/user/account/password", component: Password },
-  { path: "/user/account/address", component: Address },
+  
 ];
 
 export { publicRoutes, privateRoutes };

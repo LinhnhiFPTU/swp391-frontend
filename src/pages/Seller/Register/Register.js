@@ -19,7 +19,7 @@ function Register() {
     districtName: "",
     wardId: "",
     wardName: "",
-    specific_address: ""
+    specific_address: "",
   });
   const [showAddressBtn, setShowAddressBtn] = useState(true);
   const [email, setEmail] = useState("");
@@ -28,9 +28,9 @@ function Register() {
   const [showSaveButton, setShowSaveButton] = useState(false);
   const [createShopRequest, setCreateShopRequest] = useState({
     name: "",
-     email: "",
-    phone: ""
-  })
+    email: "",
+    phone: "",
+  });
 
   useEffect(() => {
     if (email) {
@@ -39,7 +39,7 @@ function Register() {
       if (!regex.test(email)) {
         setErrorEmail(true);
         setErrorEmailMsg("Email not valid!");
-        return
+        return;
       }
 
       setShowSaveButton(true);
@@ -51,7 +51,7 @@ function Register() {
       setShowError(true);
       setShowAddressBtn(true);
     } else {
-      setCreateShopRequest(prev => ({...prev, name: input}))
+      setCreateShopRequest((prev) => ({ ...prev, name: input }));
       setShowError(false);
       setShowAddressBtn(false);
     }
@@ -65,28 +65,34 @@ function Register() {
       setErrorEmailMsg("Please enter shop email");
       return;
     }
-    setCreateShopRequest(prev => ({...prev, email: tempEmail}))
+    setCreateShopRequest((prev) => ({ ...prev, email: tempEmail }));
   };
 
   const handleCreateShop = (e) => {
     e.preventDefault();
     let request = {
       ...createShopRequest,
-      ...shopAddress
-    }
+      ...shopAddress,
+    };
 
-    axios.post("/api/v1/shop/create", request)
-        .then(res => {
-          window.location.href = "/seller/portal/dashboard"
-        })
-        .catch(e => {
-          console.log(e)
-          window.location.href = "/seller/portal/dashboard"
-        })
-  }
+    axios
+      .post("/api/v1/shop/create", request)
+      .then((res) => {
+        window.location.href = "/seller/portal/dashboard";
+      })
+      .catch((e) => {
+        console.log(e);
+        window.location.href = "/seller/portal/dashboard";
+      });
+  };
   return (
     <>
-      {showAddressPopup && <AddressPopup closeModel={setAddressPopup} shopAddress={setShopAddress}/>}
+      {showAddressPopup && (
+        <AddressPopup
+          closeModel={setAddressPopup}
+          shopAddress={setShopAddress}
+        />
+      )}
       <HeaderForm text="Seller Register" />
       <div className={cx("register_wrapper")}>
         <div className={cx("register_container")}>
@@ -121,7 +127,9 @@ function Register() {
                   </div>
                   <div className={cx("add")}>
                     {shopAddress.provinceName ? (
-                      <div className={cx("add-detail")}>{`${shopAddress.specific_address}, ${shopAddress.wardName}, ${shopAddress.districtName}, ${shopAddress.provinceName}`}</div>
+                      <div
+                        className={cx("add-detail")}
+                      >{`${shopAddress.specific_address}, ${shopAddress.wardName}, ${shopAddress.districtName}, ${shopAddress.provinceName}`}</div>
                     ) : (
                       <button
                         className={cx("add-btn")}
@@ -152,7 +160,7 @@ function Register() {
                       className={errorEmail ? cx("input-error") : cx("input")}
                       placeholder="abc@gmail.com"
                       spellCheck={false}
-                      disabled={!shopAddress.provinceName? true : false}
+                      disabled={!shopAddress.provinceName ? true : false}
                       onBlur={handleEmailBlur}
                       onFocus={() => setErrorEmail(false)}
                     />
@@ -171,7 +179,12 @@ function Register() {
                       className={cx("input")}
                       placeholder="Phone Number"
                       value={createShopRequest.phone}
-                      onChange={e => setCreateShopRequest((prev => ({...prev, phone: e.target.value})))}
+                      onChange={(e) =>
+                        setCreateShopRequest((prev) => ({
+                          ...prev,
+                          phone: e.target.value,
+                        }))
+                      }
                       disabled={!createShopRequest.email}
                     />
                   </div>
@@ -180,7 +193,11 @@ function Register() {
             </div>
             <div className={cx("form-footer")}>
               <div className={cx("save")}>
-                <button className={cx("save-btn")} disabled={!showSaveButton} onClick={handleCreateShop}>
+                <button
+                  className={cx("save-btn")}
+                  disabled={!showSaveButton}
+                  onClick={handleCreateShop}
+                >
                   <i
                     className={cx(
                       "fa-sharp fa-regular fa-floppy-disk",
