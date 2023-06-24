@@ -253,7 +253,7 @@ function AddProduct() {
         },
       })
       .then((res) => {
-        console.log(res);
+        window.location.href = '/seller/portal/product/all'
       })
       .catch((e) => {
         console.log(e);
@@ -424,102 +424,104 @@ function AddProduct() {
                   </div>
                 )}
               </div>
-              <div className={cx("upload-category")}>
-                <div className={cx("category-main")}>
-                  <div className={cx("title")}>
-                    <span className={cx("required")}>* </span>Category
-                  </div>
-                  <Tippy
-                    interactive
-                    delay={[0, 100]}
-                    placement="bottom-end"
-                    render={(attrs) => (
-                      <div
-                        className={cx("select-options")}
-                        tabIndex="-1"
-                        {...attrs}
-                      >
-                        <PopperWrapper>
-                          {categories.map((category, index) => (
-                            <div
-                              className={cx("option")}
-                              key={index}
-                              onClick={() => setCategory(category)}
-                            >
-                              {category && category.name}
-                            </div>
-                          ))}
-                        </PopperWrapper>
-                      </div>
-                    )}
-                  >
-                    <div className={cx("category-select")}>
-                      <span
-                        className={
-                          category.name === "Select a category"
-                            ? cx("title-select")
-                            : cx("title-select-active")
-                        }
-                      >
-                        {category.name}
-                      </span>
-                      <i
-                        className={cx(
-                          "fa-light fa-chevron-down",
-                          "select-icon"
-                        )}
-                      ></i>
+              <div className={cx("category-container")}>
+                <div className={cx("upload-category")}>
+                  <div className={cx("category-main")}>
+                    <div className={cx("title")}>
+                      <span className={cx("required")}>* </span>Category
                     </div>
-                  </Tippy>
+                    <Tippy
+                      interactive
+                      delay={[0, 100]}
+                      placement="bottom-end"
+                      render={(attrs) => (
+                        <div
+                          className={cx("select-options")}
+                          tabIndex="-1"
+                          {...attrs}
+                        >
+                          <PopperWrapper>
+                            {categories.map((category, index) => (
+                              <div
+                                className={cx("option")}
+                                key={index}
+                                onClick={() => setCategory(category)}
+                              >
+                                {category && category.name}
+                              </div>
+                            ))}
+                          </PopperWrapper>
+                        </div>
+                      )}
+                    >
+                      <div className={cx("category-select")}>
+                        <span
+                          className={
+                            category.name === "Select a category"
+                              ? cx("title-select")
+                              : cx("title-select-active")
+                          }
+                        >
+                          {category.name}
+                        </span>
+                        <i
+                          className={cx(
+                            "fa-light fa-chevron-down",
+                            "select-icon"
+                          )}
+                        ></i>
+                      </div>
+                    </Tippy>
+                  </div>
                 </div>
-              </div>
-              <div className={cx("upload-category")}>
-                <div className={cx("category-main")}>
-                  <div className={cx("title")}>
-                    <span className={cx("required")}>* </span> Category Group
-                  </div>
-                  <Tippy
-                    interactive
-                    delay={[0, 100]}
-                    placement="bottom-end"
-                    render={(attrs) => (
-                      <div
-                        className={cx("select-options")}
-                        tabIndex="-1"
-                        {...attrs}
-                      >
-                        <PopperWrapper>
-                          {categoryGroups.map((group, index) => (
-                            <div
-                              className={cx("option")}
-                              key={index}
-                              onClick={() => setCategoryGroup(group)}
-                            >
-                              {group && group.name}
-                            </div>
-                          ))}
-                        </PopperWrapper>
-                      </div>
-                    )}
-                  >
-                    <div className={cx("category-select")}>
-                      <span
-                        className={
-                          categoryGroup.name === "Select a category group"
-                            ? cx("title-select")
-                            : cx("title-select-active")
-                        }
-                      >
-                        {categoryGroup.name}
-                      </span>
-                      <i
-                        className={cx(
-                          "fa-light fa-chevron-down",
-                          "select-icon"
-                        )}
-                      ></i>
+                <div className={cx("upload-category-group")}>
+                  <div className={cx("category-main")}>
+                    <div className={cx("title")}>
+                      <span className={cx("required")}>* </span> Category Group
                     </div>
-                  </Tippy>
+                    <Tippy
+                      interactive
+                      delay={[0, 100]}
+                      placement="bottom-end"
+                      render={(attrs) => (
+                        <div
+                          className={cx("select-options")}
+                          tabIndex="-1"
+                          {...attrs}
+                        >
+                          <PopperWrapper>
+                            {categoryGroups.map((group, index) => (
+                              <div
+                                className={cx("option")}
+                                key={index}
+                                onClick={() => setCategoryGroup(group)}
+                              >
+                                {group && group.name}
+                              </div>
+                            ))}
+                          </PopperWrapper>
+                        </div>
+                      )}
+                    >
+                      <div className={cx("category-select")}>
+                        <span
+                          className={
+                            categoryGroup.name === "Select a category group"
+                              ? cx("title-select")
+                              : cx("title-select-active")
+                          }
+                        >
+                          {categoryGroup.name}
+                        </span>
+                        <i
+                          className={cx(
+                            "fa-light fa-chevron-down",
+                            "select-icon"
+                          )}
+                        ></i>
+                      </div>
+                    </Tippy>
+                  </div>
                 </div>
               </div>
               <div className={cx("upload-price")}>

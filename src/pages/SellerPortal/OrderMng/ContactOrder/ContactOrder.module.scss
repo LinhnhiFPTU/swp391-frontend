@@ -1,7 +1,7 @@
 .order_wrapper {
   width: 100%;
   margin-top: 71px;
-  height: 150vh;
+  height: calc(161vh - 71px);
   display: flex;
   align-items: center;
 
@@ -241,13 +241,11 @@
       }
 
       .prev-next {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 20px 0;
 
         .icon-left,
         .icon-right {
@@ -258,6 +256,10 @@
           i {
             font-size: 2.8rem;
             color: #999999;
+
+            &:hover {
+              color: var(--primary);
+            }
           }
         }
 

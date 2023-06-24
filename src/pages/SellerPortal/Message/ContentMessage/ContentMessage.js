@@ -18,7 +18,7 @@ function ContentMessage({ messages, shop }) {
             }
           }
 
-          if (msg.senderId != shop.id || msg.senderType != "SHOP") {
+          if (msg.senderId !== shop.id || msg.senderType !== "SHOP") {
             return (
               <div className={cx("message-container-receive")} key={index}>
                 {isShow && (

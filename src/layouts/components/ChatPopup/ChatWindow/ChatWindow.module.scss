@@ -87,6 +87,14 @@
             margin-left: 12px;
 
             .shop-name {
+              width: 137px;
+              word-wrap: break-word;
+              white-space: normal;
+              overflow: hidden;
+              display: -webkit-box;
+              text-overflow: ellipsis;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1;
               font-size: 1.4rem;
               color: #333;
             }
@@ -132,6 +140,14 @@
             margin-right: 5px;
           }
           .shop-name {
+            width: 200px;
+            word-wrap: break-word;
+            white-space: normal;
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
             font-size: 1.4rem;
             color: #666666;
           }
@@ -281,7 +297,7 @@
 
             .icon-send-active {
               cursor: pointer;
-              color: #ff1616;
+              color: var(--primary);
             }
           }
         }

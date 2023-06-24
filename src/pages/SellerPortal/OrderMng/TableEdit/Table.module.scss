@@ -45,100 +45,133 @@
       text-align: center;
     }
   }
-  .table-body {
-    display: flex;
-    align-items: center;
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-    padding: 24px 16px;
-
-    .orderId {
-      width: 100px;
-      text-align: center;
-    }
-
-    .name {
-      width: 230px;
-      text-align: center;
-      word-wrap: break-word;
-      white-space: normal;
-      overflow: hidden;
-      display: -webkit-box;
-      text-overflow: ellipsis;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-    }
-
-    .date {
-      width: 150px;
-      text-align: center;
-    }
-
-    .price {
-      width: 100px;
-      text-align: center;
-    }
-
-    .status {
-      width: 120px;
+  .table-content {
+    .table-body {
       display: flex;
       align-items: center;
-      justify-content: center;
-      .inside-status {
+      display: flex;
+      align-items: center;
+      column-gap: 20px;
+      padding: 24px 16px;
+
+      .orderId {
         width: 100px;
-        padding: 3px 10px;
-        font-size: 1.4rem;
-        border-radius: 5px;
-        border: 1px solid;
         text-align: center;
       }
-    }
 
-    .payment {
-      width: 100px;
-      text-align: center;
-    }
+      .name {
+        width: 230px;
+        text-align: center;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+      }
 
-    .edit {
-      width: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      .date {
+        width: 150px;
+        text-align: center;
+      }
 
-      .approve-btn {
-        width: 60px;
-        height: 28px;
-        margin-right: 5px;
-        outline: none;
-        border-radius: 4px;
-        color: #fff;
-        border: 1px solid var(--primary);
-        background-color: var(--primary);
-        transition: 0.25s linear;
+      .price {
+        width: 100px;
+        text-align: center;
+      }
 
-        &:hover {
-          color: var(--primary);
-          border: 1px solid var(--primary);
-          background-color: transparent;
+      .status {
+        width: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .inside-status {
+          width: 100px;
+          padding: 3px 10px;
+          font-size: 1.4rem;
+          border-radius: 5px;
+          border: 1px solid;
+          text-align: center;
         }
       }
 
-      .reject-btn {
-        width: 60px;
-        height: 28px;
-        margin-left: 5px;
-        border-radius: 4px;
-        color: #fff;
-        border: 1px solid #ff1616;
-        background-color: #ff1616;
-        transition: 0.25s linear;
+      .payment {
+        width: 100px;
+        text-align: center;
+      }
 
-        &:hover {
-          color: #ff1616;
-          border: 1px solid #ff1616;
-          background-color: transparent;
+      .edit {
+        width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .approve-btn {
+          width: 60px;
+          height: 28px;
+          margin-right: 5px;
+          outline: none;
+          border-radius: 4px;
+          color: #fff;
+          border: 1px solid var(--primary);
+          background-color: var(--primary);
+          transition: 0.25s linear;
+
+          &:hover {
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            background-color: transparent;
+          }
         }
+
+        .reject-btn {
+          width: 60px;
+          height: 28px;
+          margin-left: 5px;
+          border-radius: 4px;
+          color: #fff;
+          border: 1px solid #ff1616;
+          background-color: #ff1616;
+          transition: 0.25s linear;
+
+          &:hover {
+            color: #ff1616;
+            border: 1px solid #ff1616;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+    .prev-next {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+
+      .icon-left,
+      .icon-right {
+        outline: none;
+        border: none;
+        background-color: transparent;
+
+        i {
+          font-size: 2.8rem;
+          color: #999999;
+
+          &:hover {
+            color: var(--primary);
+          }
+        }
+      }
+
+      .icon-left {
+        margin-right: 30px;
+      }
+
+      .icon-right {
+        margin-left: 30px;
       }
     }
   }

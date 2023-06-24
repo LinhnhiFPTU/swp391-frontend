@@ -7,7 +7,7 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 
 const cx = classNames.bind(styles);
 
-function ShopAddressPopup({ closeModel , shopAddress}) {
+function ShopAddressPopup({ closeModel, shopAddress }) {
   const [receiveInfo, setReceiveInfo] = useState({
     province: undefined,
     district: undefined,
@@ -43,7 +43,7 @@ function ShopAddressPopup({ closeModel , shopAddress}) {
         let newArr = res.data.data
           .map((p) => ({
             id: p.ProvinceID,
-            name: p.NameExtension[0]
+            name: p.NameExtension[0],
           }))
           .filter(
             (p) =>
@@ -132,12 +132,13 @@ function ShopAddressPopup({ closeModel , shopAddress}) {
         districtName: receiveInfo.district.name,
         wardId: receiveInfo.ward.id,
         wardName: receiveInfo.ward.name,
-        ...receiveInfo
-      }
-      shopAddress(addShopAddress)
-      closeModel(false)
+        ...receiveInfo,
+      };
+      shopAddress(addShopAddress);
+      closeModel(false);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Add]);
 
   const handleAddNewReceive = (e) => {
@@ -168,9 +169,9 @@ function ShopAddressPopup({ closeModel , shopAddress}) {
                           className={cx("province-item")}
                           onClick={() => {
                             setFocusP((f) => !f);
-                            setSearchP(item.name)
-                            setSearchD("")
-                            setSearchW("")
+                            setSearchP(item.name);
+                            setSearchD("");
+                            setSearchW("");
                             setReceiveInfo({
                               ...receiveInfo,
                               province: item,
@@ -193,8 +194,8 @@ function ShopAddressPopup({ closeModel , shopAddress}) {
                     className={cx("form-input")}
                     placeholder=" "
                     onFocus={() => {
-                      setFocusP(true)
-                      setSearchP("")
+                      setFocusP(true);
+                      setSearchP("");
                     }}
                     value={searchP}
                     onChange={(e) => setSearchP(e.target.value)}
@@ -220,9 +221,13 @@ function ShopAddressPopup({ closeModel , shopAddress}) {
                           className={cx("province-item")}
                           onClick={() => {
                             setFocusD((f) => !f);
-                            setSearchD(item.name)
-                            setSearchW("")
-                            setReceiveInfo({ ...receiveInfo, district: item, ward: undefined});
+                            setSearchD(item.name);
+                            setSearchW("");
+                            setReceiveInfo({
+                              ...receiveInfo,
+                              district: item,
+                              ward: undefined,
+                            });
                           }}
                         >
                           {item.name}
@@ -239,8 +244,8 @@ function ShopAddressPopup({ closeModel , shopAddress}) {
                     className={cx("form-input")}
                     placeholder=" "
                     onFocus={() => {
-                      setFocusD(true)
-                      setSearchD("")
+                      setFocusD(true);
+                      setSearchD("");
                     }}
                     required
                     disabled={!receiveInfo.province}
@@ -266,7 +271,7 @@ function ShopAddressPopup({ closeModel , shopAddress}) {
                           className={cx("province-item")}
                           onClick={() => {
                             setFocusW((f) => !f);
-                            setSearchW(item.name)
+                            setSearchW(item.name);
                             setReceiveInfo({ ...receiveInfo, ward: item });
                           }}
                         >
@@ -284,8 +289,8 @@ function ShopAddressPopup({ closeModel , shopAddress}) {
                     className={cx("form-input")}
                     placeholder=" "
                     onFocus={() => {
-                      setFocusW(true)
-                      setSearchW("")
+                      setFocusW(true);
+                      setSearchW("");
                     }}
                     required
                     disabled={!receiveInfo.district}
@@ -319,21 +324,21 @@ function ShopAddressPopup({ closeModel , shopAddress}) {
               </div>
             </div>
           </div>
-          <div className={cx("popup-footer")}>
-            <div className={cx("popup-btn")}>
-              <button
-                className={cx("cancel", "p-btn")}
-                onClick={() => closeModel(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className={cx("update", "p-btn")}
-                onClick={handleAddNewReceive}
-              >
-                Add
-              </button>
-            </div>
+        </div>
+        <div className={cx("popup-footer")}>
+          <div className={cx("popup-btn")}>
+            <button
+              className={cx("cancel", "p-btn")}
+              onClick={() => closeModel(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className={cx("update", "p-btn")}
+              onClick={handleAddNewReceive}
+            >
+              Add
+            </button>
           </div>
         </div>
       </div>

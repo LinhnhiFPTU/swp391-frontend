@@ -16,11 +16,11 @@ function Cart() {
   const context = useContext((UserContext))
   const user = context.state
   const [total, setTotal] = useState(0);
-  const [checkedProducts, setCheckedProducts] = useState([])
+  const [checkedProducts, setCheckedProducts] = useState([]);
   const Globalstate = useContext(Cartcontext);
   const state = Globalstate.state;
   const dispatch = Globalstate.dispatch;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -37,8 +37,10 @@ function Cart() {
     let totalPrice = 0;
     let totalQuantity = 0;
     state.forEach((i) => {
-      totalQuantity += i.cartProducts.length
-      let products = i.cartProducts.filter(it => checkedProducts.indexOf(it.product.id) !== -1)
+      totalQuantity += i.cartProducts.length;
+      let products = i.cartProducts.filter(
+        (it) => checkedProducts.indexOf(it.product.id) !== -1
+      );
       totalPrice += products.reduce((total, item) => {
         let price = item.product.price;
         if (item.salePercent && item.saleQuantity > item.saleSold) {
@@ -50,33 +52,32 @@ function Cart() {
     console.log(totalPrice);
     setTotal({
       totalPrice: Math.round(totalPrice),
-        totalQuantity: totalQuantity
+      totalQuantity: totalQuantity,
     });
-
   }, [checkedProducts, state]);
 
   const handleCheckout = () => {
     let item = state.filter((item, index) => {
-      return item.cartProducts.filter((cp, i) => (
-        checkedProducts.indexOf(cp.product.id) !== -1
-      )).length > 0
-    })
+      return (
+        item.cartProducts.filter(
+          (cp, i) => checkedProducts.indexOf(cp.product.id) !== -1
+        ).length > 0
+      );
+    });
     item = item.map((item, index) => {
-      let filtered = item.cartProducts.filter((cp, i) => (
-        checkedProducts.indexOf(cp.product.id) !== -1
-      ))
+      let filtered = item.cartProducts.filter(
+        (cp, i) => checkedProducts.indexOf(cp.product.id) !== -1
+      );
 
-      return {...item,
-        cartProducts: filtered
-      }
-    })
-     console.log(item)
-     
+      return { ...item, cartProducts: filtered };
+    });
+    console.log(item);
+
     navigate("/checkout", {
       state: {
         item: item,
-        total: total.totalPrice
-      }
+        total: total.totalPrice,
+      },
     });
   };
 
@@ -93,78 +94,73 @@ function Cart() {
     }
   */
 
-  const handleCheckShop = (e, item) => 
-  {
-    let products = item.cartProducts.map(cp => cp.product.id)
-    let checked = checkedProducts.every(cp => (products.indexOf(cp) === -1))
-    if (checked)
-    {
-      setCheckedProducts(prev => [...prev, ...products])
-      return
-    }
-    
-    if(shopCheckedCondition(item))
-    {
-      let filter = checkedProducts.filter(cp => (products.indexOf(cp) === -1))
-      setCheckedProducts(filter)
-      return
+  const handleCheckShop = (e, item) => {
+    let products = item.cartProducts.map((cp) => cp.product.id);
+    let checked = checkedProducts.every((cp) => products.indexOf(cp) === -1);
+    if (checked) {
+      setCheckedProducts((prev) => [...prev, ...products]);
+      return;
     }
 
-    let filter = products.filter(cp => (checkedProducts.indexOf(cp) === -1))
-    setCheckedProducts(prev => [...prev, ...filter])
-  }
-
-  const handleCheckProduct = (e, item, product) => 
-  {
-    let isChecked = checkedProducts.indexOf(product.id) !== -1
-    if(isChecked)
-    {
-      let filter = checkedProducts.filter(p => p !== product.id)
-      setCheckedProducts(filter)
-      return
+    if (shopCheckedCondition(item)) {
+      let filter = checkedProducts.filter((cp) => products.indexOf(cp) === -1);
+      setCheckedProducts(filter);
+      return;
     }
 
-    setCheckedProducts(prev => [...prev, product.id])
-  }
+    let filter = products.filter((cp) => checkedProducts.indexOf(cp) === -1);
+    setCheckedProducts((prev) => [...prev, ...filter]);
+  };
 
-  const handleCheckAll = () => 
-  {
-    let allProducts = []
-    state.forEach((item, index )=> {
-      let products = item.cartProducts.map(cp => cp.product.id)
-      allProducts = [...allProducts, ...products]
-    })
-
-    let isCheckedAll = allProducts.every(cp => checkedProducts.indexOf(cp) !== -1)
-
-    if (isCheckedAll)
-    {
-      setCheckedProducts([])
-      return
+  const handleCheckProduct = (e, item, product) => {
+    let isChecked = checkedProducts.indexOf(product.id) !== -1;
+    if (isChecked) {
+      let filter = checkedProducts.filter((p) => p !== product.id);
+      setCheckedProducts(filter);
+      return;
     }
 
-    let remainingProducts = allProducts.filter(p => checkedProducts.indexOf(p) === -1)
-    console.log(remainingProducts)
-    setCheckedProducts(prev => [...prev, ...remainingProducts])
-  }
+    setCheckedProducts((prev) => [...prev, product.id]);
+  };
 
-  const shopCheckedCondition = (item) =>
-  {
-    let products = item.cartProducts.map(cp => cp.product.id)
-    let checked = products.every(cp => (checkedProducts.indexOf(cp) !== -1))
-    return checked
-  }
+  const handleCheckAll = () => {
+    let allProducts = [];
+    state.forEach((item, index) => {
+      let products = item.cartProducts.map((cp) => cp.product.id);
+      allProducts = [...allProducts, ...products];
+    });
 
-  const allCheckedCondition = () =>
-  {
-    let allProducts = []
-    state.forEach((item, index )=> {
-      let products = item.cartProducts.map(cp => cp.product.id)
-      allProducts = [...allProducts, ...products]
-    })
-    let checked = allProducts.every(cp => (checkedProducts.indexOf(cp) !== -1))
-    return checked
-  }
+    let isCheckedAll = allProducts.every(
+      (cp) => checkedProducts.indexOf(cp) !== -1
+    );
+
+    if (isCheckedAll) {
+      setCheckedProducts([]);
+      return;
+    }
+
+    let remainingProducts = allProducts.filter(
+      (p) => checkedProducts.indexOf(p) === -1
+    );
+    console.log(remainingProducts);
+    setCheckedProducts((prev) => [...prev, ...remainingProducts]);
+  };
+
+  const shopCheckedCondition = (item) => {
+    let products = item.cartProducts.map((cp) => cp.product.id);
+    let checked = products.every((cp) => checkedProducts.indexOf(cp) !== -1);
+    return checked;
+  };
+
+  const allCheckedCondition = () => {
+    let allProducts = [];
+    state.forEach((item, index) => {
+      let products = item.cartProducts.map((cp) => cp.product.id);
+      allProducts = [...allProducts, ...products];
+    });
+    let checked = allProducts.every((cp) => checkedProducts.indexOf(cp) !== -1);
+    return checked;
+  };
 
   return (
     <>
@@ -191,7 +187,7 @@ function Cart() {
                       type="checkbox"
                       // value={products}
                       className={cx("checkbox-all")}
-                      style={{opacity: 0}}
+                      style={{ opacity: 0 }}
                     />
                     <span>Product</span>
                   </div>
@@ -218,9 +214,13 @@ function Cart() {
                           <div className={cx("product_pick")}>
                             <input
                               type="checkbox"
-                              checked={checkedProducts.indexOf(p.product.id) !== -1}
+                              checked={
+                                checkedProducts.indexOf(p.product.id) !== -1
+                              }
                               // value={products}
-                              onChange={(e) => handleCheckProduct(e, item, p.product)}
+                              onChange={(e) =>
+                                handleCheckProduct(e, item, p.product)
+                              }
                               className={cx("checkbox-product")}
                             />
                             <img
@@ -232,7 +232,9 @@ function Cart() {
                           <div className={cx("product-details")}>
                             ${" "}
                             {p.salePercent
-                              ? Math.round(p.product.price * (1 - p.salePercent / 100))
+                              ? Math.round(
+                                  p.product.price * (1 - p.salePercent / 100)
+                                )
                               : p.product.price}
                           </div>
                           <div className={cx("product-quantity")}>
@@ -270,7 +272,9 @@ function Cart() {
                           <div className={cx("product-details")}>
                             ${" "}
                             {(p.salePercent
-                              ? Math.round(p.product.price * (1 - p.salePercent / 100))
+                              ? Math.round(
+                                  p.product.price * (1 - p.salePercent / 100)
+                                )
                               : p.product.price) * p.quantity}
                           </div>
                           <div className={cx("product-details")}>
@@ -308,7 +312,9 @@ function Cart() {
                 <div className={cx("cart-right")}>
                   <div className={cx("totalPrice")}>
                     <span className={cx("sub-name")}>Total:</span>
-                    <span className={cx("sub-price")}>{total.totalPrice} $</span>
+                    <span className={cx("sub-price")}>
+                      {total.totalPrice} $
+                    </span>
                   </div>
                   <button onClick={handleCheckout}>Check out</button>
                 </div>

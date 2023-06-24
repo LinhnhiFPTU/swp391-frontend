@@ -56,10 +56,6 @@ import AdminProductMng from "~/pages/Admin/AdminProductMng";
 import AdminShopMng from "~/pages/Admin/AdminShopMng";
 import AdminUserMng from "~/pages/Admin/AdminUserMng";
 
-
-
-import CheckoutPopup from "~/pages/Checkout/CheckoutPopup/Checkout";
-
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
@@ -76,6 +72,10 @@ const publicRoutes = [
   { path: "/products", component: ProductAll },
   { path: "/cart", component: Cart },
   { path: "/checkout", component: Checkout },
+
+  { path: "/user/account/profile", component: Account },
+  { path: "/user/account/password", component: Password },
+  { path: "/user/account/address", component: Address },
 
   { path: "/purchase/all", component: Purchase },
   { path: "/purchase/contact", component: ContactPurchase },
@@ -107,23 +107,18 @@ const publicRoutes = [
 
   { path: "/seller/portal/message", component: Message },
 
-
   { path: "/seller/portal/shop", component: ShopMng },
 
   { path: "/seller/portal/chart", component: Chart },
 
-  { path: "/admin/portal/dashboard", component: DashboardAdmin},
-  { path: "/admin/portal/usermng", component: AdminUserMng},
-  { path: "/admin/portal/shopmng", component: AdminShopMng},
-  { path: "/admin/portal/productmng", component: AdminProductMng},
-
-  { path: "/ccc", component: CheckoutPopup },
+  { path: "/admin/portal/dashboard", component: DashboardAdmin },
+  { path: "/admin/portal/usermng", component: AdminUserMng },
+  { path: "/admin/portal/shopmng", component: AdminShopMng },
+  { path: "/admin/portal/productmng", component: AdminProductMng },
 ];
 
 const privateRoutes = [
-  { path: "/user/account/profile", component: Account },
-  { path: "/user/account/password", component: Password },
-  { path: "/user/account/address", component: Address },
+  
 ];
 
 export { publicRoutes, privateRoutes };

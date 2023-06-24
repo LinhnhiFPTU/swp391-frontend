@@ -12,15 +12,16 @@ import axios from "axios";
 const cx = classNames.bind(styles);
 
 function Order() {
-
-  const [orders, setOrders] = useState([])
-  const [page, setPage] = useState(1)
+  const [orders, setOrders] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    axios.get("/api/v1/shop/orders/search?page=" + page)
-    .then(res => setOrders(res.data))
-    .catch(e => console.log(e))
-  }, [])
+    axios
+      .get("/api/v1/shop/orders/search?page=" + page)
+      .then((res) => setOrders(res.data))
+      .catch((e) => console.log(e));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -57,14 +58,6 @@ function Order() {
             <div className={cx("order_count")}>{orders.length} Orders</div>
             <div className={cx("order_table")}>
               <Table orders={orders} />
-            </div>
-            <div className={cx("prev-next")}>
-              <button className={cx("icon-left")}>
-                <i className={cx("fa-light fa-angle-left")}></i>
-              </button>
-              <button className={cx("icon-right")}>
-                <i className={cx("fa-light fa-angle-right")}></i>
-              </button>
             </div>
           </div>
         </div>

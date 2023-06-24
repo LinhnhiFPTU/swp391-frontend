@@ -38,47 +38,35 @@ const feedbacks = [
       name: "eelVuxx",
       rating: 4,
     },
-    feedbackData:
-      "Hàng giao khá nhanh , shipper thân thiện , đóng gói chắc chắn , nhưng mà có điều mình thấy chát vải giống như vải của áo mặc bóng đá vậy , với số tiền này thì mình có thể mua đc áo ổn áp hơn",
-  },
-  {
-    user: {
-      avatarUrl: "https://vnn-imgs-f.vgcloud.vn/2021/08/28/13/ronaldo-mu.jpg",
-      name: "eelVuxx",
-      rating: 4.5,
+    product: {
+      productImage:
+        "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
+      productName: "Prevue Pet Products Travel Carrier for Birds, Black",
+      productPrice: 1200,
     },
-    feedbackData:
-      "Hàng giao khá nhanh , shipper thân thiện , đóng gói chắc chắn , nhưng mà có điều mình thấy chát vải giống như vải của áo mặc bóng đá vậy , với số tiền này thì mình có thể mua đc áo ổn áp hơn",
-  },
-  {
-    user: {
-      avatarUrl:
-        "https://khoinguonsangtao.vn/wp-content/uploads/2022/08/hinh-nen-ronaldo-1.jpg",
-      name: "eelVuxx",
-      rating: 4.2,
+    feedbackData: {
+      feedbackContent:
+        "Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. Shop tư vấn nhiệt tình nên mình chọn đc cỡ áo, màu hợp với mình. Áo thích hợp đi làm, đi chơi. Cảm ơn shop về sp này. Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. Sp đúng như shop mô tả. Áo thiết kế khá là trẻ trung, hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải khá là tốt. chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải",
+      feedbackVideo: "https://www.w3schools.com/html/mov_bbb.mp4",
+      feedbackImage: [
+        {
+          id: 0,
+          url: "https://m.media-amazon.com/images/I/71+4X8orK7L._AC_SL1500_.jpg",
+        },
+        {
+          id: 1,
+          url: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
+        },
+        {
+          id: 2,
+          url: "https://m.media-amazon.com/images/I/81uf1-L-u1L._AC_SL1500_.jpg",
+        },
+        {
+          id: 3,
+          url: "https://m.media-amazon.com/images/I/81ESBV8P-DL._AC_SL1500_.jpg",
+        },
+      ],
     },
-    feedbackData:
-      "Hàng giao khá nhanh , shipper thân thiện , đóng gói chắc chắn , nhưng mà có điều mình thấy chát vải giống như vải của áo mặc bóng đá vậy , với số tiền này thì mình có thể mua đc áo ổn áp hơn",
-  },
-  {
-    user: {
-      avatarUrl:
-        "https://toigingiuvedep.vn/wp-content/uploads/2021/02/hinh-nen-ronaldo-cr7-dep-nhat.jpg",
-      name: "eelVuxx",
-      rating: 5,
-    },
-    feedbackData:
-      "Hàng giao khá nhanh , shipper thân thiện , đóng gói chắc chắn , nhưng mà có điều mình thấy chát vải giống như vải của áo mặc bóng đá vậy , với số tiền này thì mình có thể mua đc áo ổn áp hơn",
-  },
-  {
-    user: {
-      avatarUrl:
-        "https://tophinhanhdep.com/wp-content/uploads/2021/11/Cristiano-Ronaldo-Desktop-Wallpapers.jpg",
-      name: "eelVuxx",
-      rating: 2.4,
-    },
-    feedbackData:
-      "Hàng giao khá nhanh , shipper thân thiện , đóng gói chắc chắn , nhưng mà có điều mình thấy chát vải giống như vải của áo mặc bóng đá vậy , với số tiền này thì mình có thể mua đc áo ổn áp hơn",
   },
 ];
 
@@ -154,20 +142,25 @@ function FeedBack() {
                 </div>
               </div>
 
-              {feedbacks.map((data, index) => (
+              {feedbacks.map((feedback, index) => (
                 <div className={cx("body-content")} key={index}>
                   <div className={cx("user-information-body")}>
                     <img
-                      src={data.user.avatarUrl}
+                      src={feedback.user.avatarUrl}
                       alt="avatar"
                       className={cx("user-avatar")}
                     />
                     <div className={cx("user-info")}>
-                      <div className={cx("user-name")}>{data.user.name}</div>
+                      <div className={cx("user-content")}>
+                        <div className={cx("user-name")}>
+                          {feedback.user.name}
+                        </div>
+                        <div className={cx("feedback-date")}>22/03/2023</div>
+                      </div>
                       <div className={cx("user-rating")}>
                         <StarRating
-                          rating={data.user.rating}
-                          font={1.4}
+                          rating={feedback.user.rating}
+                          font={1.3}
                           color={`var(--primary)`}
                         />
                       </div>
@@ -183,11 +176,14 @@ function FeedBack() {
                   </div>
                   <div className={cx("feedback-information-body")}>
                     <span className={cx("feedback-data")}>
-                      {data.feedbackData}
+                      {feedback.feedbackData.feedbackContent}
                     </span>
                   </div>
                   <div className={cx("see-detail-body")}>
-                    <Link to="/seller/portal/feedback/detail" className={cx("forward-detail")}>
+                    <Link
+                      to="/seller/portal/feedback/detail"
+                      className={cx("forward-detail")}
+                    >
                       Detail
                     </Link>
                   </div>

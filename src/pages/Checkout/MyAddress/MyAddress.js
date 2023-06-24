@@ -26,29 +26,36 @@ function MyAddress({ close }) {
 
   return (
     <>
-      {show && <AddressPopup closeModel={setShow} />}
+      {show && (
+        <AddressPopup
+          closeModel={setShow}
+          subText="To place order, please add a delivery address"
+        />
+      )}
       <div className={cx("overlay")}>
         <div className={cx("myAddress_popup")}>
           <div className={cx("myAddress-header")}>
             <span>My Address</span>
           </div>
           <div className={cx("myAddress-content")}>
-            <div className={cx("myAddress-detail")}>
-              {receiveinfos.map((info, index) => (
+            {receiveinfos.map((info, index) => (
+              <div className={cx("myAddress-detail")}>
                 <div className={cx("myAddress-info")}>
                   <span className={cx("name")}>{info.fullname}</span>
                   <span className={cx("phone")}>{info.phone}</span>
                   <div className={cx("address")}>
                     {`${info.specific_address}, ${info.ward.name}, ${info.district.name}, ${info.province.name}`}
                   </div>
-                  {info._default && <span className={cx("default")}>Default</span>}
+                  {info._default && (
+                    <span className={cx("default")}>Default</span>
+                  )}
                 </div>
-              ))}
-              <div className={cx("myAddress-selection")}>
-                <button className={cx("select")}>Select</button>
-                <button className={cx("edit")}>Edit</button>
+                <div className={cx("myAddress-selection")}>
+                  <button className={cx("select")}>Select</button>
+                  <button className={cx("edit")}>Edit</button>
+                </div>
               </div>
-            </div>
+            ))}
             <button
               className={cx("add_newAddress")}
               onClick={() => setShow(true)}

@@ -29,22 +29,21 @@ const statusStyle = (status) => {
   }
 };
 function RecentOrder() {
-
-  const [orders, setOrders] = useState([])
-  const [page, setPage] = useState(1)
+  const [orders, setOrders] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    axios.get("/api/v1/shop/orders/search?page=" + page)
-    .then(res => setOrders(res.data))
-    .catch(e => console.log(e))
-  }, [])
-
+    axios
+      .get("/api/v1/shop/orders/search?page=" + page)
+      .then((res) => setOrders(res.data))
+      .catch((e) => console.log(e));
+  }, []);
 
   return (
     <div className={cx("recent-orders")}>
       <div className={cx("order-header")}>
         <div className={cx("head", "orderId")}>ID</div>
-        <div className={cx("head", "product")}>Product</div>
+        <div className={cx("head", "product")}>Order</div>
         <div className={cx("head", "date")}>Date</div>
         <div className={cx("head", "status")}>Status</div>
         <div className={cx("head", "amount")}>Amount</div>
@@ -54,12 +53,17 @@ function RecentOrder() {
           <div className={cx("orderId")}>#{order.id}</div>
           <div className={cx("product")}>
             <div className={cx("name")}>
-              {order.description}
+              List Order({order.orderDetails.length})
             </div>
           </div>
-          <div className={cx("date")}>{(new Date(order.createdTime)).toLocaleTimeString()}</div>
+          <div className={cx("date")}>
+            {new Date(order.createdTime).toLocaleTimeString()}
+          </div>
           <div className={cx("status")}>
-            <div className={cx("inside-status")} style={statusStyle(order.status)}>
+            <div
+              className={cx("inside-status")}
+              style={statusStyle(order.status)}
+            >
               {order.status}
             </div>
           </div>
