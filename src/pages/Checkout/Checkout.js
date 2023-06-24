@@ -92,7 +92,10 @@ function Checkout() {
   };
 
   const handleOrder = (e) => {
+    let receiveInfo = defaultReceiveInfo.id
+
     let request = cartItem.map((ci, index) => ({
+      receiveInfo,
       shippingFee: ci.shippingFee,
       shopId: ci.shop.id,
       checkOutItems: ci.cartProducts.map((cp, i) => ({
@@ -118,7 +121,7 @@ function Checkout() {
           <AddressPopup closeModel={setOpenAddress} receiveInfoChange={setInfoReceive}/>
         )}
       {showCheckOutPopup && <CheckoutPopup />}
-      {show && <MyAddress close={setShow} />}
+      {show && <MyAddress close={setShow} setReceiveInfo={setDefaultReceiveInfo}/>}
       <div className={cx("checkout_wrapper")}>
         {/*------------------HEADER-------------------*/}
         <div className={cx("checkout_header")}>
@@ -162,7 +165,7 @@ function Checkout() {
                     </span>
                   )}
 
-                  {defaultReceiveInfo.specific_address !== "" && (
+                  {defaultReceiveInfo.specific_address !== "" && defaultReceiveInfo._default && (
                     <span className={cx("default")}>Default</span>
                   )}
                 </div>
@@ -209,7 +212,7 @@ function Checkout() {
                           className={cx("product-img")}
                         />
                         <div className={cx("product-name")}>
-                          {c.product.description}
+                          {c.product.name}
                         </div>
                       </div>
                       <div className={cx("product-type")}>
