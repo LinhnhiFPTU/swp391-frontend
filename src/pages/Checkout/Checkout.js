@@ -6,6 +6,7 @@ import MyAddress from "./MyAddress";
 import PaymentMethod from "./PaymentMethod";
 import CheckoutPopup from "./CheckoutPopup";
 import {UserContext} from "~/userContext/Context";
+import AddressPopup from "~/layouts/components/AddressPopup/AddressPopup";
 
 import Footer from "~/layouts/components/Footer";
 import styles from "./Checkout.module.scss";
@@ -35,6 +36,7 @@ function Checkout() {
   const [showCheckOutPopup, setShowCheckOutPopup] = useState(false);
   const [paymentId, setPaymentId] = useState(1);
   const [openAddress, setOpenAddress] = useState(true);
+  const [infoReceive, setInfoReceive] = useState(false)
   const [defaultReceiveInfo, setDefaultReceiveInfo] = useState({
     id: 0,
     fullname: "",
@@ -113,7 +115,7 @@ function Checkout() {
         defaultReceiveInfo.ward.name === "" &&
         defaultReceiveInfo.district.name === "" &&
         defaultReceiveInfo.province.name === "" && (
-          <AddressPopup closeModel={setOpenAddress} path="/cart" subText="To place order, please add a delivery address"/>
+          <AddressPopup closeModel={setOpenAddress} receiveInfoChange={setInfoReceive}/>
         )}
       {showCheckOutPopup && <CheckoutPopup />}
       {show && <MyAddress close={setShow} />}

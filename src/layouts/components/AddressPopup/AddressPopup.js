@@ -35,8 +35,6 @@ function AddressPopup({ closeModel, receiveInfoChange }) {
   const [focusD, setFocusD] = useState(false);
   const [focusW, setFocusW] = useState(false);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     axios
       .get(
@@ -163,22 +161,13 @@ function AddressPopup({ closeModel, receiveInfoChange }) {
       });
   };
 
-  const handleCloseCancel = () => {
-    if (path === "/cart") {
-      closeModel(false);
-      navigate("/cart");
-    } else {
-      closeModel(false);
-    }
-  };
-
   return (
     <div className={cx("overlay")}>
       <div className={cx("addr-popup")}>
         <div className={cx("addr-container")}>
           <div className={cx("popup-head")}>
             <span className={cx("popup-head-text")}>New receive info</span>
-            {subText !== "" && <div className={cx("sub-head")}>{subText}</div>}
+            
           </div>
           <div className={cx("popup-content")}>
             <div className={cx("addr-content")}>
@@ -386,7 +375,7 @@ function AddressPopup({ closeModel, receiveInfoChange }) {
           <div className={cx("popup-btn")}>
             <button
               className={cx("cancel", "p-btn")}
-              onClick={handleCloseCancel}
+              onClick={() => closeModel(false)}
             >
               Cancel
             </button>
