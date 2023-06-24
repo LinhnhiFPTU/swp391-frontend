@@ -1,9 +1,9 @@
 // import React from 'react'
 import classNames from "classnames/bind";
 import { useContext, useState, useEffect } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 import styles from "./Cart.module.scss";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
@@ -12,13 +12,22 @@ import { Cartcontext } from "~/context/Context";
 const cx = classNames.bind(styles);
 
 function Cart() {
-  const user = useContext(UserContext);
+  const paramLocation = useLocation();
+  const context = useContext((UserContext))
+  const user = context.state
   const [total, setTotal] = useState(0);
   const [checkedProducts, setCheckedProducts] = useState([])
   const Globalstate = useContext(Cartcontext);
   const state = Globalstate.state;
   const dispatch = Globalstate.dispatch;
   const navigate = useNavigate()
+
+
+  useEffect(() => {
+    if (paramLocation) {
+      setCheckedProducts(prev => [...prev, paramLocation.state])
+    }
+  }, [paramLocation]);
 
   useEffect(() => {
     document.title = `Shopping Cart`;

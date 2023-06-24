@@ -25,6 +25,8 @@ function ChatWindow({ closeChat, color }) {
   const fileInputVideoRef = useRef();
   const textInputRef = useRef();
   const [user, setUser] = useState({});
+  const [images, setImages] = useState([])
+  const [videos, setVideos] = useState([])
 
   useEffect(() => {
     axios
@@ -116,8 +118,31 @@ function ChatWindow({ closeChat, color }) {
         chatterType: "USER",
       };
 
-      stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-      setInputSend("");
+      const formData = new FormData();
+      videos.forEach((video, index) => {
+        formData.append("videos", video);
+      })
+
+      images.forEach((image, index) => {
+        formData.append("images", image);
+      })
+
+      formData.append("message", JSON.stringify(chatMessage));
+
+      axios
+        .post("app/media-message", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          setInputSend("");
+          textInputRef.current.focus()
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
   };
 
@@ -144,6 +169,14 @@ function ChatWindow({ closeChat, color }) {
     textInputRef.current.focus();
     setShowEmoji(false);
   };
+
+  const handleChangeVideo = (e) => {
+    videos.push(e.target.files[0])
+  }
+
+  const handleChangeImage = (e) => {
+    images.push(e.target.files[0])
+  }
 
   return (
     <>
@@ -306,6 +339,7 @@ function ChatWindow({ closeChat, color }) {
                       type="file"
                       multiple
                       style={{ display: "none" }}
+                      onChange={handleChangeImage}
                       accept="image/*"
                     />
                   </div>
@@ -322,6 +356,7 @@ function ChatWindow({ closeChat, color }) {
                       type="file"
                       multiple
                       style={{ display: "none" }}
+                      onChange={handleChangeVideo}
                       accept="video/*"
                     />
                   </div>

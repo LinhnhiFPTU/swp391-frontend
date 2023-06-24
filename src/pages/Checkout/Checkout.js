@@ -6,7 +6,7 @@ import ChatPupup from "~/layouts/components/ChatPopup";
 import MyAddress from "./MyAddress";
 import PaymentMethod from "./PaymentMethod";
 import CheckoutPopup from "./CheckoutPopup";
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 
 import Footer from "~/layouts/components/Footer";
 import styles from "./Checkout.module.scss";
@@ -54,7 +54,8 @@ function Checkout() {
     specific_address: "",
   });
   const [cartItem, setCartItem] = useState([]);
-  const context = useContext(UserContext);
+  const UC = useContext((UserContext))
+  const context = UC.state
 
   useEffect(() => {
     if (context && context.defaultReceiveInfo) {

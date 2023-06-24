@@ -7,7 +7,7 @@ import axios from "axios";
 import styles from "./Password.module.scss";
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 
 const cx = classNames.bind(styles);
 
@@ -47,7 +47,8 @@ function Password() {
     imageurl: "",
     gender: "",
   });
-  const context = useContext(UserContext);
+  const UC = useContext((UserContext))
+  const context = UC.state
 
   useEffect(() => {
     document.title = "Bird Trading Platform | Hot Deals, Best Prices";

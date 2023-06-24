@@ -4,7 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 
 import styles from "./HeaderSeller.module.scss";
 import {useContext, useEffect, useState} from "react";
@@ -14,7 +14,8 @@ const cx = className.bind(styles);
 
 function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
 
-  const context = useContext(UserContext);
+  const UC = useContext((UserContext))
+  const context = UC.state
   const [shop, setShop] = useState({
     id: 0,
     name: "",

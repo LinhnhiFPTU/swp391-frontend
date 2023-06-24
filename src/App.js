@@ -3,30 +3,16 @@ import { createContext, useEffect, useState } from "react";
 import { publicRoutes, privateRoutes } from "~/routes";
 import PrivateRoutes from "~/routes/PrivateRoutes";
 import NotFound from "~/pages/NotFound"
-import axios from "axios";
+import { Context } from "./userContext/Context";
 
 import "./App.css";
-
-export const UserContext = createContext();
 
 function App() {
   const [user, setUser] = useState();
 
-  useEffect(() => {
-    axios
-      .get("/api/v1/users/info")
-      .then((res) => {
-        setUser(res.data);
-        console.log(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
-
   return (
     <Router>
-      <UserContext.Provider value={user}>
+      <Context>
         <div className="App">
           <Routes>
             <Route path="*" element={<NotFound />} />
@@ -45,7 +31,7 @@ function App() {
             </Route>
           </Routes>
         </div>
-      </UserContext.Provider>
+      </Context>
     </Router>
   );
 }

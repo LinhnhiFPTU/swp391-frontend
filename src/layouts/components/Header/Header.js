@@ -7,7 +7,7 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 import CartDropdown from "../CartDropdown/CartDropdown";
 import Search from "~/layouts/components/Header/Search";
 
@@ -17,7 +17,8 @@ import styles from "./Header.module.scss";
 const cx = classNames.bind(styles);
 
 const Header = () => {
-  const user = useContext(UserContext);
+  const context = useContext((UserContext))
+  const user = context.state
   const [logout, setLogout] = useState(false);
   useEffect(() => {
     if (logout) {

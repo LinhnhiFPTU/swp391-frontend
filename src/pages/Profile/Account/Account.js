@@ -9,7 +9,7 @@ import Alert from "react-bootstrap/Alert";
 import styles from "./Account.module.scss";
 import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 
 const cx = classNames.bind(styles);
 const genders = [
@@ -51,7 +51,8 @@ function Profile() {
   const [preview, setPreview] = useState(null);
   const [changeAvatar, setChangeAvatar] = useState(false);
   const [updateProfile, setUpdateProfile] = useState(false);
-  const context = useContext(UserContext)
+  const UC = useContext((UserContext))
+  const context = UC.state
   const [user, setUser] = useState({
     email: "",
     firstname: "",

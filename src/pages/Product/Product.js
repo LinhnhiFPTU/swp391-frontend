@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import Report from "./Report";
@@ -29,7 +29,8 @@ const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 function Product() {
   const navigate = useNavigate();
-  const user = useContext(UserContext);
+  const context = useContext((UserContext))
+  const user = context.state
   const [searchParams, setSearchParams] = useSearchParams();
   const [product, setProduct] = useState({
     id: 0,
@@ -120,6 +121,7 @@ function Product() {
   const location = useLocation();
   const Globalstate = useContext(Cartcontext);
   const dispatch = Globalstate.dispatch;
+  const [isBuyed, setIsBuyed] = useState(false)
 
   useEffect(() => {
     let productId = searchParams.get("productId");
@@ -358,6 +360,24 @@ function Product() {
       product.productSale.saleQuantity > product.productSale.sold
     );
   };
+
+  const handleBuyNow = (e) => {
+    e.preventDefault()
+    if (user) {
+      setIsBuyed(true)
+      dispatch({ type: "ADD", payload: product.id });
+    } else navigate("/login");
+  }
+
+  useEffect(() => {
+    if (isBuyed)
+    {
+      navigate("/cart", {
+        state: product.id
+      })
+    }
+  }, [Globalstate.state])
+
   return (
     <>
       {openReport && <Report closeReport={setOpenReport} type="product" />}
@@ -591,6 +611,7 @@ function Product() {
                     <button
                       className={cx("buy")}
                       disabled={product.available === 0}
+                      onClick={handleBuyNow}
                     >
                       Buy Now
                     </button>

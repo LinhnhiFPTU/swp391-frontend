@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 
 import HeaderForm from "~/layouts/components/HeaderForm";
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 import styles from "./Seller.module.scss";
 
 import {Link, Navigate} from "react-router-dom";
@@ -14,7 +14,8 @@ function Seller() {
 
   const [isHasShop, setIsHasShop] = useState();
   const [showRegistration, setShowRegistration] = useState(false)
-    const context = useContext(UserContext);
+    const UC = useContext((UserContext))
+    const context = UC.state
 
     useEffect(() => {
         if (context) {
