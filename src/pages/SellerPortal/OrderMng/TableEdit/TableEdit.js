@@ -1,5 +1,7 @@
 import classNames from "classnames/bind";
+import { useState } from "react";
 import NoOrder from "../NoOrder";
+import OrderDetails from "../OrderDetails";
 
 import styles from "./Table.module.scss";
 import axios from "axios";
@@ -30,6 +32,8 @@ const statusStyle = (status) => {
   }
 };
 function Table({ orders }) {
+  const [openListDetail, setOpenListDetail] = useState(false);
+
   if (!orders || orders.length === 0) {
     return <NoOrder />;
   }
@@ -56,61 +60,75 @@ function Table({ orders }) {
       .catch((e) => console.log(e));
   };
 
+  const handleOpenDetails = () => {
+    setOpenListDetail(true);
+  };
+
   return (
-    <div className={cx("table_data")}>
-      <div className={cx("table-head")}>
-        <div className={cx("head-text", "orderId")}>Order ID</div>
-        <div className={cx("head-text", "name")}>Order</div>
-        <div className={cx("head-text", "date")}>Date</div>
-        <div className={cx("head-text", "price")}>Price</div>
-        <div className={cx("head-text", "status")}>Status</div>
-        <div className={cx("head-text", "payment-head")}>Payment</div>
-        <div className={cx("head-text", "edit")}>Action</div>
-      </div>
-      <div className={cx("table-content")}>
-        {orders.map((item, index) => (
-          <div className={cx("table-body")} key={index}>
-            <div className={cx("body-text", "orderId")}>#{item.id}</div>
-            <div className={cx("body-text", "name")}>{item.description}</div>
-            <div className={cx("body-text", "date")}>
-              {new Date(item.createdTime).toLocaleString()}
-            </div>
-            <div className={cx("body-text", "price")}>${item.realPrice}</div>
-            <div className={cx("body-text", "status")}>
-              <div
-                className={cx("inside-status")}
-                style={statusStyle(item.status)}
-              >
-                {item.status}
+    <>
+      {openListDetail && <OrderDetails setOpenListDetail={setOpenListDetail} />}
+      <div className={cx("table_data")}>
+        <div className={cx("table-head")}>
+          <div className={cx("head-text", "orderId")}>Order ID</div>
+          <div className={cx("head-text", "name")}>Order</div>
+          <div className={cx("head-text", "date")}>Date</div>
+          <div className={cx("head-text", "price")}>Price</div>
+          <div className={cx("head-text", "status")}>Status</div>
+          <div className={cx("head-text", "payment-head")}>Payment</div>
+          <div className={cx("head-text", "edit")}>Action</div>
+        </div>
+        <div className={cx("table-content")}>
+          {orders.map((item, index) => (
+            <div className={cx("table-body")} key={index}>
+              <div className={cx("body-text", "orderId")}>#{item.id}</div>
+              <div className={cx("body-text", "name")}>
+                <button
+                  className={cx("show-list-order")}
+                  onClick={handleOpenDetails}
+                >
+                  List Order({item.orderDetails.length})
+                </button>
+              </div>
+              <div className={cx("body-text", "date")}>
+                {new Date(item.createdTime).toLocaleString()}
+              </div>
+              <div className={cx("body-text", "price")}>${item.realPrice}</div>
+              <div className={cx("body-text", "status")}>
+                <div
+                  className={cx("inside-status")}
+                  style={statusStyle(item.status)}
+                >
+                  {item.status}
+                </div>
+              </div>
+              <div className={cx("body-text", "payment")}>{item.payment}</div>
+              <div className={cx("body-text", "edit")}>
+                <button
+                  className={cx("approve-btn")}
+                  onClick={(e) => handleApproveOrder(e, item.id)}
+                >
+                  <i className={cx("fa-solid fa-check")}></i>
+                </button>
+                <button
+                  className={cx("reject-btn")}
+                  onClick={(e) => handleRejectOrder(e, item.id)}
+                >
+                  <i className={cx("fa-solid fa-xmark")}></i>
+                </button>
               </div>
             </div>
-            <div className={cx("body-text", "payment")}>{item.payment}</div>
-            <div className={cx("body-text", "edit")}>
-              <button
-                className={cx("approve-btn")}
-                onClick={(e) => handleApproveOrder(e, item.id)}
-              >
-                <i className={cx("fa-solid fa-check")}></i>
-              </button>
-              <button
-                className={cx("reject-btn")}
-                onClick={(e) => handleRejectOrder(e, item.id)}
-              >
-                <i className={cx("fa-solid fa-xmark")}></i>
-              </button>
-            </div>
+          ))}
+          <div className={cx("prev-next")}>
+            <button className={cx("icon-left")}>
+              <i className={cx("fa-light fa-angle-left")}></i>
+            </button>
+            <button className={cx("icon-right")}>
+              <i className={cx("fa-light fa-angle-right")}></i>
+            </button>
           </div>
-        ))}
-        <div className={cx("prev-next")}>
-          <button className={cx("icon-left")}>
-            <i className={cx("fa-light fa-angle-left")}></i>
-          </button>
-          <button className={cx("icon-right")}>
-            <i className={cx("fa-light fa-angle-right")}></i>
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

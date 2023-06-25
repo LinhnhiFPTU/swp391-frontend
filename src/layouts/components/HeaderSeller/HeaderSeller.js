@@ -4,18 +4,16 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
-import {UserContext} from "~/userContext/Context";
-
+import { UserContext } from "~/userContext/Context";
+import SellerNotify from "./SellerNotify";
 import styles from "./HeaderSeller.module.scss";
-import {useContext, useEffect, useState} from "react";
-import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 
 const cx = className.bind(styles);
 
 function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
-
-  const UC = useContext((UserContext))
-  const context = UC.state
+  const UC = useContext(UserContext);
+  const context = UC.state;
   const [shop, setShop] = useState({
     id: 0,
     name: "",
@@ -27,23 +25,23 @@ function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
     address: {
       province: {
         id: 0,
-        name: ""
+        name: "",
       },
       district: {
         id: 0,
-        name: ""
+        name: "",
       },
       ward: {
         id: 0,
-        name: ""
+        name: "",
       },
-      specificAddress: ""
-    }
+      specificAddress: "",
+    },
   });
 
   useEffect(() => {
     if (context && context.shopDTO) {
-      setShop(context.shopDTO)
+      setShop(context.shopDTO);
     }
   }, [context]);
 
@@ -65,8 +63,8 @@ function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
         <div className={cx("header-info")}>
           <Tippy
             interactive
-            delay={[0, 200]}
-            placement="bottom-end"
+            delay={[0, 100]}
+            placement="bottom"
             render={(attrs) => (
               <div className={cx("user-options")} tabIndex="-1" {...attrs}>
                 {/* -----------------Chua login----------------- */}
@@ -104,7 +102,7 @@ function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
               <span className={cx("seller-name")}>{shop.name}</span>
             </div>
           </Tippy>
-          <i className={cx("fa-light fa-bell", "bell-icon")}></i>
+          <SellerNotify />
         </div>
       </div>
     </div>

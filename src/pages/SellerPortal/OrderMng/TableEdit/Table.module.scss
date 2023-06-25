@@ -16,12 +16,12 @@
     }
 
     .name {
-      width: 230px;
+      width: 160px;
       text-align: center;
     }
 
     .date {
-      width: 150px;
+      width: 220px;
       text-align: center;
     }
 
@@ -60,19 +60,22 @@
       }
 
       .name {
-        width: 230px;
+        width: 160px;
         text-align: center;
-        word-wrap: break-word;
-        white-space: normal;
-        overflow: hidden;
-        display: -webkit-box;
-        text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
+        .show-list-order {
+          border: none;
+          outline: none;
+          text-decoration: underline;
+          background-color: transparent;
+
+          &:hover {
+            color: var(--primary);
+          }
+        }
       }
 
       .date {
-        width: 150px;
+        width: 220px;
         text-align: center;
       }
 

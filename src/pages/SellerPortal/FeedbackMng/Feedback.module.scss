@@ -142,6 +142,10 @@
                 }
               }
 
+              .user-rating {
+                display: flex;
+              }
+
               .chat {
                 .chat-btn {
                   width: 74px;
@@ -163,6 +167,18 @@
 
           .feedback-information-body {
             width: 600px;
+
+            .feedback-type {
+              margin-bottom: 5px;
+              .type-title {
+                font-size: 1.5rem;
+              }
+              .type-content {
+                font-size: 1.7rem;
+                font-weight: 500;
+                color: var(--primary);
+              }
+            }
 
             .feedback-data {
               width: 530px;
