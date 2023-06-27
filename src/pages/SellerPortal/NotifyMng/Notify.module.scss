@@ -47,9 +47,13 @@
 
       .notify-list {
         .notify {
+          cursor: pointer;
           display: flex;
           padding: 20px;
 
+          &:hover {
+            background-color: #f8f8f8;
+          }
           .notify-img {
             width: 60px;
             height: 60px;
