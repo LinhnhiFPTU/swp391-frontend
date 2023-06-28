@@ -15,9 +15,9 @@ import ProductSearch from "~/pages/ProductSearch";
 import Cart from "~/pages/Cart";
 import Category from "~/pages/Category";
 import ProductAll from "~/pages/ProductAll";
-
 import Checkout from "~/pages/Checkout";
 
+import Notifications from "~/pages/Notifications";
 import Purchase from "~/pages/Purchase";
 import Cancelled from "~/pages/Purchase/Cancelled";
 import Completed from "~/pages/Purchase/Completed";
@@ -28,6 +28,7 @@ import Shipping from "~/pages/Purchase/Shipping";
 import Seller from "~/pages/Seller";
 import Register from "~/pages/Seller/Register";
 import Dashboard from "~/pages/SellerPortal/Dashboard";
+import Notify from "~/pages/SellerPortal/NotifyMng";
 
 import OrderMng from "~/pages/SellerPortal/OrderMng";
 import ContactOrder from "~/pages/SellerPortal/OrderMng/ContactOrder";
@@ -42,6 +43,7 @@ import SoldOut from "~/pages/SellerPortal/ProductMng/SoldOut";
 import PendingProduct from "~/pages/SellerPortal/ProductMng/Pending";
 import Band from "~/pages/SellerPortal/ProductMng/Band";
 import AddProduct from "~/pages/SellerPortal/ProductMng/AddProduct";
+import Package from "~/pages/SellerPortal/ProductMng/Package";
 
 import FeedbackMng from "~/pages/SellerPortal/FeedbackMng";
 import FeedbackDetail from "~/pages/SellerPortal/FeedbackMng/FeedbackDetail";
@@ -73,6 +75,7 @@ const publicRoutes = [
   { path: "/cart", component: Cart },
   { path: "/checkout", component: Checkout },
 
+  { path: "/user/notification", component: Notifications },
   { path: "/user/account/profile", component: Account },
   { path: "/user/account/password", component: Password },
   { path: "/user/account/address", component: Address },
@@ -87,6 +90,7 @@ const publicRoutes = [
   { path: "/seller", component: Seller },
   { path: "/seller/register", component: Register },
   { path: "/seller/portal/dashboard", component: Dashboard },
+  { path: "/seller/portal/notifications", component: Notify },
 
   { path: "/seller/portal/order/all", component: OrderMng },
   { path: "/seller/portal/order/contact", component: ContactOrder },
@@ -101,6 +105,7 @@ const publicRoutes = [
   { path: "/seller/portal/product/pending", component: PendingProduct },
   { path: "/seller/portal/product/band", component: Band },
   { path: "/seller/portal/product/new", component: AddProduct },
+  { path: "/seller/portal/product/package", component: Package },
 
   { path: "/seller/portal/feedback", component: FeedbackMng },
   { path: "/seller/portal/feedback/detail", component: FeedbackDetail },
@@ -117,8 +122,6 @@ const publicRoutes = [
   { path: "/admin/portal/productmng", component: AdminProductMng },
 ];
 
-const privateRoutes = [
-  
-];
+const privateRoutes = [];
 
 export { publicRoutes, privateRoutes };

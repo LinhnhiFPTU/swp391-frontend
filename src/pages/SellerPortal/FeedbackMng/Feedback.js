@@ -32,6 +32,7 @@ const filterStar = [
 
 const feedbacks = [
   {
+    data: "22/03/2023",
     user: {
       avatarUrl:
         "https://www.thesun.ie/wp-content/uploads/sites/3/2022/02/crop-17770689.jpg?strip=all&quality=100&w=1920&h=1440&crop=1",
@@ -45,6 +46,46 @@ const feedbacks = [
       productPrice: 1200,
     },
     feedbackData: {
+      feedbackType: "Normal",
+      feedbackContent:
+        "Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. Shop tư vấn nhiệt tình nên mình chọn đc cỡ áo, màu hợp với mình. Áo thích hợp đi làm, đi chơi. Cảm ơn shop về sp này. Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. Sp đúng như shop mô tả. Áo thiết kế khá là trẻ trung, hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải khá là tốt. chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải",
+      feedbackVideo: "https://www.w3schools.com/html/mov_bbb.mp4",
+      feedbackImage: [
+        {
+          id: 0,
+          url: "https://m.media-amazon.com/images/I/71+4X8orK7L._AC_SL1500_.jpg",
+        },
+        {
+          id: 1,
+          url: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
+        },
+        {
+          id: 2,
+          url: "https://m.media-amazon.com/images/I/81uf1-L-u1L._AC_SL1500_.jpg",
+        },
+        {
+          id: 3,
+          url: "https://m.media-amazon.com/images/I/81ESBV8P-DL._AC_SL1500_.jpg",
+        },
+      ],
+    },
+  },
+  {
+    data: "22/03/2023",
+    user: {
+      avatarUrl:
+        "https://www.thesun.ie/wp-content/uploads/sites/3/2022/02/crop-17770689.jpg?strip=all&quality=100&w=1920&h=1440&crop=1",
+      name: "eelVuxx",
+      rating: 5,
+    },
+    product: {
+      productImage:
+        "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
+      productName: "Prevue Pet Products Travel Carrier for Birds, Black",
+      productPrice: 1200,
+    },
+    feedbackData: {
+      feedbackType: "Missing or Incomplete Accessories",
       feedbackContent:
         "Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. Shop tư vấn nhiệt tình nên mình chọn đc cỡ áo, màu hợp với mình. Áo thích hợp đi làm, đi chơi. Cảm ơn shop về sp này. Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. Sp đúng như shop mô tả. Áo thiết kế khá là trẻ trung, hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải khá là tốt. chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải",
       feedbackVideo: "https://www.w3schools.com/html/mov_bbb.mp4",
@@ -155,7 +196,9 @@ function FeedBack() {
                         <div className={cx("user-name")}>
                           {feedback.user.name}
                         </div>
-                        <div className={cx("feedback-date")}>22/03/2023</div>
+                        <div className={cx("feedback-date")}>
+                          {feedback.data}
+                        </div>
                       </div>
                       <div className={cx("user-rating")}>
                         <StarRating
@@ -175,6 +218,10 @@ function FeedBack() {
                     </div>
                   </div>
                   <div className={cx("feedback-information-body")}>
+                    <div className={cx("feedback-type")}>
+                      <span className={cx("type-title")}>Type of feedback: </span>
+                      <span className={cx("type-content")}>{feedback.feedbackData.feedbackType}</span>
+                    </div>
                     <span className={cx("feedback-data")}>
                       {feedback.feedbackData.feedbackContent}
                     </span>

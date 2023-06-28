@@ -39,7 +39,7 @@ function CartDropdown() {
           <Tippy
             interactive
             delay={[0, 200]}
-            placement="bottom-end"
+            placement="bottom"
             render={(attrs) => (
               <div className={cx("product-items")} tabIndex="-1" {...attrs}>
                 {state.length < 1 ? (
@@ -73,7 +73,11 @@ function CartDropdown() {
                           </div>
                           <div className={cx("prod-price")}>
                             <p className={cx("type-text")}>
-                              {Math.round(cartItems.product.price * (1 - cartItems.salePercent / 100))}$
+                              {Math.round(
+                                cartItems.product.price *
+                                  (1 - cartItems.salePercent / 100)
+                              )}
+                              $
                             </p>
                           </div>
                         </Link>

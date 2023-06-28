@@ -8,7 +8,7 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import StarRating from "~/layouts/components/StarRating";
-import ChatPupup from "~/layouts/components/ChatPopup";
+import ChatPopup from "~/layouts/components/ChatPopup";
 
 import banner from "~/assets/images/banner4.jpg";
 import styles from "./Products.module.scss";
@@ -144,7 +144,7 @@ function Products() {
       <Header />
       <div className={cx("all_wrapper")}>
         <div className={cx("all_container")}>
-          <ChatPupup/>
+          <ChatPopup/>
           <div className={cx("all_banner")}>
             <img src={banner} alt="banner" className={cx("all-img")} />
             <div className={cx("all-header")}>
