@@ -1,11 +1,12 @@
 import classNames from "classnames/bind";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Rate } from "antd";
 import ImageItem from "~/pages/SellerPortal/ProductMng/AddProduct/ImageItem";
 import styles from "./SendFeedback.module.scss";
+import { useNavigate } from "react-router-dom";
 const cx = classNames.bind(styles);
 
-function RateProduct() {
+function RateProduct({ order, curProduct, setCurProduct}) {
   const fileInputImageRef = useRef();
   const fileInputVideoRef = useRef();
   const videoPreview = useRef();
@@ -19,6 +20,7 @@ function RateProduct() {
   const [countTextarea, setCountTextarea] = useState(0);
   const [inputTextarea, setInputTextarea] = useState("");
   const [errorTextarea, setErrorTextarea] = useState("");
+  const [ratingProduct, setRatingProduct] = useState()
 
   const handleClickImage = () => {
     fileInputImageRef.current.click();
@@ -29,9 +31,23 @@ function RateProduct() {
   };
 
   const handlePreviewImage = (e) => {
-    const file = e.target.files[0];
-    file.preview = URL.createObjectURL(file);
-    setListImage((prev) => [...prev, file.preview]);
+    if (!curProduct.images)
+    {
+      curProduct.images = []
+    }
+
+    let length = e.target.files.length
+    let imgs = []
+    for(let i = 0; i < length; i++)
+    {
+      let item = {
+        url: URL.createObjectURL(e.target.files[i]),
+        file: e.target.files[i]
+      }
+      imgs.push(item)
+    }
+
+    setListImage((prev) => [...prev, ...imgs]);
     setQuantityImage((pre) => pre + 1);
   };
 
@@ -45,8 +61,11 @@ function RateProduct() {
           "This file is too large to be previewed (less than 30MB)"
         );
       } else {
-        file.preview = URL.createObjectURL(file);
-        setVideo(file.preview);
+        let item = {
+          url: URL.createObjectURL(file),
+          file
+        }
+        setVideo(item);
         setVideoError("");
       }
     }
@@ -63,6 +82,26 @@ function RateProduct() {
     setCountTextarea(e.target.value.length);
   };
 
+  useEffect(() => {
+    curProduct.rating = rating
+    setCurProduct(curProduct)
+  }, [rating])
+
+  useEffect(() => {
+    curProduct.images = listImage.map(img => img.file)
+    setCurProduct(curProduct)
+  }, [listImage])
+
+  useEffect(() => {
+    curProduct.video = video.file
+    setCurProduct(curProduct)
+  }, [video])
+
+  useEffect(() => {
+    curProduct.description = inputTextarea
+    setCurProduct(curProduct)
+  }, [inputTextarea])
+
   const onLoadedMetadata = () => {
     let duration =
       videoPreview.current.duration &&
@@ -78,20 +117,21 @@ function RateProduct() {
     }
     setVideoDuration(rs);
   };
+
   return (
     <div className={cx("rate-product-container")}>
-      <div className={cx("product-report")}>
-        <img
-          src="https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp"
-          alt="product-img"
-          className={cx("product-img")}
-        />
-        <div className={cx("product-name")}>
-          {" "}
-          Pet Birds Feeder Food Water Feeding Box For Small Medium Large Birds
-          Parrots
+      {order.orderDetails.filter(od => !od.feedbacked).map((od, index) => (
+        <div className={cx("product-report")} onClick={() => setRatingProduct(od.product.id)} key={index}>
+          <img
+            src={od.product.images[0].url}
+            alt="product-img"
+            className={cx("product-img")}
+          />
+          <div className={cx("product-name")}>
+            {od.product.name}
+          </div>
         </div>
-      </div>
+      ))}
       <div className={cx("product-rating")}>
         <div className={cx("product-quality")}>
           <div className={cx("title")}>Product quality</div>
@@ -157,7 +197,7 @@ function RateProduct() {
                     >
                       <video
                         ref={videoPreview}
-                        src={video}
+                        src={video.url}
                         className={cx("video")}
                         onLoadedMetadata={onLoadedMetadata}
                       />

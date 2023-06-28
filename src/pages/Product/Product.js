@@ -373,10 +373,22 @@ function Product() {
     if (isBuyed)
     {
       navigate("/cart", {
-        state: product.id
+        state: [product.id]
       })
     }
   }, [Globalstate.state])
+
+  const handleSendSpecialOrder = (e) =>
+  {
+    e.preventDefault()
+    if (user) {
+      axios.post('/api/v1/users/order/special/create?id=' + product.id + '&quantity=' + valueQuantity)
+      .then(res => {
+        navigate("/purchase/contact")
+      })
+      .catch(e => console.log(e))
+    } else navigate("/login");
+  }
 
   return (
     <>
@@ -584,7 +596,7 @@ function Product() {
               <div className={cx("product-buy")}>
                 {product.category.name === "Bird" ? (
                   <>
-                    <button className={cx("contact")}>
+                    <button className={cx("contact")} onClick={handleSendSpecialOrder}>
                       <i className={cx("fa-light fa-paper-plane")}></i>
                       <span>Send Request</span>
                     </button>

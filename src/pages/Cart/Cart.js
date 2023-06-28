@@ -24,8 +24,9 @@ function Cart() {
 
 
   useEffect(() => {
-    if (paramLocation) {
-      setCheckedProducts(prev => [...prev, paramLocation.state])
+    if (paramLocation.state) {
+      console.log(paramLocation)
+      setCheckedProducts(prev => [...prev, ...paramLocation.state])
     }
   }, [paramLocation]);
 

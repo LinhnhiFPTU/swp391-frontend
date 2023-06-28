@@ -45,9 +45,18 @@ function Message({ messages, user }) {
                     )}
                     <div className={cx("message-info-receive")}>
                       <div className={cx("message-content-receive")}>
-                        {msg.images.map((img, index) => (
-                          <img src={img.url} />
-                        ))}
+                      {msg.images.map((img, index) => {
+                        let percent = 100 / msg.images.length;
+                        if (msg.images.length > 3) {
+                          percent = 100 / 3;
+                        }
+                        return (
+                          <img
+                            style={{ width: `${percent}%`}}
+                            src={img.url}
+                          />
+                        );
+                      })}
                       </div>
                     </div>
                   </div>

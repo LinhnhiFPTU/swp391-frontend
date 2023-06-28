@@ -6,93 +6,23 @@ import NavBar from "../NavBar";
 import OrderData from "./OrderData";
 
 import styles from "./ContactOrder.module.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-const orderDatas = [
-  {
-    user: {
-      avatarUrl:
-        "https://www.thesun.ie/wp-content/uploads/sites/3/2022/02/crop-17770689.jpg?strip=all&quality=100&w=1920&h=1440&crop=1",
-      name: "eeLVuxx",
-    },
-    order: {
-      id: 123456,
-      orderImageUrl:
-        "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-      orderName: "Prevue Pet Products Travel Carrier for Birds, Black",
-      orderDate: "01-01-2032 12:43",
-      orderPrice: 1200,
-      orderQuantity: 2,
-    },
-  },
-  {
-    user: {
-      avatarUrl:
-        "https://www.thesun.ie/wp-content/uploads/sites/3/2022/02/crop-17770689.jpg?strip=all&quality=100&w=1920&h=1440&crop=1",
-      name: "eeLVuxx",
-    },
-    order: {
-      id: 123456,
-      orderImageUrl:
-        "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-      orderName: "Prevue Pet Products Travel Carrier for Birds, Black",
-      orderDate: "01-01-2032 12:43",
-      orderPrice: 1200,
-      orderQuantity: 2,
-    },
-  },
-  {
-    user: {
-      avatarUrl:
-        "https://www.thesun.ie/wp-content/uploads/sites/3/2022/02/crop-17770689.jpg?strip=all&quality=100&w=1920&h=1440&crop=1",
-      name: "eeLVuxx",
-    },
-    order: {
-      id: 123456,
-      orderImageUrl:
-        "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-      orderName: "Prevue Pet Products Travel Carrier for Birds, Black",
-      orderDate: "01-01-2032 12:43",
-      orderPrice: 1200,
-      orderQuantity: 2,
-    },
-  },
-  {
-    user: {
-      avatarUrl:
-        "https://www.thesun.ie/wp-content/uploads/sites/3/2022/02/crop-17770689.jpg?strip=all&quality=100&w=1920&h=1440&crop=1",
-      name: "eeLVuxx",
-    },
-    order: {
-      id: 123456,
-      orderImageUrl:
-        "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-      orderName: "Prevue Pet Products Travel Carrier for Birds, Black",
-      orderDate: "01-01-2032 12:43",
-      orderPrice: 1200,
-      orderQuantity: 2,
-    },
-  },
-  {
-    user: {
-      avatarUrl:
-        "https://www.thesun.ie/wp-content/uploads/sites/3/2022/02/crop-17770689.jpg?strip=all&quality=100&w=1920&h=1440&crop=1",
-      name: "eeLVuxx",
-    },
-    order: {
-      id: 123456,
-      orderImageUrl:
-        "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-      orderName: "Prevue Pet Products Travel Carrier for Birds, Black",
-      orderDate: "01-01-2032 12:43",
-      orderPrice: 1200,
-      orderQuantity: 2,
-    },
-  },
-];
-
 function ContactOrder() {
+  const [orders, setOrders] = useState([]);
+  const [page, setPage] = useState(1);
+
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/shop/orders/search?filter=SPECIAL_SHOP&page=" + page)
+      .then((res) => setOrders(res.data))
+      .catch((e) => console.log(e));
+  }, []);
+
   return (
     <>
       <HeaderSeller title="Contact Order" />
@@ -126,7 +56,7 @@ function ContactOrder() {
               </form>
             </div>
             <div className={cx("order_count")}>0 Orders</div>
-            <OrderData orders={orderDatas} />
+            <OrderData orders={orders} />
             
           </div>
         </div>

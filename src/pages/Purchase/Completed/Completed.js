@@ -1,72 +1,136 @@
 import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import NavBar from "../NavBar";
 import SendFeedback from "./SendFeedback";
+import NoPurchase from "../NoPurchase/NoPurchase";
+import { Cartcontext } from "~/context/Context";
+import { UserContext } from "~/userContext/Context";
 
 import styles from "./Completed.module.scss";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function Completed() {
   const [openFeedback, setOpenFeedback] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const [page, setPage] = useState(1);
+  const userContext = useContext(UserContext);
+  const user = userContext.state;
+  const cartContext = useContext(Cartcontext);
+  const dispatch = cartContext.dispatch;
+  const [buyed, setBuyed] = useState(false);
+  const [rebuy, setRebuy] = useState();
+  const [order, setOrder] = useState();
+  const navigate = useNavigate();
+
+  const handleRebuy = (e, order) => {
+    e.preventDefault();
+    if (user) {
+      let rebuyProduct = order.orderDetails.map((od) => od.product.id);
+      setRebuy(rebuyProduct);
+      rebuyProduct.forEach((p) => {
+        dispatch({ type: "ADD", payload: p });
+      });
+      setBuyed(true);
+    } else navigate("/login");
+  };
+
+  useEffect(() => {
+    if (buyed) {
+      navigate("/cart", {
+        state: rebuy,
+      });
+    }
+  }, [cartContext.state]);
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/users/orders/search?filter=COMPLETED&page=" + page)
+      .then((res) => setOrders(res.data))
+      .catch((e) => console.log(e));
+  }, []);
+
+  const feedbackCondition = (order) => {
+    console.log(order)
+    return order.orderDetails.filter((od) => !od.feedbacked).length > 0;
+  };
+
   return (
     <>
-      {openFeedback && <SendFeedback setOpenFeedback={setOpenFeedback} />}
+      {openFeedback && (
+        <SendFeedback setOpenFeedback={setOpenFeedback} order={order} setOrder={setOrder}/>
+      )}
       <Header />
       <div className={cx("completed_wrapper")}>
         <div className={cx("completed_container")}>
           <NavBar />
-
-          <div className={cx("purchase_item")}>
-            <div className={cx("purchase_item-info")}>
-              <div className={cx("purchase_item-header")}>
-                <div className={cx("shop-name")}>Baboon’s Toys Shop</div>
-                <div className={cx("status")}>COMPLETED</div>
-              </div>
-              <div className={cx("purchase_item-detail")}>
-                <div className={cx("content")}>
-                  <img
-                    src="https://salt.tikicdn.com/cache/750x750/ts/product/d6/b6/f9/8d0af23baac2d0b5130ea3595f964cfe.jpg.webp"
-                    alt="product-img"
-                    className={cx("product-img")}
-                  />
-                  <div className={cx("product-content")}>
-                    <div className={cx("product-name")}>
-                      Pet Birds Feeder Food Water Feeding Box For Small Medium
-                      Large Birds Parrots
+          {!orders || orders.length === 0 ? (
+            <NoPurchase />
+          ) : (
+            orders.map((order, index) => (
+              <div className={cx("purchase_item")} key={index}>
+                <div className={cx("purchase_item-info")}>
+                  <div className={cx("purchase_item-header")}>
+                    <div className={cx("shop-name")}>{order.shop.name}</div>
+                    <div className={cx("status")}>{order.status}</div>
+                  </div>
+                  {order.orderDetails.map((item, index) => (
+                    <div className={cx("purchase_item-detail")} key={index} onClick={() => navigate("/product?productId=" + item.product.id)}>
+                      <div className={cx("content")}>
+                        <img
+                          src={item.product.images[0].url}
+                          alt="product-img"
+                          className={cx("product-img")}
+                        />
+                        <div className={cx("product-content")}>
+                          <div className={cx("product-name")}>
+                            {item.product.name}
+                          </div>
+                          <div className={cx("quantity")}>x{item.quantity}</div>
+                        </div>
+                      </div>
+                      <div className={cx("price")}>${item.sellPrice}</div>
                     </div>
-                    <div className={cx("quantity")}>x2</div>
+                  ))}
+                </div>
+                <div className={cx("purchase_item_order-total")}>
+                  <div className={cx("order-total-detail")}>
+                    <div className={cx("text")}>Order Total:</div>
+                    <div className={cx("price")}>${order.sellPrice}</div>
                   </div>
                 </div>
-                <div className={cx("price")}>$1000</div>
+                <div className={cx("purchase_item-options")}>
+                  <div className={cx("text")}>No rating received</div>
+                  <div className={cx("button")}>
+                    <a
+                      className={cx("buy-btn")}
+                      style={{ cursor: "pointer" }}
+                      onClick={(e) => handleRebuy(e, order)}
+                    >
+                      Buy Again
+                    </a>
+                    {feedbackCondition(order) && (
+                      <button
+                        to="/purchase/complete/feedback"
+                        className={cx("feedback-btn")}
+                        onClick={() => {
+                          setOpenFeedback(true);
+                          setOrder(order);
+                        }}
+                      >
+                        Feedback
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className={cx("purchase_item_order-total")}>
-              <div className={cx("order-total-detail")}>
-                <div className={cx("text")}>Order Total:</div>
-                <div className={cx("price")}>$1000</div>
-              </div>
-            </div>
-            <div className={cx("purchase_item-options")}>
-              <div className={cx("text")}>No rating received</div>
-              <div className={cx("button")}>
-                <Link to="/product" className={cx("buy-btn")}>
-                  Buy Again
-                </Link>
-                <button
-                  to="/purchase/complete/feedback"
-                  className={cx("feedback-btn")}
-                  onClick={() => setOpenFeedback(true)}
-                >
-                  Feedback
-                </button>
-              </div>
-            </div>
-          </div>
+            ))
+          )}
         </div>
       </div>
       <Footer />
