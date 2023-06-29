@@ -96,7 +96,7 @@ function Dashboard() {
       var revenue =  widgets.find(it => it.id === 1)
       revenue.data = revenues[0]
       revenue.changeData = revenues[0] - revenues[1]
-      if (revenues[1] == 0)
+      if (revenues[1] === 0)
       {
         revenue.changePercent = revenues[0] - revenues[1]
       }else revenue.changePercent = (revenues[0] / revenues[1]) * 100 - 100
