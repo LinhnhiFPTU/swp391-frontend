@@ -1,5 +1,6 @@
+/*-------------------------------------DASHBOARD-------------------------------------*/
 .dashboard-wrapper {
-  margin-top: 80px;
+  margin-top: 70px;
 }
 
 .container {
@@ -11,22 +12,36 @@
 }
 
 .dashboard-container {
-  width: 75%;
+  width: 100%;
   padding: 20px;
-}
+  background-color: #ddddddbb;
 
+}
+.dashboard-items {
+  width: 70%;
+  margin: auto;
+
+  .monthly {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1f8a70;
+  }
+}
+/*-------------------------------------CARD-------------------------------------*/
 .card-items {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin-bottom: 40px;
 
   .item1 {
-    border-left: 3px solid #00425a;
-    color: #00425a;
+    
+    border-left: 3px solid #1f8a70;
+    color: #1f8a70;
   }
 
   .item2 {
-    border-left: 3px solid #1f8a70;
-    color: #1f8a70;
+    border-left: 3px solid #3aa3c9;
+    color: #3aa3c9;
   }
 
   .item3 {
@@ -43,10 +58,13 @@
 .card-item {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 7px;
-  padding: 20px 5px;
+  padding: 20px 10px;
   width: 320px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+
 
   p {
     padding: 0;
@@ -54,12 +72,12 @@
   }
 
   .card-title {
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 400;
   }
 
   .card-number {
-    font-size: 15px;
+    font-size: 22px;
     font-weight: 500;
   }
 }
@@ -70,27 +88,48 @@
   svg {
     width: 8rem;
     height: 8rem;
-    circle {
-      fill: none;
-      stroke: var(--primary);
-      stroke-width: 5px;
-      stroke-linecap: round;
-      stroke-dasharray: 110;
-      stroke-dashoffset: 92;
-      position: relative;
-      width: max-content;
-      height: max-content;
-    }
   }
 
+
+}
+
+
+/*-------------------------------------CHART-------------------------------------*/
+.overview-chart {
+  display: flex;
+  justify-content: space-between;
+
   p {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 23px;
+    margin-bottom: 18px;
+    color: rgb(78, 78, 78);
+  }
+}
+//Revenue
+.revenue-chart {
+  width: fit-content;
+  background-color: #fff;
+  padding: 20px;
+  width: 60%;
+}
+
+//Total Products
+.products-chart {
+  background-color: #fff;
+  width: fit-content;
+  padding: 20px;
+  width: 36%;
+}
+
+//Detail
+.details-chart {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 36px;
+
+  p {
+    font-size: 23px;
+    margin-bottom: 18px;
+    color: rgb(78, 78, 78);
   }
 }
