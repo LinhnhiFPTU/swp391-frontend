@@ -62,10 +62,11 @@
     align-items: center;
 
     .info-seller {
-      width: 125px;
+      width: 150px;
       height: 43px;
       border-radius: 25px;
       display: flex;
+      padding: 0 5px;
       align-items: center;
       justify-content: center;
       background-color: transparent;
@@ -163,18 +164,6 @@
 
       .option-first:hover:before {
         border-bottom-color: rgba(22, 24, 35, 0);
-      }
-    }
-
-    .bell-icon {
-      font-size: 2rem;
-      padding: 10px 12px;
-      border-radius: 50%;
-      background-color: transparent;
-
-      &:hover {
-        cursor: pointer;
-        background-color: #f6f6f6;
       }
     }
   }

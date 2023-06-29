@@ -3,34 +3,51 @@ import styles from "./ContentMessage.module.scss";
 
 const cx = classNames.bind(styles);
 
-function ContentMessage({ messages }) {
+function ContentMessage({ messages, shop }) {
   return (
     <>
-      {messages.map((msg, index) => {
-        if (msg.type === "RECEIVE") {
-          return (
-            <div className={cx("message-container-receive")} key={index}>
-              <div className={cx("message-date-time-receive")}>
-                14:00, 22/03/23
-              </div>
-              <div className={cx("message-info-receive")}>
-                <div className={cx("message-content-receive")}>
-                  {msg.content}
+      {messages &&
+        messages.map((msg, index) => {
+          let isShow = false;
+          if (messages[index - 1]) {
+            let sendTime = new Date(messages[index - 1].sendTime);
+            sendTime.setMinutes(sendTime.getMinutes() + 10);
+            let curSendTime = new Date(msg.sendTime);
+            if (curSendTime > sendTime) {
+              isShow = true;
+            }
+          }
+
+          if (msg.senderId !== shop.id || msg.senderType !== "SHOP") {
+            return (
+              <div className={cx("message-container-receive")} key={index}>
+                {isShow && (
+                  <div className={cx("message-date-time-receive")}>
+                    {new Date(msg.sendTime).toLocaleString()}
+                  </div>
+                )}
+                <div className={cx("message-info-receive")}>
+                  <div className={cx("message-content-receive")}>
+                    {msg.content}
+                  </div>
                 </div>
+              </div>
+            );
+          }
+
+          return (
+            <div className={cx("message-container-self")} key={index}>
+              {isShow && (
+                <div className={cx("message-date-time-self")}>
+                  {new Date(msg.sendTime).toLocaleString()}
+                </div>
+              )}
+              <div className={cx("message-info-self")}>
+                <div className={cx("message-content-self")}>{msg.content}</div>
               </div>
             </div>
           );
-        }
-
-        return (
-          <div className={cx("message-container-self")} key={index}>
-            <div className={cx("message-date-time-self")}>14:00, 22/03/23</div>
-            <div className={cx("message-info-self")}>
-              <div className={cx("message-content-self")}>{msg.content}</div>
-            </div>
-          </div>
-        );
-      })}
+        })}
     </>
   );
 }

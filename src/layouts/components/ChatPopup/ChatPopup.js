@@ -3,12 +3,10 @@ import classNames from "classnames/bind";
 import ChatWindow from "./ChatWindow";
 
 import styles from "./ChatPopup.module.scss";
-import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
-function ChatPupup() {
-  const [openChat, setOpenChat] = useState(false);
+function ChatPupup({openChat, setOpenChat}) {
 
   return (
     <>

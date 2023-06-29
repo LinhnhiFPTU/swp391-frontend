@@ -18,9 +18,9 @@ function CheckoutPopup() {
             Please select purchase order to see more information
           </div>
           <div className={cx("options")}>
-            <Link to="/" className={cx("home")}>
+            <a href="/" className={cx("home")}>
               Home
-            </Link>
+            </a>
             <Link to="/purchase/pending" className={cx("order")}>
               Purchase Order
             </Link>

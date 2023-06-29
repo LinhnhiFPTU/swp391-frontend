@@ -7,9 +7,10 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 
-import { UserContext } from "~/App";
+import { UserContext } from "~/userContext/Context";
 import CartDropdown from "../CartDropdown/CartDropdown";
 import Search from "~/layouts/components/Header/Search";
+import Notifications from "../NotificationsDropdown";
 
 import avatar from "~/assets/images/user.png";
 import styles from "./Header.module.scss";
@@ -17,7 +18,8 @@ import styles from "./Header.module.scss";
 const cx = classNames.bind(styles);
 
 const Header = () => {
-  const user = useContext(UserContext);
+  const context = useContext(UserContext);
+  const user = context.state;
   const [logout, setLogout] = useState(false);
   useEffect(() => {
     if (logout) {
@@ -71,9 +73,7 @@ const Header = () => {
           </div>
 
           <div className={cx("notification-icon")}>
-            <Link to="/user/notifications" className={cx("notify-link")}>
-              <i className={cx("icon", "fa-light fa-bell")}></i>
-            </Link>
+            <Notifications />
           </div>
 
           <div className={cx("nav-icon")}>
@@ -108,6 +108,12 @@ const Header = () => {
                               "fa-sharp fa-regular fa-basket-shopping"
                             )}
                           ></i>
+                        </Link>
+                      </div>
+                      <div className={cx("option-next")}>
+                        <Link to="/user/notification" className={cx("login-link")}>
+                          <span>Notifications</span>
+                          <i className={cx("icon-sub", "fa-light fa-bell")}></i>
                         </Link>
                       </div>
                       <div className={cx("option-next")}>

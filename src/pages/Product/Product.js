@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import Report from "./Report";
@@ -29,7 +29,8 @@ const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 function Product() {
   const navigate = useNavigate();
-  const user = useContext(UserContext);
+  const context = useContext((UserContext))
+  const user = context.state
   const [searchParams, setSearchParams] = useSearchParams();
   const [product, setProduct] = useState({
     id: 0,
@@ -91,6 +92,19 @@ function Product() {
       },
     ],
     feedbacks: [],
+    relatedTo: [{
+      product: {
+        name: "",
+        images: [
+          {
+            url: ""
+          }
+        ]
+      },
+      salePercent: undefined,
+      saleQuantity: 0,
+      sold: 0
+    }]
   });
   const [type, setType] = useState("All");
   const [second, setSecond] = useState(0);
@@ -107,6 +121,7 @@ function Product() {
   const location = useLocation();
   const Globalstate = useContext(Cartcontext);
   const dispatch = Globalstate.dispatch;
+  const [isBuyed, setIsBuyed] = useState(false)
 
   useEffect(() => {
     let productId = searchParams.get("productId");
@@ -331,12 +346,38 @@ function Product() {
     setValueQuantity(valueQuantity + 1);
   };
 
-  const saleCondition = () => {
+  const saleCondition = (item) => {
+    if (item)
+    {
+      return (
+        item.salePercent &&
+        item.saleQuantity > item.sold
+      )
+    }
+
     return (
       product.productSale &&
       product.productSale.saleQuantity > product.productSale.sold
     );
   };
+
+  const handleBuyNow = (e) => {
+    e.preventDefault()
+    if (user) {
+      setIsBuyed(true)
+      dispatch({ type: "ADD", payload: product.id });
+    } else navigate("/login");
+  }
+
+  useEffect(() => {
+    if (isBuyed)
+    {
+      navigate("/cart", {
+        state: product.id
+      })
+    }
+  }, [Globalstate.state])
+
   return (
     <>
       {openReport && <Report closeReport={setOpenReport} type="product" />}
@@ -570,6 +611,7 @@ function Product() {
                     <button
                       className={cx("buy")}
                       disabled={product.available === 0}
+                      onClick={handleBuyNow}
                     >
                       Buy Now
                     </button>
@@ -748,7 +790,7 @@ function Product() {
                 <div className={cx("ship-from", "container")}>
                   <div className={cx("title")}>Shops From</div>
                   <div className={cx("content")}>
-                    {/* {product.shop.address.province.name} */ "Ha Noi"}
+                    {product.shop.address.province.name}
                   </div>
                 </div>
               </div>
@@ -849,26 +891,31 @@ function Product() {
           <div className={cx("product-related")}>
             <div className={cx("related-header")}>Product Related</div>
             <div className={cx("related-list")}>
-              <Link className={cx("related-item")}>
-                <img
-                  src="https://salt.tikicdn.com/cache/750x750/ts/product/23/57/e5/9a003ada893113eec9649d937b00143a.jpg.webp"
-                  alt="related-img"
-                  className={cx("related-img")}
-                />
-                <div className={cx("item-content")}>
-                  <div className={cx("name")}>
-                    Wooden Block Bird Parrot Toys for Small Medium Large Parrots
-                    and Birds
-                  </div>
-                  <div className={cx("price-sold")}>
-                    <div className={cx("price")}>
-                      <div className={cx("real-price")}>1000$</div>
-                      <div className={cx("sale-price")}>800$</div>
+              {/* {product.relatedTo.map((item, index) => (
+                <Link key={index} className={cx("related-item")}>
+                  <img
+                    src={item.product.images[0].url}
+                    alt="related-img"
+                    className={cx("related-img")}
+                  />
+                  <div className={cx("item-content")}>
+                    <div className={cx("name")}>{item.product.name}</div>
+                    <div className={cx("price-sold")}>
+                      {saleCondition(item) ? (
+                        <div className={cx("price")}>
+                          <div className={cx("real-price")}>{item.product.price}$</div>
+                          <div className={cx("sale-price")}>{Math.round(item.product.price * (1 - item.salePercent / 100))}$</div>
+                        </div>
+                      ) : (
+                        <div className={cx("price")}>
+                          <div className={cx("sale-price")}>{item.product.price}$</div>
+                        </div>
+                      )}
+                      <div className={cx("sold")}>item.product.sold</div>
                     </div>
-                    <div className={cx("sold")}>400 sold</div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              ))} */}
             </div>
           </div>
         </div>

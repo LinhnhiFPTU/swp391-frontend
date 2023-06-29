@@ -14,40 +14,45 @@ const sideBarOptions = [
   },
   {
     id: 1,
+    title: "Notifications",
+    icon: "fa-light fa-bell",
+    path: "/seller/portal/notifications",
+  },
+  {
+    id: 2,
+    title: "Data Chart",
+    icon: "fa-light fa-chart-line-up",
+    path: "/seller/portal/chart",
+  },
+  {
+    id: 3,
     title: "Order",
     icon: "fa-thin fa-clipboard-list",
     path: "/seller/portal/order/all",
   },
   {
-    id: 2,
+    id: 4,
     title: "Product",
     icon: "fa-sharp fa-light fa-box-dollar",
     path: "/seller/portal/product/all",
   },
   {
-    id: 3,
-    title: "Feedback",
-    icon: "fa-light fa-comment-exclamation",
-    path: "/seller/portal/feedback",
-  },
-  {
-    id: 4,
+    id: 5,
     title: "Message",
     icon: "fa-light fa-comment-dots",
     path: "/seller/portal/message",
   },
   {
-    id: 5,  
+    id: 6,
     title: "Shop",
     icon: "fa-light fa-bag-shopping",
     path: "/seller/portal/shop",
   },
-
   {
-    id: 6,
-    title: "Data Chart",
-    icon: "fa-light fa-chart-line-up",
-    path: "/seller/portal/chart",
+    id: 7,
+    title: "Feedback",
+    icon: "fa-light fa-comment-exclamation",
+    path: "/seller/portal/feedback",
   },
 ];
 

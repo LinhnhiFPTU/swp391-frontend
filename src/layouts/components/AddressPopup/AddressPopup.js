@@ -1,13 +1,14 @@
 import classNames from "classnames/bind";
 import styles from "./AddressPopup.module.scss";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
+import { UserContext } from "~/userContext/Context";
 
 const cx = classNames.bind(styles);
 
-function AddressPopup({ closeModel }) {
+function AddressPopup({ closeModel, receiveInfoChange }) {
   const [receiveInfo, setReceiveInfo] = useState({
     fullname: "",
     phone: "",
@@ -17,7 +18,10 @@ function AddressPopup({ closeModel }) {
     specific_address: "",
     _default: false,
   });
-  const [Add, setAdd] = useState(false);
+  const [add, setAdd] = useState(false)
+  const context = useContext(UserContext);
+  const dispatch = context.dispatch;
+  const state = context.state;
 
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -46,7 +50,7 @@ function AddressPopup({ closeModel }) {
         let newArr = res.data.data
           .map((p) => ({
             id: p.ProvinceID,
-            name: p.NameExtension[0]
+            name: p.NameExtension[0],
           }))
           .filter(
             (p) =>
@@ -127,32 +131,34 @@ function AddressPopup({ closeModel }) {
   };
 
   useEffect(() => {
-    if (Add) {
-      let AddReceiveRequest = {
-        ...receiveInfo,
-        provinceId: receiveInfo.province.id,
-        provinceName: receiveInfo.province.name,
-        districtId: receiveInfo.district.id,
-        districtName: receiveInfo.district.name,
-        wardId: receiveInfo.ward.id,
-        wardName: receiveInfo.ward.name
-      }
-      axios
-        .post("/api/v1/users/info/receives", AddReceiveRequest)
-        .then((res) => {
-          window.location.href = '/user/account/address'
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+    if (state && add) {
+      closeModel(false);
+      receiveInfoChange(true);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Add]);
+  }, [state]);
 
   const handleAddNewReceive = (e) => {
     e.preventDefault();
-    setAdd(true);
+    let AddReceiveRequest = {
+      ...receiveInfo,
+      provinceId: receiveInfo.province.id,
+      provinceName: receiveInfo.province.name,
+      districtId: receiveInfo.district.id,
+      districtName: receiveInfo.district.name,
+      wardId: receiveInfo.ward.id,
+      wardName: receiveInfo.ward.name,
+    };
+    axios
+      .post("/api/v1/users/info/receives", AddReceiveRequest)
+      .then((res) => {
+        dispatch({
+          type: "RELOAD",
+        });
+        setAdd(true)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -161,6 +167,7 @@ function AddressPopup({ closeModel }) {
         <div className={cx("addr-container")}>
           <div className={cx("popup-head")}>
             <span className={cx("popup-head-text")}>New receive info</span>
+            
           </div>
           <div className={cx("popup-content")}>
             <div className={cx("addr-content")}>
@@ -208,9 +215,9 @@ function AddressPopup({ closeModel }) {
                           className={cx("province-item")}
                           onClick={() => {
                             setFocusP((f) => !f);
-                            setSearchP(item.name)
-                            setSearchD("")
-                            setSearchW("")
+                            setSearchP(item.name);
+                            setSearchD("");
+                            setSearchW("");
                             setReceiveInfo({
                               ...receiveInfo,
                               province: item,
@@ -233,8 +240,8 @@ function AddressPopup({ closeModel }) {
                     className={cx("form-input")}
                     placeholder=" "
                     onFocus={() => {
-                      setFocusP(true)
-                      setSearchP("")
+                      setFocusP(true);
+                      setSearchP("");
                     }}
                     value={searchP}
                     onChange={(e) => setSearchP(e.target.value)}
@@ -260,9 +267,13 @@ function AddressPopup({ closeModel }) {
                           className={cx("province-item")}
                           onClick={() => {
                             setFocusD((f) => !f);
-                            setSearchD(item.name)
-                            setSearchW("")
-                            setReceiveInfo({ ...receiveInfo, district: item, ward: undefined});
+                            setSearchD(item.name);
+                            setSearchW("");
+                            setReceiveInfo({
+                              ...receiveInfo,
+                              district: item,
+                              ward: undefined,
+                            });
                           }}
                         >
                           {item.name}
@@ -279,8 +290,8 @@ function AddressPopup({ closeModel }) {
                     className={cx("form-input")}
                     placeholder=" "
                     onFocus={() => {
-                      setFocusD(true)
-                      setSearchD("")
+                      setFocusD(true);
+                      setSearchD("");
                     }}
                     required
                     disabled={!receiveInfo.province}
@@ -306,7 +317,7 @@ function AddressPopup({ closeModel }) {
                           className={cx("province-item")}
                           onClick={() => {
                             setFocusW((f) => !f);
-                            setSearchW(item.name)
+                            setSearchW(item.name);
                             setReceiveInfo({ ...receiveInfo, ward: item });
                           }}
                         >
@@ -324,8 +335,8 @@ function AddressPopup({ closeModel }) {
                     className={cx("form-input")}
                     placeholder=" "
                     onFocus={() => {
-                      setFocusW(true)
-                      setSearchW("")
+                      setFocusW(true);
+                      setSearchW("");
                     }}
                     required
                     disabled={!receiveInfo.district}
@@ -359,21 +370,21 @@ function AddressPopup({ closeModel }) {
               </div>
             </div>
           </div>
-          <div className={cx("popup-footer")}>
-            <div className={cx("popup-btn")}>
-              <button
-                className={cx("cancel", "p-btn")}
-                onClick={() => closeModel(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className={cx("update", "p-btn")}
-                onClick={handleAddNewReceive}
-              >
-                Add
-              </button>
-            </div>
+        </div>
+        <div className={cx("popup-footer")}>
+          <div className={cx("popup-btn")}>
+            <button
+              className={cx("cancel", "p-btn")}
+              onClick={() => closeModel(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className={cx("update", "p-btn")}
+              onClick={handleAddNewReceive}
+            >
+              Add
+            </button>
           </div>
         </div>
       </div>

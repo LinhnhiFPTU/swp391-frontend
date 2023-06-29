@@ -6,7 +6,7 @@ import Header from "~/layouts/components/Header/Header";
 import Footer from "~/layouts/components/Footer";
 import AddressPopup from "~/layouts/components/AddressPopup";
 import styles from "./Address.module.scss";
-import { UserContext } from "~/App";
+import {UserContext} from "~/userContext/Context";
 import axios from "axios";
 
 const cx = classNames.bind(styles);
@@ -29,6 +29,7 @@ const sidebarDatas = [
 ];
 function Address() {
   const { pathname } = useLocation();
+  const [infoReceive, setInfoReceive] = useState(false)
   const [openMadal, setOpenModal] = useState(false);
   const [curPage, setCurPage] = useState(1);
   const [defaultId, setDefaultId] = useState();
@@ -42,7 +43,24 @@ function Address() {
     gender: "",
     receiveInfoPage: 1,
   });
-  const context = useContext(UserContext);
+  const UC = useContext((UserContext))
+  const context = UC.state
+
+  useEffect(() => {
+    if (infoReceive) {
+      axios
+      .get("/api/v1/users/info/receives?page=" + curPage)
+      .then((res) => {
+        let setup = res.data || [];
+        let param = curPage === 1 ? "" : "?page=" + curPage;
+        setReceiveInfos(setup);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+      setOpenModal(false)
+    }
+  }, [infoReceive]);
 
   useEffect(() => {
     document.title = "Bird Trading Platform | Hot Deals, Best Prices";
@@ -132,7 +150,7 @@ function Address() {
 
   return (
     <>
-      {openMadal && <AddressPopup closeModel={setOpenModal} />}
+      {openMadal && <AddressPopup closeModel={setOpenModal} receiveInfoChange={setInfoReceive}/>}
       <Header />
       <div className={cx("profile-wrapper")}>
         <div className={cx("profile-container")}>

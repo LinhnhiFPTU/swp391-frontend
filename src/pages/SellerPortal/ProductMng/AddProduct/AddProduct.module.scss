@@ -55,39 +55,6 @@
             .image-action {
               display: flex;
               align-items: center;
-              .load-image {
-                position: relative;
-                width: 90px;
-                height: 90px;
-                display: flex;
-                align-items: center;
-                margin-right: 15px;
-                margin-top: 15px;
-                border-radius: 4px;
-                border: 1px solid #eee;
-
-                .load-item {
-                  width: 98%;
-                  height: 98%;
-                  padding: 5px;
-                }
-
-                .action {
-                  text-align: center;
-                  position: absolute;
-                  width: 100%;
-                  bottom: 0;
-                  height: 24px;
-                  border-radius: 0 0 4px 4px;
-                  background-color: rgba(0, 0, 0, 0.3);
-                  backdrop-filter: saturate(180%) blur(2px);
-
-                  .delete-icon {
-                    cursor: pointer;
-                    color: #fff;
-                  }
-                }
-              }
 
               .image-selected {
                 cursor: pointer;
@@ -326,68 +293,123 @@
           }
         }
 
-        .upload-category {
-          height: 60px;
-          margin-top: 40px;
+        .category-container {
+          display: flex;
+          align-items: center;
+          .upload-category {
+            height: 60px;
+            margin-top: 40px;
 
-          .category-main {
-            display: flex;
-            align-items: center;
-            .title {
-              width: 111px;
-              font-size: 1.4rem;
-
-              .required {
-                color: red;
-              }
-            }
-
-            .category-select {
-              cursor: pointer;
-              width: 250px;
+            .category-main {
               display: flex;
               align-items: center;
-              justify-content: space-between;
-              margin-left: 25px;
-              padding: 7px 12px;
-              border-radius: 4px;
-              border: 1px solid #e5e5e5;
-
-              .title-select {
+              .title {
+                width: 111px;
                 font-size: 1.4rem;
-                color: #929292;
+
+                .required {
+                  color: red;
+                }
               }
 
-              .title-select-active {
-                font-size: 1.4rem;
-                color: #333;
-              }
-
-              .select-icon {
-                font-size: 1.4rem;
-                color: #929292;
-              }
-            }
-
-            .select-options {
-              width: 250px;
-              .option {
+              .category-select {
                 cursor: pointer;
-                font-size: 1.4rem;
-                padding: 10px;
+                width: 250px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-left: 25px;
+                padding: 7px 12px;
+                border-radius: 4px;
+                border: 1px solid #e5e5e5;
 
-                &:hover {
-                  color: var(--primary);
+                .title-select {
+                  font-size: 1.4rem;
+                  color: #929292;
+                }
+
+                .title-select-active {
+                  font-size: 1.4rem;
+                  color: #333;
+                }
+
+                .select-icon {
+                  font-size: 1.4rem;
+                  color: #929292;
+                }
+              }
+
+              .select-options {
+                width: 250px;
+                .option {
+                  cursor: pointer;
+                  font-size: 1.4rem;
+                  padding: 10px;
+
+                  &:hover {
+                    color: var(--primary);
+                  }
                 }
               }
             }
           }
 
-          .category-error {
-            margin-top: 5px;
-            margin-left: 136px;
-            font-size: 1.2rem;
-            color: red;
+          .upload-category-group {
+            height: 60px;
+            margin-top: 40px;
+            margin-left: 45px;
+            .category-main {
+              display: flex;
+              align-items: center;
+              .title {
+                width: 151px;
+                font-size: 1.4rem;
+
+                .required {
+                  color: red;
+                }
+              }
+
+              .category-select {
+                cursor: pointer;
+                width: 250px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-left: 25px;
+                padding: 7px 12px;
+                border-radius: 4px;
+                border: 1px solid #e5e5e5;
+
+                .title-select {
+                  font-size: 1.4rem;
+                  color: #929292;
+                }
+
+                .title-select-active {
+                  font-size: 1.4rem;
+                  color: #333;
+                }
+
+                .select-icon {
+                  font-size: 1.4rem;
+                  color: #929292;
+                }
+              }
+
+              .select-options {
+                width: 250px;
+                .option {
+                  cursor: pointer;
+                  font-size: 1.4rem;
+                  padding: 10px;
+
+                  &:hover {
+                    color: var(--primary);
+                  }
+                }
+              }
+            }
           }
         }
 

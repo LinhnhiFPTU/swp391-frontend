@@ -15,8 +15,9 @@ import ChatPupup from "~/layouts/components/ChatPopup";
 
 import bird from "~/assets/images/bird.png";
 import birdFood from "~/assets/images/bird-food.png";
-import avatar from "~/assets/images/avatar.png";
 import styles from "./Home.module.scss";
+import SockJS from "sockjs-client";
+import { over } from "stompjs";
 
 const cx = classNames.bind(styles);
 const categories = [
@@ -46,7 +47,6 @@ const categories = [
     to: "/category?categoryId=4",
   },
 ];
-
 
 //Control Flash Sale Button
 const PrevArrowFS = (props) => {
@@ -111,6 +111,7 @@ const settings_bestseller = {
   prevArrow: <PrevArrowBS />,
 };
 
+var stompClient = null;
 function Home() {
   const [shops, setShops] = useState([]);
   const [flashSales, setFlashSales] = useState([]);
@@ -120,6 +121,7 @@ function Home() {
   const [minute, setMinute] = useState(0);
   const timeID = useRef();
   const location = useLocation();
+  const [openChat, setOpenChat] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -228,13 +230,43 @@ function Home() {
     );
   };
 
+  const handleNewConversation = (event, shopId) => {
+    event.preventDefault();
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        let Sock = new SockJS("http://localhost:8080/ws");
+        stompClient = over(Sock);
+        stompClient.connect(
+          {},
+          () => onConnected(shopId, res.data.id),
+          (e) => console.log(e)
+        );
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const onConnected = (shopId, userId) => {
+    const request = {
+      fromId: userId,
+      toId: shopId,
+      content: "Let's Start",
+      sendTime: new Date(),
+      chatterType: "USER",
+    };
+    stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
+    setOpenChat(true);
+  };
+
   return (
     <>
       {/* -----------------HEADER----------------- */}
       <Header />
       <div className={cx("container")}>
         <div className={cx("content")}>
-          <ChatPupup/>
+          <ChatPupup openChat={openChat} setOpenChat={setOpenChat} />
           {/* -----------------BANNER----------------- */}
           <Banner />
           {/* -----------------CATEGORIES----------------- */}
@@ -392,11 +424,7 @@ function Home() {
             </div>
             <div className={cx("product_list")}>
               {daily.map((item, index) => (
-                <Link
-                  to={"/product?productId=" + item.id}
-                  key={index}
-                  className={cx("product_items")}
-                >
+                <div key={index} className={cx("product_items")}>
                   <div className={cx("product-img")}>
                     <img src={item.images[0].url} alt={item.name} />
                   </div>
@@ -412,7 +440,10 @@ function Home() {
                     <>
                       <div className={cx("price_before")}>${item.price}</div>
                       <div className={cx("product-price")}>
-                        ${Math.round(item.price * (1 - item.productSale.salePercent / 100))}
+                        $
+                        {Math.round(
+                          item.price * (1 - item.productSale.salePercent / 100)
+                        )}
                       </div>
                     </>
                   ) : (
@@ -426,7 +457,7 @@ function Home() {
                   >
                     Buy Now
                   </Link>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
@@ -461,7 +492,10 @@ function Home() {
                       </div>
                     </div>
                     <div className={cx("contact")}>
-                      <button className={cx("chat")}>
+                      <button
+                        className={cx("chat")}
+                        onClick={(e) => handleNewConversation(e, shop.id)}
+                      >
                         <i
                           className={cx("fa-solid fa-messages", "icon-chat")}
                         ></i>

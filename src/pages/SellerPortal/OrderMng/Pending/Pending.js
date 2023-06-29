@@ -5,67 +5,23 @@ import NavBar from "../NavBar";
 import TableEdit from "../TableEdit";
 
 import styles from "./Pending.module.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-const orders = [
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Pending",
-    payment: "Cash",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Pending",
-    payment: "Zalo",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Pending",
-    payment: "VnPay",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Pending",
-    payment: "Zalo",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Pending",
-    payment: "VnPay",
-  },
-  {
-    orderId: 123456,
-    order:
-      "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-    date: "01-01-2032 12:43",
-    price: 1234,
-    status: "Pending",
-    payment: "Cash",
-  },
-];
+function Cancel() {
 
-function Pending() {
+  const [orders, setOrders] = useState([])
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    axios.get("/api/v1/shop/orders/search?filter=PENDING&page=" + page)
+    .then(res => setOrders(res.data))
+    .catch(e => console.log(e))
+  }, [])
+
+
   return (
     <>
       <HeaderSeller title="Pending" />
@@ -98,18 +54,11 @@ function Pending() {
                 </button>
               </form>
             </div>
-            <div className={cx("order_count")}>0 Orders</div>
+            <div className={cx("order_count")}>{orders.length} Orders</div>
             <div className={cx("order_table")}>
               <TableEdit orders={orders} />
             </div>
-            <div className={cx("prev-next")}>
-              <button className={cx("icon-left")}>
-                <i className={cx("fa-light fa-angle-left")}></i>
-              </button>
-              <button className={cx("icon-right")}>
-                <i className={cx("fa-light fa-angle-right")}></i>
-              </button>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -117,4 +66,4 @@ function Pending() {
   );
 }
 
-export default Pending;
+export default Cancel;
