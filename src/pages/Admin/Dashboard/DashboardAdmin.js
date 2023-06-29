@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 
 function DashboardAdmin() {
   return (
-    <div className={cx("dashboard-wrapper")}>
+    <>
       <HeaderSeller title="Dashboard" />
       <div className={cx("container")}>
         <div className={cx("sidebar")}>
@@ -36,12 +36,11 @@ function DashboardAdmin() {
                       strokeWidth={7}
                       styles={{
                         path: {
-                          stroke: "#1f8a70",
+                          stroke: "#00e396",
                         },
                         textStyle: {
-                          fill: "#1f8a70",
+                          fill: "#00e396",
                         },
-                        
                       }}
                     />
                   </div>
@@ -115,24 +114,28 @@ function DashboardAdmin() {
             </div>
             <div className={cx("overview-chart")}>
               <div className={cx("revenue-chart")}>
-                <p>Monthly Revenue</p>
-                <RevenueChart />
+                <div className={cx("text")}>Monthly Revenue</div>
+                <div className={cx("data-chart")}>
+                  <RevenueChart />
+                </div>
               </div>
               <div className={cx("products-chart")}>
-                <p>Total Products</p>
-                <div className={cx("prod-chart")}>
+                <div className={cx("text")}>Total Products</div>
+                <div className={cx("data-chart")}>
                   <ProductsChart />
                 </div>
               </div>
             </div>
             <div className={cx("details-chart")}>
-              <p>Categories Revenue</p>
-              <CatRevenueChart />
+              <div className={cx("text")}>Categories Revenue</div>
+              <div className={cx("data-chart")}>
+                <CatRevenueChart />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

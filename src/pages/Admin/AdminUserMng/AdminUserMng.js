@@ -115,7 +115,7 @@ const usersColumns = [
     // sortable: true,
     cell: (row) => (
       <div>
-        <img className={cx("avatar-img")} src={row.avatar} />
+        <img className={cx("avatar-img")} src={row.avatar} alt="img-avatar" />
       </div>
     ),
   },
@@ -171,7 +171,7 @@ const customStyles = {
   header: {
     style: {
       fontsize: "16px",
-      width: "100px"
+      width: "100px",
     },
   },
   headRow: {
@@ -206,7 +206,7 @@ function AdminUserMng() {
     setRecords(newData);
   };
   return (
-    <div className={cx("user-wrapper")}>
+    <>
       <HeaderSeller title="Admin" />
       <div className={cx("container")}>
         <div className={cx("sidebar")}>
@@ -222,7 +222,6 @@ function AdminUserMng() {
                 className={cx("skw")}
               ></input>
             </div>
-
             <DataTable
               columns={usersColumns}
               data={records}
@@ -233,7 +232,7 @@ function AdminUserMng() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

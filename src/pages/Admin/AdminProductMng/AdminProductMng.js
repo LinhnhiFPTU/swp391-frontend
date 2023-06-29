@@ -115,7 +115,7 @@ const usersColumns = [
     // sortable: true,
     cell: (row) => (
       <div>
-        <img className={cx("product-img")} src={row.img} />
+        <img className={cx("product-img")} src={row.img} alt="product-img"/>
       </div>
     ),
   },

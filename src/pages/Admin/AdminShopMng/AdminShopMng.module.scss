@@ -1,43 +1,38 @@
-.user-wrapper {
-  margin-top: 72px;
-}
-
 .container {
+  width: 100%;
+  height: calc(145vh - 71px);
   display: flex;
+  margin-top: 71px;
 }
 
 .sidebar {
-  width: 200px;
+  width: 198px;
 }
 
 .user-container {
-  width: 75%;
+  width: calc(100% - 198px);
   padding: 20px;
-  text-align: end;
-  color: red;
+  display: flex;
+  justify-content: center;
+  background-color: #f6f6f6;
   font-size: 16px;
 }
 
+.user-table {
+  width: 100%;
+}
 
 .ban_btn {
   width: 70px;
-  // border: 0.5px solid red;
-  // background-color: #ffc0c0;
-  // border-radius: 3px;
   border: none;
   background-color: #fff;
-  // color: red;
   text-align: left;
 }
 
 .recover_btn {
   width: 70px;
-  // border: 0.5px solid rgb(57, 181, 136);
-  // background-color: rgb(235, 249, 244);
-  // border-radius: 3px;
   border: none;
   background-color: #fff;
-  // color: green;
   text-align: left;
 }
 
@@ -68,17 +63,10 @@
   text-align: center;
   padding: 3px 0;
 }
-.user-container {
-  width: 100%;
-}
-.user-table {
-  margin: auto;
-  width: 70%;
-}
 
 .skw {
-  width: 500x;
-  height: 33px;
+  width: 500px;
+  height: 40px;
   font-size: 1.4rem;
   padding: 0 12px;
   border-radius: 0 4px 4px 0;
