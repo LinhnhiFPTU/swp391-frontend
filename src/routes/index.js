@@ -120,6 +120,7 @@ const publicRoutes = [
   { path: "/admin/portal/usermng", component: AdminUserMng },
   { path: "/admin/portal/shopmng", component: AdminShopMng },
   { path: "/admin/portal/productmng", component: AdminProductMng },
+
 ];
 
 const privateRoutes = [];

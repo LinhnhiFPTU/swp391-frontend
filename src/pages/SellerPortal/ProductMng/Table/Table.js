@@ -2,8 +2,6 @@ import classNames from "classnames/bind";
 
 import NoProduct from "../NoProduct";
 import styles from "./Table.module.scss";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const cx = classNames.bind(styles);
 

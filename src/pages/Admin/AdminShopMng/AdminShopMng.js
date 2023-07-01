@@ -9,7 +9,7 @@ import HeaderSeller from "~/layouts/components/HeaderSeller/HeaderSeller";
 
 const cx = classNames.bind(styles);
 
-const usersRows = [
+const shopsRows = [
   {
     id: 1,
     avatar: avatar,
@@ -122,11 +122,9 @@ const usersColumns = [
   },
   {
     name: "Avatar",
-    // selector: (row) => row.avatar,
-    // sortable: true,
     cell: (row) => (
       <div>
-        <img className={cx("avatar-img")} src={row.avatar} />
+        <img className={cx("avatar-img")} src={row.avatar} alt="avatar-img"/>
       </div>
     ),
   },
@@ -186,12 +184,12 @@ const customStyles = {
   header: {
     style: {
       fontsize: "16px",
-      
     },
   },
   headRow: {
     style: {
       backgroundColor: "#f2f2f2",
+      
     },
   },
   headCells: {
@@ -206,22 +204,22 @@ const customStyles = {
   },
   cells: {
     style: {
-      padding: "10px 16px",
+      padding: "10px",
       fontSize: "15px",
     },
   },
 };
 
 function AdminUserMng() {
-  const [records, setRecords] = useState(usersRows);
-  const handleaFilter = (event) => {
-    const newData = usersRows.filter((row) =>
-      row.fullName.toLowerCase().includes(event.target.value.toLowerCase())
+  const [records, setRecords] = useState(shopsRows);
+  const handlerFilter = (event) => {
+    const newData = shopsRows.filter((row) =>
+      row.shopName.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setRecords(newData);
   };
   return (
-    <div className={cx("user-wrapper")}>
+    <>
       <HeaderSeller title="Admin" />
       <div className={cx("container")}>
         <div className={cx("sidebar")}>
@@ -233,7 +231,7 @@ function AdminUserMng() {
               <input
                 type="text"
                 placeholder="Search shop"
-                onChange={handleaFilter}
+                onChange={handlerFilter}
                 className={cx("skw")}
               ></input>
             </div>
@@ -248,7 +246,7 @@ function AdminUserMng() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -115,7 +115,7 @@ const usersColumns = [
     // sortable: true,
     cell: (row) => (
       <div>
-        <img className={cx("product-img")} src={row.img} />
+        <img className={cx("product-img")} src={row.img} alt="product-img"/>
       </div>
     ),
   },
@@ -200,7 +200,7 @@ function AdminUserMng() {
   const [records, setRecords] = useState(usersRows);
   const handleaFilter = (event) => {
     const newData = usersRows.filter((row) =>
-      row.fullName.toLowerCase().includes(event.target.value.toLowerCase())
+      row.productName.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setRecords(newData);
   };

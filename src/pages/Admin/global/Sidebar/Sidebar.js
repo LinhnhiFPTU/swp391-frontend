@@ -7,7 +7,7 @@ const options = [
   {
     id: 1,
     title: "Dashboard",
-    icon: "fa-sharp fa-solid fa-house",
+    icon: "fa-light fa-table-columns",
     path: "/admin/portal/dashboard",
   },
   {
