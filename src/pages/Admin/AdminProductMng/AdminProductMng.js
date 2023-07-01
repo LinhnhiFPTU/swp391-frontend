@@ -200,7 +200,7 @@ function AdminUserMng() {
   const [records, setRecords] = useState(usersRows);
   const handleaFilter = (event) => {
     const newData = usersRows.filter((row) =>
-      row.fullName.toLowerCase().includes(event.target.value.toLowerCase())
+      row.productName.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setRecords(newData);
   };
