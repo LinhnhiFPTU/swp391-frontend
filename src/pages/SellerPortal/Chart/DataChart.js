@@ -321,7 +321,7 @@ function DataChart() {
                 </div>
               </div>
               <div className={cx("chart-content_barChart")}>
-                <div className={cx("title")}>Top Product</div>
+                <div className={cx("title")}>Sale Quantity</div>
                 <BarChart />
               </div>
             </div>

@@ -37,19 +37,10 @@ export const options = {
   dataLabels: {
     enabled: false,
   },
-  // colors: ["#ff0000", "#00ff00", "#0000ff", "#ff33cc", "#cc00ff"],
   stroke: {
     curve: "smooth",
-    width: 2,
+    width: 3,
   },
-  // markers: {
-  //   size: 4,
-  //   strokeColors: "#fff",
-  //   strokeWidth: 2,
-  //   hover: {
-  //     size: 7,
-  //   },
-  // },
   grid: {
     row: {
       colors: ["#f3f3f3", "transparent"],
@@ -148,19 +139,10 @@ export const optionsWeek = {
   dataLabels: {
     enabled: false,
   },
-  // colors: ["#ff0000", "#00ff00", "#0000ff", "#ff33cc", "#cc00ff"],
   stroke: {
     curve: "smooth",
-    width: 2,
+    width: 3,
   },
-  // markers: {
-  //   size: 4,
-  //   strokeColors: "#fff",
-  //   strokeWidth: 2,
-  //   hover: {
-  //     size: 7,
-  //   },
-  // },
   grid: {
     row: {
       colors: ["#f3f3f3", "transparent"],
@@ -175,7 +157,7 @@ export const optionsWeek = {
       "Thursday",
       "Friday",
       "Saturday",
-      "Sunday"
+      "Sunday",
     ],
   },
   yaxis: {
@@ -242,19 +224,10 @@ export const optionsMonth = {
   dataLabels: {
     enabled: false,
   },
-  // colors: ["#ff0000", "#00ff00", "#0000ff", "#ff33cc", "#cc00ff"],
   stroke: {
     curve: "smooth",
-    width: 2,
+    width: 3,
   },
-  // markers: {
-  //   size: 4,
-  //   strokeColors: "#fff",
-  //   strokeWidth: 2,
-  //   hover: {
-  //     size: 7,
-  //   },
-  // },
   grid: {
     row: {
       colors: ["#f3f3f3", "transparent"],
@@ -262,12 +235,7 @@ export const optionsMonth = {
     },
   },
   xaxis: {
-    categories: [
-      "Week 1",
-      "Week 2",
-      "Week 3",
-      "Week 4",
-    ],
+    categories: ["Week 1", "Week 2", "Week 3", "Week 4"],
   },
   yaxis: {
     labels: {
@@ -333,19 +301,10 @@ export const optionsYear = {
   dataLabels: {
     enabled: false,
   },
-  // colors: ["#ff0000", "#00ff00", "#0000ff", "#ff33cc", "#cc00ff"],
   stroke: {
     curve: "smooth",
-    width: 2,
+    width: 3,
   },
-  // markers: {
-  //   size: 4,
-  //   strokeColors: "#fff",
-  //   strokeWidth: 2,
-  //   hover: {
-  //     size: 7,
-  //   },
-  // },
   grid: {
     row: {
       colors: ["#f3f3f3", "transparent"],
@@ -365,7 +324,7 @@ export const optionsYear = {
       "September",
       "October",
       "November",
-      "December"
+      "December",
     ],
   },
   yaxis: {
@@ -467,6 +426,74 @@ export const optionPieChartRevenue = {
     itemMargin: {
       horizontal: 10,
       vertical: 5,
+    },
+  },
+};
+
+export const optionBarChart = {
+  legend: {
+    show: true,
+    position: "bottom",
+    offsetX: 0,
+    offsetY: 8,
+    floating: false,
+    fontSize: "14px",
+    fontFamily: "Poppins, sans-serif",
+    fontWeight: 400,
+    labels: {
+      colors: "#333",
+      useSeriesColors: true,
+    },
+    markers: {
+      width: 12,
+      height: 12,
+      strokeWidth: 0,
+    },
+    itemMargin: {
+      horizontal: 20,
+      vertical: 0,
+    },
+  },
+  chart: {
+    animations: {
+      enabled: false,
+    },
+    toolbar: {
+      show: false,
+    },
+    zoom: {
+      enabled: false,
+    },
+    foreColor: "#777",
+  },
+  colors: "#CD1818",
+  dataLabels: {
+    enabled: false,
+  },
+  xaxis: {
+    categories: ["Jan", "Feb", "Mar", "April", "May", "June", "July", "August", "Sep", "Oct", "Nov", "Dec"],
+  },
+  yaxis: {
+    labels: {
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        fontSize: "12px",
+        fontWeight: 400,
+        color: "#777",
+      },
+    },
+    axisBorder: {
+      show: false,
+    },
+    axisTicks: {
+      show: false,
+    },
+  },
+  tooltip: {
+    theme: "dark",
+    x: {
+      show: false,
     },
   },
 };

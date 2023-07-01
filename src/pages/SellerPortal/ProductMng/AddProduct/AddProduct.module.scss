@@ -1,6 +1,6 @@
 .add-new_wrapper {
   width: 100%;
-  height: 150vh;
+  height: calc(180vh - 71px);
   margin-top: 71px;
   display: flex;
   align-items: center;
@@ -12,6 +12,7 @@
   .add-new_container {
     width: calc(100% - 198px);
     height: 100%;
+    padding-bottom: 20px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -652,6 +653,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        
 
         .cancel {
           .cancel-btn {
