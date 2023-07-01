@@ -9,7 +9,7 @@ import HeaderSeller from "~/layouts/components/HeaderSeller/HeaderSeller";
 
 const cx = classNames.bind(styles);
 
-const usersRows = [
+const shopsRows = [
   {
     id: 1,
     avatar: avatar,
@@ -122,8 +122,6 @@ const usersColumns = [
   },
   {
     name: "Avatar",
-    // selector: (row) => row.avatar,
-    // sortable: true,
     cell: (row) => (
       <div>
         <img className={cx("avatar-img")} src={row.avatar} alt="avatar-img"/>
@@ -186,12 +184,12 @@ const customStyles = {
   header: {
     style: {
       fontsize: "16px",
-      width: "100px",
     },
   },
   headRow: {
     style: {
       backgroundColor: "#f2f2f2",
+      
     },
   },
   headCells: {
@@ -213,10 +211,10 @@ const customStyles = {
 };
 
 function AdminUserMng() {
-  const [records, setRecords] = useState(usersRows);
-  const handleaFilter = (event) => {
-    const newData = usersRows.filter((row) =>
-      row.fullName.toLowerCase().includes(event.target.value.toLowerCase())
+  const [records, setRecords] = useState(shopsRows);
+  const handlerFilter = (event) => {
+    const newData = shopsRows.filter((row) =>
+      row.shopName.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setRecords(newData);
   };
@@ -233,7 +231,7 @@ function AdminUserMng() {
               <input
                 type="text"
                 placeholder="Search shop"
-                onChange={handleaFilter}
+                onChange={handlerFilter}
                 className={cx("skw")}
               ></input>
             </div>

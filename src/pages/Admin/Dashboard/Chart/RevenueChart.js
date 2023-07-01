@@ -1,4 +1,5 @@
-import React from "react";
+import React, { PureComponent } from "react";
+
 import {
   AreaChart,
   Area,
@@ -60,10 +61,10 @@ start.setDate(start.getDate() - 7); // set to 'now' minus 7 days.
 start.setHours(0, 0, 0, 0); // set to midnight.
 function RevenueChart() {
   return (
-    <>
+    <div>
       <AreaChart
         width={800}
-        height={413}
+        height={400}
         data={data}
         margin={{
           top: 10,
@@ -82,15 +83,9 @@ function RevenueChart() {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Area
-          type="monotone"
-          dataKey="uv"
-          stroke="#8884d8"
-          fillOpacity={1}
-          fill="url(#colorUv)"
-        />
+        <Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
       </AreaChart>
-    </>
+    </div>
   );
 }
 
