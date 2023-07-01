@@ -96,6 +96,11 @@
       color: var(--primary);
     }
   }
+
+  .shop-follow:disabled
+  {
+    opacity: 0.2;
+  }
 }
 
 .right-content {

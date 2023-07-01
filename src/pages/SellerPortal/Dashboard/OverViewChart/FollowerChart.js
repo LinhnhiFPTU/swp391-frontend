@@ -8,6 +8,7 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
+import { useState } from "react";
 
 ChartJS.register(
   LineElement,
@@ -18,22 +19,15 @@ ChartJS.register(
   Tooltip
 );
 
-function FollowerChart() {
-  const labels = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+function FollowerChart({ dataChart }) {
+  const [labels, setLabels] = useState([0, "00:00 - 05:00", "06:00 - 11:00", "12:00 - 17:00", "18:00 - 23:00"])
+
   const data = {
     labels: labels,
     datasets: [
       {
         label: "Today",
-        data: [123, 12, 54, 412, 34, 144, 354],
+        data: dataChart.current,
         backgroundColor: "transparent",
         fill: false,
         borderColor: "#448DFB",
@@ -45,7 +39,7 @@ function FollowerChart() {
       },
       {
         label: "Yesterday",
-        data: [345, 23, 63, 324, 124, 51, 234],
+        data: dataChart.previous,
         backgroundColor: "transparent",
         fill: false,
         borderColor: "#C9CBCF",

@@ -1,22 +1,27 @@
 import classNames from "classnames/bind";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
+import { UserContext } from "~/userContext/Context";
 
 import avatar from "~/assets/images/avatar.png";
 import styles from "./Shop.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function Shop() {
   const fileInputImageRef = useRef();
   const [countInput, setCountInput] = useState(0);
-  const [previewImage, setPreviewImage] = useState(avatar);
+  const [previewImage, setPreviewImage] = useState({});
   const [imgError, setImgError] = useState("");
   const handleClickImage = () => {
     fileInputImageRef.current.click();
   };
+  const UC = useContext(UserContext);
+  const context = UC.state;
+  const [shop, setShop] = useState({})
 
   const handlePreviewImage = (e) => {
     const file = e.target.files[0];
@@ -27,11 +32,45 @@ function Shop() {
         setImgError("This file is too large to be previewed (less than 2.0MB)");
       } else {
         file.preview = URL.createObjectURL(file);
-        setPreviewImage(file.preview);
+        setPreviewImage({
+          file: file,
+          url: file.preview
+        });
         setImgError("");
       }
     }
   };
+
+  useEffect(() => {
+    if (context && context.shopDTO) {
+      setShop(context.shopDTO);
+      setCountInput(context.shopDTO.name.length)
+    }
+  }, [context]);
+
+  const handleChangeShopInfo = (e) =>
+  {
+    e.preventDefault()
+
+    const formData = new FormData();
+    formData.append("image", previewImage.file);
+    formData.append("name", shop.name);
+    formData.append("phone", shop.phone);
+
+    axios
+      .post("/api/v1/shop/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   return (
     <>
       <HeaderSeller title="Shop" />
@@ -58,7 +97,12 @@ function Shop() {
                       spellCheck={false}
                       maxLength={30}
                       className={cx("input")}
-                      onChange={(e) => setCountInput(e.target.value.length)}
+                      value={shop.name}
+                      onChange={(e) => {
+                        shop.name = e.target.value
+                        setShop(shop)
+                        setCountInput(e.target.value.length)
+                      }}
                     />
                     <div className={cx("count-input")}>{countInput}/30</div>
                   </div>
@@ -69,6 +113,11 @@ function Shop() {
                     <input
                       type="number"
                       spellCheck={false}
+                      value={shop.phone}
+                      onChange={e => {
+                        shop.phone = e.target.value
+                        setShop(shop)
+                      }}
                       className={cx("input")}
                     />
                   </div>
@@ -79,7 +128,7 @@ function Shop() {
                     <div className={cx("logo-main")}>
                       <div className={cx("logo-upload")}>
                         <img
-                          src={previewImage}
+                          src={previewImage.url ? previewImage.url : shop.shopImage}
                           alt="shop-avatar"
                           className={cx("shop-avatar")}
                         />
@@ -119,7 +168,7 @@ function Shop() {
                 </div>
               </div>
               <div className={cx("shop-actions")}>
-                <button className={cx("save-btn")}>Save</button>
+                <button className={cx("save-btn")} onClick={handleChangeShopInfo}>Save</button>
                 <button className={cx("cancel-btn")}>Cancel</button>
               </div>
             </div>

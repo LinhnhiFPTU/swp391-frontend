@@ -1,59 +1,57 @@
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./SellerNotify.module.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 const cx = classNames.bind(styles);
-const notifications = [
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-  },
-];
 
 function SellerNotify() {
+  const [notifications, setNotifications] = useState([])
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    axios.get('/api/v1/shop/notifications')
+    .then(res => {
+      setNotifications(res.data)
+    })
+    .catch(e => console.log(e))
+  }, [])
+
+  const handleClickNotification = (e, notification) => 
+  {
+    e.preventDefault()
+    if (notification.read)
+    {
+      notification.redirectUrl && navigate(notification.redirectUrl)
+    }else
+    {
+      axios.post('/api/v1/shop/notification/read/' + notification.id)
+      .then(res => {
+        let index = notifications.indexOf(notification)
+        notifications[index].read = true;
+        setNotifications(Array.from(notifications))
+        
+        notification.redirectUrl && navigate(notification.redirectUrl)
+      })
+      .catch(e => console.log(e))
+    }
+  }
+
+  const handleViewAll = e =>
+  {
+    e.preventDefault()
+    navigate('/seller/portal/notifications', {
+      state: notifications
+    })
+  }
+
+
   return (
     <div className={cx("seller_notify")}>
-      {notifications.length > 0 && (
-        <div className={cx("count-notify")}>{notifications.length}</div>
+      {notifications.filter(n => !n.read).length > 0 && (
+        <div className={cx("count-notify")}>{notifications.filter(n => !n.read).length}</div>
       )}
 
       <Link to="/seller/portal/notifications">
@@ -79,30 +77,30 @@ function SellerNotify() {
                     </div>
                     <div className={cx("notify-container")}>
                       {notifications.map((notification, index) => (
-                        <div className={cx("notify-content")} key={index}>
+                        <div className={cx("notify-content")} key={index} onClick={e => handleClickNotification(e, notification)}>
                           <img
-                            src={notification.notifyImage}
+                            src={notification.imageUrl}
                             alt="notify-img"
                             className={cx("notify-img")}
                           />
                           <div className={cx("notify-info")}>
                             <div className={cx("title-notify")}>
-                              {notification.notifyTitle}
+                              {notification.title}
                             </div>
                             <div className={cx("notify-desc")}>
-                              {notification.notifyDescription}
+                              {notification.content}
                             </div>
                           </div>
                         </div>
                       ))}
                     </div>
                     <div className={cx("notify-footer")}>
-                      <Link
-                        to="/seller/portal/notifications"
-                        className={cx("view-all")}
+                      <a
+                        className={cx("view-all") }
+                        onClick={handleViewAll}
                       >
                         View All
-                      </Link>
+                      </a>
                     </div>
                   </PopperWrapper>
                 )}

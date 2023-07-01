@@ -9,13 +9,13 @@ import styles from "./OverViewChart.module.scss";
 
 const cx = classNames.bind(styles);
 
-function OverViewChart({ type }) {
+function OverViewChart({ dataChart }) {
   return (
     <div className={cx("chart")}>
-      {type === "Revenue" && <RevenueChart/>}
-      {type === "Order" && <OrderChart/>}
-      {type === "Follower" && <FollowerChart/>}
-      {type === "Feedback" && <FeedbackChart/>}
+      {dataChart.type === "Revenue" && <RevenueChart dataChart={dataChart}/>}
+      {dataChart.type === "Order" && <OrderChart dataChart={dataChart}/>}
+      {dataChart.type === "Follower" && <FollowerChart dataChart={dataChart}/>}
+      {dataChart.type === "Feedback" && <FeedbackChart dataChart={dataChart}/>}
     </div>
   );
 }

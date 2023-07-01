@@ -2,59 +2,50 @@ import classNames from "classnames/bind";
 import styles from "./Notify.module.scss";
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 const cx = classNames.bind(styles);
-const notifications = [
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-    notifyDateTime: "20:46 25-06-2023",
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-    notifyDateTime: "20:46 25-06-2023",
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-    notifyDateTime: "20:46 25-06-2023",
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-    notifyDateTime: "20:46 25-06-2023",
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-    notifyDateTime: "20:46 25-06-2023",
-  },
-  {
-    notifyImage:
-      "https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn",
-    notifyTitle: "25.6 CHECK VÍ CÓ MÃ 100.000Đ",
-    notifyDescription: `💰 Mã 100.000Đ, 50.000Đ, 20.000Đ 💥 Săn sale dùng mã,
-    voucher cực đã`,
-    notifyDateTime: "20:46 25-06-2023",
-  },
-];
 
 function Notify() {
+  const { state } = useLocation();
+  const [notifications, setNotifications] = useState(() => {
+    if (state) return state;
+    axios
+        .get("/api/v1/shop/notifications")
+        .then((res) => setNotifications(res.data))
+        .catch((e) => console.log(e));
+      return []
+  });
+  const navigate = useNavigate();
+
+  const handleMarkAllRead = (e) => {
+    e.preventDefault();
+    let condition = notifications.filter((n) => !n.read).length > 0;
+    condition &&
+      axios
+        .post("/api/v1/shop/notification/read")
+        .then((res) => window.location.reload())
+        .catch((e) => console.log(e));
+  };
+
+  const handleClickNotification = (e, notification) => {
+    e.preventDefault();
+    if (notification.read) {
+      notification.redirectUrl && navigate(notification.redirectUrl);
+    } else {
+      axios
+        .post("/api/v1/shop/notification/read/" + notification.id)
+        .then((res) => {
+          let index = notifications.indexOf(notification)
+          notifications[index].read = true;
+          setNotifications(Array.from(notifications))
+          notification.redirectUrl && navigate(notification.redirectUrl);
+        })
+        .catch((e) => console.log(e));
+    }
+  };
+
   return (
     <>
       <HeaderSeller title="Notifications" />
@@ -67,26 +58,31 @@ function Notify() {
             <div className={cx("notify-header")}>
               <div className={cx("title")}>Notifications</div>
               <div className={cx("read")}>
-                <button className={cx("read-btn")}>Mark all as read</button>
+                <button className={cx("read-btn")} onClick={handleMarkAllRead}>
+                  Mark all as read
+                </button>
               </div>
             </div>
             <div className={cx("notify-list")}>
               {notifications.map((notification, index) => (
-                <div className={cx("notify")}>
+                <div
+                  className={cx("notify")}
+                  onClick={(e) => handleClickNotification(e, notification)}
+                >
                   <img
-                    src="https://down-vn.img.susercontent.com/file/sg-11134004-7qveg-licuiojn0ikme0_tn"
+                    src={notification.imageUrl}
                     alt="notify-img"
                     className={cx("notify-img")}
                   />
                   <div className={cx("notify-info")}>
                     <div className={cx("title-notify")}>
-                      {notification.notifyTitle}
+                      {notification.title}
                     </div>
                     <div className={cx("notify-desc")}>
-                      {notification.notifyDescription}
+                      {notification.content}
                     </div>
                     <div className={cx("notify-date-time")}>
-                      {notification.notifyDateTime}
+                      {new Date(notification.createdAt).toLocaleString()}
                     </div>
                   </div>
                 </div>
