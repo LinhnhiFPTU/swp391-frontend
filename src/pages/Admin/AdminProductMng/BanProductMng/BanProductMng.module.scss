@@ -2,28 +2,37 @@
   width: 100%;
   height: calc(145vh - 71px);
   display: flex;
-  margin-top: 71px;
+  margin: 0;
+  margin: 71px 0px;
 }
 
 .sidebar {
   width: 198px;
 }
 
-.user-container {
+.product-container {
   width: calc(100% - 198px);
   padding: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   background-color: #f6f6f6;
+  font-size: 16px;
 }
 
-.user-table {
+.nav-bar {
+  background-color: #fff;
+}
+
+.product-table {
+  margin-top: 30px;
   width: 100%;
 }
 
+
 .ban_btn {
   width: 90px;
-  border: 0.5px solid red;
+  // border: 0.5px solid red;
   background-color: rgb(204, 46, 46);
   border-radius: 3px;
   border: none;
@@ -32,39 +41,20 @@
   padding: 3px;
 }
 
-.recover_btn {
-  width: 90px;
-  border: 0.5px solid rgb(57, 151, 77);
-  background-color: rgb(57, 151, 77);
-  border-radius: 3px;
-  border: none;
-  color: white;
-  text-align: center;
-  padding: 3px;
-}
+
+
 .row-status {
   background-color: red;
-}
-
-.available-status {
-  width: 100px;
-  margin: 0;
-  font-size: 15px;
-  font-weight: 300;
-  border: 0.5px solid rgb(57, 181, 136);
-  background-color: rgb(235, 249, 244);
-  border-radius: 3px;
-  color: green;
-  text-align: center;
+  color: #f1bba7;
 }
 
 .banned-status {
   width: 100px;
   margin: 0;
   font-size: 15px;
-  border: 0.5px solid red;
   background-color: #ffe1e1;
   border-radius: 3px;
+  border: 0.5px solid red;
   color: red;
   text-align: center;
   padding: 3px 0;
@@ -86,6 +76,24 @@
   margin-bottom: 30px;
 }
 
-.avatar-img {
+.product-img {
   width: 65px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #fff;
+
+  .recover-btn {
+    width: 120px;
+    padding: 3px;
+    border: none;
+    background-color: rgb(57, 151, 77);
+    color: white;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: 500;
+  }
 }

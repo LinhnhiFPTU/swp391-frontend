@@ -4,11 +4,10 @@ import "react-circular-progressbar/dist/styles.css";
 
 import styles from "./DashboardAdmin.module.scss";
 import Sidebar from "../global/Sidebar";
-import HeaderSeller from "~/layouts/components/HeaderSeller/HeaderSeller";
-// import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import RevenueChart from "./Chart/RevenueChart";
 import ProductsChart from "./Chart/ProductsChart";
 import CatRevenueChart from "./Chart/CatRevenueChart";
+import Topbar from "../global/Topbar";
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +18,7 @@ function DashboardAdmin() {
   };
   return (
     <>
-      <HeaderSeller title="Dashboard" />
+      <Topbar />
       <div className={cx("container")}>
         <div className={cx("sidebar")}>
           <Sidebar />
