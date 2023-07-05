@@ -169,7 +169,6 @@ const customStyles = {
   headRow: {
     style: {
       backgroundColor: "#f2f2f2",
-
     },
   },
   headCells: {
@@ -200,31 +199,29 @@ function AllShopMng() {
   };
   return (
     <div className={cx("shop-wrapper")}>
-      <div className={cx("container")}>
-        <div className={cx("sidebar")}>
-          <Sidebar />
+      <div className={cx("sidebar")}>
+        <Sidebar />
+      </div>
+      <div className={cx("shop-container")}>
+        <div className={cx("nav-bar")}>
+          <ShopMngNav />
         </div>
-        <div className={cx("shop-container")}>
-          <div className={cx("nav-bar")}>
-            <ShopMngNav />
+        <div className={cx("shop-table")}>
+          <div className={cx("input-search")}>
+            <input
+              type="text"
+              placeholder="Search shop"
+              onChange={handlerFilter}
+              className={cx("skw")}
+            ></input>
           </div>
-          <div className={cx("shop-table")}>
-            <div className={cx("input-search")}>
-              <input
-                type="text"
-                placeholder="Search shop"
-                onChange={handlerFilter}
-                className={cx("skw")}
-              ></input>
-            </div>
 
-            <DataTable
-              columns={usersColumns}
-              data={records}
-              customStyles={customStyles}
-              pagination
-            />
-          </div>
+          <DataTable
+            columns={usersColumns}
+            data={records}
+            customStyles={customStyles}
+            pagination
+          />
         </div>
       </div>
     </div>

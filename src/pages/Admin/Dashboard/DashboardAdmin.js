@@ -33,15 +33,19 @@ function DashboardAdmin() {
                     <p className={cx("card-number")}>323</p>
                   </div>
                   {ordersChart && (
-                    <div className={cx("details-chart")}>
-                      <div className={cx("details-content")}>
-                        <i
-                          className={cx("fa-regular fa-xmark", "close-btn")}
-                          onClick={toggleOrdersChart}
-                        ></i>
-                        <div className={cx("text")}>TOTAL ORDERS</div>
-                        <div className={cx("data-chart")}>
-                          <ProductsChart />
+                    <div className={cx("overlay")}>
+                      <div className={cx("details-chart")}>
+                        <div className={cx("details-content")}>
+                          <div className={cx("header-content")}>
+                            <div className={cx("text")}>TOTAL ORDERS</div>
+                            <i
+                              className={cx("fa-regular fa-xmark", "close-btn")}
+                              onClick={toggleOrdersChart}
+                            ></i>
+                          </div>
+                          <div className={cx("data-chart")}>
+                            <ProductsChart />
+                          </div>
                         </div>
                       </div>
                     </div>

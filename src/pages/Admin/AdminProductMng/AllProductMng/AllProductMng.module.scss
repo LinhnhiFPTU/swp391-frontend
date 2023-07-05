@@ -1,8 +1,7 @@
 .container {
   width: 100%;
-  height: calc(145vh - 71px);
-  display: flex;
   margin-top: 71px;
+  display: flex;
 }
 
 .sidebar {
@@ -59,7 +58,7 @@
 
 .input-search {
   display: flex;
-  justify-content: end; 
+  justify-content: end;
 }
 
 .skw {
@@ -76,4 +75,3 @@
 .product-img {
   width: 65px;
 }
-
