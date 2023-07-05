@@ -5,7 +5,7 @@ import Sidebar from "../../global/Sidebar";
 
 import avatar from "~/assets/images/user-avatar.png";
 import DataTable from "react-data-table-component";
-import UserMngNav from "../../AdminShopMng/ShopMngNav/ShopMngNav";
+import UserMngNav from "../../AdminUserMng/UserMngNav";
 
 const cx = classNames.bind(styles);
 

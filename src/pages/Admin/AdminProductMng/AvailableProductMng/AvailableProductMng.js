@@ -202,7 +202,6 @@ function AvailableProductMng() {
                         <DataTable
                             columns={productColumns}
                             data={records}
-                            selectableRows
                             customStyles={customStyles}
                             pagination
                         />

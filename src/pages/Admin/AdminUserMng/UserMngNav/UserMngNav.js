@@ -1,11 +1,11 @@
 import classNames from "classnames/bind";
 import { NavLink, useLocation } from "react-router-dom";
 
-import styles from "./ShopMngNav.module.scss";
+import styles from "./UserMngNav.module.scss";
 
 const cx = classNames.bind(styles);
 
-const shopNavs = [
+const userNav = [
   {
     title: "ALL",
     to: "/admin/portal/usermng/all",
@@ -20,11 +20,11 @@ const shopNavs = [
   },
 ];
 
-function ShopMngNav() {
+function UserMngNav() {
   const { pathname } = useLocation();
   return (
-    <div className={cx("shop-navbar")}>
-      {shopNavs.map((catemng, index) => (
+    <div className={cx("user-navbar")}>
+      {userNav.map((catemng, index) => (
         <NavLink
           to={catemng.to}
           key={index}
@@ -46,4 +46,4 @@ function ShopMngNav() {
   );
 }
 
-export default ShopMngNav;
+export default UserMngNav;

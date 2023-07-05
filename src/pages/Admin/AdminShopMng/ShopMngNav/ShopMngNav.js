@@ -8,15 +8,15 @@ const cx = classNames.bind(styles);
 const shopNavs = [
   {
     title: "ALL",
-    to: "/admin/portal/usermng/all",
+    to: "/admin/portal/shopmng/all",
   },
   {
     title: "AVAILABLE",
-    to: "/admin/portal/usermng/available",
+    to: "/admin/portal/shopmng/available",
   },
   {
     title: "BANNED",
-    to: "/admin/portal/usermng/banned",
+    to: "/admin/portal/shopmng/banned",
   },
 ];
 
@@ -33,9 +33,9 @@ function UserMngNav() {
           }
           isActive={() =>
             [
-              "/admin/portal/usermng/all",
-              "/admin/portal/usermng/available",
-              "/admin/portal/usermng/banned",
+              "/admin/portal/shopmng/all",
+              "/admin/portal/shopmng/available",
+              "/admin/portal/shopmng/banned",
             ].includes(pathname)
           }
         >
