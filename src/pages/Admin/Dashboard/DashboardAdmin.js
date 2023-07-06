@@ -43,8 +43,11 @@ function DashboardAdmin() {
           <div className={cx("dashboard-items")}>
             <div className={cx("card-container")}>
               <div className={cx("card-items")}>
-                <div className={cx("card-item", "item1")}>
-                  <div className={cx("card-text")} onClick={toggleOrdersChart}>
+                <div
+                  className={cx("card-item", "item1")}
+                  onClick={toggleOrdersChart}
+                >
+                  <div className={cx("card-text")}>
                     <p className={cx("card-title")}>TOTAL ORDERS</p>
                     <p className={cx("card-number")}>323</p>
                   </div>
@@ -68,8 +71,11 @@ function DashboardAdmin() {
                   )}
                 </div>
 
-                <div className={cx("card-item", "item2")}>
-                  <div className={cx("card-text")} onClick={toggleSalesChart}>
+                <div
+                  className={cx("card-item", "item2")}
+                  onClick={toggleSalesChart}
+                >
+                  <div className={cx("card-text")}>
                     <p className={cx("card-title")}>TOTAL SALES</p>
                     <p className={cx("card-number")}>323</p>
                   </div>
@@ -92,8 +98,11 @@ function DashboardAdmin() {
                     </div>
                   )}
                 </div>
-                <div className={cx("card-item", "item3")}>
-                  <div className={cx("card-text")} onClick={toggleVisitsChart}>
+                <div
+                  className={cx("card-item", "item3")}
+                  onClick={toggleVisitsChart}
+                >
+                  <div className={cx("card-text")}>
                     <p className={cx("card-title")}>TOTAL VISITS</p>
                     <p className={cx("card-number")}>323</p>
                   </div>
@@ -116,8 +125,11 @@ function DashboardAdmin() {
                     </div>
                   )}
                 </div>
-                <div className={cx("card-item", "item4")}>
-                  <div className={cx("card-text")} onClick={toggleMembersChart}>
+                <div
+                  className={cx("card-item", "item4")}
+                  onClick={toggleMembersChart}
+                >
+                  <div className={cx("card-text")}>
                     <p className={cx("card-title")}>NEWLY MEMBERS</p>
                     <p className={cx("card-number")}>323</p>
                   </div>
