@@ -6,6 +6,7 @@ import NavBar from "../NavBar";
 import OrderData from "./OrderData";
 
 import styles from "./ContactOrder.module.scss";
+import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -93,6 +94,9 @@ const orderDatas = [
 ];
 
 function ContactOrder() {
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
   return (
     <>
       <HeaderSeller title="Contact Order" />

@@ -7,6 +7,7 @@ import Table from "../Table";
 import CountFilter from "../CountFilter";
 
 import styles from "./SoldOut.module.scss";
+import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +16,9 @@ const products = [
 ];
 
 function SoldOut() {
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
   return (
     <>
       <HeaderSeller title="Product Sold Out" />

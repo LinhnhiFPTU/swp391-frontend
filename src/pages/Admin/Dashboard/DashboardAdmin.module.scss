@@ -1,8 +1,9 @@
 /*-------------------------------------DASHBOARD-------------------------------------*/
 .container {
+  width: 100%;
+  height: calc(148vh - 71px);
   display: flex;
   margin-top: 71px;
-  height: calc(148vh - 71px);
 }
 
 .sidebar {

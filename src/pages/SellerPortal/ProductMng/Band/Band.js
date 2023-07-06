@@ -7,6 +7,7 @@ import CountFilter from "../CountFilter";
 import Table from "../Table";
 
 import styles from "./Band.module.scss";
+import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -95,6 +96,9 @@ const products = [
 ];
 
 function Band() {
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
   return (
     <>
       <HeaderSeller title="Product Band" />

@@ -202,6 +202,10 @@ function DataChart() {
   });
 
   useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+
+  useEffect(() => {
     let newData = [
       {
         cur: Math.round(Math.random() * 99) + 1,

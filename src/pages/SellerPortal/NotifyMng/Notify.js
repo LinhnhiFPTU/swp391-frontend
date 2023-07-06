@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./Notify.module.scss";
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
+import { useEffect } from "react";
 const cx = classNames.bind(styles);
 const notifications = [
   {
@@ -55,6 +56,9 @@ const notifications = [
 ];
 
 function Notify() {
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
   return (
     <>
       <HeaderSeller title="Notifications" />

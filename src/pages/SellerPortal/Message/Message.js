@@ -23,6 +23,10 @@ function Message() {
   const [mediaMessages, setMediaMessages] = useState([]);
 
   useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+
+  useEffect(() => {
     axios
       .get("/api/v1/users/info")
       .then((res) => {

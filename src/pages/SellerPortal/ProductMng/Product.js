@@ -74,6 +74,10 @@ function Product() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+
+  useEffect(() => {
     let fil = headerTitle.toLowerCase()
       ? headerTitle.toLowerCase() + "." + filter
       : "default";

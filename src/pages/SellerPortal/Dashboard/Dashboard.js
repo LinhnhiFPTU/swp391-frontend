@@ -90,6 +90,10 @@ function Dashboard() {
   });
 
   useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+
+  useEffect(() => {
     axios.get("/api/v1/shop/revenue/real-time")
     .then(res => {
       let revenues = res.data

@@ -28,6 +28,12 @@ const options = [
     icon: "fa-sharp fa-light fa-box-dollar",
     path: "/admin/portal/productmng/all",
   },
+  {
+    id: 5,
+    title: "Settings",
+    icon: "fa-light fa-gear",
+    path: "/admin/portal/settings",
+  },
 ];
 function Sidebar() {
   const { pathname } = useLocation();

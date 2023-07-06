@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
@@ -14,6 +14,11 @@ function Shop() {
   const [countInput, setCountInput] = useState(0);
   const [previewImage, setPreviewImage] = useState(avatar);
   const [imgError, setImgError] = useState("");
+
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+
   const handleClickImage = () => {
     fileInputImageRef.current.click();
   };

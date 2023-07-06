@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
@@ -113,6 +113,9 @@ const feedbacks = [
 
 function FeedBack() {
   const [titleFilter, setTitleFilter] = useState("All");
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
   return (
     <>
       <HeaderSeller title="Feedback" />
