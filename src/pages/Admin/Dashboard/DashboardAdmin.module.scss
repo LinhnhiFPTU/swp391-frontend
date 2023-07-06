@@ -21,6 +21,7 @@
     width: 1300px;
   }
 }
+
 /*-------------------------------------CARD-------------------------------------*/
 .card-items {
   display: grid;
@@ -82,6 +83,7 @@
           font-size: 20px;
           margin-bottom: 10px;
         }
+
         .text {
           font-size: 23px;
           font-weight: 500;
@@ -100,18 +102,210 @@
     width: 100%;
     border-left: 3px solid #008ffb;
     color: #008ffb;
+
+    .card-title {
+      color: #008ffb;
+    }
+
+    .card-number {
+      color: #008ffb;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.38);
+    }
+
+    .details-chart {
+      width: 800px;
+      height: max-content;
+      z-index: 5;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+      .details-content {
+        width: 100%;
+        height: 700px;
+        padding: 20px;
+        background-color: #fff;
+
+        .header-content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .close-btn {
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+
+        .text {
+          font-size: 23px;
+          font-weight: 500;
+        }
+
+        .data-chart {
+          width: 100%;
+          height: 500px;
+          margin-top: 20px;
+        }
+      }
+    }
   }
 
   .item3 {
     width: 100%;
     border-left: 3px solid #feb019;
     color: #feb019;
+
+    .card-title {
+      color: #feb019;
+    }
+
+    .card-number {
+      color: #feb019;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.38);
+    }
+
+    .details-chart {
+      width: 800px;
+      height: max-content;
+      z-index: 5;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+      .details-content {
+        width: 100%;
+        height: 700px;
+        padding: 20px;
+        background-color: #fff;
+
+        .header-content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .close-btn {
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+
+        .text {
+          font-size: 23px;
+          font-weight: 500;
+        }
+
+        .data-chart {
+          width: 100%;
+          height: 500px;
+          margin-top: 20px;
+        }
+      }
+    }
   }
 
   .item4 {
     width: 100%;
     border-left: 3px solid #ff4560;
     color: #ff4560;
+
+    .card-title {
+      color: #ff4560;
+    }
+
+    .card-number {
+      color: #ff4560;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.38);
+    }
+
+    .details-chart {
+      width: 800px;
+      height: max-content;
+      z-index: 5;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+      .details-content {
+        width: 100%;
+        height: 700px;
+        padding: 20px;
+        background-color: #fff;
+
+        .header-content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .close-btn {
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+
+        .text {
+          font-size: 23px;
+          font-weight: 500;
+        }
+
+        .data-chart {
+          width: 100%;
+          height: 500px;
+          margin-top: 20px;
+        }
+      }
+    }
   }
 }
 
@@ -157,6 +351,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 //Revenue
 .revenue-chart {
   width: 64%;

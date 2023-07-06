@@ -5,7 +5,8 @@ import Sidebar from "../../global/Sidebar";
 
 import avatar from "~/assets/images/user-avatar.png";
 import DataTable from "react-data-table-component";
-import UserMngNav from "../../AdminShopMng/ShopMngNav/ShopMngNav";
+import UserMngNav from "../../AdminUserMng/UserMngNav";
+import Topbar from "../../global/Topbar";
 
 const cx = classNames.bind(styles);
 
@@ -186,7 +187,10 @@ function AvailableUserMng() {
       setRecords(newData);
     };
     return (
-      <>
+      <div className={cx("user-wrapper")}>
+        <div className={cx("topbar")}>
+          <Topbar />
+        </div>
         <div className={cx("container")}>
           <div className={cx("sidebar")}>
             <Sidebar />
@@ -213,7 +217,7 @@ function AvailableUserMng() {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
 }
 

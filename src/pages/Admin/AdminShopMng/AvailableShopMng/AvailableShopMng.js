@@ -6,6 +6,7 @@ import Sidebar from "../../global/Sidebar";
 import avatar from "~/assets/images/user-avatar.png";
 import DataTable from "react-data-table-component";
 import ShopMngNav from "../ShopMngNav/ShopMngNav";
+import Topbar from "../../global/Topbar";
 
 const cx = classNames.bind(styles);
 
@@ -197,6 +198,9 @@ function AvailableShopMng() {
   };
   return (
     <div className={cx("shop-wrapper")}>
+      <div className={cx("topbar")}>
+        <Topbar />
+      </div>
       <div className={cx("container")}>
         <div className={cx("sidebar")}>
           <Sidebar />

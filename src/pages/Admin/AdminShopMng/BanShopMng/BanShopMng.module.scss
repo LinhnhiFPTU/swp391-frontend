@@ -1,6 +1,5 @@
 .container {
     width: 100%;
-    height: calc(145vh - 71px);
     display: flex;
     margin-top: 71px;
 }
@@ -82,7 +81,7 @@
     justify-content: center;
     width: 100%;
     background-color: #fff;
-    padding: 20px 0px;
+    padding: 25px 0px;
 
     .recover-btn {
         width: 120px;
