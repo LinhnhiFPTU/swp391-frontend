@@ -6,6 +6,7 @@ import Sidebar from "../../global/Sidebar";
 import avatar from "~/assets/images/user-avatar.png";
 import DataTable from "react-data-table-component";
 import ShopMngNav from "../ShopMngNav/ShopMngNav";
+import Topbar from "../../global/Topbar";
 
 const cx = classNames.bind(styles);
 
@@ -199,29 +200,34 @@ function AllShopMng() {
   };
   return (
     <div className={cx("shop-wrapper")}>
-      <div className={cx("sidebar")}>
-        <Sidebar />
+      <div className={cx("topbar")}>
+        <Topbar />
       </div>
-      <div className={cx("shop-container")}>
-        <div className={cx("nav-bar")}>
-          <ShopMngNav />
+      <div className={cx("container")}>
+        <div className={cx("sidebar")}>
+          <Sidebar />
         </div>
-        <div className={cx("shop-table")}>
-          <div className={cx("input-search")}>
-            <input
-              type="text"
-              placeholder="Search shop"
-              onChange={handlerFilter}
-              className={cx("skw")}
-            ></input>
+        <div className={cx("shop-container")}>
+          <div className={cx("nav-bar")}>
+            <ShopMngNav />
           </div>
+          <div className={cx("shop-table")}>
+            <div className={cx("input-search")}>
+              <input
+                type="text"
+                placeholder="Search shop"
+                onChange={handlerFilter}
+                className={cx("skw")}
+              ></input>
+            </div>
 
-          <DataTable
-            columns={usersColumns}
-            data={records}
-            customStyles={customStyles}
-            pagination
-          />
+            <DataTable
+              columns={usersColumns}
+              data={records}
+              customStyles={customStyles}
+              pagination
+            />
+          </div>
         </div>
       </div>
     </div>

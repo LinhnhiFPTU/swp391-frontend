@@ -1,8 +1,7 @@
 .container {
   width: 100%;
   display: flex;
-  margin: 0;
-  margin: 71px 0px;
+  margin-top: 71px;
 }
 
 .sidebar {
@@ -84,6 +83,7 @@
   justify-content: center;
   width: 100%;
   background-color: #fff;
+  padding: 25px 0px;
 
   .recover-btn {
     width: 120px;

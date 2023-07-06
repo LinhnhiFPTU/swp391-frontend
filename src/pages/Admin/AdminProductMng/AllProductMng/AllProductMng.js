@@ -6,6 +6,7 @@ import bird from "~/assets/images/bird-cage.png";
 import DataTable from "react-data-table-component";
 import Sidebar from "../../global/Sidebar";
 import ProductMngNav from "../ProductMngNav/ProductMngNav";
+import Topbar from "../../global/Topbar";
 
 const cx = classNames.bind(styles);
 
@@ -204,6 +205,9 @@ function AllProductMng() {
   };
   return (
     <div className={cx("product-wrapper")}>
+      <div className={cx("topbar")}>
+        <Topbar />
+      </div>
       <div className={cx("container")}>
         <div className={cx("sidebar")}>
           <Sidebar />

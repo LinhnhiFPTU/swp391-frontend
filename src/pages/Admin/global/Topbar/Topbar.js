@@ -3,8 +3,8 @@ import classNames from "classnames/bind";
 import styles from "./Topbar.module.scss";
 import { Link } from "react-router-dom";
 
-// import Tippy from "@tippyjs/react/headless";
-// import { Wrapper as PopperWrapper } from "~/components/Popper";
+import Tippy from "@tippyjs/react/headless";
+import { Wrapper as PopperWrapper } from "~/components/Popper";
 
 const cx = classNames.bind(styles);
 
@@ -32,7 +32,7 @@ function Topbar() {
               <div className={cx("user-options")} tabIndex="-1" {...attrs}>
                 <PopperWrapper>
                   <div className={cx("option-first")}>
-                    <Link to="/" className={cx("shop-profile")}>
+                    <Link to="/" className={cx("admin-profile")}>
                       <i
                         className={cx("icon-sub", "fa-light fa-address-card")}
                       ></i>
