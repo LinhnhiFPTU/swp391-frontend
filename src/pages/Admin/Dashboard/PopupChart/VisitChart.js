@@ -3,56 +3,30 @@ import Chart from "react-apexcharts";
 
 
 function VisitChart() {
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setData((prevData) => {
-                const newData = [...prevData];
-                newData.push({
-                    x: new Date().getTime(),
-                    y: Math.floor(Math.random() * 100) + 1,
-                });
-                return newData;
-            });
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
-
     const series = [
         {
-            name: "Realtime Data",
-            data: data,
+            name: "Line 1",
+            data: [30, 40, 35, 50, 49, 60, 70, 91],
+        },
+        {
+            name: "Line 2",
+            data: [23, 12, 54, 61, 32, 56, 81, 19],
         },
     ];
 
     const options = {
         chart: {
-            id: "realtime",
-            animations: {
-                enabled: true,
-                easing: "linear",
-                dynamicAnimation: {
-                    speed: 1000,
-                },
-            },
-            toolbar: {
-                show: false,
-            },
+            id: "basic-line",
+        },
+        stroke: {
+            curve: 'smooth',
         },
         xaxis: {
-            type: "datetime",
-            range: 60000,
-        },
-        yaxis: {
-            max: 100,
+            categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
         },
     };
     return (
-        <div>
-            <Chart options={options} series={series} type="line" height={500} />
-        </div>
+        <Chart options={options} series={series} type="line" height={500} />
     )
 }
 
