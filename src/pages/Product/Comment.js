@@ -77,7 +77,7 @@ function Comment({ feedback, commentRating }) {
               )}
             </div>
             <div className={cx("date_time-comment")}>
-              <span className={cx("date-time")}>{feedback.time}</span>
+              <span className={cx("date-time")}>{(new Date(feedback.time)).toLocaleString()}</span>
             </div>
           </div>
           <div className={cx("comment-content")}>
@@ -218,11 +218,11 @@ function Comment({ feedback, commentRating }) {
               )}
             </div>
           )}
-          {feedback.shopResponse && (
+          {feedback.feedbackReplies.length > 0 && (
             <div className={cx("shop-response")}>
               <div className={cx("response-title")}>Seller's Response:</div>
               <div className={cx("response-content")}>
-                {feedback.shopResponse}
+                {feedback.feedbackReplies[0].content}
               </div>
             </div>
           )}

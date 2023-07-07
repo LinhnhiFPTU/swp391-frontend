@@ -6,10 +6,26 @@ import styles from "./MyAddress.module.scss";
 import axios from "axios";
 const cx = classNames.bind(styles);
 
-function MyAddress({ close }) {
+function MyAddress({ close, setReceiveInfo }) {
   const [show, setShow] = useState(false);
   const [receiveinfos, setReceiveInfos] = useState([]);
   const [curPage, setCurPage] = useState(1);
+  const [infoReceive, setInfoReceive] = useState(false);
+
+  useEffect(() => {
+    if (infoReceive) {
+      axios
+        .get("/api/v1/users/info/receives?page=" + curPage)
+        .then((res) => {
+          let setup = res.data || [];
+          let param = curPage === 1 ? "" : "?page=" + curPage;
+          setReceiveInfos(setup);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [infoReceive]);
 
   useEffect(() => {
     axios
@@ -27,10 +43,7 @@ function MyAddress({ close }) {
   return (
     <>
       {show && (
-        <AddressPopup
-          closeModel={setShow}
-          subText="To place order, please add a delivery address"
-        />
+        <AddressPopup closeModel={setShow} receiveInfoChange={setInfoReceive} />
       )}
       <div className={cx("overlay")}>
         <div className={cx("myAddress_popup")}>
@@ -51,7 +64,7 @@ function MyAddress({ close }) {
                   )}
                 </div>
                 <div className={cx("myAddress-selection")}>
-                  <button className={cx("select")}>Select</button>
+                  <button className={cx("select")} onClick={() => setReceiveInfo(info)}>Select</button>
                   <button className={cx("edit")}>Edit</button>
                 </div>
               </div>
@@ -68,7 +81,7 @@ function MyAddress({ close }) {
             <button className={cx("cancel")} onClick={() => close(false)}>
               Cancel
             </button>
-            <button className={cx("confirm")}>Confirm</button>
+            <button onClick={() => close(false)} className={cx("confirm")}>Confirm</button>
           </div>
         </div>
       </div>

@@ -118,8 +118,34 @@ function Message() {
         chatterType: "SHOP",
       };
 
-      stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-      setInputSend("");
+      const formData = new FormData();
+      mediaMessages.forEach((media, index) => {
+        if (media.type === "IMG")
+        {
+          formData.append("images", media.file)
+        }else
+        {
+          formData.append("videos", media.file)
+        }
+      })
+
+      formData.append("message", JSON.stringify(chatMessage));
+
+      axios
+        .post("/app/media-message", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          setInputSend("");
+          textInputRef.current.focus();
+          setMediaMessages([])
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
   };
 
@@ -336,7 +362,7 @@ function Message() {
                       {mediaMessages.map((media, index) => {
                         if (media.type === "IMG") {
                           return (
-                            <div className={cx("load-image-preview")}>
+                            <div className={cx("load-image-preview")} key={index}>
                               <img
                                 src={URL.createObjectURL(media.file)}
                                 alt="img-preview"
@@ -362,7 +388,7 @@ function Message() {
                           );
                         }
                         return (
-                          <div className={cx("load-video-preview")}>
+                          <div className={cx("load-video-preview")} key={index}>
                             <video
                               src={URL.createObjectURL(media.file)}
                               type="video/mp4"

@@ -4,14 +4,12 @@ import Chart from "react-apexcharts";
 function VisitChart() {
     const series = [
         {
-            name: "Last Week",
-            color: "#e6e6e6",
-            data: [30, 40, 35, 50, 49, 60, 70],
+            name: "Line 1",
+            data: [30, 40, 35, 50, 49, 60, 70, 91],
         },
         {
-            name: "This Week",
-            color: "#feb11b",
-            data: [23, 12, 54, 61, 32, 56, 81],
+            name: "Line 2",
+            data: [23, 12, 54, 61, 32, 56, 81, 19],
         },
     ];
 
@@ -37,7 +35,7 @@ function VisitChart() {
             curve: 'smooth',
         },
         xaxis: {
-            categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
         },
     };
     return (

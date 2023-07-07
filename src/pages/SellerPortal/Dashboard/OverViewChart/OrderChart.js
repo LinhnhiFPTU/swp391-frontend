@@ -8,6 +8,7 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
+import { useState } from "react";
 
 ChartJS.register(
   LineElement,
@@ -18,22 +19,14 @@ ChartJS.register(
   Tooltip
 );
 
-function OrderChart() {
-  const labels = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+function OrderChart({dataChart}) {
+  const [labels, setLabels] = useState([0, "00:00 - 05:00", "06:00 - 11:00", "12:00 - 17:00", "18:00 - 23:00"])
   const data = {
     labels: labels,
     datasets: [
       {
         label: "Today",
-        data: [413, 756, 234, 311, 789, 143, 645],
+        data: dataChart.current,
         backgroundColor: "transparent",
         fill: false,
         borderColor: "#EC4A68",
@@ -45,7 +38,7 @@ function OrderChart() {
       },
       {
         label: "Yesterday",
-        data: [123, 234, 756, 543, 213, 645, 423],
+        data: dataChart.previous,
         backgroundColor: "transparent",
         fill: false,
         borderColor: "#C9CBCF",

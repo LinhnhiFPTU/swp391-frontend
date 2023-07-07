@@ -37,6 +37,7 @@ function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
       },
       specificAddress: "",
     },
+    wallet: 0
   });
 
   useEffect(() => {
@@ -70,7 +71,7 @@ function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
                 {/* -----------------Chua login----------------- */}
                 <PopperWrapper>
                   <div className={cx("option-first")}>
-                    <Link to="/" className={cx("shop-profile")}>
+                    <Link to="/seller/portal/shop" className={cx("shop-profile")}>
                       <i
                         className={cx("icon-sub", "fa-light fa-address-card")}
                       ></i>
@@ -83,6 +84,14 @@ function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
                         className={cx("icon-sub", "fa-regular fa-power-off")}
                       ></i>
                       <span>Log Out</span>
+                    </Link>
+                  </div>
+                  <div className={cx("option-logout")}>
+                    <Link to="#" className={cx("logout-link")}>
+                      <i
+                        className={cx("icon-sub", "fa-regular fa-coins")}
+                      ></i>
+                      <span>Wallet: {shop.wallet}</span>
                     </Link>
                   </div>
                 </PopperWrapper>

@@ -14,7 +14,7 @@ function ImageItem({ image, index, setListImage, setQuantityImage }) {
       onMouseEnter={() => setShowDeleteImage(true)}
       onMouseLeave={() => setShowDeleteImage(false)}
     >
-      <img src={image} alt="load-img" className={cx("load-item")} />
+      <img src={image.url} alt="load-img" className={cx("load-item")} />
       {showDeleteImage && (
         <div className={cx("action")}>
           <i

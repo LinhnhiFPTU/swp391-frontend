@@ -49,30 +49,11 @@ export const options = {
   },
   xaxis: {
     categories: [
-      "00:00",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "06:00",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "12:00",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "18:00",
-      "",
-      "",
-      "",
-      "",
-      "23:59",
+      "0",
+      "00:00 - 05:00",
+      "06:00 - 11:00",
+      "12:00 - 17:00",
+      "18:00 - 23:00",
     ],
   },
   yaxis: {
@@ -151,6 +132,7 @@ export const optionsWeek = {
   },
   xaxis: {
     categories: [
+      "0",
       "Monday",
       "Tuesday",
       "Wednesday",
@@ -235,7 +217,7 @@ export const optionsMonth = {
     },
   },
   xaxis: {
-    categories: ["Week 1", "Week 2", "Week 3", "Week 4"],
+    categories: ["0", "Week 1", "Week 2", "Week 3", "Week 4"],
   },
   yaxis: {
     labels: {
@@ -313,6 +295,7 @@ export const optionsYear = {
   },
   xaxis: {
     categories: [
+      "0",
       "January",
       "February",
       "March",

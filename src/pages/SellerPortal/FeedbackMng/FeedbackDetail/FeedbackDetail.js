@@ -6,42 +6,13 @@ import SideBar from "~/pages/SellerPortal/SideBar";
 import Reply from "./Reply";
 
 import styles from "./FeedbackDetail.module.scss";
+import { useLocation } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-const feedback = {
-  product: {
-    productImage:
-      "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-    productName: "Prevue Pet Products Travel Carrier for Birds, Black",
-    productPrice: 1200,
-  },
-  feedbackData: {
-    feedbackContent:
-      "Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. Shop tư vấn nhiệt tình nên mình chọn đc cỡ áo, màu hợp với mình. Áo thích hợp đi làm, đi chơi. Cảm ơn shop về sp này. Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. Sp đúng như shop mô tả. Áo thiết kế khá là trẻ trung, hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải khá là tốt. chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải",
-    feedbackVideo: "https://www.w3schools.com/html/mov_bbb.mp4",
-    feedbackImage: [
-      {
-        id: 0,
-        url: "https://m.media-amazon.com/images/I/71+4X8orK7L._AC_SL1500_.jpg",
-      },
-      {
-        id: 1,
-        url: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-      },
-      {
-        id: 2,
-        url: "https://m.media-amazon.com/images/I/81uf1-L-u1L._AC_SL1500_.jpg",
-      },
-      {
-        id: 3,
-        url: "https://m.media-amazon.com/images/I/81ESBV8P-DL._AC_SL1500_.jpg",
-      },
-    ],
-  },
-};
-
 function FeedbackDetail() {
+  const { state } = useLocation();
+  const [feedback, setFeedback] = useState(() => (state ? state : {}));
   const videoRef = useRef();
   const videoRefPreview = useRef();
   const [imagePreview, setImagePreview] = useState("");
@@ -93,7 +64,7 @@ function FeedbackDetail() {
   };
   return (
     <>
-      {openReply && <Reply setOpenReply={setOpenReply} />}
+      {openReply && <Reply setOpenReply={setOpenReply} feedback={feedback} />}
       <HeaderSeller title="Feedback Detail" path="/seller/portal/feedback" />
       <div className={cx("feedback-detail_wrapper")}>
         <div className={cx("feedback-detail_sidebar")}>
@@ -110,51 +81,49 @@ function FeedbackDetail() {
             <div className={cx("feedback-body")}>
               <div className={cx("product-information-body")}>
                 <img
-                  src={feedback.product.productImage}
+                  src={feedback.productImage}
                   alt="product-img"
                   className={cx("product-img")}
                 />
                 <div className={cx("product-content")}>
-                  <div className={cx("name")}>
-                    {feedback.product.productName}
-                  </div>
-                  <div className={cx("price")}>
-                    ${feedback.product.productPrice}
-                  </div>
+                  <div className={cx("name")}>{feedback.productName}</div>
+                  <div className={cx("price")}>${feedback.productPrice}</div>
                 </div>
               </div>
               <div className={cx("user-feedback-body")}>
                 <div className={cx("content")}>
-                  <div className={cx("text")}>
-                    {feedback.feedbackData.feedbackContent}
-                  </div>
+                  <div className={cx("text")}>{feedback.description}</div>
                 </div>
                 <div className={cx("list-media")}>
-                  <div
-                    className={videoPreview ? cx("video-active") : cx("video")}
-                  >
-                    <video
-                      ref={videoRef}
-                      src={feedback.feedbackData.feedbackVideo}
-                      type="video/mp4"
-                      className={cx("video-main")}
-                      onClick={(e) => {
-                        setVideoPreview((p) => {
-                          if (p) {
-                            return "";
-                          }
-                          return e.target.src;
-                        });
-                        setImagePreview("");
-                      }}
-                      onLoadedMetadata={onLoadedMetadata}
-                    />
-                    <div className={cx("icon-video")}>
-                      <i className={cx("fa-solid fa-video")}></i>
-                      <span>{videoDuration}</span>
+                  {feedback.videoUrl && (
+                    <div
+                      className={
+                        videoPreview ? cx("video-active") : cx("video")
+                      }
+                    >
+                      <video
+                        ref={videoRef}
+                        src={feedback.videoUrl}
+                        type="video/mp4"
+                        className={cx("video-main")}
+                        onClick={(e) => {
+                          setVideoPreview((p) => {
+                            if (p) {
+                              return "";
+                            }
+                            return e.target.src;
+                          });
+                          setImagePreview("");
+                        }}
+                        onLoadedMetadata={onLoadedMetadata}
+                      />
+                      <div className={cx("icon-video")}>
+                        <i className={cx("fa-solid fa-video")}></i>
+                        <span>{videoDuration}</span>
+                      </div>
                     </div>
-                  </div>
-                  {feedback.feedbackData.feedbackImage.map((img, index) => (
+                  )}
+                  {feedback.images.map((img, index) => (
                     <div
                       key={index}
                       className={
@@ -273,11 +242,30 @@ function FeedbackDetail() {
                   </div>
                 )}
               </div>
-              <div className={cx("reply")}>
-                <button className={cx("reply-btn")} onClick={handleOpenReply}>
-                  Reply
-                </button>
-              </div>
+              {feedback.type.startsWith("REPORT") ? (
+                <>
+                  <div className={cx("reply")}>
+                    <button
+                      className={cx("reply-btn")}
+                    >
+                      Accept
+                    </button>
+                  </div>
+                  <div className={cx("reply")}>
+                    <button
+                      className={cx("reply-btn")}
+                    >
+                      Reject
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className={cx("reply")}>
+                  <button className={cx("reply-btn")} onClick={handleOpenReply}>
+                    Reply
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

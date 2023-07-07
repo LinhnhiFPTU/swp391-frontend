@@ -2,10 +2,11 @@ import classNames from "classnames/bind";
 import { useState } from "react";
 
 import styles from "./Reply.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-function Reply({ setOpenReply }) {
+function Reply({ setOpenReply, feedback }) {
   const [countTextarea, setCountTextarea] = useState(0);
   const [inputTextarea, setInputTextarea] = useState("");
   const [errorTextarea, setErrorTextarea] = useState("");
@@ -27,6 +28,15 @@ function Reply({ setOpenReply }) {
       setErrorTextarea("Reply could not be empty");
     } else if (inputTextarea.length < 10 || inputTextarea.length > 300) {
       setErrorTextarea("Reply content should have 10 - 50 characters");
+    }else
+    {
+      let request = {
+        feedbackId: feedback.id,
+        response: inputTextarea
+      }
+      axios.post("/api/v1/shop/feedbacks/response/", request)
+      .then(res => window.location.reload())
+      .catch(e => console.log(e))
     }
   };
   return (

@@ -8,6 +8,7 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
+import { useState } from "react";
 
 ChartJS.register(
   LineElement,
@@ -18,22 +19,15 @@ ChartJS.register(
   Tooltip
 );
 
-function FeedbackChart() {
-  const labels = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+function FeedbackChart({ dataChart }) {
+  const [labels, setLabels] = useState([0, "00:00 - 05:00", "06:00 - 11:00", "12:00 - 17:00", "18:00 - 23:00"])
+
   const data = {
     labels: labels,
     datasets: [
       {
         label: "Today",
-        data: [24, 12, 43, 54, 21, 12, 6],
+        data: dataChart.current,
         backgroundColor: "transparent",
         fill: false,
         borderColor: "#30E3CD",
@@ -45,7 +39,7 @@ function FeedbackChart() {
       },
       {
         label: "Yesterday",
-        data: [12, 41, 7, 24, 34, 76, 3],
+        data: dataChart.previous,
         backgroundColor: "transparent",
         fill: false,
         borderColor: "#C9CBCF",

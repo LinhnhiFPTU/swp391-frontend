@@ -22,10 +22,10 @@ function Cart() {
   const dispatch = Globalstate.dispatch;
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    if (paramLocation) {
-      setCheckedProducts(prev => [...prev, paramLocation.state])
+    if (paramLocation.state) {
+      console.log(paramLocation)
+      setCheckedProducts(prev => [...prev, ...paramLocation.state])
     }
   }, [paramLocation]);
 

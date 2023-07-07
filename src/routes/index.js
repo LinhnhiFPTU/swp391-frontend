@@ -58,6 +58,7 @@ import DashboardAdmin from "~/pages/Admin/Dashboard";
 import AllUserMng from "~/pages/Admin/AdminUserMng/AllUserMng/AllUserMng";
 import AvailableUserMng from "~/pages/Admin/AdminUserMng/AvailableUserMng";
 import BanUserMng from "~/pages/Admin/AdminUserMng/BanUserMng";
+import ReportedUserMng from "~/pages/Admin/AdminUserMng/ReportedUserMng";
 
 import AllProductMng from "~/pages/Admin/AdminProductMng/AllProductMng";
 import AvailableProductMng from "~/pages/Admin/AdminProductMng/AvailableProductMng";
@@ -66,6 +67,8 @@ import BanProductMng from "~/pages/Admin/AdminProductMng/BanProductMng";
 import AllShopMng from "~/pages/Admin/AdminShopMng/AllShopMng";
 import AvailableShopMng from "~/pages/Admin/AdminShopMng/AvailableShopMng";
 import BanShopMng from "~/pages/Admin/AdminShopMng/BanShopMng";
+import ReportedShopMng from "~/pages/Admin/AdminShopMng/ReportedShopMng";
+import ReportedProductMng from "~/pages/Admin/AdminProductMng/ReportedProductMng";
 
 import ReportMng from "~/pages/Admin/ReportMng";
 import Setting from "~/pages/Admin/Setting";
@@ -115,7 +118,7 @@ const publicRoutes = [
   { path: "/seller/portal/product/active", component: Active },
   { path: "/seller/portal/product/soldout", component: SoldOut },
   { path: "/seller/portal/product/pending", component: PendingProduct },
-  { path: "/seller/portal/product/band", component: Band },
+  { path: "/seller/portal/product/ban", component: Band },
   { path: "/seller/portal/product/new", component: AddProduct },
   { path: "/seller/portal/product/package", component: Package },
 
@@ -133,14 +136,17 @@ const publicRoutes = [
   { path: "/admin/portal/usermng/all", component: AllUserMng },
   { path: "/admin/portal/usermng/available", component: AvailableUserMng },
   { path: "/admin/portal/usermng/banned", component: BanUserMng },
+  { path: "/admin/portal/usermng/reported", component: ReportedUserMng },
   
   { path: "/admin/portal/shopmng/all", component: AllShopMng },
   { path: "/admin/portal/shopmng/available", component: AvailableShopMng },
   { path: "/admin/portal/shopmng/banned", component: BanShopMng },
+  { path: "/admin/portal/shopmng/reported", component: ReportedShopMng },
 
   { path: "/admin/portal/productmng/all", component: AllProductMng },
   { path: "/admin/portal/productmng/banned", component: BanProductMng },
   { path: "/admin/portal/productmng/available", component: AvailableProductMng },
+  { path: "/admin/portal/productmng/reported", component: ReportedProductMng },
 
   { path: "/admin/portal/report", component: ReportMng },
   { path: "/admin/portal/settings", component: Setting },

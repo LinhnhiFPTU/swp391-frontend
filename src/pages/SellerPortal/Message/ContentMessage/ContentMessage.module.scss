@@ -23,6 +23,19 @@
       margin-bottom: 5px;
       color: #050505;
       background-color: #e4e6eb;
+      display: flex;
+      flex-wrap: wrap;
+
+      img {
+        aspect-ratio : 1 / 1;
+        max-width: 100%;
+        border-radius: 5px;
+      }
+
+      video {
+        width: 100%;
+        border-radius: 5px;
+      }
     }
   }
 }
@@ -55,6 +68,20 @@
       color: #050505;
       color: #fff;
       background-color: var(--primary);
+      display: flex;
+      flex-wrap: wrap;
+
+      img {
+        aspect-ratio : 1 / 1;
+        max-width: 100%;
+        border-radius: 5px;
+      }
+
+      video {
+        width: 100%;
+        border-radius: 5px;
+      }
+
     }
   }
 }
