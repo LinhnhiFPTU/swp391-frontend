@@ -19,6 +19,10 @@ const userNav = [
     title: "BANNED",
     to: "/admin/portal/usermng/banned",
   },
+  {
+    title: "REPORTED",
+    to: "/admin/portal/usermng/reported",
+  },
 ];
 
 function UserMngNav() {
@@ -37,6 +41,7 @@ function UserMngNav() {
               "/admin/portal/usermng/all",
               "/admin/portal/usermng/available",
               "/admin/portal/usermng/banned",
+              "/admin/portal/usermng/reported",
             ].includes(pathname)
           }
         >

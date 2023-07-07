@@ -84,7 +84,7 @@ function DashboardAdmin() {
                       <div className={cx("details-chart")}>
                         <div className={cx("details-content")}>
                           <div className={cx("header-content")}>
-                            <div className={cx("text")}>TOTAL ORDERS</div>
+                            <div className={cx("text")}>TOTAL SALES</div>
                             <i
                               className={cx("fa-regular fa-xmark", "close-btn")}
                               onClick={toggleSalesChart}
@@ -156,7 +156,7 @@ function DashboardAdmin() {
             </div>
             <div className={cx("overview-chart")}>
               <div className={cx("revenue-chart")}>
-                <div className={cx("text")}>Monthly Revenue</div>
+                <div className={cx("text")}>Weekly Revenue</div>
                 <div className={cx("data-chart")}>
                   <RevenueChart />
                 </div>
