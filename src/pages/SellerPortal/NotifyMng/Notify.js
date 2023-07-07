@@ -46,6 +46,9 @@ function Notify() {
     }
   };
 
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
   return (
     <>
       <HeaderSeller title="Notifications" />

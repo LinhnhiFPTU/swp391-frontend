@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  height: calc(145vh - 71px);
   display: flex;
   margin-top: 71px;
 }
@@ -8,40 +7,21 @@
 .sidebar {
   width: 198px;
 }
-
+.nav-bar {
+  background-color: #fff;
+}
 .user-container {
   width: calc(100% - 198px);
   padding: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   background-color: #f6f6f6;
-  font-size: 16px;
 }
 
 .user-table {
   width: 100%;
-}
-
-.ban_btn {
-  width: 90px;
-  border: 0.5px solid red;
-  background-color: rgb(204, 46, 46);
-  border-radius: 3px;
-  border: none;
-  color: white;
-  text-align: center;
-  padding: 3px;
-}
-
-.recover_btn {
-  width: 90px;
-  border: 0.5px solid rgb(57, 151, 77);
-  background-color: rgb(57, 151, 77);
-  border-radius: 3px;
-  border: none;
-  color: white;
-  text-align: center;
-  padding: 3px;
+  margin-top: 30px;
 }
 
 .row-status {
@@ -74,7 +54,7 @@
 
 .input-search {
   display: flex;
-  justify-content: end; 
+  justify-content: end;
 }
 
 .skw {

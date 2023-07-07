@@ -16,6 +16,11 @@ function Shop() {
   const [countInput, setCountInput] = useState(0);
   const [previewImage, setPreviewImage] = useState({});
   const [imgError, setImgError] = useState("");
+
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+
   const handleClickImage = () => {
     fileInputImageRef.current.click();
   };

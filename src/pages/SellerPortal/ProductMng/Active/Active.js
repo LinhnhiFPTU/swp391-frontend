@@ -33,6 +33,10 @@ function Active() {
       .catch((e) => console.log(e));
   }, [filter]);
 
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+  
   return (
     <>
       <HeaderSeller title="Product Active" />

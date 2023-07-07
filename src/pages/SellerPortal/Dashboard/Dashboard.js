@@ -117,6 +117,10 @@ function Dashboard() {
       })
       .catch((e) => console.log(e));
   }, []);
+  
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, [])
 
   return (
     <>

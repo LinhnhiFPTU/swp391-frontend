@@ -50,6 +50,10 @@ function AddProduct() {
   const [showCancelPopup, setShowCancelPopup] = useState(false);
 
   useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+
+  useEffect(() => {
     axios
       .get("/api/v1/publics/category/all")
       .then((res) => setCategories(res.data))

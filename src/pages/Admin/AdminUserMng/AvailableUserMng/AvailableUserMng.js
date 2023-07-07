@@ -1,112 +1,102 @@
 import React, { useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./AdminShopMng.module.scss";
-import Sidebar from "../global/Sidebar";
+import styles from "./AvailableUserMng.module.scss";
+import Sidebar from "../../global/Sidebar";
 
 import avatar from "~/assets/images/user-avatar.png";
 import DataTable from "react-data-table-component";
-import HeaderSeller from "~/layouts/components/HeaderSeller/HeaderSeller";
+import UserMngNav from "../../AdminUserMng/UserMngNav";
+import Topbar from "../../global/Topbar";
 
 const cx = classNames.bind(styles);
 
-const shopsRows = [
+const usersRows = [
   {
     id: 1,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van A",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
     status: "Available",
   },
   {
     id: 2,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van B",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
     status: "Available",
   },
   {
     id: 3,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van C",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
     status: "Available",
   },
   {
     id: 4,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van D",
     email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
+    address: "Nguyen Dong Chi, TP.Ho Chi Minh",
     status: "Available",
   },
   {
     id: 5,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van E",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
     status: "Available",
   },
   {
     id: 6,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van F",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
     status: "Available",
   },
   {
     id: 7,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van G",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
+    status: "Available",
   },
   {
     id: 8,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van H",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
+    status: "Available",
   },
   {
     id: 9,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van I",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
     status: "Available",
   },
   {
     id: 10,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van J",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
+    status: "Available",
   },
   {
     id: 11,
     avatar: avatar,
-    shopName: "Louis Vuiton",
+    fullName: "Nguyen Van K",
     email: "anv@gmail.com",
     address: "Ho Chi Minh",
-    package: "30 days",
     status: "Available",
   },
 ];
@@ -122,15 +112,17 @@ const usersColumns = [
   },
   {
     name: "Avatar",
+    // selector: (row) => row.avatar,
+    // sortable: true,
     cell: (row) => (
       <div>
-        <img className={cx("avatar-img")} src={row.avatar} alt="avatar-img"/>
+        <img className={cx("avatar-img")} src={row.avatar} alt="img-avatar" />
       </div>
     ),
   },
   {
-    name: "Shop Name",
-    selector: (row) => row.shopName,
+    name: "Full Name",
+    selector: (row) => row.fullName,
     sortable: true,
   },
   {
@@ -140,10 +132,6 @@ const usersColumns = [
   {
     name: "Address",
     selector: (row) => row.address,
-  },
-  {
-    name: "Package",
-    selector: (row) => row.package,
   },
   {
     name: "Status",
@@ -158,38 +146,18 @@ const usersColumns = [
       </div>
     ),
   },
-  {
-    name: "Action",
-    cell: (row) => (
-      <div>
-        {row.status === "Available" && (
-          <button className={cx("ban_btn")} onClick={() => console.log(row)}>
-            Ban
-          </button>
-        )}
-        {row.status === "Banned" && (
-          <button
-            className={cx("recover_btn")}
-            onClick={() => console.log(row)}
-          >
-            Recover
-          </button>
-        )}
-      </div>
-    ),
-  },
 ];
 
 const customStyles = {
   header: {
     style: {
       fontsize: "16px",
+      width: "100px",
     },
   },
   headRow: {
     style: {
       backgroundColor: "#f2f2f2",
-      
     },
   },
   headCells: {
@@ -210,44 +178,47 @@ const customStyles = {
   },
 };
 
-function AdminUserMng() {
-  const [records, setRecords] = useState(shopsRows);
-  const handlerFilter = (event) => {
-    const newData = shopsRows.filter((row) =>
-      row.shopName.toLowerCase().includes(event.target.value.toLowerCase())
-    );
-    setRecords(newData);
-  };
-  return (
-    <>
-      <HeaderSeller title="Admin" />
-      <div className={cx("container")}>
-        <div className={cx("sidebar")}>
-          <Sidebar />
+function AvailableUserMng() {
+    const [records, setRecords] = useState(usersRows);
+    const handleaFilter = (event) => {
+      const newData = usersRows.filter((row) =>
+        row.fullName.toLowerCase().includes(event.target.value.toLowerCase())
+      );
+      setRecords(newData);
+    };
+    return (
+      <div className={cx("user-wrapper")}>
+        <div className={cx("topbar")}>
+          <Topbar />
         </div>
-        <div className={cx("user-container")}>
-          <div className={cx("user-table")}>
-            <div className={cx("input-search")}>
-              <input
-                type="text"
-                placeholder="Search shop"
-                onChange={handlerFilter}
-                className={cx("skw")}
-              ></input>
+        <div className={cx("container")}>
+          <div className={cx("sidebar")}>
+            <Sidebar />
+          </div>
+          <div className={cx("user-container")}>
+            <div className={cx("nav-bar")}>
+              <UserMngNav />
             </div>
-
-            <DataTable
-              columns={usersColumns}
-              data={records}
-              selectableRows
-              customStyles={customStyles}
-              pagination
-            />
+            <div className={cx("user-table")}>
+              <div className={cx("input-search")}>
+                <input
+                  type="text"
+                  placeholder="Search user"
+                  onChange={handleaFilter}
+                  className={cx("skw")}
+                ></input>
+              </div>
+              <DataTable
+                columns={usersColumns}
+                data={records}
+                customStyles={customStyles}
+                pagination
+              />
+            </div>
           </div>
         </div>
       </div>
-    </>
-  );
+    );
 }
 
-export default AdminUserMng;
+export default AvailableUserMng

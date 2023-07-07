@@ -14,19 +14,25 @@ const options = [
     id: 2,
     title: "User",
     icon: "fa-light fa-bag-shopping",
-    path: "/admin/portal/usermng",
+    path: "/admin/portal/usermng/all",
   },
   {
     id: 3,
     title: "Shop",
     icon: "fa-thin fa-clipboard-list",
-    path: "/admin/portal/shopmng",
+    path: "/admin/portal/shopmng/all",
   },
   {
     id: 4,
     title: "Product",
     icon: "fa-sharp fa-light fa-box-dollar",
-    path: "/admin/portal/productmng",
+    path: "/admin/portal/productmng/all",
+  },
+  {
+    id: 5,
+    title: "Settings",
+    icon: "fa-light fa-gear",
+    path: "/admin/portal/settings",
   },
 ];
 function Sidebar() {
@@ -44,9 +50,9 @@ function Sidebar() {
                 isActive={() =>
                   [
                     "/admin/portal/dashboard",
-                    "/admin/portal/usermng", 
-                    "/admin/portal/shopmng",
-                    "/admin/portal/productmng",
+                    "/admin/portal/usermng/all", 
+                    "/admin/portal/shopmng/all",
+                    "/admin/portal/productmng/all",
                   ].includes(pathname)
                 }
               >

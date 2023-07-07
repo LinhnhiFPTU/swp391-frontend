@@ -16,6 +16,10 @@ function Pending() {
   const [page, setPage] = useState(1)
 
   useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+
+  useEffect(() => {
     axios.get("/api/v1/shop/orders/search?filter=SHIPPING&page=" + page)
     .then(res => setOrders(res.data))
     .catch(e => console.log(e))

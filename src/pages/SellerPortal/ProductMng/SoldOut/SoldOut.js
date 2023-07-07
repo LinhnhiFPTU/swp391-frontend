@@ -33,6 +33,10 @@ function SoldOut() {
       .catch((e) => console.log(e));
   }, [filter]);
 
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+  
   return (
     <>
       <HeaderSeller title="Product Sold Out" />

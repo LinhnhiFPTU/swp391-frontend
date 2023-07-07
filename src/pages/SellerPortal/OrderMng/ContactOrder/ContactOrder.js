@@ -23,6 +23,9 @@ function ContactOrder() {
       .catch((e) => console.log(e));
   }, []);
 
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
   return (
     <>
       <HeaderSeller title="Contact Order" />

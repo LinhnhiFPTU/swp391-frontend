@@ -54,9 +54,20 @@ import ShopMng from "~/pages/SellerPortal/ShopMng";
 import Chart from "~/pages/SellerPortal/Chart";
 
 import DashboardAdmin from "~/pages/Admin/Dashboard";
-import AdminProductMng from "~/pages/Admin/AdminProductMng";
-import AdminShopMng from "~/pages/Admin/AdminShopMng";
-import AdminUserMng from "~/pages/Admin/AdminUserMng";
+
+import AllUserMng from "~/pages/Admin/AdminUserMng/AllUserMng/AllUserMng";
+import AvailableUserMng from "~/pages/Admin/AdminUserMng/AvailableUserMng";
+import BanUserMng from "~/pages/Admin/AdminUserMng/BanUserMng";
+
+import AllProductMng from "~/pages/Admin/AdminProductMng/AllProductMng";
+import AvailableProductMng from "~/pages/Admin/AdminProductMng/AvailableProductMng";
+import BanProductMng from "~/pages/Admin/AdminProductMng/BanProductMng";
+
+import AllShopMng from "~/pages/Admin/AdminShopMng/AllShopMng";
+import AvailableShopMng from "~/pages/Admin/AdminShopMng/AvailableShopMng";
+import BanShopMng from "~/pages/Admin/AdminShopMng/BanShopMng";
+
+import Setting from "~/pages/Admin/Setting";
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -117,10 +128,20 @@ const publicRoutes = [
   { path: "/seller/portal/chart", component: Chart },
 
   { path: "/admin/portal/dashboard", component: DashboardAdmin },
-  { path: "/admin/portal/usermng", component: AdminUserMng },
-  { path: "/admin/portal/shopmng", component: AdminShopMng },
-  { path: "/admin/portal/productmng", component: AdminProductMng },
 
+  { path: "/admin/portal/usermng/all", component: AllUserMng },
+  { path: "/admin/portal/usermng/available", component: AvailableUserMng },
+  { path: "/admin/portal/usermng/banned", component: BanUserMng },
+  
+  { path: "/admin/portal/shopmng/all", component: AllShopMng },
+  { path: "/admin/portal/shopmng/available", component: AvailableShopMng },
+  { path: "/admin/portal/shopmng/banned", component: BanShopMng },
+
+  { path: "/admin/portal/productmng/all", component: AllProductMng },
+  { path: "/admin/portal/productmng/banned", component: BanProductMng },
+  { path: "/admin/portal/productmng/available", component: AvailableProductMng },
+
+  { path: "/admin/portal/settings", component: Setting },
 ];
 
 const privateRoutes = [];

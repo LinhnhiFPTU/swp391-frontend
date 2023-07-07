@@ -61,6 +61,10 @@ function Checkout() {
   const context = UC.state;
 
   useEffect(() => {
+    document.title = "Checkout";
+  }, []);
+
+  useEffect(() => {
     if (context && context.defaultReceiveInfo) {
       setDefaultReceiveInfo(context.defaultReceiveInfo);
     }
