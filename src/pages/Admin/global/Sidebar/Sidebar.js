@@ -30,6 +30,12 @@ const options = [
   },
   {
     id: 5,
+    title: "Report",
+    icon: "fa-light fa-hexagon-exclamation",
+    path: "/admin/portal/report",
+  },
+  {
+    id: 6,
     title: "Settings",
     icon: "fa-light fa-gear",
     path: "/admin/portal/settings",

@@ -67,6 +67,7 @@ import AllShopMng from "~/pages/Admin/AdminShopMng/AllShopMng";
 import AvailableShopMng from "~/pages/Admin/AdminShopMng/AvailableShopMng";
 import BanShopMng from "~/pages/Admin/AdminShopMng/BanShopMng";
 
+import ReportMng from "~/pages/Admin/ReportMng";
 import Setting from "~/pages/Admin/Setting";
 
 const publicRoutes = [
@@ -141,6 +142,7 @@ const publicRoutes = [
   { path: "/admin/portal/productmng/banned", component: BanProductMng },
   { path: "/admin/portal/productmng/available", component: AvailableProductMng },
 
+  { path: "/admin/portal/report", component: ReportMng },
   { path: "/admin/portal/settings", component: Setting },
 ];
 
