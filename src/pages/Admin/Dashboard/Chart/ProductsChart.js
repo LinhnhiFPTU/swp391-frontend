@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
 var options = {
@@ -37,13 +38,22 @@ var options = {
 };
 
 function ProductsChart() {
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    axios.get("/api/v1/admin/analyst/category/product")
+    .then(res => {
+      setData(res.data)
+    })
+    .catch(e => console.log(e.response.code))
+  }, [])
   return (
     <>
       <Chart
         type="donut"
         width={"100%"}
         height={"100%"}
-        series={[281, 166, 181, 251]}
+        series={data}
         options={options}
       />
     </>

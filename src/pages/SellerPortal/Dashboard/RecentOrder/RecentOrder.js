@@ -67,7 +67,7 @@ function RecentOrder() {
               {order.status}
             </div>
           </div>
-          <div className={cx("amount")}>${order.realPrice}</div>
+          <div className={cx("amount")}>${order.sellPrice}</div>
         </div>
       ))}
     </div>

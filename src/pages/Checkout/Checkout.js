@@ -55,7 +55,7 @@ function Checkout() {
     },
     specific_address: "",
   });
-  const [changed, setChanged] = useState(false)
+  const [changed, setChanged] = useState(false);
   const [cartItem, setCartItem] = useState([]);
   const UC = useContext(UserContext);
   const context = UC.state;
@@ -77,6 +77,15 @@ function Checkout() {
       setCartItem(state.item);
     }
   }, [state]);
+
+  async function vndToUsd(amount) {
+    const response = await fetch(
+      "https://api.exchangerate-api.com/v4/latest/VND"
+    );
+    const data = await response.json();
+    const rate = data.rates.USD;
+    return amount * rate;
+  }
 
   useEffect(() => {
     if (
@@ -117,9 +126,10 @@ function Checkout() {
               },
             }
           )
-          .then((res) => {
-            ci.shippingFee = res.data.data.total
-            setChanged(prev => !prev)
+          .then(async (res) => {
+            let usd = await vndToUsd(res.data.data.total)
+            ci.shippingFee = Math.round(usd);
+            setChanged((prev) => !prev);
           })
           .catch((e) => console.log(e));
       });
@@ -127,11 +137,10 @@ function Checkout() {
   }, [state.item, context]);
 
   useEffect(() => {
-    if (cartItem.length > 0)
-    {
-      setCartItem(Array.from(cartItem))
+    if (cartItem.length > 0) {
+      setCartItem(Array.from(cartItem));
     }
-  }, [changed])
+  }, [changed]);
 
   const saleCondition = (item) => {
     console.log(item);
@@ -155,7 +164,7 @@ function Checkout() {
     e.preventDefault();
     let receiveInfo = defaultReceiveInfo.id;
     let request = cartItem.map((ci, index) => ({
-      payment: payments.filter(p => p.id === paymentId)[0].title,
+      payment: payments.filter((p) => p.id === paymentId)[0].title,
       receiveInfo,
       shippingFee: ci.shippingFee,
       shopId: ci.shop.id,
@@ -165,15 +174,18 @@ function Checkout() {
         productId: cp.product.id,
       })),
     }));
-    if (paymentId === 2)
-    {
-      axios.post("/api/v1/users/payment/open?total=" + (calShippingFeeTotal() + state.total), request)
-      .then(res => {
-        window.open(res.data, "_self")
-      })
-      .catch(e => console.log(e))
-    }else
-    {
+    if (paymentId === 2) {
+      axios
+        .post(
+          "/api/v1/users/payment/open?total=" +
+            (calShippingFeeTotal() + state.total),
+          request
+        )
+        .then((res) => {
+          window.open(res.data, "_self");
+        })
+        .catch((e) => console.log(e));
+    } else {
       axios
         .post("/api/v1/users/order/create", request)
         .then((res) => setShowCheckOutPopup(true))
@@ -323,7 +335,7 @@ function Checkout() {
                     <div className={cx("shipping-detail")}>
                       <div className={cx("name")}>GHN</div>
                       <div className={cx("receive-date")}>
-                        Receive by {new Date().toLocaleDateString()} - {" "}
+                        Receive by {new Date().toLocaleDateString()} -{" "}
                         {new Date().toLocaleDateString()}
                       </div>
                     </div>

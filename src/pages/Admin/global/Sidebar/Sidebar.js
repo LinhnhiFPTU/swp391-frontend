@@ -1,6 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
 import { NavLink, useLocation } from 'react-router-dom';
+import { useEffect } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 const options = [
@@ -34,9 +36,25 @@ const options = [
     icon: "fa-light fa-gear",
     path: "/admin/portal/settings",
   },
+  {
+    id: 6,
+    title: "Wallet: 10",
+    icon: "fa-regular fa-coins",
+    path: "#",
+  },
 ];
 function Sidebar() {
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    axios.get("/api/v1/admin/wallet/")
+    .then(res => {
+      console.log(res.data)
+      options[5].title = "Wallet: $" + res.data
+    })
+    .catch(e => console.log(e))
+  }, [])
+
   return (
     <div className={cx('sidebar')}>
       <div className={cx("side-bar_menu-item")}>

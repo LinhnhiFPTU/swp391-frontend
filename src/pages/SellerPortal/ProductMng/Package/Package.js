@@ -80,30 +80,46 @@ const packages = [
 
 function Package() {
   const context = useContext(UserContext);
+  const [trial, setTrial] = useState(false);
   const dispatch = context.dispatch;
   const state = context.state;
-  const navigate = useNavigate()
-  const [purchase, setPurchase] = useState(false)
+  const navigate = useNavigate();
+  const [purchase, setPurchase] = useState(false);
 
-  const handlePurchase = (e, packageId) =>
-  {
-    axios.post("/api/v1/shop/registe?plan=" + packages[packageId].packageType.toUpperCase())
-    .then(res => {
-      setPurchase(true)
-      dispatch({
-        type: "RELOAD",
-      });
-    })
-    .catch(e => console.log(e))
-  }
+  const handlePurchase = (e, packageId) => {
+    let url = "/api/v1/shop/registe/payment?plan=";
+    if (packageId === 0) url = "/api/v1/shop/registe/trial?plan=";
+    axios
+      .post(url + packages[packageId].packageType.toUpperCase())
+      .then((res) => {
+        if (packageId === 0) {
+          setPurchase(true);
+          dispatch({
+            type: "RELOAD",
+          });
+        }else
+        {
+          window.open(res.data, "_self")
+        }
+      })
+      .catch((e) => console.log(e));
+  };
 
   useEffect(() => {
-    if (purchase)
-    {
-      navigate("/seller/portal/product/all")
+    axios
+      .get("/api/v1/shop/package/")
+      .then((res) => {
+        setTrial(res.data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
+  useEffect(() => {
+    if (purchase) {
+      navigate("/seller/portal/product/all");
     }
-  } , [state])
-  
+  }, [state]);
+
   return (
     <>
       <HeaderSeller title="Package" />
@@ -121,39 +137,53 @@ function Package() {
               the benefits you will get:
             </div>
             <div className={cx("list-package")}>
-              {packages.map((item, index) => (
-                <div className={cx("package")} key={index}>
-                  <div className={cx("desc-package")}>
-                    <div className={cx("desc-title")}>{item.packageType}</div>
-                  </div>
-                  <div className={cx("package-content")}>
-                    <div className={cx("package-price")}>
-                      <div className={cx("price")}>{item.packageFee.price}</div>
-                      <div className={cx("type")}>per {item.packageFee.type}</div>
+              {packages
+                .filter((item, index) => !(trial && index === 0))
+                .map((item, index) => (
+                  <div className={cx("package")} key={index}>
+                    <div className={cx("desc-package")}>
+                      <div className={cx("desc-title")}>{item.packageType}</div>
                     </div>
-                    <div className={cx("feature-package")}>
-                      {item.packageFeatures.map((feature, i) => (
-                        <div className={cx("feature-check")} key={i}>
-                          <i
-                            className={cx("fa-regular fa-check", "icon-check")}
-                          ></i>
-                          <span className={cx("text")}>{feature.title}</span>
+                    <div className={cx("package-content")}>
+                      <div className={cx("package-price")}>
+                        <div className={cx("price")}>
+                          {item.packageFee.price}
                         </div>
-                      ))}
+                        <div className={cx("type")}>
+                          per {item.packageFee.type}
+                        </div>
+                      </div>
+                      <div className={cx("feature-package")}>
+                        {item.packageFeatures.map((feature, i) => (
+                          <div className={cx("feature-check")} key={i}>
+                            <i
+                              className={cx(
+                                "fa-regular fa-check",
+                                "icon-check"
+                              )}
+                            ></i>
+                            <span className={cx("text")}>{feature.title}</span>
+                          </div>
+                        ))}
 
-                      {/* <div className={cx("feature-uncheck")}>
+                        {/* <div className={cx("feature-uncheck")}>
                         <i
                           className={cx("fa-regular fa-xmark", "icon-uncheck")}
                         ></i>
                         <span className={cx("text")}>Free basic tools</span>
                       </div> */}
-                    </div>
-                    <div className={cx("purchase-package")}>
-                      <button className={cx("purchase-btn")} onClick={(e) => handlePurchase(e, index)}>Purchase</button>
+                      </div>
+                      <div className={cx("purchase-package")}>
+                        <button
+                          className={cx("purchase-btn")}
+                          onClick={(e) => handlePurchase(e, index)}
+                        >
+                          Purchase
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>

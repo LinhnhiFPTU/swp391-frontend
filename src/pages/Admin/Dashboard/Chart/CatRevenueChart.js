@@ -1,24 +1,45 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
 const series = [
   {
-    name: "PRODUCT A",
+    name: "Bird",
     data: [44, 55, 41, 67, 22, 43, 65, 43, 13, 41, 51, 12, 15, 36],
   },
   {
-    name: "PRODUCT B",
+    name: "Bird Food",
     data: [13, 23, 20, 8, 13, 27, 65, 43, 13, 41, 51, 12, 15, 36],
   },
   {
-    name: "PRODUCT C",
+    name: "Bird Cage",
     data: [11, 17, 15, 15, 21, 14, 65, 43, 13, 41, 51, 12, 15, 36],
   },
   {
-    name: "PRODUCT D",
+    name: "Bird Accessory",
     data: [21, 7, 25, 13, 22, 8, 65, 43, 13, 41, 51, 12, 15, 36],
   },
 ];
+
+function getPreviousDay(date = new Date()) {
+  const previous = new Date(date.getTime());
+  previous.setDate(date.getDate() - 1);
+  return previous;
+}
+
+const lastTwoWeek = () => 
+{
+  let rs = []
+  let counter = new Date()
+  let i = 0
+  while (i <= 13)
+  {
+    rs.push(counter.toLocaleDateString())
+    counter = getPreviousDay(counter)
+    i ++
+  }
+  return rs
+}
 
 const options = {
   chart: {
@@ -62,22 +83,7 @@ const options = {
   },
   xaxis: {
     type: "datetime",
-    categories: [
-      "01/01/2011 GMT",
-      "01/02/2011 GMT",
-      "01/03/2011 GMT",
-      "01/04/2011 GMT",
-      "01/05/2011 GMT",
-      "01/06/2011 GMT",
-      "01/07/2011 GMT",
-      "01/08/2011 GMT",
-      "01/09/2011 GMT",
-      "01/10/2011 GMT",
-      "01/11/2011 GMT",
-      "01/12/2011 GMT",
-      "01/13/2011 GMT",
-      "01/14/2011 GMT",
-    ],
+    categories: lastTwoWeek().reverse(),
   },
   legend: {
     position: "right",
@@ -88,13 +94,26 @@ const options = {
   },
 };
 function CatRevenueChart() {
+  const [updateSeries, setUpdateSeries] = useState([])
+  useEffect(() => {
+    axios.get("/api/v1/admin/analyst/category/revenue")
+    .then(res => {
+      console.log(res.data)
+      let newSeries = [...series]
+      res.data.forEach((item, index) => {
+        newSeries[index].data = item
+      })
+      setUpdateSeries(newSeries)
+    })
+    .catch(e => console.log(e.response.code))
+  }, [])
   return (
     <>
       <ReactApexChart
         type="bar"
         width={"100%"}
         height={"100%"}
-        series={series}
+        series={updateSeries}
         options={options}
       />
     </>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -12,10 +12,12 @@ import VisitChart from "./PopupChart/VisitChart";
 import NewMemChart from "./PopupChart/NewMemChart";
 import OrdersChart from "./PopupChart/OrdersChart";
 import SalesChart from "./PopupChart/SalesChart";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function DashboardAdmin() {
+  const [totalData, setTotalData] = useState([])
   const [ordersChart, setOrdersChart] = useState(false);
   const [salesChart, setSalesChart] = useState(false);
   const [visitsChart, setVisitsChart] = useState(false);
@@ -32,6 +34,15 @@ function DashboardAdmin() {
   const toggleMembersChart = () => {
     setMembersChart(!membersChart);
   };
+
+  useEffect(() => {
+    axios.get("/api/v1/admin/analyst/total")
+    .then(res => {
+      setTotalData(res.data)
+    })
+    .catch(e => console.log(e.response.code))
+  }, [])
+
   return (
     <>
       <Topbar />
@@ -49,7 +60,7 @@ function DashboardAdmin() {
                 >
                   <div className={cx("card-text")}>
                     <p className={cx("card-title")}>TOTAL ORDERS</p>
-                    <p className={cx("card-number")}>323</p>
+                    <p className={cx("card-number")}>{totalData[0]}</p>
                   </div>
                   {ordersChart && (
                     <div className={cx("overlay")}>
@@ -77,7 +88,7 @@ function DashboardAdmin() {
                 >
                   <div className={cx("card-text")}>
                     <p className={cx("card-title")}>TOTAL SALES</p>
-                    <p className={cx("card-number")}>323</p>
+                    <p className={cx("card-number")}>{totalData[1]}</p>
                   </div>
                   {salesChart && (
                     <div className={cx("overlay")}>
@@ -104,7 +115,7 @@ function DashboardAdmin() {
                 >
                   <div className={cx("card-text")}>
                     <p className={cx("card-title")}>TOTAL VISITS</p>
-                    <p className={cx("card-number")}>323</p>
+                    <p className={cx("card-number")}>{totalData[2]}</p>
                   </div>
                   {visitsChart && (
                     <div className={cx("overlay")}>
@@ -131,7 +142,7 @@ function DashboardAdmin() {
                 >
                   <div className={cx("card-text")}>
                     <p className={cx("card-title")}>NEWLY MEMBERS</p>
-                    <p className={cx("card-number")}>323</p>
+                    <p className={cx("card-number")}>{totalData[3]}</p>
                   </div>
                   {membersChart && (
                     <div className={cx("overlay")}>

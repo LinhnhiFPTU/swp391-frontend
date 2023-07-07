@@ -9,7 +9,6 @@ import SideBar from "~/pages/SellerPortal/SideBar";
 import NavBar from "./NavBar";
 import HeaderFilter from "./HeaderFilter";
 import Table from "./Table";
-import { UserContext } from "~/userContext/Context";
 
 import styles from "./Product.module.scss";
 import axios from "axios";
@@ -65,8 +64,6 @@ const items = [
 ];
 
 function Product() {
-  const UC = useContext(UserContext);
-  const context = UC.state;
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
   const [headerTitle, setHeaderTitle] = useState("");
@@ -94,14 +91,15 @@ function Product() {
   }, [filter]);
 
   useEffect(() => {
-    if (context && context.shopDTO) {
-      let length = context.shopDTO.shopPackages.length - 1
-      if (context.shopDTO.shopPackages[length].shopPlan.plan == "UNREGISTE")
+    axios.get("/api/v1/shop/package/check")
+    .then(res => {
+      if (!res.data)
       {
         navigate("/seller/portal/product/package")
       }
-    }
-  }, [context]);
+    })
+    .catch(e => console.log(e))
+  }, []);
 
   const renderItems = () => {
     return current.data.map((item, index) => {

@@ -69,7 +69,7 @@ function Table({ orders }) {
               <div className={cx("body-text", "date")}>
                 {new Date(item.createdTime).toLocaleString()}
               </div>
-              <div className={cx("body-text", "price")}>${item.realPrice}</div>
+              <div className={cx("body-text", "price")}>${item.sellPrice}</div>
               <div className={cx("body-text", "status")}>
                 <div
                   className={cx("inside-status")}
