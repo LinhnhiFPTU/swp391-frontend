@@ -117,7 +117,7 @@ const publicRoutes = [
   { path: "/seller/portal/product/active", component: Active },
   { path: "/seller/portal/product/soldout", component: SoldOut },
   { path: "/seller/portal/product/pending", component: PendingProduct },
-  { path: "/seller/portal/product/band", component: Band },
+  { path: "/seller/portal/product/ban", component: Band },
   { path: "/seller/portal/product/new", component: AddProduct },
   { path: "/seller/portal/product/package", component: Package },
 

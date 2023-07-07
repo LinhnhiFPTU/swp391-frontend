@@ -20,7 +20,7 @@ const orderNavs = [
   },
   {
     title: "Ban",
-    to: "/seller/portal/product/band",
+    to: "/seller/portal/product/ban",
   },
 ];
 

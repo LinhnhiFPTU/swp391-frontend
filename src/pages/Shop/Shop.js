@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import classNames from "classnames/bind";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
@@ -9,265 +9,13 @@ import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer/Footer";
 import StarRating from "~/layouts/components/StarRating";
 import ChatPupup from "~/layouts/components/ChatPopup";
+import { UserContext } from "~/userContext/Context";
 
 import bird from "~/assets/images/bird-cage.png";
 import fire from "~/assets/images/fire.png";
 import styles from "./Shop.module.scss";
 import axios from "axios";
 const cx = classNames.bind(styles);
-
-// const recProducts = [
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "25",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "30",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "35",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "40",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "45",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "50",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "55",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "60",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "65",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "70",
-//     rating: 4,
-//     sold: 4400,
-//   },
-// ];
-
-// const bigDeals = [
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "25",
-//     rating: 4,
-//     sold: 4400,
-//     percent: 20,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "30",
-//     rating: 4,
-//     sold: 4400,
-//     percent: 20,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "35",
-//     rating: 4,
-//     sold: 4400,
-//     percent: 20,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "40",
-//     rating: 4,
-//     sold: 4400,
-//     percent: 20,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "45",
-//     rating: 4,
-//     sold: 4400,
-//     percent: 20,
-//   },
-// ];
-
-// const topSales = [
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "25",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "30",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "35",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "40",
-//     rating: 4,
-//     sold: 4400,
-//   },
-// ];
-
-// const newProducts = [
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "25",
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "30",
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "35",
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "40",
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "40",
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "40",
-//   },
-// ];
-
-// const products = [
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "25",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "30",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "35",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "40",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "45",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "50",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "55",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "60",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "65",
-//     rating: 4,
-//     sold: 4400,
-//   },
-//   {
-//     image: bird,
-//     name: "Best Choice Products 36in Indoor/Outdoor Iron Bird Cage for Medium Small Birds, Parrot, Lovebird, Finch, Parakeets, Cockatiel Enclosure w/Removable Tray, 4 Feeders, 2 Toys",
-//     price: "70",
-//     rating: 4,
-//     sold: 4400,
-//   },
-// ];
 
 const sortBarOptions = [
   {
@@ -293,20 +41,23 @@ const sortBarOptions = [
 ];
 
 function Shop() {
-  const [commentPageBtns, setCommentPageBtns] = useState([])
+  const context = useContext(UserContext);
+  const user = context.state;
+  const [commentPageBtns, setCommentPageBtns] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [shop, setShop] = useState({
     shopDetails: {
+      id: -1,
       shopImage: "",
-    name: "",
-    active: "Active 11 minutes ago",
-    products: 0,
-    rating: 5,
-    followers: 0,
-    responseRate: 100,
+      name: "",
+      active: "Active 11 minutes ago",
+      products: 0,
+      rating: 5,
+      followers: 0,
+      responseRate: 100,
     },
     products: [],
-    maxPage: 0
+    maxPage: 0,
   });
   const [typeSort, setTypeSort] = useState("Popular");
   const [priceTitle, setPriceTitle] = useState("Price");
@@ -321,7 +72,7 @@ function Shop() {
 
   useEffect(() => {
     let shopId = searchParams.get("shopId");
-    setShop(prev => ({...prev, products: []}))
+    setShop((prev) => ({ ...prev, products: [] }));
     axios
       .get(
         "/api/v1/publics/shop/" +
@@ -334,13 +85,12 @@ function Shop() {
       .then((res) => {
         console.log(res.data);
         setShop(res.data);
-        let cmtPage = []
-        for(let i = 1; i <= res.data.maxPage; i++)
-        {
-          cmtPage.push(i)
+        let cmtPage = [];
+        for (let i = 1; i <= res.data.maxPage; i++) {
+          cmtPage.push(i);
         }
-        setCommentPageBtns(cmtPage)
-        if(res.data.maxPage <= 5) setMaxPage(res.data.maxPage)
+        setCommentPageBtns(cmtPage);
+        if (res.data.maxPage <= 5) setMaxPage(res.data.maxPage);
         document.title = `${res.data.name} | Bird Trading Platform`;
       })
       .catch((e) => console.log(e));
@@ -405,6 +155,32 @@ function Shop() {
     }
   };
 
+  const handleFollowShop = (e) => {
+    e.preventDefault();
+    if (!checkOwner())
+    {
+      axios
+      .post("/api/v1/users/subscription/" + shop.shopDetails.id)
+      .then((res) => window.location.reload())
+      .catch((e) => console.log(e));
+    }
+  };
+
+  const checkFollow = () => {
+    if (user) {
+      return user.shopSubscription.indexOf(shop.shopDetails.id) != -1;
+    }
+    return false;
+  };
+
+  const checkOwner = () => {
+    if (user && shop.shopDetails.userId)
+    {
+      return shop.shopDetails.userId == user.id
+    }
+    return false
+  };
+
   return (
     <>
       <Header />
@@ -428,10 +204,29 @@ function Shop() {
                     <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
                     <span>Chat</span>
                   </button>
-                  <button className={cx("shop-follow")}>
-                    <i className={cx("fa-regular fa-plus", "icon-follow")}></i>
-                    <span>Follow</span>
-                  </button>
+                  {checkFollow() ? (
+                    <button
+                      className={cx("shop-follow")}
+                      onClick={handleFollowShop}
+                      disabled={checkOwner()}
+                    >
+                      <i
+                        className={cx("fa-regular fa-check", "icon-follow")}
+                      ></i>
+                      <span>Following</span>
+                    </button>
+                  ) : (
+                    <button
+                      className={cx("shop-follow")}
+                      onClick={handleFollowShop}
+                      disabled={checkOwner()}
+                    >
+                      <i
+                        className={cx("fa-regular fa-plus", "icon-follow")}
+                      ></i>
+                      <span>Follow</span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -439,12 +234,18 @@ function Shop() {
               <a href="#product_list" className={cx("shop-totalProducts")}>
                 <i className={cx("fa-light fa-box", "icon")}></i>
                 <span className={cx("name")}>Products: </span>
-                <span className={cx("number")}> {shop.shopDetails.products}</span>
+                <span className={cx("number")}>
+                  {" "}
+                  {shop.shopDetails.products}
+                </span>
               </a>
               <div className={cx("shop-totalFollowers")}>
                 <i className={cx("fa-light fa-user", "icon")}></i>
                 <span className={cx("name")}>Followers: </span>
-                <span className={cx("number")}> {shop.shopDetails.followers}</span>
+                <span className={cx("number")}>
+                  {" "}
+                  {shop.shopDetails.followers}
+                </span>
               </div>
               <div className={cx("shop-totalRating")}>
                 <i className={cx("fa-light fa-star", "icon")}></i>
@@ -708,7 +509,11 @@ function Shop() {
             </div>
           </div>
           <div className={cx("more-products")}>
-            <button className={cx("prev")} onClick={handlePrevCmtPage} disabled={cmtPage === 1}>
+            <button
+              className={cx("prev")}
+              onClick={handlePrevCmtPage}
+              disabled={cmtPage === 1}
+            >
               <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
             </button>
             {commentPageBtns.map(
@@ -729,7 +534,11 @@ function Shop() {
                 {"..."}
               </button>
             )}
-            <button className={cx("next")} onClick={handleNextCmtPage} disabled={cmtPage === shop.maxPage}>
+            <button
+              className={cx("next")}
+              onClick={handleNextCmtPage}
+              disabled={cmtPage === shop.maxPage}
+            >
               <i
                 className={cx(
                   "fa-solid fa-chevron-left fa-rotate-180",

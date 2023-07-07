@@ -24,8 +24,6 @@ function ChatWindow({ closeChat, color }) {
   const fileInputVideoRef = useRef();
   const textInputRef = useRef();
   const [user, setUser] = useState({});
-  const [images, setImages] = useState([]);
-  const [videos, setVideos] = useState([]);
   const [mediaMessages, setMediaMessages] = useState([]);
 
   useEffect(() => {
@@ -120,18 +118,20 @@ function ChatWindow({ closeChat, color }) {
       };
 
       const formData = new FormData();
-      videos.forEach((video, index) => {
-        formData.append("videos", video);
-      });
-
-      images.forEach((image, index) => {
-        formData.append("images", image);
-      });
+      mediaMessages.forEach((media, index) => {
+        if (media.type === "IMG")
+        {
+          formData.append("images", media.file)
+        }else
+        {
+          formData.append("videos", media.file)
+        }
+      })
 
       formData.append("message", JSON.stringify(chatMessage));
 
       axios
-        .post("app/media-message", formData, {
+        .post("/app/media-message", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -139,6 +139,7 @@ function ChatWindow({ closeChat, color }) {
         .then((res) => {
           setInputSend("");
           textInputRef.current.focus();
+          setMediaMessages([])
           console.log(res);
         })
         .catch((e) => {
@@ -172,12 +173,12 @@ function ChatWindow({ closeChat, color }) {
   };
 
   const handleChangeVideo = (e) => {
-    videos.push(e.target.files[0]);
     let length = e.target.files.length;
     for (let i = 0; i < length; i++) {
       let mediaMsg = {
         type: "VIDEO",
         file: e.target.files[i],
+        url: URL.createObjectURL(e.target.files[i])
       };
       mediaMessages.push(mediaMsg);
       setMediaMessages(Array.from(mediaMessages));
@@ -185,12 +186,12 @@ function ChatWindow({ closeChat, color }) {
   };
 
   const handleChangeImage = (e) => {
-    images.push(e.target.files[0]);
     let length = e.target.files.length;
     for (let i = 0; i < length; i++) {
       let mediaMsg = {
         type: "IMG",
         file: e.target.files[i],
+        url: URL.createObjectURL(e.target.files[i])
       };
       mediaMessages.push(mediaMsg);
       setMediaMessages(Array.from(mediaMessages));
@@ -332,7 +333,7 @@ function ChatWindow({ closeChat, color }) {
                         return (
                           <div className={cx("load-image-preview")}>
                             <img
-                              src={URL.createObjectURL(media.file)}
+                              src={media.url}
                               alt="img-preview"
                               className={cx("image-preview")}
                             />
@@ -358,7 +359,7 @@ function ChatWindow({ closeChat, color }) {
                       return (
                         <div className={cx("load-video-preview")}>
                           <video
-                            src={URL.createObjectURL(media.file)}
+                            src={media.url}
                             type="video/mp4"
                             className={cx("video-preview")}
                           />

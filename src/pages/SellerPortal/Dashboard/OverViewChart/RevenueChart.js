@@ -8,6 +8,7 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
+import { useState } from "react";
 
 ChartJS.register(
   LineElement,
@@ -18,14 +19,14 @@ ChartJS.register(
   Tooltip
 );
 
-function RevenueChart() {
-  const labels = ["00:00", "06:00", "12:00", "18:00", "23:59"];
+function RevenueChart({dataChart}) {
+  const [labels, setLabels] = useState([0, "00:00 - 05:00", "06:00 - 11:00", "12:00 - 17:00", "18:00 - 23:00"])
   const data = {
     labels: labels,
     datasets: [
       {
         label: "Today",
-        data: [1245, 5236, 3514, 2415, 7568],
+        data: dataChart.current,
         backgroundColor: "transparent",
         fill: false,
         borderColor: "#30D003",
@@ -37,7 +38,7 @@ function RevenueChart() {
       },
       {
         label: "Yesterday",
-        data: [2352, 1231, 5567, 8908, 1241],
+        data: dataChart.previous,
         backgroundColor: "transparent",
         fill: false,
         borderColor: "#C9CBCF",

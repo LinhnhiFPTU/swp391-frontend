@@ -51,6 +51,7 @@ function Product() {
       name: "Red-whiskered bulbul",
     },
     shop: {
+      id: -1,
       avatar: avatar,
       name: "Shop name",
       active: "Active 11 minutes ago",
@@ -373,10 +374,22 @@ function Product() {
     if (isBuyed)
     {
       navigate("/cart", {
-        state: product.id
+        state: [product.id]
       })
     }
   }, [Globalstate.state])
+
+  const handleSendSpecialOrder = (e) =>
+  {
+    e.preventDefault()
+    if (user) {
+      axios.post('/api/v1/users/order/special/create?id=' + product.id + '&quantity=' + valueQuantity)
+      .then(res => {
+        navigate("/purchase/contact")
+      })
+      .catch(e => console.log(e))
+    } else navigate("/login");
+  }
 
   return (
     <>
@@ -584,7 +597,7 @@ function Product() {
               <div className={cx("product-buy")}>
                 {product.category.name === "Bird" ? (
                   <>
-                    <button className={cx("contact")}>
+                    <button className={cx("contact")} onClick={handleSendSpecialOrder}>
                       <i className={cx("fa-light fa-paper-plane")}></i>
                       <span>Send Request</span>
                     </button>
@@ -597,7 +610,7 @@ function Product() {
                   <>
                     <button
                       className={cx("add")}
-                      disabled={product.available === 0}
+                      disabled={product.available === 0 || (user && user.shopDTO && (user.shopDTO.id == product.shop.id))}
                       onClick={() => {
                         if (user) {
                           setOpenToast(true);

@@ -143,13 +143,20 @@ function AddProduct() {
   };
 
   const handlePreviewImage = (e) => {
-    const file = e.target.files[0];
+    const length = e.target.files.length
+    const files = []
+    const previews = []
 
-    images.push(file);
-    setImages(Array.from(images));
+    for(let i = 0; i < length; i++)
+    {
+      const file = e.target.files[i];
+      files.push(file);
+      let url = URL.createObjectURL(file);
+      previews.push(url)
+    }
 
-    file.preview = URL.createObjectURL(file);
-    setListImage((prev) => [...prev, file.preview]);
+    setImages(prev => [...prev, ...files]);
+    setListImage((prev) => [...prev, ...previews]);
     setQuantityImage((pre) => pre + 1);
   };
 

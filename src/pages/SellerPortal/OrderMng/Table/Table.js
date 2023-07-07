@@ -32,17 +32,19 @@ const statusStyle = (status) => {
 };
 function Table({ orders }) {
   const [openListDetail, setOpenListDetail] = useState(false);
+  const [index, setIndex] = useState(0)
   if (!orders || orders.length === 0) {
     return <NoOrder />;
   }
 
-  const handleOpenDetails = () => {
+  const handleOpenDetails = (e, index) => {
     setOpenListDetail(true);
+    setIndex(index)
   };
 
   return (
     <>
-      {openListDetail && <OrderDetails setOpenListDetail={setOpenListDetail} />}
+      {openListDetail && <OrderDetails setOpenListDetail={setOpenListDetail} order={orders[index]}/>}
       <div className={cx("table_data")}>
         <div className={cx("table-head")}>
           <div className={cx("head-text", "orderId")}>Order ID</div>
@@ -59,7 +61,7 @@ function Table({ orders }) {
               <div className={cx("body-text", "order")}>
                 <button
                   className={cx("show-list-order")}
-                  onClick={handleOpenDetails}
+                  onClick={e => handleOpenDetails(e, index)}
                 >
                   List Order({item.orderDetails.length})
                 </button>

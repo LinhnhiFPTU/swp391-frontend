@@ -9,8 +9,8 @@ import axios from "axios";
 const cx = classNames.bind(styles);
 
 function DoughnutChart() {
-  const [revenues, setRevenues] = useState([0, 4, 2, 0])
-  const [categories, setCategories] = useState(["Bird", "Bird Food", "Bird Cage", "Bird Accessory"])
+  const [revenues, setRevenues] = useState([])
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
     axios.get("/api/v1/shop/category/all")

@@ -19,34 +19,121 @@ function ContentMessage({ messages, shop }) {
           }
 
           if (msg.senderId !== shop.id || msg.senderType !== "SHOP") {
-            return (
-              <div className={cx("message-container-receive")} key={index}>
-                {isShow && (
-                  <div className={cx("message-date-time-receive")}>
-                    {new Date(msg.sendTime).toLocaleString()}
+            switch (msg.type) {
+              case "TEXT":
+                return (
+                  <div className={cx("message-container-receive")} key={index}>
+                    {isShow && (
+                      <div className={cx("message-date-time-receive")}>
+                        {new Date(msg.sendTime).toLocaleString()}
+                      </div>
+                    )}
+                    <div className={cx("message-info-receive")}>
+                      <div className={cx("message-content-receive")}>
+                        {msg.content}
+                      </div>
+                    </div>
                   </div>
-                )}
-                <div className={cx("message-info-receive")}>
-                  <div className={cx("message-content-receive")}>
-                    {msg.content}
+                );
+              case "IMAGES":
+                return (
+                  <div className={cx("message-container-receive")} key={index}>
+                    {isShow && (
+                      <div className={cx("message-date-time-receive")}>
+                        {new Date(msg.sendTime).toLocaleString()}
+                      </div>
+                    )}
+                    <div className={cx("message-info-receive")}>
+                      <div className={cx("message-content-receive")}>
+                      {msg.images.map((img, index) => {
+                        let percent = 100 / msg.images.length;
+                        if (msg.images.length > 3) {
+                          percent = 100 / 3;
+                        }
+                        return (
+                          <img
+                            style={{ width: `${percent}%`}}
+                            src={img.url}
+                          />
+                        );
+                      })}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            );
+                );
+              case "VIDEOS":
+                return (
+                  <div className={cx("message-container-receive")} key={index}>
+                    {isShow && (
+                      <div className={cx("message-date-time-receive")}>
+                        {new Date(msg.sendTime).toLocaleString()}
+                      </div>
+                    )}
+                    <div className={cx("message-info-receive")}>
+                      <div className={cx("message-content-receive")}>
+                        <video controls src={msg.video} />
+                      </div>
+                    </div>
+                  </div>
+                );
+            }
           }
 
-          return (
-            <div className={cx("message-container-self")} key={index}>
-              {isShow && (
-                <div className={cx("message-date-time-self")}>
-                  {new Date(msg.sendTime).toLocaleString()}
+          switch (msg.type) {
+            case "TEXT":
+              return (
+                <div className={cx("message-container-self")} key={index}>
+                  {isShow && (
+                    <div className={cx("message-date-time-self")}>
+                      {new Date(msg.sendTime).toLocaleString()}
+                    </div>
+                  )}
+                  <div className={cx("message-info-self")}>
+                    <div className={cx("message-content-self")}>
+                      {msg.content}
+                    </div>
+                  </div>
                 </div>
-              )}
-              <div className={cx("message-info-self")}>
-                <div className={cx("message-content-self")}>{msg.content}</div>
-              </div>
-            </div>
-          );
+              );
+            case "IMAGES":
+              return (
+                <div className={cx("message-container-self")} key={index}>
+                  {isShow && (
+                    <div className={cx("message-date-time-self")}>
+                      {new Date(msg.sendTime).toLocaleString()}
+                    </div>
+                  )}
+                  <div className={cx("message-info-self")}>
+                    <div className={cx("message-content-self")}>
+                      {msg.images.map((img, index) => {
+                        let percent = 100 / msg.images.length;
+                        if (msg.images.length > 3) {
+                          percent = 100 / 3;
+                        }
+                        return (
+                          <img style={{ width: `${percent}%` }} src={img.url} />
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            case "VIDEO":
+              return (
+                <div className={cx("message-container-self")} key={index}>
+                  {isShow && (
+                    <div className={cx("message-date-time-self")}>
+                      {new Date(msg.sendTime).toLocaleString()}
+                    </div>
+                  )}
+                  <div className={cx("message-info-self")}>
+                    <div className={cx("message-content-self")}>
+                      <video controls src={msg.video} />
+                    </div>
+                  </div>
+                </div>
+              );
+          }
         })}
     </>
   );

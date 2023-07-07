@@ -38,76 +38,88 @@ const colorData = (type) => {
 function Dashboard() {
   const [widgets, setWidgets] = useState([
     {
-      id: 1,
+      id: 0,
       type: "Revenue",
       icon: "fa-solid fa-sack-dollar",
       isMoney: true,
-      data: 12878,
+      data: 0,
       title: "Today profit",
-      changeData: 21312,
-      changePercent: 8.42,
+      changeData: 0,
+      changePercent: 0,
+      previous: [],
+      current: [],
     },
     {
-      id: 2,
+      id: 1,
       type: "Order",
       icon: "fa-solid fa-cart-shopping",
       isMoney: false,
-      data: 23987,
+      data: 0,
       title: "Today orders",
-      changeData: -21312,
-      changePercent: -8.42,
+      changeData: 0,
+      changePercent: 0,
+      previous: [],
+      current: [],
     },
     {
-      id: 3,
+      id: 2,
       type: "Follower",
       icon: "fa-solid fa-user-plus",
       isMoney: false,
-      data: 3987,
+      data: 0,
       title: "Today followers",
       changeData: 0,
       changePercent: 0,
+      previous: [],
+      current: [],
     },
     {
-      id: 4,
+      id: 3,
       type: "Feedback",
       icon: "fa-solid fa-messages-question",
       isMoney: false,
-      data: 987,
+      data: 0,
       title: "Today feedbacks",
-      changeData: 21312,
-      changePercent: 8.42,
+      changeData: 0,
+      changePercent: 0,
+      previous: [],
+      current: [],
     },
-  ])
+  ]);
 
-  const [dataChart, setDataChart] = useState({
-    type: "Revenue",
-    icon: "fa-solid fa-sack-dollar",
-    isMoney: true,
-    data: 12878,
-    title: "Today profit",
-    changeData: 21312,
-    changePercent: 8.42,
-  });
+  const [index, setIndex] = useState(0);
 
+  useEffect(() => {
+    axios
+      .get("/api/v1/shop/analyst/real-time")
+      .then((res) => {
+        console.log(res.data);
+        res.data.forEach((item, index) => {
+          let totalPrev = item.prev.reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            0
+          );
+          let totalCur = item.cur.reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            0
+          );
+          console.log(item, totalPrev, totalCur)
+          widgets[index].previous = [0, ...item.prev];
+          widgets[index].current = [0, ...item.cur];
+          widgets[index].data = totalCur
+          widgets[index].changeData = totalCur - totalPrev
+          if (totalPrev === 0)
+          {
+            widgets[index].changePercent = totalCur - totalPrev
+          }else widgets[index].changePercent = Math.round((totalCur / totalPrev) * 100 - 100)
+          setWidgets(Array.from(widgets));
+        });
+      })
+      .catch((e) => console.log(e));
+  }, []);
+  
   useEffect(() => {
     document.title = "Seller Centre";
-  }, []);
-
-  useEffect(() => {
-    axios.get("/api/v1/shop/revenue/real-time")
-    .then(res => {
-      let revenues = res.data
-      var revenue =  widgets.find(it => it.id === 1)
-      revenue.data = revenues[0]
-      revenue.changeData = revenues[0] - revenues[1]
-      if (revenues[1] === 0)
-      {
-        revenue.changePercent = revenues[0] - revenues[1]
-      }else revenue.changePercent = (revenues[0] / revenues[1]) * 100 - 100
-      console.log(revenue)
-      setWidgets(Array.from(widgets))
-    })
-    .catch(e => console.log(e))
   }, [])
 
   return (
@@ -121,28 +133,26 @@ function Dashboard() {
           <div className={cx("dashboard_content")}>
             <div className={cx("daily-information")}>
               {widgets.map((widget, index) => (
-                <Widget
-                  key={index}
-                  widget={widget}
-                  setDataChart={setDataChart}
-                />
+                <Widget key={index} widget={widget} setIndex={setIndex} />
               ))}
             </div>
 
             <div className={cx("chart_overview")}>
               <div className={cx("chart-total")}>
-                <div className={cx("chart-title")}>Total {dataChart.type}</div>
+                <div className={cx("chart-title")}>
+                  Total {widgets[index].type}
+                </div>
                 <div
                   className={cx("chart-data")}
-                  style={colorData(dataChart.type)}
+                  style={colorData(widgets[index].type)}
                 >
-                  {dataChart.isMoney ? "$" : ""}
+                  {widgets[index].isMoney ? "$" : ""}
                   {(() => {
-                    let formattedNumber = dataChart.data.toLocaleString();
+                    let formattedNumber = widgets[index].data.toLocaleString();
                     return formattedNumber;
                   })()}
                 </div>
-                <OverViewChart type={dataChart.type} />
+                <OverViewChart dataChart={widgets[index]} />
               </div>
               <div className={cx("chart-revenue-by-category")}>
                 <div className={cx("title")}>Total Sale</div>

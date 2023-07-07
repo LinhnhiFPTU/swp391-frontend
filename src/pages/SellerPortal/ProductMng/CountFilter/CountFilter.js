@@ -16,9 +16,11 @@ const items = [
       data: [
         {
           title: "A-Z",
+          syntax: "a-z",
         },
         {
           title: "Z-A",
+          syntax: "z-a",
         },
       ],
     },
@@ -29,9 +31,11 @@ const items = [
       data: [
         {
           title: "High to Low",
+          syntax: "h-l",
         },
         {
           title: "Low to High",
+          syntax: "l-h",
         },
       ],
     },
@@ -42,19 +46,21 @@ const items = [
       data: [
         {
           title: "Ascending",
+          syntax: "asc",
         },
         {
           title: "Descending",
+          syntax: "desc",
         },
       ],
     },
   },
 ];
 
-function CountFilter({ count = 0 }) {
+
+function CountFilter({ count = 0 , setFilter, headerTitle, setHeaderTitle}) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
-  const [headerTitle, setHeaderTitle] = useState("");
   const [typeSort, setTypeSort] = useState("");
   const [titleFilter, setTitleFilter] = useState("Filter");
 
@@ -72,6 +78,7 @@ function CountFilter({ count = 0 }) {
               setHeaderTitle(item.title);
             } else {
               setTypeSort(item.title);
+              setFilter(item.syntax);
               setTitleFilter(item.title);
             }
           }}

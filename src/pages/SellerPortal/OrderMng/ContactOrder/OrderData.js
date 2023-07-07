@@ -2,10 +2,48 @@ import classNames from "classnames/bind";
 import NoOrder from "../NoOrder";
 
 import styles from "./ContactOrder.module.scss";
+import { useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function OrderData({ orders }) {
+  const [shippingFee, setShippingFee] = useState("");
+
+  const handleApprove = (e, order) => {
+    e.preventDefault();
+    axios
+      .post(
+        "/api/v1/shop/order/special/process/" +
+          order.id +
+          "?shippingFee=" +
+          shippingFee +
+          "&action=" +
+          "CONFIRM"
+      )
+      .then((res) => {
+        window.location.href = "/seller/portal/order/contact"
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const handleReject = (e, order) => {
+    e.preventDefault();
+    axios
+      .post(
+        "/api/v1/shop/order/special/process/" +
+          order.id +
+          "?shippingFee=" +
+          shippingFee +
+          "&action=" +
+          "REJECT"
+      )
+      .then((res) => {
+        window.location.href = "/seller/portal/order/contact"
+      })
+      .catch((e) => console.log(e));
+  };
+
   if (!orders || orders.length === 0) {
     return <NoOrder />;
   }
@@ -18,12 +56,14 @@ function OrderData({ orders }) {
             <div className={cx("user-information")}>
               <div className={cx("user-detail")}>
                 <img
-                  src={order.user.avatarUrl}
+                  src={order.user.imageurl}
                   alt="user-avatar"
                   className={cx("user-avatar")}
                 />
                 <div className={cx("user-right")}>
-                  <div className={cx("name")}>{order.user.name}</div>
+                  <div
+                    className={cx("name")}
+                  >{`${order.user.firstname} ${order.user.lastname}`}</div>
                   <div className={cx("chat")}>
                     <button className={cx("chat-btn")}>
                       <i
@@ -35,42 +75,52 @@ function OrderData({ orders }) {
                 </div>
               </div>
               <div className={cx("product-main")}>
-                <div className={cx("orderID")}>#{order.order.id}</div>
-                <div className={cx("orderDate")}>{order.order.orderDate}</div>
+                <div className={cx("orderID")}>#{order.id}</div>
+                <div className={cx("orderDate")}>
+                  {new Date(order.createdTime).toLocaleString()}
+                </div>
               </div>
             </div>
             <div className={cx("product-information")}>
-              <div className={cx("product-detail")}>
-                <img
-                  src={order.order.orderImageUrl}
-                  alt="product-img"
-                  className={cx("product-img")}
-                />
-                <div className={cx("product-content")}>
-                  <div className={cx("name")}>{order.order.orderName}</div>
-                  <div className={cx("price")}>${order.order.orderPrice}</div>
-                  <div className={cx("quantity")}>
-                    x{order.order.orderQuantity}
+              {order.orderDetails.map((od, odIndex) => (
+                <div className={cx("product-detail")}>
+                  <img
+                    src={od.product.images[0].url}
+                    alt="product-img"
+                    className={cx("product-img")}
+                  />
+                  <div className={cx("product-content")}>
+                    <div className={cx("name")}>{od.product.name}</div>
+                    <div className={cx("price")}>${od.sellPrice}</div>
+                    <div className={cx("quantity")}>x{od.quantity}</div>
                   </div>
                 </div>
-              </div>
+              ))}
               <div className={cx("product-edit")}>
                 <div className={cx("shipping-fee")}>
                   <input
                     type="number"
                     className={cx("input-fee")}
                     placeholder="Shipping fee"
+                    value={shippingFee}
+                    onChange={(e) => setShippingFee(e.target.value)}
                   />
                 </div>
                 <div className={cx("buttons")}>
                   <div className={cx("approve")}>
-                    <button className={cx("approve-btn")}>
+                    <button
+                      className={cx("approve-btn")}
+                      onClick={(e) => handleApprove(e, order)}
+                    >
                       <i className={cx("fa-solid fa-check")}></i>
                       <span className={cx("text")}>Approve</span>
                     </button>
                   </div>
                   <div className={cx("reject")}>
-                    <button className={cx("reject-btn")}>
+                    <button
+                      className={cx("reject-btn")}
+                      onClick={(e) => handleReject(e, order)}
+                    >
                       <i className={cx("fa-solid fa-xmark")}></i>
                       <span className={cx("text")}>Reject</span>
                     </button>

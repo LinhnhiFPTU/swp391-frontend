@@ -1,14 +1,15 @@
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
 import NavBar from "./NavBar";
 import HeaderFilter from "./HeaderFilter";
 import Table from "./Table";
+import { UserContext } from "~/userContext/Context";
 
 import styles from "./Product.module.scss";
 import axios from "axios";
@@ -64,6 +65,8 @@ const items = [
 ];
 
 function Product() {
+  const UC = useContext(UserContext);
+  const context = UC.state;
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
   const [headerTitle, setHeaderTitle] = useState("");
@@ -72,6 +75,7 @@ function Product() {
   const [titleFilter, setTitleFilter] = useState("Filter");
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.title = "Seller Centre";
@@ -88,6 +92,16 @@ function Product() {
       })
       .catch((e) => console.log(e));
   }, [filter]);
+
+  useEffect(() => {
+    if (context && context.shopDTO) {
+      let length = context.shopDTO.shopPackages.length - 1
+      if (context.shopDTO.shopPackages[length].shopPlan.plan == "UNREGISTE")
+      {
+        navigate("/seller/portal/product/package")
+      }
+    }
+  }, [context]);
 
   const renderItems = () => {
     return current.data.map((item, index) => {
