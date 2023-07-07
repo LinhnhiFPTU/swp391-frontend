@@ -18,6 +18,10 @@ const productNavs = [
     title: "BANNED",
     to: "/admin/portal/productmng/banned",
   },
+  {
+    title: "REPORTED",
+    to: "/admin/portal/productmng/reported",
+  }
 ];
 
 function ProductMngNav() {
@@ -36,6 +40,7 @@ function ProductMngNav() {
               "/admin/portal/productmng/all",
               "/admin/portal/productmng/available",
               "/admin/portal/productmng/banned",
+              "/admin/portal/productmng/reported"
             ].includes(pathname)
           }
         >
