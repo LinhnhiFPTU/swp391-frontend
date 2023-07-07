@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./AvailableUserMng.module.scss";
 import Sidebar from "../../global/Sidebar";
@@ -7,99 +7,9 @@ import avatar from "~/assets/images/user-avatar.png";
 import DataTable from "react-data-table-component";
 import UserMngNav from "../../AdminUserMng/UserMngNav";
 import Topbar from "../../global/Topbar";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
-
-const usersRows = [
-  {
-    id: 1,
-    avatar: avatar,
-    fullName: "Nguyen Van A",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 2,
-    avatar: avatar,
-    fullName: "Nguyen Van B",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 3,
-    avatar: avatar,
-    fullName: "Nguyen Van C",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 4,
-    avatar: avatar,
-    fullName: "Nguyen Van D",
-    email: "anv@gmail.com",
-    address: "Nguyen Dong Chi, TP.Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 5,
-    avatar: avatar,
-    fullName: "Nguyen Van E",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 6,
-    avatar: avatar,
-    fullName: "Nguyen Van F",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 7,
-    avatar: avatar,
-    fullName: "Nguyen Van G",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 8,
-    avatar: avatar,
-    fullName: "Nguyen Van H",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 9,
-    avatar: avatar,
-    fullName: "Nguyen Van I",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 10,
-    avatar: avatar,
-    fullName: "Nguyen Van J",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 11,
-    avatar: avatar,
-    fullName: "Nguyen Van K",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-];
 
 const usersColumns = [
   {
@@ -179,13 +89,36 @@ const customStyles = {
 };
 
 function AvailableUserMng() {
-    const [records, setRecords] = useState(usersRows);
+  const [search, setSearch] = useState([])
+  const [records, setRecords] = useState([]);
     const handleaFilter = (event) => {
-      const newData = usersRows.filter((row) =>
+      const newData = records.filter((row) =>
         row.fullName.toLowerCase().includes(event.target.value.toLowerCase())
       );
-      setRecords(newData);
+      setSearch(newData);
     };
+
+    useEffect(() => {
+      axios.get("/api/v1/admin/management/user")
+      .then(res => {
+        console.log(res.data)
+        let mappedUser = res.data.map(item => {
+          let mapped = {
+            id: item.id,
+            avatar: item.imageurl,
+            fullName: item.firstname + " " + item.lastname,
+            email: item.email,
+            address: item.defaultReceiveInfo ? item.defaultReceiveInfo.province.name : "",
+            status: item.enabled ? "Available" : "Banned",
+          }
+          return mapped
+        })
+        setRecords(mappedUser.filter(item => item.status === "Available"))
+        setSearch(mappedUser.filter(item => item.status === "Available"))
+      })
+      .catch(e => console.log(e.response.status))
+    }, [])
+
     return (
       <div className={cx("user-wrapper")}>
         <div className={cx("topbar")}>
@@ -210,7 +143,7 @@ function AvailableUserMng() {
               </div>
               <DataTable
                 columns={usersColumns}
-                data={records}
+                data={search}
                 customStyles={customStyles}
                 pagination
               />
