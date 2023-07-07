@@ -218,11 +218,11 @@ function Comment({ feedback, commentRating }) {
               )}
             </div>
           )}
-          {feedback.shopResponse && (
+          {feedback.feedbackReplies.length > 0 && (
             <div className={cx("shop-response")}>
               <div className={cx("response-title")}>Seller's Response:</div>
               <div className={cx("response-content")}>
-                {feedback.shopResponse}
+                {feedback.feedbackReplies[0].content}
               </div>
             </div>
           )}

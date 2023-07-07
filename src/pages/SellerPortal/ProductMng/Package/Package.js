@@ -3,6 +3,10 @@ import classNames from "classnames/bind";
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
 import styles from "./Package.module.scss";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "~/userContext/Context";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -75,6 +79,31 @@ const packages = [
 ];
 
 function Package() {
+  const context = useContext(UserContext);
+  const dispatch = context.dispatch;
+  const state = context.state;
+  const navigate = useNavigate()
+  const [purchase, setPurchase] = useState(false)
+
+  const handlePurchase = (e, packageId) =>
+  {
+    axios.post("/api/v1/shop/registe?plan=" + packages[packageId].packageType.toUpperCase())
+    .then(res => {
+      setPurchase(true)
+      dispatch({
+        type: "RELOAD",
+      });
+    })
+    .catch(e => console.log(e))
+  }
+
+  useEffect(() => {
+    if (purchase)
+    {
+      navigate("/seller/portal/product/all")
+    }
+  } , [state])
+  
   return (
     <>
       <HeaderSeller title="Package" />
@@ -120,7 +149,7 @@ function Package() {
                       </div> */}
                     </div>
                     <div className={cx("purchase-package")}>
-                      <button className={cx("purchase-btn")}>Purchase</button>
+                      <button className={cx("purchase-btn")} onClick={(e) => handlePurchase(e, index)}>Purchase</button>
                     </div>
                   </div>
                 </div>

@@ -1,14 +1,16 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
 import StarRating from "~/layouts/components/StarRating";
+import { UserContext } from "~/userContext/Context";
 
 import styles from "./Feedback.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -30,89 +32,34 @@ const filterStar = [
   },
 ];
 
-const feedbacks = [
-  {
-    data: "22/03/2023",
-    user: {
-      avatarUrl:
-        "https://www.thesun.ie/wp-content/uploads/sites/3/2022/02/crop-17770689.jpg?strip=all&quality=100&w=1920&h=1440&crop=1",
-      name: "eelVuxx",
-      rating: 4,
-    },
-    product: {
-      productImage:
-        "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-      productName: "Prevue Pet Products Travel Carrier for Birds, Black",
-      productPrice: 1200,
-    },
-    feedbackData: {
-      feedbackType: "Normal",
-      feedbackContent:
-        "Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. Shop tư vấn nhiệt tình nên mình chọn đc cỡ áo, màu hợp với mình. Áo thích hợp đi làm, đi chơi. Cảm ơn shop về sp này. Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. Sp đúng như shop mô tả. Áo thiết kế khá là trẻ trung, hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải khá là tốt. chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải",
-      feedbackVideo: "https://www.w3schools.com/html/mov_bbb.mp4",
-      feedbackImage: [
-        {
-          id: 0,
-          url: "https://m.media-amazon.com/images/I/71+4X8orK7L._AC_SL1500_.jpg",
-        },
-        {
-          id: 1,
-          url: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-        },
-        {
-          id: 2,
-          url: "https://m.media-amazon.com/images/I/81uf1-L-u1L._AC_SL1500_.jpg",
-        },
-        {
-          id: 3,
-          url: "https://m.media-amazon.com/images/I/81ESBV8P-DL._AC_SL1500_.jpg",
-        },
-      ],
-    },
-  },
-  {
-    data: "22/03/2023",
-    user: {
-      avatarUrl:
-        "https://www.thesun.ie/wp-content/uploads/sites/3/2022/02/crop-17770689.jpg?strip=all&quality=100&w=1920&h=1440&crop=1",
-      name: "eelVuxx",
-      rating: 5,
-    },
-    product: {
-      productImage:
-        "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-      productName: "Prevue Pet Products Travel Carrier for Birds, Black",
-      productPrice: 1200,
-    },
-    feedbackData: {
-      feedbackType: "Missing or Incomplete Accessories",
-      feedbackContent:
-        "Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. Shop tư vấn nhiệt tình nên mình chọn đc cỡ áo, màu hợp với mình. Áo thích hợp đi làm, đi chơi. Cảm ơn shop về sp này. Shop giao hàng nhanh chóng, đóng gói kỹ càng, cẩn thận. Sp đúng như shop mô tả. Áo thiết kế khá là trẻ trung, hiện đại, đường may chắc chắn, chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải khá là tốt. chất liệu vải khá là tốt, dày. chắc chắn, chất liệu vải",
-      feedbackVideo: "https://www.w3schools.com/html/mov_bbb.mp4",
-      feedbackImage: [
-        {
-          id: 0,
-          url: "https://m.media-amazon.com/images/I/71+4X8orK7L._AC_SL1500_.jpg",
-        },
-        {
-          id: 1,
-          url: "https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg",
-        },
-        {
-          id: 2,
-          url: "https://m.media-amazon.com/images/I/81uf1-L-u1L._AC_SL1500_.jpg",
-        },
-        {
-          id: 3,
-          url: "https://m.media-amazon.com/images/I/81ESBV8P-DL._AC_SL1500_.jpg",
-        },
-      ],
-    },
-  },
-];
-
 function FeedBack() {
+  const UC = useContext(UserContext);
+  const context = UC.state;
+  const [shop, setShop] = useState({})
   const [titleFilter, setTitleFilter] = useState("All");
+  const [feedbacks, setFeedbacks] = useState([])
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    axios.get('/api/v1/shop/feedbacks')
+    .then (res => setFeedbacks(res.data))
+    .catch(e => console.log(e))
+  }, [])
+
+  useEffect(() => {
+    if (context && context.shopDTO) {
+      setShop(context.shopDTO);
+    }
+  }, [context]);
+
+  const handleDetail = (e, feedback) => 
+  {
+    e.preventDefault();
+    navigate("detail", {
+      state: feedback
+    })
+  }
+
   return (
     <>
       <HeaderSeller title="Feedback" />
@@ -125,7 +72,7 @@ function FeedBack() {
             <div className={cx("feedback-header")}>
               <div className={cx("title")}>Shop Ratings</div>
               <div className={cx("rating-overall")}>
-                0.0 <span className={cx("overall")}>/ 5</span>
+                {shop.rating} <span className={cx("overall")}>/ 5</span>
               </div>
             </div>
             <div className={cx("feedback-details")}>
@@ -187,14 +134,14 @@ function FeedBack() {
                 <div className={cx("body-content")} key={index}>
                   <div className={cx("user-information-body")}>
                     <img
-                      src={feedback.user.avatarUrl}
+                      src={feedback.userImageUrl}
                       alt="avatar"
                       className={cx("user-avatar")}
                     />
                     <div className={cx("user-info")}>
                       <div className={cx("user-content")}>
                         <div className={cx("user-name")}>
-                          {feedback.user.name}
+                          {feedback.userName}
                         </div>
                         <div className={cx("feedback-date")}>
                           {feedback.data}
@@ -202,7 +149,7 @@ function FeedBack() {
                       </div>
                       <div className={cx("user-rating")}>
                         <StarRating
-                          rating={feedback.user.rating}
+                          rating={feedback.rate}
                           font={1.3}
                           color={`var(--primary)`}
                         />
@@ -220,19 +167,19 @@ function FeedBack() {
                   <div className={cx("feedback-information-body")}>
                     <div className={cx("feedback-type")}>
                       <span className={cx("type-title")}>Type of feedback: </span>
-                      <span className={cx("type-content")}>{feedback.feedbackData.feedbackType}</span>
+                      <span className={cx("type-content")}>{feedback.type == "REPORT" ? feedback.type + " - " + feedback.description : feedback.type}</span>
                     </div>
                     <span className={cx("feedback-data")}>
-                      {feedback.feedbackData.feedbackContent}
+                      {feedback.description}
                     </span>
                   </div>
                   <div className={cx("see-detail-body")}>
-                    <Link
-                      to="/seller/portal/feedback/detail"
+                    <a
                       className={cx("forward-detail")}
+                      onClick={e => handleDetail(e, feedback)}
                     >
                       Detail
-                    </Link>
+                    </a>
                   </div>
                 </div>
               ))}

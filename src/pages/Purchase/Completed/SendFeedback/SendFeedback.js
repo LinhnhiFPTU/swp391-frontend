@@ -18,9 +18,8 @@ function SendFeedback({ setOpenFeedback, order, setOrder }) {
   };
 
   useEffect(() => {
-    if (!feedbackCondition(order))
-    {
-      setOpenFeedback(false)
+    if (!feedbackCondition(order)) {
+      setOpenFeedback(false);
       return;
     }
     setCurProduct((prev) => {
@@ -29,13 +28,14 @@ function SendFeedback({ setOpenFeedback, order, setOrder }) {
       if (orderDetails) {
         id = orderDetails.product.id;
       }
-      return {...prev, productId: id };
+      return { ...prev, productId: id };
     });
   }, [order]);
 
   const handleSendFeedback = (e) => {
     e.preventDefault();
     if (curProduct.description) {
+      let url = "/api/v1/users/order/feedbacks"
       var feedback = {
         orderId: order.id,
         productId: curProduct.productId,
@@ -43,6 +43,17 @@ function SendFeedback({ setOpenFeedback, order, setOrder }) {
         rate: curProduct.rating,
         description: curProduct.description,
       };
+
+      if (curProduct.type === "REPORT") {
+        feedback = {
+          orderId: order.id,
+          productId: curProduct.productId,
+          time: new Date(),
+          reason: curProduct.reason,
+          description: curProduct.description,
+        };
+        url = "/api/v1/users/order/reports"
+      }
 
       const formData = new FormData();
       formData.append("video", curProduct.video);
@@ -52,7 +63,7 @@ function SendFeedback({ setOpenFeedback, order, setOrder }) {
 
       formData.append("feedback", JSON.stringify(feedback));
       axios
-        .post("/api/v1/users/order/feedbacks", formData, {
+        .post(url, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -99,7 +110,13 @@ function SendFeedback({ setOpenFeedback, order, setOrder }) {
               setCurProduct={setCurProduct}
             />
           )}
-          {typeFeedback === "Report Product" && <ReportProduct order={order} />}
+          {typeFeedback === "Report Product" && (
+            <ReportProduct
+              order={order}
+              curProduct={curProduct}
+              setCurProduct={setCurProduct}
+            />
+          )}
           <div className={cx("submit-feedback")}>
             <button
               className={cx("cancel-btn")}

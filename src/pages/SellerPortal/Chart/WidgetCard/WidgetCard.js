@@ -60,8 +60,8 @@ function WidgetCart({
         });
       }
     } else {
-      selectedWidget.push(data.id);
-      setSelectedWidget(Array.from(selectedWidget));
+      let newArr = [data.id]
+      setSelectedWidget(Array.from(newArr));
     }
   };
 

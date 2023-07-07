@@ -83,6 +83,7 @@ function RateProduct({ order, curProduct, setCurProduct}) {
   };
 
   useEffect(() => {
+    curProduct.type = "rate"
     curProduct.rating = rating
     setCurProduct(curProduct)
   }, [rating])
@@ -109,7 +110,7 @@ function RateProduct({ order, curProduct, setCurProduct}) {
     let rs = "00:00";
     if (duration) {
       let minute = Math.floor(duration / 60);
-      let seconds = duration % 60;
+      let seconds = duration % 60
       let secString = "";
       if (seconds < 10) secString = "0" + seconds;
       else secString = seconds;

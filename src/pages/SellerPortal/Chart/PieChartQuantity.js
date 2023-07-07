@@ -8,14 +8,14 @@ const cx = classNames.bind(styles);
 const series = [100, 156, 317, 124];
 
 
-function PieChartQuantity() {
+function PieChartQuantity({data = series}) {
   return (
     <div className={cx("pieChart")}>
       <Chart
         type="donut"
         width={"100%"}
         height={"100%"}
-        series={series}
+        series={data}
         options={options}
       />
     </div>

@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import MyAddress from "./MyAddress";
 import PaymentMethod from "./PaymentMethod";
 import CheckoutPopup from "./CheckoutPopup";
-import {UserContext} from "~/userContext/Context";
+import { UserContext } from "~/userContext/Context";
 import AddressPopup from "~/layouts/components/AddressPopup/AddressPopup";
 
 import Footer from "~/layouts/components/Footer";
@@ -36,7 +36,7 @@ function Checkout() {
   const [showCheckOutPopup, setShowCheckOutPopup] = useState(false);
   const [paymentId, setPaymentId] = useState(1);
   const [openAddress, setOpenAddress] = useState(true);
-  const [infoReceive, setInfoReceive] = useState(false)
+  const [infoReceive, setInfoReceive] = useState(false);
   const [defaultReceiveInfo, setDefaultReceiveInfo] = useState({
     id: 0,
     fullname: "",
@@ -55,9 +55,10 @@ function Checkout() {
     },
     specific_address: "",
   });
+  const [changed, setChanged] = useState(false)
   const [cartItem, setCartItem] = useState([]);
-  const UC = useContext((UserContext))
-  const context = UC.state
+  const UC = useContext(UserContext);
+  const context = UC.state;
 
   useEffect(() => {
     if (context && context.defaultReceiveInfo) {
@@ -65,13 +66,68 @@ function Checkout() {
     }
   }, [context]);
 
+  console.log(state);
+
   useEffect(() => {
     if (state) {
       setCartItem(state.item);
     }
   }, [state]);
 
-  console.log(state);
+  useEffect(() => {
+    if (
+      context &&
+      context.defaultReceiveInfo &&
+      context.defaultReceiveInfo.district.name &&
+      state.item &&
+      cartItem.length > 0
+    ) {
+      let receiveInfo = context.defaultReceiveInfo;
+      cartItem.forEach((ci, index) => {
+        let calObj = {
+          from_province_id: ci.shop.address.province.id,
+          from_district_id: ci.shop.address.district.id,
+          from_ward_code: ci.shop.address.ward.id,
+          service_id: 53320,
+          service_type_id: 2,
+          to_province_id: receiveInfo.province.id,
+          to_district_id: receiveInfo.district.id,
+          to_ward_code: receiveInfo.ward.id,
+          height: 50,
+          length: 20,
+          weight: 200,
+          width: 20,
+          insurance_value: 10000,
+          cod_failed_amount: 2000,
+          coupon: null,
+        };
+
+        axios
+          .post(
+            "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+            calObj,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Token: "fc0ea700-c65d-11ed-ab31-3eeb4194879e",
+              },
+            }
+          )
+          .then((res) => {
+            ci.shippingFee = res.data.data.total
+            setChanged(prev => !prev)
+          })
+          .catch((e) => console.log(e));
+      });
+    }
+  }, [state.item, context]);
+
+  useEffect(() => {
+    if (cartItem.length > 0)
+    {
+      setCartItem(Array.from(cartItem))
+    }
+  }, [changed])
 
   const saleCondition = (item) => {
     console.log(item);
@@ -92,9 +148,10 @@ function Checkout() {
   };
 
   const handleOrder = (e) => {
-    let receiveInfo = defaultReceiveInfo.id
-
+    e.preventDefault();
+    let receiveInfo = defaultReceiveInfo.id;
     let request = cartItem.map((ci, index) => ({
+      payment: payments.filter(p => p.id === paymentId)[0].title,
       receiveInfo,
       shippingFee: ci.shippingFee,
       shopId: ci.shop.id,
@@ -104,24 +161,42 @@ function Checkout() {
         productId: cp.product.id,
       })),
     }));
-    e.preventDefault();
-    axios
-      .post("/api/v1/users/order/create", request)
-      .then((res) => setShowCheckOutPopup(true))
-      .catch((e) => console.log(e));
+    if (paymentId === 2)
+    {
+      axios.post("/api/v1/users/payment/open?total=" + (calShippingFeeTotal() + state.total), request)
+      .then(res => {
+        window.open(res.data, "_self")
+      })
+      .catch(e => console.log(e))
+    }else
+    {
+      axios
+        .post("/api/v1/users/order/create", request)
+        .then((res) => setShowCheckOutPopup(true))
+        .catch((e) => console.log(e));
+    }
+  };
+
+  const calShippingFee = (cartItem) => {};
+
+  const calShippingFeeTotal = () => {
+    return cartItem.reduce((total, item) => {
+      return total + item.shippingFee;
+    }, 0);
   };
 
   return (
     <>
-      {openAddress &&
-        defaultReceiveInfo.specific_address === "" &&
-        defaultReceiveInfo.ward.name === "" &&
-        defaultReceiveInfo.district.name === "" &&
-        defaultReceiveInfo.province.name === "" && (
-          <AddressPopup closeModel={setOpenAddress} receiveInfoChange={setInfoReceive}/>
-        )}
+      {openAddress && defaultReceiveInfo.province.name === "" && (
+        <AddressPopup
+          closeModel={setOpenAddress}
+          receiveInfoChange={setInfoReceive}
+        />
+      )}
       {showCheckOutPopup && <CheckoutPopup />}
-      {show && <MyAddress close={setShow} setReceiveInfo={setDefaultReceiveInfo}/>}
+      {show && (
+        <MyAddress close={setShow} setReceiveInfo={setDefaultReceiveInfo} />
+      )}
       <div className={cx("checkout_wrapper")}>
         {/*------------------HEADER-------------------*/}
         <div className={cx("checkout_header")}>
@@ -165,9 +240,10 @@ function Checkout() {
                     </span>
                   )}
 
-                  {defaultReceiveInfo.specific_address !== "" && defaultReceiveInfo._default && (
-                    <span className={cx("default")}>Default</span>
-                  )}
+                  {defaultReceiveInfo.specific_address !== "" &&
+                    defaultReceiveInfo._default && (
+                      <span className={cx("default")}>Default</span>
+                    )}
                 </div>
                 <div className={cx("address-change")}>
                   <button
@@ -243,13 +319,15 @@ function Checkout() {
                     <div className={cx("shipping-detail")}>
                       <div className={cx("name")}>GHN</div>
                       <div className={cx("receive-date")}>
-                        Receive by {new Date().toLocaleDateString()} -{" "}
+                        Receive by {new Date().toLocaleDateString()} - {" "}
                         {new Date().toLocaleDateString()}
                       </div>
                     </div>
                   </div>
 
-                  <div className={cx("shipping-price")}>${0}</div>
+                  <div className={cx("shipping-price")}>
+                    ${item.shippingFee}
+                  </div>
                 </div>
                 <div className={cx("product-total")}>
                   <span className={cx("order-total")}>
@@ -260,7 +338,7 @@ function Checkout() {
                     ):
                   </span>
                   <span className={cx("price-total")}>
-                    ${totalPrice(item.cartProducts, 0)}
+                    ${totalPrice(item.cartProducts, item.shippingFee)}
                   </span>
                 </div>
               </div>
@@ -289,7 +367,9 @@ function Checkout() {
                     </div>
                     <div className={cx("shipping-total", "content")}>
                       <div className={cx("text")}>Shipping Total:</div>
-                      <div className={cx("price")}>$0</div>
+                      <div className={cx("price")}>
+                        ${calShippingFeeTotal()}
+                      </div>
                     </div>
                     <div className={cx("voucher", "content")}>
                       <div className={cx("text")}>Voucher</div>
@@ -297,7 +377,9 @@ function Checkout() {
                     </div>
                     <div className={cx("total-payment", "content")}>
                       <div className={cx("text")}>Total Payment:</div>
-                      <div className={cx("price")}>${state.total}</div>
+                      <div className={cx("price")}>
+                        ${calShippingFeeTotal() + state.total}
+                      </div>
                     </div>
                   </div>
                 </div>

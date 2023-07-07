@@ -51,6 +51,7 @@ function Product() {
       name: "Red-whiskered bulbul",
     },
     shop: {
+      id: -1,
       avatar: avatar,
       name: "Shop name",
       active: "Active 11 minutes ago",
@@ -609,7 +610,7 @@ function Product() {
                   <>
                     <button
                       className={cx("add")}
-                      disabled={product.available === 0}
+                      disabled={product.available === 0 || (user && user.shopDTO && (user.shopDTO.id == product.shop.id))}
                       onClick={() => {
                         if (user) {
                           setOpenToast(true);

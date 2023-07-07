@@ -22,7 +22,6 @@ function Cart() {
   const dispatch = Globalstate.dispatch;
   const navigate = useNavigate();
 
-
   useEffect(() => {
     if (paramLocation.state) {
       console.log(paramLocation)

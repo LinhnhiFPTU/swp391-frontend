@@ -18,7 +18,7 @@ function AddressPopup({ closeModel, receiveInfoChange }) {
     specific_address: "",
     _default: false,
   });
-  const [add, setAdd] = useState(false)
+  const [add, setAdd] = useState(false);
   const context = useContext(UserContext);
   const dispatch = context.dispatch;
   const state = context.state;
@@ -47,7 +47,9 @@ function AddressPopup({ closeModel, receiveInfoChange }) {
         }
       )
       .then((res) => {
+        console.log(res.data);
         let newArr = res.data.data
+          .filter((p) => p.NameExtension)
           .map((p) => ({
             id: p.ProvinceID,
             name: p.NameExtension[0],
@@ -154,7 +156,7 @@ function AddressPopup({ closeModel, receiveInfoChange }) {
         dispatch({
           type: "RELOAD",
         });
-        setAdd(true)
+        setAdd(true);
       })
       .catch((e) => {
         console.log(e);
@@ -167,7 +169,6 @@ function AddressPopup({ closeModel, receiveInfoChange }) {
         <div className={cx("addr-container")}>
           <div className={cx("popup-head")}>
             <span className={cx("popup-head-text")}>New receive info</span>
-            
           </div>
           <div className={cx("popup-content")}>
             <div className={cx("addr-content")}>
