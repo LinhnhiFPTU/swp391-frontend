@@ -13,14 +13,14 @@ function Topbar() {
     <div className={cx("header")}>
       <div className={cx("header-content")}>
         <div className={cx("header-link")}>
-          <Link to="" className={cx("link")}>
+          <Link to="/admin/portal/dashboard" className={cx("link")}>
             <p className={cx("text")}>
               <span className={cx("sub-text")}>B</span>ird
               <span className={cx("inner-subText")}>
                 <span className={cx("sub-text")}>T</span>rading
               </span>
             </p>
-            {/* <div className={cx("otherText")}>Dashboard</div> */}
+            <div className={cx("otherText")}>Admin</div>
           </Link>
         </div>
         {/* <div className={cx("header-info")}>
@@ -50,8 +50,7 @@ function Topbar() {
                 </PopperWrapper>
               </div>
             )}
-          >
-          </Tippy>
+          ></Tippy>
         </div> */}
       </div>
     </div>

@@ -28,7 +28,7 @@ var options = {
             width: 12,
             height: 12,
         },
-        offsetY: 5,
+        offsetY: 10,
         itemMargin: {
             horizontal: 10,
             vertical: 5,
