@@ -1,1 +1,1 @@
-export { default } from './ShopAddressPopup'
+export {default} from './ShopAddressPopup'

@@ -1,1 +1,1 @@
-export { default } from "./NotificationsDropdown"
+export {default} from "./NotificationsDropdown"

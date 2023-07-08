@@ -28,21 +28,21 @@ const cx = classNames.bind(styles);
 // ];
 
 function Banner() {
-  return (
-    <div className={cx("banner")}>
-      <div className={cx("banner-slider")}>
-        <img src={banner} alt="banner-slider" />
-      </div>
-      <div className={cx("banner-right")}>
-        <div className={cx("banner-item-1")}>
-          <img src={banner1} alt="banner-item" />
+    return (
+        <div className={cx("banner")}>
+            <div className={cx("banner-slider")}>
+                <img src={banner} alt="banner-slider"/>
+            </div>
+            <div className={cx("banner-right")}>
+                <div className={cx("banner-item-1")}>
+                    <img src={banner1} alt="banner-item"/>
+                </div>
+                <div className={cx("banner-item-2")}>
+                    <img src={banner1} alt="banner-item"/>
+                </div>
+            </div>
         </div>
-        <div className={cx("banner-item-2")}>
-          <img src={banner1} alt="banner-item" />
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Banner;

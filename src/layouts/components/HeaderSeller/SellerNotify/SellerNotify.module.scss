@@ -3,6 +3,7 @@
   position: relative;
   width: 2.6rem;
   height: 2.6rem;
+
   .count-notify {
     user-select: none;
     position: absolute;
@@ -19,12 +20,14 @@
     color: #fff;
     background: #f97b22;
   }
+
   .dropdown-notify {
     .bell-icon {
       font-size: 2rem;
       color: #333;
     }
   }
+
   .notify-items {
     width: 400px;
 
@@ -45,6 +48,7 @@
         font-size: 15px;
       }
     }
+
     .dropdown_container {
       margin-top: 10px;
 
@@ -78,10 +82,12 @@
 
           .notify-info {
             margin-left: 10px;
+
             .title-notify {
               font-size: 1.4rem;
               color: #000000cc;
             }
+
             .notify-desc {
               font-size: 1.2rem;
               word-wrap: break-word;

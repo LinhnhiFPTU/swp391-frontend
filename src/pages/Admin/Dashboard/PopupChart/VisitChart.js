@@ -39,7 +39,7 @@ function VisitChart() {
         },
     };
     return (
-        <Chart options={options} series={series} type="line" height={500} />
+        <Chart options={options} series={series} type="line" height={500}/>
     )
 }
 

@@ -1,5 +1,6 @@
 .message-container-receive {
   padding-bottom: 16px;
+
   .message-date-time-receive {
     width: 100%;
     display: flex;
@@ -27,7 +28,7 @@
       flex-wrap: wrap;
 
       img {
-        aspect-ratio : 1 / 1;
+        aspect-ratio: 1 / 1;
         max-width: 100%;
         border-radius: 5px;
       }
@@ -42,6 +43,7 @@
 
 .message-container-self {
   padding-bottom: 16px;
+
   .message-date-time-self {
     width: 100%;
     display: flex;
@@ -51,6 +53,7 @@
     font-size: 1.2rem;
     color: #65676b;
   }
+
   .message-info-self {
     width: 100%;
     padding: 0 20px;
@@ -72,7 +75,7 @@
       flex-wrap: wrap;
 
       img {
-        aspect-ratio : 1 / 1;
+        aspect-ratio: 1 / 1;
         max-width: 100%;
         border-radius: 5px;
       }

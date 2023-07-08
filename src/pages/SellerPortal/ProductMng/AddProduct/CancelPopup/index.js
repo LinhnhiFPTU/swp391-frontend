@@ -1,1 +1,1 @@
-export { default } from './CancelPopup'
+export {default} from './CancelPopup'

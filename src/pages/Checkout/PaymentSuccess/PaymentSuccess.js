@@ -5,11 +5,11 @@ import styles from "./PaymentSuccess.module.scss"
 const cx = classNames.bind(styles)
 
 function PaymentSuccess() {
-  return (
-    <>
-      
-    </>
-  );
+    return (
+        <>
+
+        </>
+    );
 }
 
 export default PaymentSuccess;

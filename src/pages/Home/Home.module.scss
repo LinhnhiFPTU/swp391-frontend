@@ -194,14 +194,14 @@
   width: 42px;
   height: 38px;
   clip-path: polygon(
-    30% 0%,
-    70% 0%,
-    100% 0,
-    100% 100%,
-    48% 84%,
-    0 100%,
-    0 100%,
-    0 0
+                  30% 0%,
+                  70% 0%,
+                  100% 0,
+                  100% 100%,
+                  48% 84%,
+                  0 100%,
+                  0 100%,
+                  0 0
   );
   background-color: var(--flash_sale-primary);
 }
@@ -327,6 +327,7 @@
     color: #333;
   }
 }
+
 .best-seller_item {
   width: 212px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;

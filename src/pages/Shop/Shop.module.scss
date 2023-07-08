@@ -55,6 +55,7 @@
 
 .shop-active {
   margin-bottom: 10px;
+
   span {
     font-size: 1.2rem;
     color: #0000008a;
@@ -97,8 +98,7 @@
     }
   }
 
-  .shop-follow:disabled
-  {
+  .shop-follow:disabled {
     opacity: 0.2;
   }
 }
@@ -297,14 +297,14 @@
         font-weight: 500;
         text-align: center;
         clip-path: polygon(
-          30% 0%,
-          70% 0%,
-          100% 0,
-          100% 100%,
-          48% 84%,
-          0 100%,
-          0 100%,
-          0 0
+                        30% 0%,
+                        70% 0%,
+                        100% 0,
+                        100% 100%,
+                        48% 84%,
+                        0 100%,
+                        0 100%,
+                        0 0
         );
         background-color: var(--primary);
         color: #fff;
@@ -574,6 +574,7 @@
     cursor: pointer;
     padding: 10px;
   }
+
   .option:hover {
     color: var(--primary);
   }
@@ -581,6 +582,7 @@
 
 .all_products {
   padding-top: 30px;
+
   .all_product-list {
     width: var(--width);
     display: grid;

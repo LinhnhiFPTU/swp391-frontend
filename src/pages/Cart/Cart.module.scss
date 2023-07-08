@@ -16,6 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   p {
     font-size: 16px;
     font-weight: 500;
@@ -25,6 +26,7 @@
   img {
     width: 150px;
   }
+
   .goback-link {
     padding: 10px 42px;
     text-decoration: none;
@@ -32,6 +34,7 @@
     background: var(--primary);
   }
 }
+
 .cart-header {
   width: var(--width);
   margin: 0 auto;
@@ -69,6 +72,7 @@
 
 .shop_checkbox {
   padding: 15px 30px;
+
   span {
     margin-left: 15px;
   }
@@ -125,6 +129,7 @@
 
 .product-quantity {
   display: flex;
+
   p {
     font-size: 15px;
     width: 30px;
@@ -148,6 +153,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .cart-left {
   width: 50%;
   display: flex;
@@ -159,6 +165,7 @@
     padding-left: 20px;
   }
 }
+
 .selectAll {
   display: flex;
   align-items: center;

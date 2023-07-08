@@ -1,27 +1,26 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createContext, useEffect, useState } from "react";
-import { publicRoutes, privateRoutes } from "~/routes";
-import PrivateRoutes from "~/routes/PrivateRoutes";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {useState} from "react";
+import {publicRoutes} from "~/routes";
 import NotFound from "~/pages/NotFound"
-import { Context } from "./userContext/Context";
+import {Context} from "./userContext/Context";
 
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState();
+    const [user, setUser] = useState();
 
-  return (
-    <Router>
-      <Context>
-        <div className="App">
-          <Routes>
-            <Route path="*" element={<NotFound />} />
-            {publicRoutes.map((route, index) => {
-              let Page = route.component;
-              return <Route key={index} path={route.path} element={<Page />} />;
-            })}
+    return (
+        <Router>
+            <Context>
+                <div className="App">
+                    <Routes>
+                        <Route path="*" element={<NotFound/>}/>
+                        {publicRoutes.map((route, index) => {
+                            let Page = route.component;
+                            return <Route key={index} path={route.path} element={<Page/>}/>;
+                        })}
 
-            {/* <Route element={<PrivateRoutes/>}>
+                        {/* <Route element={<PrivateRoutes/>}>
               {privateRoutes.map((route, index) => {
                 let Page = route.component;
                 return (
@@ -29,11 +28,11 @@ function App() {
                 );
               })}
             </Route> */}
-          </Routes>
-        </div>
-      </Context>
-    </Router>
-  );
+                    </Routes>
+                </div>
+            </Context>
+        </Router>
+    );
 }
 
 export default App;

@@ -1,1 +1,1 @@
-export { default } from "./RecentOrder" 
+export {default} from "./RecentOrder"

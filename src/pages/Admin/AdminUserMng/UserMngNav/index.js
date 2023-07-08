@@ -1,1 +1,1 @@
-export { default } from "./UserMngNav"
+export {default} from "./UserMngNav"

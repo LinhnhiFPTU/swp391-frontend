@@ -1,1 +1,1 @@
-export { default } from './Cancel'
+export {default} from './Cancel'

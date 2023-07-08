@@ -8,6 +8,7 @@
   .notify_sidebar {
     width: 198px;
   }
+
   .notify_container {
     width: calc(100% - 198px);
     height: 100%;
@@ -54,6 +55,7 @@
           &:hover {
             background-color: #f8f8f8;
           }
+
           .notify-img {
             width: 60px;
             height: 60px;
@@ -64,6 +66,7 @@
             .title-notify {
               margin-bottom: 5px;
             }
+
             .notify-desc {
               margin-bottom: 5px;
               font-size: 1.4rem;
@@ -76,6 +79,7 @@
               -webkit-box-orient: vertical;
               -webkit-line-clamp: 2;
             }
+
             .notify-date-time {
               font-size: 1.4rem;
               color: #0000008a;

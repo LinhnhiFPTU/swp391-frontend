@@ -60,21 +60,22 @@
 
     .checkout_inner {
       width: var(--width);
+
       .style_address {
         height: 3px;
         width: 100%;
         background-position-x: -30px;
         background-size: 116px 3px;
         background-image: repeating-linear-gradient(
-          45deg,
-          #6fa6d6,
-          #6fa6d6 33px,
-          transparent 0,
-          transparent 41px,
-          #f18d9b 0,
-          #f18d9b 74px,
-          transparent 0,
-          transparent 82px
+                        45deg,
+                        #6fa6d6,
+                        #6fa6d6 33px,
+                        transparent 0,
+                        transparent 41px,
+                        #f18d9b 0,
+                        #f18d9b 74px,
+                        transparent 0,
+                        transparent 82px
         );
       }
 
@@ -104,6 +105,7 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
+
           .address-info {
             .name,
             .phone {
@@ -204,6 +206,7 @@
         .product-order {
           padding-bottom: 20px;
           border-bottom: 1px dashed #e4e2e2dd;
+
           .product {
             height: 70px;
             display: flex;
@@ -305,6 +308,7 @@
 
         .payment-method-header {
           padding: 30px;
+
           .title {
             font-size: 1.8rem;
             color: #222222;
@@ -327,6 +331,7 @@
               border-radius: 4px;
               margin-bottom: 10px;
               cursor: pointer;
+
               .cash {
                 .main-content {
                   display: flex;
@@ -368,6 +373,7 @@
                 }
               }
             }
+
             .card-container {
               width: 352px;
               border: 1px solid #dadada;
@@ -402,6 +408,7 @@
                     .icon {
                       color: #757575;
                     }
+
                     .icon-active {
                       color: #0b99b9;
                     }
@@ -419,6 +426,7 @@
               }
             }
           }
+
           .payment-detail {
             display: flex;
             align-items: center;
@@ -426,6 +434,7 @@
 
             .payment-order {
               width: 300px;
+
               .content {
                 height: 50px;
                 display: flex;

@@ -1,1 +1,1 @@
-export { default } from "./ContentMessage"
+export {default} from "./ContentMessage"

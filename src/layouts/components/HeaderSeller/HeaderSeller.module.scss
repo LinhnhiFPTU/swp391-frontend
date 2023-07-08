@@ -96,8 +96,10 @@
 
       .option-first {
         padding: 10px;
+
         &:hover {
           background-color: #f6f6f6;
+
           .icon-sub {
             color: var(--primary);
           }
@@ -106,6 +108,7 @@
             color: var(--primary);
           }
         }
+
         .shop-profile {
           text-decoration: none;
           color: #333;
@@ -135,6 +138,7 @@
             color: var(--primary);
           }
         }
+
         .logout-link {
           text-decoration: none;
           color: #333;

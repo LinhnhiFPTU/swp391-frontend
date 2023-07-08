@@ -50,20 +50,24 @@
           font-size: 1.2rem;
           margin-right: 10px;
         }
+
         .filter-text {
           font-size: 1.6rem;
           font-weight: 500;
           color: #000000cc;
         }
       }
+
       .product-search_category-filter {
         padding: 20px 0;
         border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+
         .category-header {
           font-size: 1.4rem;
           color: #000000cc;
           margin-bottom: 10px;
         }
+
         .category-body {
           width: 100%;
 
@@ -238,6 +242,7 @@
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             text-decoration: none;
           }
+
           .shop-item_info {
             width: 430px;
             padding: 0 30px 0 20px;
@@ -293,6 +298,7 @@
             .seller-info-item {
               padding: 0 10px;
               border-left: 1px solid #cacaca8a;
+
               .header {
                 .icon {
                   margin-right: 8px;
@@ -321,6 +327,7 @@
 
       .result_header {
         margin-bottom: 30px;
+
         i {
           margin-right: 12px;
           font-size: 2rem;
@@ -402,6 +409,7 @@
           cursor: pointer;
           padding: 10px;
         }
+
         .option:hover {
           color: var(--primary);
         }

@@ -37,6 +37,7 @@
         .rating-overall {
           font-size: 4rem;
           color: var(--primary);
+
           .overall {
             font-size: 2rem;
             color: #8c8c8c;
@@ -46,6 +47,7 @@
 
       .feedback-details {
         padding: 0 24px;
+
         .feedback-statistic {
           display: flex;
           align-items: center;
@@ -111,6 +113,7 @@
         .body-content {
           display: flex;
           padding: 24px 12px;
+
           .user-information-body {
             width: 400px;
             display: flex;
@@ -135,6 +138,7 @@
                   margin-right: 10px;
                   font-size: 1.4rem;
                 }
+
                 .feedback-date {
                   margin-left: 10px;
                   font-size: 1.3rem;
@@ -170,9 +174,11 @@
 
             .feedback-type {
               margin-bottom: 5px;
+
               .type-title {
                 font-size: 1.5rem;
               }
+
               .type-content {
                 font-size: 1.7rem;
                 font-weight: 500;

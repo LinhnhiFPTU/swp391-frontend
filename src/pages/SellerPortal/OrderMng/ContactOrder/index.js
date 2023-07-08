@@ -1,1 +1,1 @@
-export { default } from "./ContactOrder"
+export {default} from "./ContactOrder"

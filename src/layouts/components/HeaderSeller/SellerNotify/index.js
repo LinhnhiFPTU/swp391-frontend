@@ -1,1 +1,1 @@
-export { default } from "./SellerNotify";
+export {default} from "./SellerNotify";

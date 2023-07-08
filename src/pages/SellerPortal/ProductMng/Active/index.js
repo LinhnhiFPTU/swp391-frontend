@@ -1,1 +1,1 @@
-export { default } from './Active'
+export {default} from './Active'

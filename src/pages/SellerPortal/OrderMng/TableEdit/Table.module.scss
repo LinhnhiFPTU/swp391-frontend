@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+
   .table-head {
     height: 58px;
     display: flex;
@@ -45,6 +46,7 @@
       text-align: center;
     }
   }
+
   .table-content {
     .table-body {
       display: flex;
@@ -62,6 +64,7 @@
       .name {
         width: 160px;
         text-align: center;
+
         .show-list-order {
           border: none;
           outline: none;
@@ -89,6 +92,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
         .inside-status {
           width: 100px;
           padding: 3px 10px;
@@ -146,6 +150,7 @@
         }
       }
     }
+
     .prev-next {
       width: 100%;
       display: flex;

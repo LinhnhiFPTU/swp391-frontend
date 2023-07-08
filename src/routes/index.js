@@ -58,7 +58,6 @@ import DashboardAdmin from "~/pages/Admin/Dashboard";
 import AllUserMng from "~/pages/Admin/AdminUserMng/AllUserMng/AllUserMng";
 import AvailableUserMng from "~/pages/Admin/AdminUserMng/AvailableUserMng";
 import BanUserMng from "~/pages/Admin/AdminUserMng/BanUserMng";
-import ReportedUserMng from "~/pages/Admin/AdminUserMng/ReportedUserMng";
 
 import AllProductMng from "~/pages/Admin/AdminProductMng/AllProductMng";
 import AvailableProductMng from "~/pages/Admin/AdminProductMng/AvailableProductMng";
@@ -67,91 +66,86 @@ import BanProductMng from "~/pages/Admin/AdminProductMng/BanProductMng";
 import AllShopMng from "~/pages/Admin/AdminShopMng/AllShopMng";
 import AvailableShopMng from "~/pages/Admin/AdminShopMng/AvailableShopMng";
 import BanShopMng from "~/pages/Admin/AdminShopMng/BanShopMng";
-import ReportedShopMng from "~/pages/Admin/AdminShopMng/ReportedShopMng";
-import ReportedProductMng from "~/pages/Admin/AdminProductMng/ReportedProductMng";
 
 import ReportMng from "~/pages/Admin/ReportMng";
 import Setting from "~/pages/Admin/Setting";
 
 const publicRoutes = [
-  { path: "/", component: Home },
-  { path: "/login", component: Login },
-  { path: "/signup", component: Signup },
-  { path: "/reset", component: Forget },
-  { path: "/about", component: About },
-  { path: "/contact", component: Contact },
-  { path: "/confirm", component: Confirm },
-  { path: "/shop", component: Shop },
-  { path: "/flash_sale", component: FlashSale },
-  { path: "/product", component: Product },
-  { path: "/search", component: ProductSearch },
-  { path: "/category", component: Category },
-  { path: "/products", component: ProductAll },
-  { path: "/cart", component: Cart },
-  { path: "/checkout", component: Checkout },
+    {path: "/", component: Home},
+    {path: "/login", component: Login},
+    {path: "/signup", component: Signup},
+    {path: "/reset", component: Forget},
+    {path: "/about", component: About},
+    {path: "/contact", component: Contact},
+    {path: "/confirm", component: Confirm},
+    {path: "/shop", component: Shop},
+    {path: "/flash_sale", component: FlashSale},
+    {path: "/product", component: Product},
+    {path: "/search", component: ProductSearch},
+    {path: "/category", component: Category},
+    {path: "/products", component: ProductAll},
+    {path: "/cart", component: Cart},
+    {path: "/checkout", component: Checkout},
 
-  { path: "/user/notification", component: Notifications },
-  { path: "/user/account/profile", component: Account },
-  { path: "/user/account/password", component: Password },
-  { path: "/user/account/address", component: Address },
+    {path: "/user/notification", component: Notifications},
+    {path: "/user/account/profile", component: Account},
+    {path: "/user/account/password", component: Password},
+    {path: "/user/account/address", component: Address},
 
-  { path: "/purchase/all", component: Purchase },
-  { path: "/purchase/contact", component: ContactPurchase },
-  { path: "/purchase/pending", component: Pending },
-  { path: "/purchase/shipping", component: Shipping },
-  { path: "/purchase/complete", component: Completed },
-  { path: "/purchase/cancel", component: Cancelled },
+    {path: "/purchase/all", component: Purchase},
+    {path: "/purchase/contact", component: ContactPurchase},
+    {path: "/purchase/pending", component: Pending},
+    {path: "/purchase/shipping", component: Shipping},
+    {path: "/purchase/complete", component: Completed},
+    {path: "/purchase/cancel", component: Cancelled},
 
-  { path: "/seller", component: Seller },
-  { path: "/seller/register", component: Register },
-  { path: "/seller/portal/dashboard", component: Dashboard },
-  { path: "/seller/portal/notifications", component: Notify },
+    {path: "/seller", component: Seller},
+    {path: "/seller/register", component: Register},
+    {path: "/seller/portal/dashboard", component: Dashboard},
+    {path: "/seller/portal/notifications", component: Notify},
 
-  { path: "/seller/portal/order/all", component: OrderMng },
-  { path: "/seller/portal/order/contact", component: ContactOrder },
-  { path: "/seller/portal/order/pending", component: PendingOrder },
-  { path: "/seller/portal/order/shipping", component: ShippingOrder },
-  { path: "/seller/portal/order/complete", component: CompleteOrder },
-  { path: "/seller/portal/order/cancel", component: CancelOrder },
+    {path: "/seller/portal/order/all", component: OrderMng},
+    {path: "/seller/portal/order/contact", component: ContactOrder},
+    {path: "/seller/portal/order/pending", component: PendingOrder},
+    {path: "/seller/portal/order/shipping", component: ShippingOrder},
+    {path: "/seller/portal/order/complete", component: CompleteOrder},
+    {path: "/seller/portal/order/cancel", component: CancelOrder},
 
-  { path: "/seller/portal/product/all", component: ProductMng },
-  { path: "/seller/portal/product/active", component: Active },
-  { path: "/seller/portal/product/soldout", component: SoldOut },
-  { path: "/seller/portal/product/pending", component: PendingProduct },
-  { path: "/seller/portal/product/ban", component: Band },
-  { path: "/seller/portal/product/new", component: AddProduct },
-  { path: "/seller/portal/product/package", component: Package },
+    {path: "/seller/portal/product/all", component: ProductMng},
+    {path: "/seller/portal/product/active", component: Active},
+    {path: "/seller/portal/product/soldout", component: SoldOut},
+    {path: "/seller/portal/product/pending", component: PendingProduct},
+    {path: "/seller/portal/product/ban", component: Band},
+    {path: "/seller/portal/product/new", component: AddProduct},
+    {path: "/seller/portal/product/package", component: Package},
 
-  { path: "/seller/portal/feedback", component: FeedbackMng },
-  { path: "/seller/portal/feedback/detail", component: FeedbackDetail },
+    {path: "/seller/portal/feedback", component: FeedbackMng},
+    {path: "/seller/portal/feedback/detail", component: FeedbackDetail},
 
-  { path: "/seller/portal/message", component: Message },
+    {path: "/seller/portal/message", component: Message},
 
-  { path: "/seller/portal/shop", component: ShopMng },
+    {path: "/seller/portal/shop", component: ShopMng},
 
-  { path: "/seller/portal/chart", component: Chart },
+    {path: "/seller/portal/chart", component: Chart},
 
-  { path: "/admin/portal/dashboard", component: DashboardAdmin },
+    {path: "/admin/portal/dashboard", component: DashboardAdmin},
 
-  { path: "/admin/portal/usermng/all", component: AllUserMng },
-  { path: "/admin/portal/usermng/available", component: AvailableUserMng },
-  { path: "/admin/portal/usermng/banned", component: BanUserMng },
-  { path: "/admin/portal/usermng/reported", component: ReportedUserMng },
-  
-  { path: "/admin/portal/shopmng/all", component: AllShopMng },
-  { path: "/admin/portal/shopmng/available", component: AvailableShopMng },
-  { path: "/admin/portal/shopmng/banned", component: BanShopMng },
-  { path: "/admin/portal/shopmng/reported", component: ReportedShopMng },
+    {path: "/admin/portal/usermng/all", component: AllUserMng},
+    {path: "/admin/portal/usermng/available", component: AvailableUserMng},
+    {path: "/admin/portal/usermng/banned", component: BanUserMng},
 
-  { path: "/admin/portal/productmng/all", component: AllProductMng },
-  { path: "/admin/portal/productmng/banned", component: BanProductMng },
-  { path: "/admin/portal/productmng/available", component: AvailableProductMng },
-  { path: "/admin/portal/productmng/reported", component: ReportedProductMng },
+    {path: "/admin/portal/shopmng/all", component: AllShopMng},
+    {path: "/admin/portal/shopmng/available", component: AvailableShopMng},
+    {path: "/admin/portal/shopmng/banned", component: BanShopMng},
 
-  { path: "/admin/portal/report", component: ReportMng },
-  { path: "/admin/portal/settings", component: Setting },
+    {path: "/admin/portal/productmng/all", component: AllProductMng},
+    {path: "/admin/portal/productmng/banned", component: BanProductMng},
+    {path: "/admin/portal/productmng/available", component: AvailableProductMng},
+
+    {path: "/admin/portal/report", component: ReportMng},
+    {path: "/admin/portal/settings", component: Setting},
 ];
 
 const privateRoutes = [];
 
-export { publicRoutes, privateRoutes };
+export {publicRoutes, privateRoutes};

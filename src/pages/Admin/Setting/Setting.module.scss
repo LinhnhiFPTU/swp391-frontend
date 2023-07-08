@@ -3,6 +3,7 @@
   height: calc(100vh - 71px);
   display: flex;
   margin-top: 71px;
+
   .setting_sidebar {
     width: 198px;
   }
@@ -51,6 +52,7 @@
           column-gap: 200px;
           row-gap: 100px;
           margin-top: 50px;
+
           .setting-item {
             width: 100%;
             display: flex;

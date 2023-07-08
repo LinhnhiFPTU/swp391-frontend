@@ -9,15 +9,15 @@ import styles from "./OverViewChart.module.scss";
 
 const cx = classNames.bind(styles);
 
-function OverViewChart({ dataChart }) {
-  return (
-    <div className={cx("chart")}>
-      {dataChart.type === "Revenue" && <RevenueChart dataChart={dataChart}/>}
-      {dataChart.type === "Order" && <OrderChart dataChart={dataChart}/>}
-      {dataChart.type === "Follower" && <FollowerChart dataChart={dataChart}/>}
-      {dataChart.type === "Feedback" && <FeedbackChart dataChart={dataChart}/>}
-    </div>
-  );
+function OverViewChart({dataChart}) {
+    return (
+        <div className={cx("chart")}>
+            {dataChart.type === "Revenue" && <RevenueChart dataChart={dataChart}/>}
+            {dataChart.type === "Order" && <OrderChart dataChart={dataChart}/>}
+            {dataChart.type === "Follower" && <FollowerChart dataChart={dataChart}/>}
+            {dataChart.type === "Feedback" && <FeedbackChart dataChart={dataChart}/>}
+        </div>
+    );
 }
 
 export default OverViewChart;
