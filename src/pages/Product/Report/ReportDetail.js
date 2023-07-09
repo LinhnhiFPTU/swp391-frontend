@@ -1,13 +1,24 @@
 import classNames from "classnames/bind";
 
 import styles from "./ReportDetail.module.scss";
-import {useState} from "react";
+import {UserContext} from "~/userContext/Context";
+import {useContext, useEffect, useState} from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-function ReportDetail({titleReport, backToReport, closeSubReport}) {
+function ReportDetail({titleReport, backToReport, closeSubReport, product}) {
+    const UC = useContext(UserContext)
+    const context = UC.state
     const [reportContent, setReportContent] = useState("");
     const [error, setError] = useState(false);
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        if (context) {
+            setUser(context)
+        }
+    }, [context])
 
     const handleSendReport = (e) => {
         e.preventDefault();
@@ -18,6 +29,18 @@ function ReportDetail({titleReport, backToReport, closeSubReport}) {
             setError(true);
         } else {
             setError(false);
+            let request = {
+                reporterId: user.id,
+                productId: product,
+                reasonType: titleReport,
+                reasonSpecific: reportContent
+            }
+            axios.post("/api/v1/users/product/report/" + product, request)
+                .then(res => {
+                    closeSubReport(false)
+                    alert("Report Successfully!")
+                })
+                .catch(e => console.log(e))
         }
     };
     return (

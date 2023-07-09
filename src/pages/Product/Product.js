@@ -24,8 +24,8 @@ const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 function Product() {
     const navigate = useNavigate();
-    const context = useContext((UserContext))
-    const user = context.state
+    const context = useContext(UserContext);
+    const user = context.state;
     const [searchParams, setSearchParams] = useSearchParams();
     const [product, setProduct] = useState({
         id: 0,
@@ -88,19 +88,21 @@ function Product() {
             },
         ],
         feedbacks: [],
-        relatedTo: [{
-            product: {
-                name: "",
-                images: [
-                    {
-                        url: ""
-                    }
-                ]
+        relatedTo: [
+            {
+                product: {
+                    name: "",
+                    images: [
+                        {
+                            url: "",
+                        },
+                    ],
+                },
+                salePercent: undefined,
+                saleQuantity: 0,
+                sold: 0,
             },
-            salePercent: undefined,
-            saleQuantity: 0,
-            sold: 0
-        }]
+        ],
     });
     const [type, setType] = useState("All");
     const [second, setSecond] = useState(0);
@@ -117,7 +119,7 @@ function Product() {
     const location = useLocation();
     const Globalstate = useContext(Cartcontext);
     const dispatch = Globalstate.dispatch;
-    const [isBuyed, setIsBuyed] = useState(false)
+    const [isBuyed, setIsBuyed] = useState(false);
 
     useEffect(() => {
         let productId = searchParams.get("productId");
@@ -344,10 +346,7 @@ function Product() {
 
     const saleCondition = (item) => {
         if (item) {
-            return (
-                item.salePercent &&
-                item.saleQuantity > item.sold
-            )
+            return item.salePercent && item.saleQuantity > item.sold;
         }
 
         return (
@@ -357,35 +356,47 @@ function Product() {
     };
 
     const handleBuyNow = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (user) {
-            setIsBuyed(true)
+            setIsBuyed(true);
             dispatch({type: "ADD", payload: product.id});
         } else navigate("/login");
-    }
+    };
 
     useEffect(() => {
         if (isBuyed) {
             navigate("/cart", {
-                state: [product.id]
-            })
+                state: [product.id],
+            });
         }
-    }, [Globalstate.state])
+    }, [Globalstate.state]);
 
     const handleSendSpecialOrder = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (user) {
-            axios.post('/api/v1/users/order/special/create?id=' + product.id + '&quantity=' + valueQuantity)
-                .then(res => {
-                    navigate("/purchase/contact")
+            axios
+                .post(
+                    "/api/v1/users/order/special/create?id=" +
+                    product.id +
+                    "&quantity=" +
+                    valueQuantity
+                )
+                .then((res) => {
+                    navigate("/purchase/contact");
                 })
-                .catch(e => console.log(e))
+                .catch((e) => console.log(e));
         } else navigate("/login");
-    }
+    };
 
     return (
         <>
-            {openReport && <Report closeReport={setOpenReport} type="product"/>}
+            {openReport && (
+                <Report
+                    closeReport={setOpenReport}
+                    product={product.id}
+                    type="product"
+                />
+            )}
             {openToast && <Toast/>}
             <Header/>
             <div className={cx("product-wrapper")}>
@@ -447,12 +458,18 @@ function Product() {
                                     </div>
                                 </div>
                                 <div className={cx("product-status-right")}>
-                                    <button
-                                        className={cx("report-btn")}
-                                        onClick={() => setOpenReport(true)}
-                                    >
-                                        Report
-                                    </button>
+                                    {!(
+                                        user &&
+                                        user.shopDTO &&
+                                        user.shopDTO.id == product.shop.id
+                                    ) && (
+                                        <button
+                                            className={cx("report-btn")}
+                                            onClick={() => setOpenReport(true)}
+                                        >
+                                            Report
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                             {/*------Product Flash Sale------*/}
@@ -589,7 +606,10 @@ function Product() {
                             <div className={cx("product-buy")}>
                                 {product.category.name === "Bird" ? (
                                     <>
-                                        <button className={cx("contact")} onClick={handleSendSpecialOrder}>
+                                        <button
+                                            className={cx("contact")}
+                                            onClick={handleSendSpecialOrder}
+                                        >
                                             <i className={cx("fa-light fa-paper-plane")}></i>
                                             <span>Send Request</span>
                                         </button>
@@ -602,7 +622,12 @@ function Product() {
                                     <>
                                         <button
                                             className={cx("add")}
-                                            disabled={product.available === 0 || (user && user.shopDTO && (user.shopDTO.id == product.shop.id))}
+                                            disabled={
+                                                product.available === 0 ||
+                                                (user &&
+                                                    user.shopDTO &&
+                                                    user.shopDTO.id == product.shop.id)
+                                            }
                                             onClick={() => {
                                                 if (user) {
                                                     setOpenToast(true);

@@ -12,10 +12,32 @@ function ReportProduct() {
         axios
             .get("/api/v1/admin/management/report/product")
             .then((res) => {
+                console.log(res.data)
                 setProductReports(res.data);
             })
             .catch((e) => console.log(e));
     }, []);
+
+    const handleBanProduct = (e, pr) => {
+        e.preventDefault()
+        axios
+            .post("/api/v1/admin/report/product/" + pr.id + "?action=BAN")
+            .then((res) => {
+                window.location.reload()
+            })
+            .catch((e) => console.log(e));
+    }
+
+    const handleWarningProduct = (e, pr) => {
+        e.preventDefault()
+        axios
+            .post("/api/v1/admin/report/product/" + pr.id + "?action=WARNING")
+            .then((res) => {
+                window.location.reload()
+            })
+            .catch((e) => console.log(e));
+    }
+
     return (
         <div className={cx("report-product")}>
             <div className={cx("report-header")}>
@@ -57,10 +79,10 @@ function ReportProduct() {
                             <div className={cx("text")}>{pr.reasonSpecific}</div>
                         </div>
                         <div className={cx("rp-actions")}>
-                            <button className={cx("ban-btn")}>
+                            <button className={cx("ban-btn")} onClick={e => handleBanProduct(e, pr)}>
                                 <i className={cx("fa-regular fa-ban", "ban-icon")}></i>
                             </button>
-                            <button className={cx("notify-btn")}>
+                            <button className={cx("notify-btn")} onClick={e => handleWarningProduct(e, pr)}>
                                 <i
                                     className={cx(
                                         "fa-regular fa-triangle-exclamation",

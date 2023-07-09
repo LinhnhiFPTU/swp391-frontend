@@ -17,6 +17,26 @@ function ReportShop() {
             .catch((e) => console.log(e));
     }, []);
 
+    const handleBanShop = (e, sr) => {
+        e.preventDefault()
+        axios
+            .post("/api/v1/admin/report/shop/" + sr.id + "?action=BAN")
+            .then((res) => {
+                window.location.reload()
+            })
+            .catch((e) => console.log(e));
+    }
+
+    const handleWarningShop = (e, sr) => {
+        e.preventDefault()
+        axios
+            .post("/api/v1/admin/report/shop/" + sr.id + "?action=WARNING")
+            .then((res) => {
+                window.location.reload()
+            })
+            .catch((e) => console.log(e));
+    }
+
     return (
         <div className={cx("report-product")}>
             <div className={cx("report-header")}>
@@ -54,10 +74,10 @@ function ReportShop() {
                             <div className={cx("text")}>{sr.reasonSpecific}</div>
                         </div>
                         <div className={cx("rp-actions")}>
-                            <button className={cx("ban-btn")}>
+                            <button className={cx("ban-btn")} onClick={e => handleBanShop(e, sr)}>
                                 <i className={cx("fa-regular fa-ban", "ban-icon")}></i>
                             </button>
-                            <button className={cx("notify-btn")}>
+                            <button className={cx("notify-btn")} onClick={e => handleWarningShop(e, sr)}>
                                 <i
                                     className={cx(
                                         "fa-regular fa-triangle-exclamation",

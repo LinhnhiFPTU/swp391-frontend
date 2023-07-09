@@ -26,7 +26,7 @@ const reportShop = [
     "Other..."
 ]
 
-function Report({closeReport, type}) {
+function Report({closeReport, type, product}) {
     const [openReport, setOpenReport] = useState(false);
     const [titleReport, setTitleReport] = useState("");
     const [arrayReport, setArrayReport] = useState(reportsProduct)
@@ -46,7 +46,8 @@ function Report({closeReport, type}) {
     return (
         <>
             {openReport ? (
-                <ReportDetail titleReport={titleReport} backToReport={setOpenReport} closeSubReport={closeReport}/>
+                <ReportDetail titleReport={titleReport} backToReport={setOpenReport} product={product}
+                              closeSubReport={closeReport}/>
             ) : (
                 (<div className={cx("overlay")}>
                     <div className={cx("report-popup")}>
