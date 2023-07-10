@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./BanProductMng.module.scss";
 
@@ -196,6 +196,9 @@ const customStyles = {
 
 function BanProductMng() {
   const [records, setRecords] = useState(productRows);
+  useEffect(() => {
+    document.title = "Administration";
+  }, [])
   const handleaFilter = (event) => {
     const newData = productRows.filter((row) =>
       row.productName.toLowerCase().includes(event.target.value.toLowerCase())

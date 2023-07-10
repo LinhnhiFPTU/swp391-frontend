@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -20,6 +20,11 @@ function DashboardAdmin() {
   const [salesChart, setSalesChart] = useState(false);
   const [visitsChart, setVisitsChart] = useState(false);
   const [membersChart, setMembersChart] = useState(false);
+
+  useEffect(() => {
+    document.title = "Administration";
+  }, [])
+
   const toggleOrdersChart = () => {
     setOrdersChart(!ordersChart);
   };

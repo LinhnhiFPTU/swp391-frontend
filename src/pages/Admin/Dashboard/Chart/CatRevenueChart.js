@@ -3,19 +3,19 @@ import ReactApexChart from "react-apexcharts";
 
 const series = [
   {
-    name: "PRODUCT A",
+    name: "Bird",
     data: [44, 55, 41, 67, 22, 43, 65, 43, 13, 41, 51, 12, 15, 36],
   },
   {
-    name: "PRODUCT B",
+    name: "Bird Food",
     data: [13, 23, 20, 8, 13, 27, 65, 43, 13, 41, 51, 12, 15, 36],
   },
   {
-    name: "PRODUCT C",
+    name: "Bird Cage",
     data: [11, 17, 15, 15, 21, 14, 65, 43, 13, 41, 51, 12, 15, 36],
   },
   {
-    name: "PRODUCT D",
+    name: "Bird Accessory",
     data: [21, 7, 25, 13, 22, 8, 65, 43, 13, 41, 51, 12, 15, 36],
   },
 ];
@@ -31,6 +31,9 @@ const options = {
     },
     zoom: {
       enabled: true,
+    },
+    toolbar: {
+      show: false,
     },
   },
   responsive: [

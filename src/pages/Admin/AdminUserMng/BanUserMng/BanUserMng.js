@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./BanUserMng.module.scss";
 import Sidebar from "../../global/Sidebar";
@@ -175,6 +175,9 @@ const customStyles = {
 
 function BanUserMng() {
   const [records, setRecords] = useState(usersRows);
+  useEffect(() => {
+    document.title = "Administration";
+  }, [])
   const handleaFilter = (event) => {
     const newData = usersRows.filter((row) =>
       row.fullName.toLowerCase().includes(event.target.value.toLowerCase())

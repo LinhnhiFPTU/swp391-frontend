@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./AvailableShopMng.module.scss";
 import Sidebar from "../../global/Sidebar";
@@ -190,6 +190,9 @@ const customStyles = {
 
 function AvailableShopMng() {
   const [records, setRecords] = useState(shopsRows);
+  useEffect(() => {
+    document.title = "Administration";
+  }, [])
   const handlerFilter = (event) => {
     const newData = shopsRows.filter((row) =>
       row.shopName.toLowerCase().includes(event.target.value.toLowerCase())

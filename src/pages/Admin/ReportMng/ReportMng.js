@@ -5,12 +5,15 @@ import Sidebar from "../global/Sidebar";
 import ReportProduct from "./ReportProduct";
 import ReportShop from "./ReportShop";
 import styles from "./ReportMng.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const cx = classNames.bind(styles);
 
 function ReportMng() {
   const [navOption, setNavOption] = useState("Product Report");
+  useEffect(() => {
+    document.title = "Administration";
+  }, [])
   return (
     <>
       <Topbar />

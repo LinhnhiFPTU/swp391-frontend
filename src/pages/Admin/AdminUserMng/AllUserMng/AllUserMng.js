@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./AllUserMng.module.scss";
 import Sidebar from "../../global/Sidebar";
@@ -186,6 +186,9 @@ function AllUserMng() {
     );
     setRecords(newData);
   };
+  useEffect(() => {
+    document.title = "Administration";
+  }, [])
   return (
     <div className={cx("user-wrapper")}>
       <div className={cx("topbar")}>

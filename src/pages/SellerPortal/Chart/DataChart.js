@@ -99,6 +99,10 @@ function DataChart() {
   const [filter, setFilter] = useState("day");
 
   useEffect(() => {
+    document.title = "Seller Centre";
+  }, [])
+
+  useEffect(() => {
     setOption((prev) => {});
     axios
       .get("/api/v1/shop/analyst/" + filter)
@@ -116,7 +120,7 @@ function DataChart() {
           data[index].data = [0, ...item.cur];
           widgets[index].data = totalCur;
           widgets[index].compareData =
-            totalPrev == 0
+            totalPrev === 0
               ? totalCur - totalPrev
               : Math.round((totalCur / totalPrev) * 100 - 100);
         });

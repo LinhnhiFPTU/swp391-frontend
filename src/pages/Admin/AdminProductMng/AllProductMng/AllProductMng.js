@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./AllProductMng.module.scss";
 
@@ -197,6 +197,9 @@ const customStyles = {
 
 function AllProductMng() {
   const [records, setRecords] = useState(productRows);
+  useEffect(() => {
+    document.title = "Administration";
+  }, [])
   const handleaFilter = (event) => {
     const newData = productRows.filter((row) =>
       row.productName.toLowerCase().includes(event.target.value.toLowerCase())

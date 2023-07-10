@@ -4,6 +4,7 @@ import Topbar from "../global/Topbar";
 import Sidebar from "../global/Sidebar";
 
 import styles from "./Setting.module.scss";
+import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -27,6 +28,9 @@ const settingsList = [
 ];
 
 function Setting() {
+  useEffect(() => {
+    document.title = "Administration";
+  }, [])
   return (
     <>
       <Topbar />
