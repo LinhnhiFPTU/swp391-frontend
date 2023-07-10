@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./WidgetCard.module.scss";
-import {message} from "antd";
-import {useEffect} from "react";
+import { message } from "antd";
+import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
