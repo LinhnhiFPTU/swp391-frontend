@@ -1,13 +1,11 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
 const options = {
   chart: {
     id: "basic-area",
-    toolbar: {
-      show: false,
-    },
   },
-
   xaxis: {
     categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   },
@@ -23,13 +21,23 @@ const options = {
   },
 };
 
-const series = [
-  {
-    name: "series-1",
-    data: [30, 40, 35, 50, 70, 91, 125],
-  },
-];
 function RevenueChart() {
+  const [series, setSeries] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/admin/analyst/weekly-revenue")
+      .then((res) => {
+        setSeries([
+          {
+            name: "Weekly Revenue",
+            data: res.data.reverse(),
+          },
+        ]);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   return (
     <div>
       <ReactApexChart

@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   padding: 24px 0;
+
   .product-info {
     display: flex;
     align-items: center;
@@ -23,6 +24,7 @@
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
       }
+
       .product-price {
         font-size: 1.4rem;
         color: #999999;

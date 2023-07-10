@@ -1,1 +1,1 @@
-export { default } from "./WidgetCard"
+export {default} from "./WidgetCard"

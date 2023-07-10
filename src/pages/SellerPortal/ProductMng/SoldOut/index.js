@@ -1,1 +1,1 @@
-export { default } from './SoldOut'
+export {default} from './SoldOut'

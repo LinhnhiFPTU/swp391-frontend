@@ -2,115 +2,12 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./AllShopMng.module.scss";
 import Sidebar from "../../global/Sidebar";
-
-import avatar from "~/assets/images/user-avatar.png";
 import DataTable from "react-data-table-component";
 import ShopMngNav from "../ShopMngNav/ShopMngNav";
 import Topbar from "../../global/Topbar";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
-
-const shopsRows = [
-  {
-    id: 1,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Available",
-  },
-  {
-    id: 2,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Available",
-  },
-  {
-    id: 3,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Available",
-  },
-  {
-    id: 4,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Available",
-  },
-  {
-    id: 5,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Available",
-  },
-  {
-    id: 6,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Available",
-  },
-  {
-    id: 7,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 8,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 9,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Available",
-  },
-  {
-    id: 10,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 11,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Available",
-  },
-];
 
 const usersColumns = [
   {
@@ -135,10 +32,6 @@ const usersColumns = [
     sortable: true,
   },
   {
-    name: "Email",
-    selector: (row) => row.email,
-  },
-  {
     name: "Address",
     selector: (row) => row.address,
   },
@@ -155,6 +48,39 @@ const usersColumns = [
         )}
         {row.status === "Banned" && (
           <p className={cx("banned-status")}>Banned</p>
+        )}
+      </div>
+    ),
+  },
+  {
+    name: "Action",
+    cell: (row) => (
+      <div>
+        {row.status === "Available" && (
+          <button
+            className={cx("ban_btn")}
+            onClick={() => {
+              axios
+                .post("/api/v1/admin/action/shop/" + row.id + "?action=BAN")
+                .then((res) => window.location.reload())
+                .catch((e) => console.log(e));
+            }}
+          >
+            Ban
+          </button>
+        )}
+        {row.status === "Banned" && (
+          <button
+            className={cx("recover_btn")}
+            onClick={() => {
+              axios
+                .post("/api/v1/admin/action/shop/" + row.id + "?action=RECOVER")
+                .then((res) => window.location.reload())
+                .catch((e) => console.log(e));
+            }}
+          >
+            Recover
+          </button>
         )}
       </div>
     ),
@@ -191,16 +117,46 @@ const customStyles = {
 };
 
 function AllShopMng() {
-  const [records, setRecords] = useState(shopsRows);
-  useEffect(() => {
-    document.title = "Administration";
-  }, [])
+  const [search, setSearch] = useState([]);
+  const [records, setRecords] = useState([]);
   const handlerFilter = (event) => {
-    const newData = shopsRows.filter((row) =>
+    const newData = records.filter((row) =>
       row.shopName.toLowerCase().includes(event.target.value.toLowerCase())
     );
-    setRecords(newData);
+    setSearch(newData);
   };
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/admin/management/shop")
+      .then((res) => {
+        console.log(res.data);
+        let mappedShop = res.data.map((item) => {
+          let mapped = {
+            id: item.id,
+            avatar: item.shopImage,
+            shopName: item.name,
+            address: item.address.province.name,
+            package:
+              item.shopPackages[item.shopPackages.length - 1].shopPlan.plan +
+              " - " +
+              item.shopPackages[item.shopPackages.length - 1].shopPlan
+                .duration +
+              " days",
+            status: item.ban ? "Banned" : "Available",
+          };
+          return mapped;
+        });
+        setRecords(mappedShop);
+        setSearch(mappedShop);
+      })
+      .catch((e) => {
+        console.log(e.response.status);
+        if (e.response.status == 403) {
+        }
+      });
+  }, []);
+
   return (
     <div className={cx("shop-wrapper")}>
       <div className={cx("topbar")}>
@@ -226,7 +182,7 @@ function AllShopMng() {
 
             <DataTable
               columns={usersColumns}
-              data={records}
+              data={search}
               customStyles={customStyles}
               pagination
             />

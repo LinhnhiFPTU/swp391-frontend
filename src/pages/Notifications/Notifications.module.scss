@@ -16,10 +16,12 @@
       align-items: center;
       justify-content: space-between;
       padding: 20px;
+
       .title {
         font-size: 2.4rem;
         font-weight: 500;
       }
+
       .read {
         .read-btn {
           font-size: 1.4rem;
@@ -46,6 +48,7 @@
           .title-notify {
             margin-bottom: 5px;
           }
+
           .notify-desc {
             margin-bottom: 5px;
             font-size: 1.4rem;
@@ -58,6 +61,7 @@
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
           }
+
           .notify-date-time {
             font-size: 1.4rem;
             color: #0000008a;

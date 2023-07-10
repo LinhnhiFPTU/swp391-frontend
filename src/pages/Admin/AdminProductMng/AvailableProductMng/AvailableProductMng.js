@@ -1,222 +1,185 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import classNames from "classnames/bind";
 import styles from "./AvailableProductMng.module.scss";
-
-import bird from "~/assets/images/bird-cage.png";
 import DataTable from "react-data-table-component";
 import Sidebar from "../../global/Sidebar";
 import NavBar from "../ProductMngNav";
 import Topbar from "../../global/Topbar";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-const productRows = [
-  {
-    id: 1,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 2,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 3,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 4,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 5,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 6,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 7,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 8,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 9,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 10,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 11,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-];
-
 const productColumns = [
-  {
-    name: "ID",
-    selector: (row) => row.id,
-    sortable: true,
-    style: {
-      fontsize: "16px",
+    {
+        name: "ID",
+        selector: (row) => row.id,
+        sortable: true,
+        style: {
+            fontsize: "16px",
+        },
     },
-  },
-  {
-    name: "Image",
-    cell: (row) => (
-      <div>
-        <img className={cx("product-img")} src={row.img} alt="product-img" />
-      </div>
-    ),
-  },
-  {
-    name: "Product Name",
-    selector: (row) => row.productName,
-    sortable: true,
-  },
-  {
-    name: "Shop Name",
-    selector: (row) => row.shopName,
-  },
-  {
-    name: "Address",
-    selector: (row) => row.address,
-  },
-  {
-    name: "Status",
-    cell: (row) => (
-      <div>
-        {row.status === "Available" && (
-          <p className={cx("available-status")}>Available</p>
-        )}
-      </div>
-    ),
-  },
+    {
+        name: "Image",
+        cell: (row) => (
+            <div>
+                <img className={cx("product-img")} src={row.img} alt="product-img"/>
+            </div>
+        ),
+    },
+    {
+        name: "Product Name",
+        selector: (row) => row.productName,
+        sortable: true,
+    },
+    {
+        name: "Shop Name",
+        selector: (row) => row.shopName,
+    },
+    {
+        name: "Category",
+        selector: (row) => row.category,
+    },
+    {
+        name: "Status",
+        cell: (row) => (
+            <div>
+                {row.status === "Available" && (
+                    <p className={cx("available-status")}>Available</p>
+                )}
+                {row.status === "Banned" && (
+                    <p className={cx("banned-status")}>Banned</p>
+                )}
+            </div>
+        ),
+    },
+    {
+        name: "Action",
+        cell: (row) => (
+            <div>
+                {row.status === "Available" && (
+                    <button className={cx("ban_btn")} onClick={() => {
+                        axios.post("/api/v1/admin/action/product/" + row.id + "?action=BAN")
+                            .then(res => window.location.reload())
+                            .catch(e => console.log(e))
+                    }}>
+                        Ban
+                    </button>
+                )}
+                {row.status === "Banned" && (
+                    <button
+                        className={cx("recover_btn")}
+                        onClick={() => {
+                            axios.post("/api/v1/admin/action/product/" + row.id + "?action=RECOVER")
+                                .then(res => window.location.reload())
+                                .catch(e => console.log(e))
+                        }}
+                    >
+                        Recover
+                    </button>
+                )}
+            </div>
+        ),
+    },
 ];
 
 const customStyles = {
-  header: {
-    style: {
-      fontsize: "16px",
+    header: {
+        style: {
+            fontsize: "16px",
+        },
     },
-  },
-  headRow: {
-    style: {
-      backgroundColor: "#f2f2f2",
+    headRow: {
+        style: {
+            backgroundColor: "#f2f2f2",
+        },
     },
-  },
-  headCells: {
-    style: {
-      fontSize: "16px",
+    headCells: {
+        style: {
+            fontSize: "16px",
+        },
     },
-  },
-  rows: {
-    style: {
-      backgroundColor: "#fff",
+    rows: {
+        style: {
+            backgroundColor: "#fff",
+        },
     },
-  },
-  cells: {
-    style: {
-      padding: "10px",
-      fontSize: "15px",
+    cells: {
+        style: {
+            padding: "10px",
+            fontSize: "15px",
+        },
     },
-  },
 };
 
 function AvailableProductMng() {
-  const [records, setRecords] = useState(productRows);
-  useEffect(() => {
-    document.title = "Administration";
-  }, []);
-  const handleaFilter = (event) => {
-    const newData = productRows.filter((row) =>
-      row.productName.toLowerCase().includes(event.target.value.toLowerCase())
-    );
-    setRecords(newData);
-  };
-  return (
-    <div className={cx("user-wrapper")}>
-      <div className={cx("topbar")}>
-        <Topbar />
-      </div>
-      <div className={cx("container")}>
-        <div className={cx("sidebar")}>
-          <Sidebar />
-        </div>
-        <div className={cx("product-container")}>
-          <div className={cx("nav-bar")}>
-            <NavBar />
-          </div>
-          <div className={cx("product-table")}>
-            <div className={cx("input-search")}>
-              <input
-                type="text"
-                placeholder="Search product"
-                onChange={handleaFilter}
-                className={cx("skw")}
-              ></input>
-            </div>
+    const [search, setSearch] = useState([]);
+    const [records, setRecords] = useState([]);
+    const handleaFilter = (event) => {
+        const newData = records.filter((row) =>
+            row.productName.toLowerCase().includes(event.target.value.toLowerCase())
+        );
+        setSearch(newData);
+    };
 
-            <DataTable
-              columns={productColumns}
-              data={records}
-              customStyles={customStyles}
-              pagination
-            />
-          </div>
+    useEffect(() => {
+        axios
+            .get("/api/v1/admin/management/product")
+            .then((res) => {
+                let mappedProduct = res.data.map((item) => {
+                    let mapped = {
+                        id: item.id,
+                        img: item.images[0].url,
+                        productName: item.name,
+                        shopName: item.shop.name,
+                        category: item.category.name,
+                        status: item.ban ? "Banned" : "Available",
+                    };
+                    return mapped;
+                });
+                setRecords(mappedProduct.filter((item) => item.status === "Available"));
+                setSearch(mappedProduct.filter((item) => item.status === "Available"));
+            })
+            .catch((e) => {
+                console.log(e.response.status);
+                if (e.response.status == 403) {
+                }
+            });
+    }, []);
+
+    return (
+        <div className={cx("user-wrapper")}>
+            <div className={cx("topbar")}>
+                <Topbar/>
+            </div>
+            <div className={cx("container")}>
+                <div className={cx("sidebar")}>
+                    <Sidebar/>
+                </div>
+                <div className={cx("product-container")}>
+                    <div className={cx("nav-bar")}>
+                        <NavBar/>
+                    </div>
+                    <div className={cx("product-table")}>
+                        <div className={cx("input-search")}>
+                            <input
+                                type="text"
+                                placeholder="Search product"
+                                onChange={handleaFilter}
+                                className={cx("skw")}
+                            ></input>
+                        </div>
+
+                        <DataTable
+                            columns={productColumns}
+                            data={search}
+                            customStyles={customStyles}
+                            pagination
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default AvailableProductMng;

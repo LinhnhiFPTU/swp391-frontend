@@ -4,33 +4,39 @@ import Topbar from "../global/Topbar";
 import Sidebar from "../global/Sidebar";
 
 import styles from "./Setting.module.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-const settingsList = [
-  {
-    id: 0,
-    type: "Number of products on sale",
-  },
-  {
-    id: 1,
-    type: "Number of related products",
-  },
-  {
-    id: 2,
-    type: "Number of bundled products",
-  },
-  {
-    id: 3,
-    type: "Number of comments on each page of product",
-  },
-];
-
 function Setting() {
+  const [settingsList, setSettingList] = useState([]);
+
   useEffect(() => {
-    document.title = "Administration";
-  }, [])
+    axios
+      .get("/api/v1/admin/management/setting")
+      .then((res) => {
+        setSettingList(res.data);
+      })
+      .catch((e) => console.log(e.response.status));
+  }, []);
+
+  const handleChange = (e, setting) => {
+    let index = settingsList.indexOf(setting);
+    settingsList[index].value = e.target.value;
+    setSettingList(Array.from(settingsList));
+  };
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    axios
+      .post("/api/v1/admin/management/setting/update", settingsList)
+      .then((res) => {
+        alert("Saving successfully");
+      })
+      .catch((e) => console.log(e.response.status));
+  };
+
   return (
     <>
       <Topbar />
@@ -48,17 +54,20 @@ function Setting() {
               <div className={cx("setting-list-item")}>
                 {settingsList.map((item) => (
                   <div className={cx("setting-item")} key={item.id}>
-                    <div className={cx("type-setting")}>
-                      {item.type}:{" "}
-                    </div>
+                    <div className={cx("type-setting")}>{item.name}: </div>
                     <div className={cx("edit-setting")}>
-                      <input type="number" className={cx("input")} />
+                      <input
+                        type="number"
+                        className={cx("input")}
+                        value={item.value}
+                        onChange={(e) => handleChange(e, item)}
+                      />
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className={cx("setting-footer")}>
+            <div className={cx("setting-footer")} onClick={handleSave}>
               <button className={cx("save-btn")}>Save</button>
             </div>
           </div>

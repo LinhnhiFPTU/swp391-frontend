@@ -1,1 +1,1 @@
-export { default } from "./NoPurchase"
+export {default} from "./NoPurchase"

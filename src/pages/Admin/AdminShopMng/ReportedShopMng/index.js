@@ -1,1 +1,1 @@
-export { default } from "./ReportedShopMng"
+export {default} from "./ReportedShopMng"

@@ -1,8 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createContext, useEffect, useState } from "react";
-import { publicRoutes, privateRoutes } from "~/routes";
-import PrivateRoutes from "~/routes/PrivateRoutes";
-import NotFound from "~/layouts/components/NotFound"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import { publicRoutes } from "~/routes";
+import NotFound from "~/layouts/components/NotFound";
 import { Context } from "./userContext/Context";
 
 import "./App.css";

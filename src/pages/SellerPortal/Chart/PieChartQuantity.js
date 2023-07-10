@@ -9,17 +9,17 @@ const series = [100, 156, 317, 124];
 
 
 function PieChartQuantity({data = series}) {
-  return (
-    <div className={cx("pieChart")}>
-      <Chart
-        type="donut"
-        width={"100%"}
-        height={"100%"}
-        series={data}
-        options={options}
-      />
-    </div>
-  );
+    return (
+        <div className={cx("pieChart")}>
+            <Chart
+                type="donut"
+                width={"100%"}
+                height={"100%"}
+                series={data}
+                options={options}
+            />
+        </div>
+    );
 }
 
 export default PieChartQuantity;

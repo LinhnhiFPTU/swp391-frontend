@@ -3,9 +3,11 @@
   height: calc(100vh - 71px);
   display: flex;
   margin-top: 71px;
+
   .report_sidebar {
     width: 198px;
   }
+
   .report_container {
     width: calc(100% - 198px);
     height: 100%;

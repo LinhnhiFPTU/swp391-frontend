@@ -52,10 +52,12 @@
           .shop-name {
             display: flex;
             align-items: center;
+
             .name-title {
               width: 120px;
               margin-right: 25px;
             }
+
             .name-input {
               display: flex;
               align-items: center;
@@ -124,6 +126,7 @@
               .logo-main {
                 display: flex;
                 align-items: center;
+
                 .logo-upload {
                   position: relative;
                   width: 100px;

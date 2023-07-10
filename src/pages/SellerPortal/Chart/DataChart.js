@@ -9,11 +9,12 @@ import styles from "./Chart.module.scss";
 import Chart from "react-apexcharts";
 import {
   options,
-  optionsWeek,
   optionsMonth,
+  optionsWeek,
   optionsYear,
 } from "./OptionsChart";
 import axios from "axios";
+
 const cx = classNames.bind(styles);
 
 function DataChart() {
@@ -93,14 +94,10 @@ function DataChart() {
     year: optionsYear,
   });
   const [selectedWidget, setSelectedWidget] = useState([0]);
-  const [constantAnalyst, setConstantAnalyst] = useState({})
+  const [constantAnalyst, setConstantAnalyst] = useState({});
   const [option, setOption] = useState({ ...options });
   const [countSelected, setCountSelected] = useState(1);
   const [filter, setFilter] = useState("day");
-
-  useEffect(() => {
-    document.title = "Seller Centre";
-  }, [])
 
   useEffect(() => {
     setOption((prev) => {});
@@ -120,7 +117,7 @@ function DataChart() {
           data[index].data = [0, ...item.cur];
           widgets[index].data = totalCur;
           widgets[index].compareData =
-            totalPrev === 0
+            totalPrev == 0
               ? totalCur - totalPrev
               : Math.round((totalCur / totalPrev) * 100 - 100);
         });
@@ -135,7 +132,7 @@ function DataChart() {
     axios
       .get("/api/v1/shop/analyst/constant")
       .then((res) => {
-        setConstantAnalyst(res.data)
+        setConstantAnalyst(res.data);
       })
       .catch((e) => console.log(e));
   }, []);
@@ -232,7 +229,7 @@ function DataChart() {
               </div>
               <div className={cx("chart-content_barChart")}>
                 <div className={cx("title")}>Sale Quantity</div>
-                <BarChart data={constantAnalyst["sq"]}/>
+                <BarChart data={constantAnalyst["sq"]} />
               </div>
             </div>
           </div>

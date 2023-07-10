@@ -45,6 +45,7 @@
 
           .search-input {
             position: relative;
+
             .input {
               width: 700px;
               height: 33px;
@@ -154,9 +155,11 @@
             align-items: center;
             justify-content: space-between;
             padding: 16px;
+
             .product-detail {
               display: flex;
               align-items: center;
+
               .product-img {
                 width: 80px;
                 height: 80px;
@@ -172,6 +175,7 @@
 
             .product-edit {
               width: 210px;
+
               .shipping-fee {
                 margin-bottom: 5px;
 
@@ -184,6 +188,7 @@
                   outline: none;
                 }
               }
+
               .buttons {
                 display: flex;
                 align-items: center;

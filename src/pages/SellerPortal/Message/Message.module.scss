@@ -91,6 +91,7 @@
             .user-content {
               width: 100%;
               line-height: 2.4rem;
+
               .above {
                 display: flex;
                 align-items: center;
@@ -140,6 +141,7 @@
 
           .active {
             background-color: #f0f2f5;
+
             &:hover {
               background-color: #f0f2f5;
             }
@@ -188,6 +190,7 @@
             align-items: center;
             column-gap: 40px;
             margin-right: 20px;
+
             .phone,
             .video {
               font-size: 2.4rem;
@@ -232,8 +235,10 @@
             align-items: center;
             justify-content: center;
             margin-right: 15px;
+
             .image {
               margin-right: 7px;
+
               .icon-image {
                 cursor: pointer;
                 font-size: 2rem;
@@ -243,6 +248,7 @@
 
             .video {
               margin-left: 7px;
+
               .icon-video {
                 cursor: pointer;
                 font-size: 2rem;
@@ -294,6 +300,7 @@
                   top: -10px;
                   border-radius: 50%;
                   background-color: #fff;
+
                   .close-icon {
                     font-size: 1.4rem;
                   }
@@ -324,6 +331,7 @@
                   top: -10px;
                   border-radius: 50%;
                   background-color: #fff;
+
                   .close-icon {
                     font-size: 1.4rem;
                   }
@@ -336,6 +344,7 @@
                   top: 50%;
                   left: 50%;
                   transform: translate(-50%, -50%);
+
                   .svg-icon {
                     width: 100%;
                     height: 100%;
@@ -385,6 +394,7 @@
                 display: flex;
                 align-content: center;
                 justify-content: center;
+
                 .icon-emoji {
                   cursor: pointer;
                   font-size: 2rem;
@@ -401,10 +411,12 @@
           .send-chat {
             width: 5%;
             text-align: center;
+
             .icon-send {
               cursor: pointer;
               font-size: 2rem;
             }
+
             .icon-send-active {
               cursor: pointer;
               font-size: 2rem;

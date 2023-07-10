@@ -1,4 +1,3 @@
-
 import React from "react";
 import Chart from "react-apexcharts";
 
@@ -42,7 +41,7 @@ function SalesChart() {
         },
     };
     return (
-        <Chart options={options} series={series} type="line" height={500} />
+        <Chart options={options} series={series} type="line" height={500}/>
     )
 }
 

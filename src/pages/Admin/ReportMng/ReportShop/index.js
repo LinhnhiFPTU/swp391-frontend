@@ -1,1 +1,1 @@
-export { default } from "./ReportShop"
+export {default} from "./ReportShop"

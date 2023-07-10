@@ -31,6 +31,7 @@
       .header {
         display: flex;
         align-items: center;
+
         .title {
           font-size: 2.3rem;
           font-weight: 500;
@@ -64,6 +65,7 @@
         margin-bottom: 10px;
         padding: 12px;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
         .detail-user {
           display: flex;
           align-items: center;
@@ -74,16 +76,19 @@
           .user-info {
             display: flex;
             align-items: center;
+
             .user-name {
               font-weight: 500;
               padding-right: 10px;
               border-right: 1px solid #e6e6e6;
             }
+
             .phone-number {
               padding-left: 10px;
               font-size: 1.5rem;
             }
           }
+
           .contact-user {
             .chat-btn {
               width: 70px;
@@ -102,6 +107,7 @@
             }
           }
         }
+
         .shipping-detail {
           display: flex;
           justify-content: space-between;
@@ -137,10 +143,12 @@
             height: 70px;
             margin-right: 10px;
           }
+
           .product-info {
             width: 100%;
             display: flex;
             justify-content: space-between;
+
             .left {
               .product-name {
                 width: 400px;
@@ -154,6 +162,7 @@
                 -webkit-line-clamp: 1;
               }
             }
+
             .right {
               .price {
                 color: #333;

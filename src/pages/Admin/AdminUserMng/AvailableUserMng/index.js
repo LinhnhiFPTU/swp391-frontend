@@ -1,1 +1,1 @@
-export { default } from "./AvailableUserMng"
+export {default} from "./AvailableUserMng"

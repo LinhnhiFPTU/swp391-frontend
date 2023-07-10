@@ -29,11 +29,13 @@
         justify-content: center;
         margin-top: 50px;
         margin-bottom: 30px;
+
         .form-register {
           .shop-name {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+
             .name {
               width: 125px;
               padding: 8px 0;
@@ -46,6 +48,7 @@
 
             .name-input {
               position: relative;
+
               .input {
                 border-radius: 3px;
                 outline: none;
@@ -77,6 +80,7 @@
                   font-size: 1.4rem;
                 }
               }
+
               .error {
                 padding-top: 5px;
                 font-size: 1.2rem;
@@ -89,6 +93,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+
             .name {
               width: 125px;
               padding: 8px 0;
@@ -98,10 +103,12 @@
                 color: red;
               }
             }
+
             .add {
               .add-detail {
                 font-size: 1.4rem;
               }
+
               .add-btn {
                 width: 70px;
                 height: 32px;
@@ -137,6 +144,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+
             .name {
               width: 125px;
               padding: 8px 0;
@@ -146,6 +154,7 @@
                 color: red;
               }
             }
+
             .email-input {
               .input {
                 border-radius: 3px;
@@ -198,10 +207,12 @@
               }
             }
           }
+
           .shop-phone {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+
             .name {
               width: 125px;
               padding: 8px 0;
@@ -211,8 +222,10 @@
                 color: red;
               }
             }
+
             .phone-input {
               position: relative;
+
               .input {
                 border-radius: 3px;
                 outline: none;
@@ -245,6 +258,7 @@
 
         .save {
           margin-right: 30px;
+
           .save-btn {
             width: 110px;
             height: 40px;

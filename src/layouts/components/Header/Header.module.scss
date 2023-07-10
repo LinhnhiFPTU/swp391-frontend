@@ -42,6 +42,7 @@
 .inner-subText {
   color: #333;
 }
+
 .search-results {
   width: 450px;
   height: fit-content;
@@ -88,6 +89,7 @@
   outline: none;
   background: rgba(22, 24, 35, 0.03);
 }
+
 .search-bar button {
   padding: 8.5px;
   border-radius: 0 3px 3px 0;
@@ -200,6 +202,7 @@
 .option-first:hover:before {
   border-bottom-color: rgba(22, 24, 35, 0);
 }
+
 .icon-sub {
   font-size: 1.6rem;
 }

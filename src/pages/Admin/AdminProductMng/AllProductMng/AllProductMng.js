@@ -1,105 +1,13 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./AllProductMng.module.scss";
-
-import bird from "~/assets/images/bird-cage.png";
 import DataTable from "react-data-table-component";
 import Sidebar from "../../global/Sidebar";
 import ProductMngNav from "../ProductMngNav/ProductMngNav";
 import Topbar from "../../global/Topbar";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
-
-const productRows = [
-  {
-    id: 1,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 2,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 3,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 4,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 5,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 6,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 7,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Banned",
-  },
-  {
-    id: 8,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Banned",
-  },
-  {
-    id: 9,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-  {
-    id: 10,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Banned",
-  },
-  {
-    id: 11,
-    img: bird,
-    productName: "Bird Cage",
-    shopName: "Louis Vuiton",
-    address: "Ho Chi Minh",
-    status: "Available",
-  },
-];
 
 const productColumns = [
   {
@@ -112,7 +20,7 @@ const productColumns = [
   },
   {
     name: "Image",
-      cell: (row) => (
+    cell: (row) => (
       <div>
         <img className={cx("product-img")} src={row.img} alt="product-img" />
       </div>
@@ -128,8 +36,8 @@ const productColumns = [
     selector: (row) => row.shopName,
   },
   {
-    name: "Address",
-    selector: (row) => row.address,
+    name: "Category",
+    selector: (row) => row.category,
   },
   {
     name: "Status",
@@ -144,26 +52,41 @@ const productColumns = [
       </div>
     ),
   },
-  // {
-  //   name: "Action",
-  //   cell: (row) => (
-  //     <div>
-  //       {row.status === "Available" && (
-  //         <button className={cx("ban_btn")} onClick={() => console.log(row)}>
-  //           Ban
-  //         </button>
-  //       )}
-  //       {row.status === "Banned" && (
-  //         <button
-  //           className={cx("recover_btn")}
-  //           onClick={() => console.log(row)}
-  //         >
-  //           Recover
-  //         </button>
-  //       )}
-  //     </div>
-  //   ),
-  // },
+  {
+    name: "Action",
+    cell: (row) => (
+      <div>
+        {row.status === "Available" && (
+          <button
+            className={cx("ban_btn")}
+            onClick={() => {
+              axios
+                .post("/api/v1/admin/action/product/" + row.id + "?action=BAN")
+                .then((res) => window.location.reload())
+                .catch((e) => console.log(e));
+            }}
+          >
+            Ban
+          </button>
+        )}
+        {row.status === "Banned" && (
+          <button
+            className={cx("recover_btn")}
+            onClick={() => {
+              axios
+                .post(
+                  "/api/v1/admin/action/product/" + row.id + "?action=RECOVER"
+                )
+                .then((res) => window.location.reload())
+                .catch((e) => console.log(e));
+            }}
+          >
+            Recover
+          </button>
+        )}
+      </div>
+    ),
+  },
 ];
 
 const customStyles = {
@@ -196,16 +119,40 @@ const customStyles = {
 };
 
 function AllProductMng() {
-  const [records, setRecords] = useState(productRows);
-  useEffect(() => {
-    document.title = "Administration";
-  }, [])
+  const [search, setSearch] = useState([]);
+  const [records, setRecords] = useState([]);
   const handleaFilter = (event) => {
-    const newData = productRows.filter((row) =>
+    const newData = records.filter((row) =>
       row.productName.toLowerCase().includes(event.target.value.toLowerCase())
     );
-    setRecords(newData);
+    setSearch(newData);
   };
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/admin/management/product")
+      .then((res) => {
+        let mappedProduct = res.data.map((item) => {
+          let mapped = {
+            id: item.id,
+            img: item.images[0].url,
+            productName: item.name,
+            shopName: item.shop.name,
+            category: item.category.name,
+            status: item.ban ? "Banned" : "Available",
+          };
+          return mapped;
+        });
+        setRecords(mappedProduct);
+        setSearch(mappedProduct);
+      })
+      .catch((e) => {
+        console.log(e.response.status);
+        if (e.response.status == 403) {
+        }
+      });
+  }, []);
+
   return (
     <div className={cx("product-wrapper")}>
       <div className={cx("topbar")}>
@@ -231,7 +178,7 @@ function AllProductMng() {
 
             <DataTable
               columns={productColumns}
-              data={records}
+              data={search}
               customStyles={customStyles}
               pagination
             />

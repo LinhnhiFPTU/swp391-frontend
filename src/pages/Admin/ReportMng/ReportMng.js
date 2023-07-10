@@ -5,15 +5,12 @@ import Sidebar from "../global/Sidebar";
 import ReportProduct from "./ReportProduct";
 import ReportShop from "./ReportShop";
 import styles from "./ReportMng.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
 function ReportMng() {
   const [navOption, setNavOption] = useState("Product Report");
-  useEffect(() => {
-    document.title = "Administration";
-  }, [])
   return (
     <>
       <Topbar />
@@ -25,13 +22,17 @@ function ReportMng() {
           <div className={cx("report-content")}>
             <div className={cx("report-nav")}>
               <button
-                className={cx("nav-btn", {active: navOption === "Product Report"})}
+                className={cx("nav-btn", {
+                  active: navOption === "Product Report",
+                })}
                 onClick={() => setNavOption("Product Report")}
               >
                 Product Report
               </button>
               <button
-                className={cx("nav-btn", {active: navOption === "Shop Report"})}
+                className={cx("nav-btn", {
+                  active: navOption === "Shop Report",
+                })}
                 onClick={() => setNavOption("Shop Report")}
               >
                 Shop Report

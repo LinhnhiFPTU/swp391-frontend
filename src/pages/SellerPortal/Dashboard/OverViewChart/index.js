@@ -1,1 +1,1 @@
-export { default } from './OverViewChart'
+export {default} from './OverViewChart'

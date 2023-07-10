@@ -1,1 +1,1 @@
-export { default } from './HeaderSeller' 
+export {default} from './HeaderSeller'

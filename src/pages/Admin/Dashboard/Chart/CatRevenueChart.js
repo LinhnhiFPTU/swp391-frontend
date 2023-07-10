@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
 const series = [
@@ -20,6 +21,24 @@ const series = [
   },
 ];
 
+function getPreviousDay(date = new Date()) {
+  const previous = new Date(date.getTime());
+  previous.setDate(date.getDate() - 1);
+  return previous;
+}
+
+const lastTwoWeek = () => {
+  let rs = [];
+  let counter = new Date();
+  let i = 0;
+  while (i <= 13) {
+    rs.push(counter.toLocaleDateString());
+    counter = getPreviousDay(counter);
+    i++;
+  }
+  return rs;
+};
+
 const options = {
   chart: {
     type: "bar",
@@ -31,9 +50,6 @@ const options = {
     },
     zoom: {
       enabled: true,
-    },
-    toolbar: {
-      show: false,
     },
   },
   responsive: [
@@ -65,22 +81,7 @@ const options = {
   },
   xaxis: {
     type: "datetime",
-    categories: [
-      "01/01/2011 GMT",
-      "01/02/2011 GMT",
-      "01/03/2011 GMT",
-      "01/04/2011 GMT",
-      "01/05/2011 GMT",
-      "01/06/2011 GMT",
-      "01/07/2011 GMT",
-      "01/08/2011 GMT",
-      "01/09/2011 GMT",
-      "01/10/2011 GMT",
-      "01/11/2011 GMT",
-      "01/12/2011 GMT",
-      "01/13/2011 GMT",
-      "01/14/2011 GMT",
-    ],
+    categories: lastTwoWeek().reverse(),
   },
   legend: {
     position: "right",
@@ -90,14 +91,29 @@ const options = {
     opacity: 1,
   },
 };
+
 function CatRevenueChart() {
+  const [updateSeries, setUpdateSeries] = useState([]);
+  useEffect(() => {
+    axios
+      .get("/api/v1/admin/analyst/category/revenue")
+      .then((res) => {
+        console.log(res.data);
+        let newSeries = [...series];
+        res.data.forEach((item, index) => {
+          newSeries[index].data = item;
+        });
+        setUpdateSeries(newSeries);
+      })
+      .catch((e) => console.log(e.response.code));
+  }, []);
   return (
     <>
       <ReactApexChart
         type="bar"
         width={"100%"}
         height={"100%"}
-        series={series}
+        series={updateSeries}
         options={options}
       />
     </>

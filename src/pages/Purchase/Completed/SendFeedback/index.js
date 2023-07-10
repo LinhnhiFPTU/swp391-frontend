@@ -1,1 +1,1 @@
-export { default } from "./SendFeedback"
+export {default} from "./SendFeedback"
