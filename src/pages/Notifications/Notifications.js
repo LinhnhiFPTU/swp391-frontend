@@ -11,6 +11,7 @@ const cx = classNames.bind(styles);
 
 function Notifications() {
     const {state} = useLocation()
+    const [page, setPage] = useState(1)
     const [notifications, setNotifications] = useState(() => {
         if (state) return state
         return []

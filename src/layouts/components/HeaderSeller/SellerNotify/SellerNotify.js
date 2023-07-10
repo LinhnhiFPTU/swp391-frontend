@@ -10,6 +10,7 @@ const cx = classNames.bind(styles);
 
 function SellerNotify() {
     const [notifications, setNotifications] = useState([])
+    const [page, setPage] = useState(1)
     const navigate = useNavigate()
 
     useEffect(() => {
