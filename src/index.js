@@ -10,7 +10,7 @@ import {Context} from "./context/Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <GoogleOAuthProvider clientId="96615940146-a6npdnvt227aiaou542u02q3q38v788t.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="958122686048-nq8dv8psh8dqigiia4cib3u50sbb8mva.apps.googleusercontent.com">
         <GlobalStyles>
             <Context>
                 <App/>

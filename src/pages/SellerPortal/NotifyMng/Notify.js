@@ -10,15 +10,30 @@ const cx = classNames.bind(styles);
 
 function Notify() {
     const {state} = useLocation();
+    const [page, setPage] = useState(1)
+    const [maxPage, setMaxPage] = useState(() => {
+        axios
+            .get("/api/v1/shop/notifications/max-page")
+            .then((res) => setMaxPage(res.data))
+            .catch((e) => console.log(e));
+        return 0
+    })
     const [notifications, setNotifications] = useState(() => {
         if (state) return state;
         axios
-            .get("/api/v1/shop/notifications")
+            .get("/api/v1/shop/notifications?page=" + page)
             .then((res) => setNotifications(res.data))
             .catch((e) => console.log(e));
         return []
     });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        axios
+            .get("/api/v1/shop/notifications?page=" + page)
+            .then((res) => setNotifications(res.data))
+            .catch((e) => console.log(e));
+    }, [page])
 
     const handleMarkAllRead = (e) => {
         e.preventDefault();
@@ -46,6 +61,25 @@ function Notify() {
                 .catch((e) => console.log(e));
         }
     };
+
+    const handlePrevPage = () => {
+        let willBe = page - 1
+        if (willBe <= 0)
+        {
+            return;
+        }
+
+        setPage(page - 1)
+    }
+
+    const handleNextPage = () => {
+        let willBe = page + 1
+        if (willBe > maxPage)
+        {
+            return
+        }
+        setPage(page + 1)
+    }
 
     useEffect(() => {
         document.title = "Seller Centre";
@@ -93,10 +127,10 @@ function Notify() {
                             ))}
                         </div>
                         <div className={cx("prev-next")}>
-                            <button className={cx("icon-left")}>
+                            <button className={cx("icon-left")} onClick={handlePrevPage} disabled={page === 1}>
                                 <i className={cx("fa-light fa-angle-left")}></i>
                             </button>
-                            <button className={cx("icon-right")}>
+                            <button className={cx("icon-right")} onClick={handleNextPage} disabled={page === maxPage}>
                                 <i className={cx("fa-light fa-angle-right")}></i>
                             </button>
                         </div>
