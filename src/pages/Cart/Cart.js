@@ -82,19 +82,6 @@ function Cart() {
     });
   };
 
-  /*
-      item {
-        shop: {
-
-        },
-        cartProducts: [{
-          product: {
-
-          }
-        }]
-      }
-    */
-
   const handleCheckShop = (e, item) => {
     let products = item.cartProducts.map((cp) => cp.product.id);
     let checked = checkedProducts.every((cp) => products.indexOf(cp) === -1);
@@ -231,7 +218,7 @@ function Cart() {
                             <span>{p.product.name}</span>
                           </div>
                           <div className={cx("product-details")}>
-                            ${" "}
+                            $
                             {p.salePercent
                               ? Math.round(
                                   p.product.price * (1 - p.salePercent / 100)
@@ -271,7 +258,7 @@ function Cart() {
                             </button>
                           </div>
                           <div className={cx("product-details")}>
-                            ${" "}
+                            $
                             {(p.salePercent
                               ? Math.round(
                                   p.product.price * (1 - p.salePercent / 100)
@@ -313,9 +300,7 @@ function Cart() {
                 <div className={cx("cart-right")}>
                   <div className={cx("totalPrice")}>
                     <span className={cx("sub-name")}>Total:</span>
-                    <span className={cx("sub-price")}>
-                      {total.totalPrice} $
-                    </span>
+                    <span className={cx("sub-price")}>${total.totalPrice}</span>
                   </div>
                   <button onClick={handleCheckout}>Check out</button>
                 </div>
