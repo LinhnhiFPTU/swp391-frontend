@@ -14,7 +14,7 @@ function NotificationsDropdown() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get('/api/v1/users/notifications')
+        axios.get('/api/v1/users/notifications?page=1')
             .then(res => {
                 setNotifications(res.data)
             })
