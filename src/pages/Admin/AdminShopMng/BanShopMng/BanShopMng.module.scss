@@ -31,18 +31,6 @@
   background-color: red;
 }
 
-.available-status {
-  width: 100px;
-  margin: 0;
-  font-size: 15px;
-  font-weight: 300;
-  border: 0.5px solid rgb(57, 181, 136);
-  background-color: rgb(235, 249, 244);
-  border-radius: 3px;
-  color: green;
-  text-align: center;
-}
-
 .banned-status {
   width: 100px;
   margin: 0;
@@ -73,24 +61,16 @@
 
 .avatar-img {
   width: 65px;
+  height: 60px;
 }
 
-
-.button {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  background-color: #fff;
-  padding: 25px 0px;
-
-  .recover-btn {
-    width: 120px;
-    padding: 3px;
-    border: none;
-    background-color: rgb(57, 151, 77);
-    color: white;
-    border-radius: 3px;
-    text-align: center;
-    font-weight: 500;
-  }
+.recover-btn {
+  width: 100px;
+  padding: 3px;
+  border: none;
+  background-color: rgb(57, 151, 77);
+  color: white;
+  border-radius: 3px;
+  text-align: center;
+  font-weight: 500;
 }

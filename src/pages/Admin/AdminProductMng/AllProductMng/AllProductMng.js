@@ -14,6 +14,7 @@ const productColumns = [
     name: "ID",
     selector: (row) => row.id,
     sortable: true,
+    width: 50,
     style: {
       fontsize: "16px",
     },
