@@ -48,7 +48,14 @@
 
       .rate-product-container {
         width: 100%;
-        margin-top: 25px;
+        height: calc(100% - 73px);
+        margin-top: 15px;
+
+        .product-list {
+          width: 100%;
+          height: 160px;
+          overflow: scroll;
+        }
 
         .product-report {
           display: flex;
@@ -95,7 +102,7 @@
         }
 
         .product-media {
-          margin-top: 40px;
+          margin-top: 30px;
 
           .upload-image {
             display: flex;
@@ -172,7 +179,7 @@
           }
 
           .upload-video {
-            height: 127px;
+            height: 110px;
             display: flex;
             margin-top: 15px;
 
@@ -312,7 +319,7 @@
 
               .input {
                 width: 450px;
-                height: 145px;
+                height: 100px;
                 padding: 5px 8px;
                 font-size: 1.4rem;
                 outline: none;
@@ -324,7 +331,7 @@
 
               .input-error {
                 width: 450px;
-                height: 145px;
+                height: 100px;
                 padding: 5px 8px;
                 font-size: 1.4rem;
                 outline: none;
@@ -356,7 +363,14 @@
 
       .report-product-container {
         width: 100%;
-        margin-top: 25px;
+        height: calc(100% - 73px);
+        margin-top: 15px;
+
+        .product-list {
+          width: 100%;
+          height: 160px;
+          overflow: scroll;
+        }
 
         .product-report {
           display: flex;
@@ -428,7 +442,7 @@
           }
 
           .report-content {
-            margin-top: 40px;
+            margin-top: 30px;
 
             .report-image {
               display: flex;
@@ -505,7 +519,7 @@
             }
 
             .report-video {
-              height: 127px;
+              height: 110px;
               display: flex;
               margin-top: 15px;
 
@@ -645,7 +659,7 @@
 
                 .input {
                   width: 450px;
-                  height: 145px;
+                  height: 100px;
                   padding: 5px 8px;
                   font-size: 1.4rem;
                   outline: none;
@@ -657,7 +671,7 @@
 
                 .input-error {
                   width: 450px;
-                  height: 145px;
+                  height: 100px;
                   padding: 5px 8px;
                   font-size: 1.4rem;
                   outline: none;
