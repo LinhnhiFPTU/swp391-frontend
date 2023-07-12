@@ -29,46 +29,54 @@ function Message() {
     document.title = "Seller Centre";
   }, []);
 
-  // useEffect(() => {
-  //   if (state) {
-  //     let userId = state;
-  //     conversations.forEach((c, id) => {
-  //       let finded = c.conversationChatters
-  //         .filter((cc) => !cc.shop)
-  //         .find((cc) => cc.user.id === userId);
+  useEffect(() => {
+    if (state) {
+      let userId = state;
+      let savedId;
+      conversations.forEach((c, id) => {
+        let found = c.conversationChatters
+          .filter((cc) => !cc.shop)
+          .find((cc) => cc.user.id === userId);
 
-  //       if (finded.length >= 1) setActiveTab(id);
-  //       else {
-  //         axios
-  //           .get("/api/v1/shop/info")
-  //           .then((res) => {
-  //             let Sock = new SockJS("https://localhost:8080/ws");
-  //             stompClient = over(Sock);
-  //             stompClient.connect(
-  //               {},
-  //               () => onConnected(userId, res.data.id),
-  //               (e) => console.log(e)
-  //             );
-  //           })
-  //           .catch((e) => {
-  //             console.log(e);
-  //           });
+        if (found) savedId = id;
+      });
 
-  //           const onConnected = (shopId, userId) => {
-  //               const request = {
-  //                   fromId: shopId,
-  //                   toId: userId,
-  //                   content: "Let's Start",
-  //                   sendTime: new Date(),
-  //                   chatterType: "SHOP",
-  //               };
-  //               stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
-  //               setOpenChat(true);
-  //           };
-  //       }
-  //     });
-  //   }
-  // }, [state]);
+      if (savedId) setActiveTab(savedId);
+      else {
+        axios
+          .get("/api/v1/users/info")
+          .then((res) => {
+            if (res.data.shopDTO) {
+              let Sock = new SockJS("http://localhost:8080/ws");
+              stompClient = over(Sock);
+              stompClient.connect(
+                {},
+                () => onConnected(res.data.shopDTO.id, userId),
+                (e) => console.log(e)
+              );
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+
+        const onConnected = (shopId, userId) => {
+          const request = {
+            fromId: shopId,
+            toId: userId,
+            content: "Let's Start",
+            sendTime: new Date(),
+            chatterType: "SHOP",
+          };
+          stompClient.send(
+            "/app/conversation-request",
+            {},
+            JSON.stringify(request)
+          );
+        };
+      }
+    }
+  }, [state]);
 
   useEffect(() => {
     axios
@@ -80,7 +88,7 @@ function Message() {
           }
           setShop(shop);
 
-          let Sock = new SockJS("https://localhost:8080/ws");
+          let Sock = new SockJS("http://localhost:8080/ws");
           stompClient = over(Sock);
           stompClient.connect({}, onConnected, onError);
         }
@@ -130,7 +138,7 @@ function Message() {
       if (!conversations.find((it) => it.id === item.id)) {
         conversations.push(item);
       }
-      setConversations(Array.from(conversations));
+      setConversations(Array.from(conversations.reverse()));
     });
   };
 

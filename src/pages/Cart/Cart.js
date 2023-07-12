@@ -34,6 +34,10 @@ function Cart() {
     document.title = `Shopping Cart`;
   }, []);
 
+  const roundedFloat = (float) => {
+    return Math.round((float + Number.EPSILON) * 100) / 100;
+  };
+
   useEffect(() => {
     let totalPrice = 0;
     let totalQuantity = 0;
@@ -52,7 +56,7 @@ function Cart() {
     });
     console.log(totalPrice);
     setTotal({
-      totalPrice: Math.round(totalPrice),
+      totalPrice: roundedFloat(totalPrice),
       totalQuantity: totalQuantity,
     });
   }, [checkedProducts, state]);
@@ -220,9 +224,7 @@ function Cart() {
                           <div className={cx("product-details")}>
                             $
                             {p.salePercent
-                              ? Math.round(
-                                  p.product.price * (1 - p.salePercent / 100)
-                                )
+                              ? roundedFloat( p.product.price * (1 - p.salePercent / 100))
                               : p.product.price}
                           </div>
                           <div className={cx("product-quantity")}>
@@ -260,9 +262,7 @@ function Cart() {
                           <div className={cx("product-details")}>
                             $
                             {(p.salePercent
-                              ? Math.round(
-                                  p.product.price * (1 - p.salePercent / 100)
-                                )
+                              ? roundedFloat(p.product.price * (1 - p.salePercent / 100))
                               : p.product.price) * p.quantity}
                           </div>
                           <div className={cx("product-details")}>

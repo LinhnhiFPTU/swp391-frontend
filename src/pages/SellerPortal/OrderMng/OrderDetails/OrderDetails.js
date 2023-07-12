@@ -1,17 +1,26 @@
 import classNames from "classnames/bind";
 
 import styles from "./OrderDetails.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 function OrderDetails({setOpenListDetail, order}) {
+    const navigate = useNavigate()
+
+    const handleChat = (e, userId) =>
+    {
+      e.preventDefault()
+      navigate("/seller/portal/message", {state: userId})
+    }
+
     return (
         <div className={cx("overlay")}>
             <div className={cx("order-details-popup")}>
                 <div className={cx("order-detail-header")}>
                     <div className={cx("header")}>
                         <div className={cx("title")}>Order</div>
-                        <div className={cx("orderId")}>#1234567</div>
+                        <div className={cx("orderId")}>#{order.id}</div>
                     </div>
                     <div className={cx("close")}>
                         <button
@@ -33,7 +42,7 @@ function OrderDetails({setOpenListDetail, order}) {
                                     {order.receiveInfo.phone}
                                 </div>
                             </div>
-                            <div className={cx("contact-user")}>
+                            <div className={cx("contact-user")} onClick={(e) => handleChat(e, order.user.id)}>
                                 <button className={cx("chat-btn")}>Chat</button>
                             </div>
                         </div>

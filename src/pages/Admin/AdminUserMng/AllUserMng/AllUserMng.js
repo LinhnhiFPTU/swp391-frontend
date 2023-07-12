@@ -62,7 +62,9 @@ const usersColumns = [
             onClick={() => {
               axios
                 .post("/api/v1/admin/action/user/" + row.id + "?action=BAN")
-                .then((res) => (row.status = "Banned"))
+                .then((res) => {
+                  window.location.reload()
+                })
                 .catch((e) => console.log(e));
             }}
           >
@@ -75,7 +77,9 @@ const usersColumns = [
             onClick={() => {
               axios
                 .post("/api/v1/admin/action/user/" + row.id + "?action=RECOVER")
-                .then((res) => (row.status = "Available"))
+                .then((res) => {
+                  window.location.reload()
+                })
                 .catch((e) => console.log(e));
             }}
           >

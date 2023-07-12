@@ -7,7 +7,7 @@ export const Context = (props) => {
         switch (action.type) {
             case "ADD":
                 axios
-                    .post("/api/v1/users/cart/" + action.payload)
+                    .post("/api/v1/users/cart/" + action.payload.pId + "?quantity=" + action.payload.quantity)
                     .then((res) => {
                         console.log(res);
                         axios

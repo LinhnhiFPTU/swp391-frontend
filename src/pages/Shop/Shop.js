@@ -12,6 +12,8 @@ import ChatPupup from "~/layouts/components/ChatPopup";
 import { UserContext } from "~/userContext/Context";
 import styles from "./Shop.module.scss";
 import axios from "axios";
+import SockJS from "sockjs-client";
+import { over } from "stompjs";
 
 const cx = classNames.bind(styles);
 
@@ -38,6 +40,8 @@ const sortBarOptions = [
   },
 ];
 
+var stompClient = null;
+
 function Shop() {
   const context = useContext(UserContext);
   const user = context.state;
@@ -62,6 +66,7 @@ function Shop() {
   const [cmtPage, setCmtPage] = useState(1);
   const [maxPage, setMaxPage] = useState(5);
   const [minPage, setMinPage] = useState(1);
+  const [openChat, setOpenChat] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -177,12 +182,42 @@ function Shop() {
     return false;
   };
 
+  const handleNewConversation = (event, shopId) => {
+    event.preventDefault();
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        let Sock = new SockJS("http://localhost:8080/ws");
+        stompClient = over(Sock);
+        stompClient.connect(
+          {},
+          () => onConnected(shopId, res.data.id),
+          (e) => console.log(e)
+        );
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const onConnected = (shopId, userId) => {
+    const request = {
+      fromId: userId,
+      toId: shopId,
+      content: "Let's Start",
+      sendTime: new Date(),
+      chatterType: "USER",
+    };
+    stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
+    setOpenChat(true);
+  };
+
   return (
     <>
       <Header />
       <div className={cx("wrapper")}>
         <div className={cx("container")}>
-          <ChatPupup />
+          <ChatPupup openChat={openChat} setOpenChat={setOpenChat} />
           <div className={cx("shop_container")}>
             <div className={cx("shop-left_content")}>
               <img
@@ -196,7 +231,12 @@ function Shop() {
                   <span>{shop.active}</span>
                 </div>
                 <div className={cx("shop-interact")}>
-                  <button className={cx("shop-chat")}>
+                  <button
+                    className={cx("shop-chat")}
+                    onClick={(e) => {
+                      handleNewConversation(e, shop.shopDetails.id)
+                    }}
+                  >
                     <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
                     <span>Chat</span>
                   </button>

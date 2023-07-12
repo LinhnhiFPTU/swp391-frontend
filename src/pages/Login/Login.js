@@ -72,8 +72,11 @@ function Login() {
                 .post("/api/v1/auths/authentication", request)
                 .then((res) => {
                     setMsg("");
-                    window.location.href = "/"
-                    console.log(res.data);
+                    let redirectUrl = "/"
+                    if (res.data.role === "ADMIN") redirectUrl = "/admin/portal/dashboard"
+                    
+                    window.location.href = redirectUrl
+                    console.log(res.data, redirectUrl);
                 })
                 .catch((e) => {
                     setMsg(e.response.data.message);
