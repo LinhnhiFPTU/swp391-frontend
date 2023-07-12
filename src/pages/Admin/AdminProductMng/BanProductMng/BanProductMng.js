@@ -165,14 +165,10 @@ function BanProductMng() {
             <DataTable
               columns={productColumns}
               data={search}
-              selectableRows
               customStyles={customStyles}
               pagination
             />
           </div>
-          {/* <div className={cx("button")}>
-            <button className={cx("recover-btn")}>RECOVER</button>
-          </div> */}
         </div>
       </div>
     </div>

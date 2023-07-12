@@ -167,7 +167,6 @@ function BanShopMng() {
             <DataTable
               columns={usersColumns}
               data={search}
-              selectableRows
               customStyles={customStyles}
               pagination
             />

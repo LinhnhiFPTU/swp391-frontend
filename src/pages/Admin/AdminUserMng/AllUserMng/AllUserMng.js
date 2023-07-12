@@ -58,7 +58,7 @@ const usersColumns = [
       <div>
         {row.status === "Available" && (
           <button
-            className={cx("ban_btn")}
+            className={cx("ban-btn")}
             onClick={() => {
               axios
                 .post("/api/v1/admin/action/user/" + row.id + "?action=BAN")
@@ -71,7 +71,7 @@ const usersColumns = [
         )}
         {row.status === "Banned" && (
           <button
-            className={cx("recover_btn")}
+            className={cx("recover-btn")}
             onClick={() => {
               axios
                 .post("/api/v1/admin/action/user/" + row.id + "?action=RECOVER")

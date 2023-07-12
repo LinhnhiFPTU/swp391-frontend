@@ -59,7 +59,7 @@ const productColumns = [
       <div>
         {row.status === "Available" && (
           <button
-            className={cx("ban_btn")}
+            className={cx("ban-btn")}
             onClick={() => {
               axios
                 .post("/api/v1/admin/action/product/" + row.id + "?action=BAN")
@@ -72,7 +72,7 @@ const productColumns = [
         )}
         {row.status === "Banned" && (
           <button
-            className={cx("recover_btn")}
+            className={cx("recover-btn")}
             onClick={() => {
               axios
                 .post(
