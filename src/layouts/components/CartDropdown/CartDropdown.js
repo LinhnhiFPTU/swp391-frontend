@@ -1,36 +1,36 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./CartDropdown.module.scss";
 import Tippy from "@tippyjs/react/headless";
-import {Wrapper as PopperWrapper} from "~/components/Popper";
-import {Cartcontext} from "~/context/Context";
+import { Wrapper as PopperWrapper } from "~/components/Popper";
+import { Cartcontext } from "~/context/Context";
 
 const cx = classNames.bind(styles);
 
 function CartDropdown() {
-    const Globalstate = useContext(Cartcontext);
-    const state = Globalstate.state;
-    const [cartSize, setCartSize] = useState(0);
-    const [lastFiveItems, setLastFiveItems] = useState([]);
+  const Globalstate = useContext(Cartcontext);
+  const state = Globalstate.state;
+  const [cartSize, setCartSize] = useState(0);
+  const [lastFiveItems, setLastFiveItems] = useState([]);
 
-    useEffect(() => {
-        let size = 0;
-        let count = 0;
-        let fiveItems = [];
-        state.forEach((ci) => {
-            size += ci.cartProducts.length;
-            ci.cartProducts.forEach((p) => {
-                if (count <= 4) {
-                    fiveItems.push(p);
-                    count++;
-                }
-            });
-        });
-        console.log(fiveItems);
-        setCartSize(size);
-        setLastFiveItems(fiveItems);
-    }, [state]);
+  useEffect(() => {
+    let size = 0;
+    let count = 0;
+    let fiveItems = [];
+    state.forEach((ci) => {
+      size += ci.cartProducts.length;
+      ci.cartProducts.forEach((p) => {
+        if (count <= 4) {
+          fiveItems.push(p);
+          count++;
+        }
+      });
+    });
+    console.log(fiveItems);
+    setCartSize(size);
+    setLastFiveItems(fiveItems);
+  }, [state]);
 
     return (
         <div className={cx("cart-icon")}>

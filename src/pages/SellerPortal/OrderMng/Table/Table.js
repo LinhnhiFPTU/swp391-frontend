@@ -28,6 +28,11 @@ const statusStyle = (status) => {
       backgroundColor: "#F2F4F8",
       color: "#1B4780",
     };
+  } else if (status === "SPECIAL_SHOP") {
+    return {
+      backgroundColor: "#F2F4F8",
+      color: "#1B4780",
+    };
   }
 };
 

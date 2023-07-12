@@ -2,116 +2,12 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./BanShopMng.module.scss";
 import Sidebar from "../../global/Sidebar";
-
-import avatar from "~/assets/images/user-avatar.png";
 import DataTable from "react-data-table-component";
 import ShopMngNav from "../ShopMngNav/ShopMngNav";
 import Topbar from "../../global/Topbar";
 import axios from "axios";
 
 const cx = classNames.bind(styles);
-
-const shopsRows = [
-  {
-    id: 1,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 2,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 3,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 4,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 5,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 6,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 7,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 8,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 9,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 10,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-  {
-    id: 11,
-    avatar: avatar,
-    shopName: "Louis Vuiton",
-    email: "anv@gmail.com",
-    address: "Ho Chi Minh",
-    package: "30 days",
-    status: "Banned",
-  },
-];
 
 const usersColumns = [
   {
@@ -288,9 +184,9 @@ function BanShopMng() {
               customStyles={customStyles}
               pagination
             />
-            <div className={cx("button")}>
+            {/* <div className={cx("button")}>
               <button className={cx("recover-btn")}>RECOVER</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

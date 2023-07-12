@@ -1,261 +1,261 @@
 /* eslint-disable array-callback-return */
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import {Link, useLocation, useSearchParams} from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
-import {Wrapper as PopperWrapper} from "~/components/Popper";
+import { Wrapper as PopperWrapper } from "~/components/Popper";
 
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer/Footer";
 import StarRating from "~/layouts/components/StarRating";
 import ChatPupup from "~/layouts/components/ChatPopup";
-import {UserContext} from "~/userContext/Context";
+import { UserContext } from "~/userContext/Context";
 import styles from "./Shop.module.scss";
 import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 const sortBarOptions = [
-    {
-        type: "normal",
-        title: "Popular",
-    },
-    {
-        type: "normal",
-        title: "Top Sales",
-    },
-    {
-        type: "normal",
-        title: "Ratings",
-    },
-    {
-        type: "price",
-        title: "Low to High",
-    },
-    {
-        type: "price",
-        title: "High to Low",
-    },
+  {
+    type: "normal",
+    title: "Popular",
+  },
+  {
+    type: "normal",
+    title: "Top Sales",
+  },
+  {
+    type: "normal",
+    title: "Ratings",
+  },
+  {
+    type: "price",
+    title: "Low to High",
+  },
+  {
+    type: "price",
+    title: "High to Low",
+  },
 ];
 
 function Shop() {
-    const context = useContext(UserContext);
-    const user = context.state;
-    const [commentPageBtns, setCommentPageBtns] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [shop, setShop] = useState({
-        shopDetails: {
-            id: -1,
-            shopImage: "",
-            name: "",
-            active: "Active 11 minutes ago",
-            products: 0,
-            rating: 5,
-            followers: 0,
-            responseRate: 100,
-        },
-        products: [],
-        maxPage: 0,
-    });
-    const [typeSort, setTypeSort] = useState("Popular");
-    const [priceTitle, setPriceTitle] = useState("Price");
-    const [cmtPage, setCmtPage] = useState(1);
-    const [maxPage, setMaxPage] = useState(5);
-    const [minPage, setMinPage] = useState(1);
-    const location = useLocation();
+  const context = useContext(UserContext);
+  const user = context.state;
+  const [commentPageBtns, setCommentPageBtns] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [shop, setShop] = useState({
+    shopDetails: {
+      id: -1,
+      shopImage: "",
+      name: "",
+      active: "Active 11 minutes ago",
+      products: 0,
+      rating: 5,
+      followers: 0,
+      responseRate: 100,
+    },
+    products: [],
+    maxPage: 0,
+  });
+  const [typeSort, setTypeSort] = useState("Popular");
+  const [priceTitle, setPriceTitle] = useState("Price");
+  const [cmtPage, setCmtPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(5);
+  const [minPage, setMinPage] = useState(1);
+  const location = useLocation();
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [location]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
-    useEffect(() => {
-        let shopId = searchParams.get("shopId");
-        setShop((prev) => ({...prev, products: []}));
-        axios
-            .get(
-                "/api/v1/publics/shop/" +
-                shopId +
-                "?page=" +
-                cmtPage +
-                "&filter=" +
-                typeSort.toLowerCase()
-            )
-            .then((res) => {
-                console.log(res.data);
-                setShop(res.data);
-                let cmtPage = [];
-                for (let i = 1; i <= res.data.maxPage; i++) {
-                    cmtPage.push(i);
-                }
-                setCommentPageBtns(cmtPage);
-                if (res.data.maxPage <= 5) setMaxPage(res.data.maxPage);
-                document.title = `${res.data.name} | Bird Trading Platform`;
-            })
-            .catch((e) => console.log(e));
-    }, [typeSort, cmtPage]);
-
-    useEffect(() => {
-        const handleReload = () => {
-            window.scrollTo(0, 0);
-        };
-        window.addEventListener("load", handleReload);
-        return () => {
-            window.removeEventListener("load", handleReload);
-        };
-    }, []);
-
-    useEffect(() => {
-        const handleReload = () => {
-            window.scrollTo(0, 0);
-        };
-        window.addEventListener("load", handleReload);
-        return () => {
-            window.removeEventListener("load", handleReload);
-        };
-    }, []);
-
-    const handleNextCmtPage = (e) => {
-        e.preventDefault();
-        if (cmtPage < maxPage) {
-            setCmtPage((c) => c + 1);
-            return;
+  useEffect(() => {
+    let shopId = searchParams.get("shopId");
+    setShop((prev) => ({ ...prev, products: [] }));
+    axios
+      .get(
+        "/api/v1/publics/shop/" +
+          shopId +
+          "?page=" +
+          cmtPage +
+          "&filter=" +
+          typeSort.toLowerCase()
+      )
+      .then((res) => {
+        console.log(res.data);
+        setShop(res.data);
+        let cmtPage = [];
+        for (let i = 1; i <= res.data.maxPage; i++) {
+          cmtPage.push(i);
         }
-        let max_length = commentPageBtns.length;
-        if (max_length - cmtPage >= 3) {
-            setMaxPage((m) => m + 3);
-            setMinPage((m) => m + 3);
-            setCmtPage((c) => c + 1);
-        } else {
-            let distance = max_length - cmtPage;
-            setMaxPage((m) => m + distance);
-            setMinPage((m) => m + distance);
-            setCmtPage((c) => (distance > 0 ? c + 1 : c));
-        }
+        setCommentPageBtns(cmtPage);
+        if (res.data.maxPage <= 5) setMaxPage(res.data.maxPage);
+        document.title = `${res.data.name} | Bird Trading Platform`;
+      })
+      .catch((e) => console.log(e));
+  }, [typeSort, cmtPage]);
+
+  useEffect(() => {
+    const handleReload = () => {
+      window.scrollTo(0, 0);
     };
-
-    const handlePrevCmtPage = (e) => {
-        e.preventDefault();
-        if (cmtPage > minPage) {
-            setCmtPage((c) => c - 1);
-            return;
-        }
-        let min = commentPageBtns[0];
-        if (minPage - min >= 3) {
-            setMaxPage((m) => m - 3);
-            setMinPage((m) => m - 3);
-            setCmtPage((c) => c - 1);
-        } else {
-            console.log(minPage);
-            let distance = minPage - min;
-            setMaxPage((m) => m - distance);
-            setMinPage((m) => m - distance);
-            setCmtPage((c) => (distance > 0 ? c - 1 : c));
-        }
+    window.addEventListener("load", handleReload);
+    return () => {
+      window.removeEventListener("load", handleReload);
     };
+  }, []);
 
-    const handleFollowShop = (e) => {
-        e.preventDefault();
-        if (!checkOwner()) {
-            axios
-                .post("/api/v1/users/subscription/" + shop.shopDetails.id)
-                .then((res) => window.location.reload())
-                .catch((e) => console.log(e));
-        }
+  useEffect(() => {
+    const handleReload = () => {
+      window.scrollTo(0, 0);
     };
-
-    const checkFollow = () => {
-        if (user) {
-            return user.shopSubscription.indexOf(shop.shopDetails.id) != -1;
-        }
-        return false;
+    window.addEventListener("load", handleReload);
+    return () => {
+      window.removeEventListener("load", handleReload);
     };
+  }, []);
 
-    const checkOwner = () => {
-        if (user && shop.shopDetails.userId) {
-            return shop.shopDetails.userId == user.id
-        }
-        return false
-    };
+  const handleNextCmtPage = (e) => {
+    e.preventDefault();
+    if (cmtPage < maxPage) {
+      setCmtPage((c) => c + 1);
+      return;
+    }
+    let max_length = commentPageBtns.length;
+    if (max_length - cmtPage >= 3) {
+      setMaxPage((m) => m + 3);
+      setMinPage((m) => m + 3);
+      setCmtPage((c) => c + 1);
+    } else {
+      let distance = max_length - cmtPage;
+      setMaxPage((m) => m + distance);
+      setMinPage((m) => m + distance);
+      setCmtPage((c) => (distance > 0 ? c + 1 : c));
+    }
+  };
 
-    return (
-        <>
-            <Header/>
-            <div className={cx("wrapper")}>
-                <div className={cx("container")}>
-                    <ChatPupup/>
-                    <div className={cx("shop_container")}>
-                        <div className={cx("shop-left_content")}>
-                            <img
-                                src={shop.shopDetails.shopImage}
-                                alt="avatar"
-                                className={cx("shop_avatar")}
-                            />
-                            <div className={cx("shop-info")}>
-                                <div className={cx("shop-name")}>{shop.shopDetails.name}</div>
-                                <div className={cx("shop-active")}>
-                                    <span>{shop.active}</span>
-                                </div>
-                                <div className={cx("shop-interact")}>
-                                    <button className={cx("shop-chat")}>
-                                        <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
-                                        <span>Chat</span>
-                                    </button>
-                                    {checkFollow() ? (
-                                        <button
-                                            className={cx("shop-follow")}
-                                            onClick={handleFollowShop}
-                                            disabled={checkOwner()}
-                                        >
-                                            <i
-                                                className={cx("fa-regular fa-check", "icon-follow")}
-                                            ></i>
-                                            <span>Following</span>
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className={cx("shop-follow")}
-                                            onClick={handleFollowShop}
-                                            disabled={checkOwner()}
-                                        >
-                                            <i
-                                                className={cx("fa-regular fa-plus", "icon-follow")}
-                                            ></i>
-                                            <span>Follow</span>
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                        <div className={cx("right-content")}>
-                            <a href="#product_list" className={cx("shop-totalProducts")}>
-                                <i className={cx("fa-light fa-box", "icon")}></i>
-                                <span className={cx("name")}>Products: </span>
-                                <span className={cx("number")}>
+  const handlePrevCmtPage = (e) => {
+    e.preventDefault();
+    if (cmtPage > minPage) {
+      setCmtPage((c) => c - 1);
+      return;
+    }
+    let min = commentPageBtns[0];
+    if (minPage - min >= 3) {
+      setMaxPage((m) => m - 3);
+      setMinPage((m) => m - 3);
+      setCmtPage((c) => c - 1);
+    } else {
+      console.log(minPage);
+      let distance = minPage - min;
+      setMaxPage((m) => m - distance);
+      setMinPage((m) => m - distance);
+      setCmtPage((c) => (distance > 0 ? c - 1 : c));
+    }
+  };
+
+  const handleFollowShop = (e) => {
+    e.preventDefault();
+    if (!checkOwner()) {
+      axios
+        .post("/api/v1/users/subscription/" + shop.shopDetails.id)
+        .then((res) => window.location.reload())
+        .catch((e) => console.log(e));
+    }
+  };
+
+  const checkFollow = () => {
+    if (user) {
+      return user.shopSubscription.indexOf(shop.shopDetails.id) !== -1;
+    }
+    return false;
+  };
+
+  const checkOwner = () => {
+    if (user && shop.shopDetails.userId) {
+      return shop.shopDetails.userId === user.id;
+    }
+    return false;
+  };
+
+  return (
+    <>
+      <Header />
+      <div className={cx("wrapper")}>
+        <div className={cx("container")}>
+          <ChatPupup />
+          <div className={cx("shop_container")}>
+            <div className={cx("shop-left_content")}>
+              <img
+                src={shop.shopDetails.shopImage}
+                alt="avatar"
+                className={cx("shop_avatar")}
+              />
+              <div className={cx("shop-info")}>
+                <div className={cx("shop-name")}>{shop.shopDetails.name}</div>
+                <div className={cx("shop-active")}>
+                  <span>{shop.active}</span>
+                </div>
+                <div className={cx("shop-interact")}>
+                  <button className={cx("shop-chat")}>
+                    <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
+                    <span>Chat</span>
+                  </button>
+                  {checkFollow() ? (
+                    <button
+                      className={cx("shop-follow")}
+                      onClick={handleFollowShop}
+                      disabled={checkOwner()}
+                    >
+                      <i
+                        className={cx("fa-regular fa-check", "icon-follow")}
+                      ></i>
+                      <span>Following</span>
+                    </button>
+                  ) : (
+                    <button
+                      className={cx("shop-follow")}
+                      onClick={handleFollowShop}
+                      disabled={checkOwner()}
+                    >
+                      <i
+                        className={cx("fa-regular fa-plus", "icon-follow")}
+                      ></i>
+                      <span>Follow</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className={cx("right-content")}>
+              <a href="#product_list" className={cx("shop-totalProducts")}>
+                <i className={cx("fa-light fa-box", "icon")}></i>
+                <span className={cx("name")}>Products: </span>
+                <span className={cx("number")}>
                   {" "}
-                                    {shop.shopDetails.products}
+                  {shop.shopDetails.products}
                 </span>
-                            </a>
-                            <div className={cx("shop-totalFollowers")}>
-                                <i className={cx("fa-light fa-user", "icon")}></i>
-                                <span className={cx("name")}>Followers: </span>
-                                <span className={cx("number")}>
+              </a>
+              <div className={cx("shop-totalFollowers")}>
+                <i className={cx("fa-light fa-user", "icon")}></i>
+                <span className={cx("name")}>Followers: </span>
+                <span className={cx("number")}>
                   {" "}
-                                    {shop.shopDetails.followers}
+                  {shop.shopDetails.followers}
                 </span>
-                            </div>
-                            <div className={cx("shop-totalRating")}>
-                                <i className={cx("fa-light fa-star", "icon")}></i>
-                                <span className={cx("name")}>Ratings: </span>
-                                <span className={cx("number")}> {shop.shopDetails.rating}</span>
-                            </div>
-                            <div className={cx("shop-totalResponseRate")}>
-                                <i className={cx("fa-light fa-message-dots", "icon")}></i>
-                                <span className={cx("name")}>Response rate: </span>
-                                <span className={cx("number")}> 100%</span>
-                            </div>
-                        </div>
-                    </div>
-                    {/* <div className={cx("shop-products")}>
+              </div>
+              <div className={cx("shop-totalRating")}>
+                <i className={cx("fa-light fa-star", "icon")}></i>
+                <span className={cx("name")}>Ratings: </span>
+                <span className={cx("number")}> {shop.shopDetails.rating}</span>
+              </div>
+              <div className={cx("shop-totalResponseRate")}>
+                <i className={cx("fa-light fa-message-dots", "icon")}></i>
+                <span className={cx("name")}>Response rate: </span>
+                <span className={cx("number")}> 100%</span>
+              </div>
+            </div>
+          </div>
+          {/* <div className={cx("shop-products")}>
             <div className={cx("rec-title")}>
               <span>RECOMMENDED FOR YOU</span>
             </div>
@@ -391,163 +391,163 @@ function Shop() {
               ))}
             </div>
           </div> */}
-                    <div className={cx("shop_sort-bar")} id="product_list">
-                        <span className={cx("sort-bar-label")}>Sort by</span>
-                        <div className={cx("sort-by-options")}>
-                            {sortBarOptions.map((option, index) => {
-                                if (option.type === "normal") {
-                                    return (
-                                        <button
-                                            key={index}
-                                            className={
-                                                typeSort === option.title
-                                                    ? cx("option-btn-active")
-                                                    : cx("option-btn")
-                                            }
-                                            onClick={() => {
-                                                setTypeSort(option.title);
-                                                setPriceTitle("Price");
-                                            }}
-                                        >
-                                            {option.title}
-                                        </button>
-                                    );
-                                }
-                            })}
-                        </div>
-                        <Tippy
-                            interactive
-                            delay={[0, 100]}
-                            placement="bottom-end"
-                            render={(attrs) => (
-                                <div
-                                    className={cx("price-sort-options")}
-                                    tabIndex="-1"
-                                    {...attrs}
-                                >
-                                    <PopperWrapper>
-                                        {sortBarOptions.map((option, index) => {
-                                            if (option.type === "price") {
-                                                return (
-                                                    <div
-                                                        className={cx("option")}
-                                                        key={index}
-                                                        onClick={() => {
-                                                            setTypeSort(option.title);
-                                                            setPriceTitle(option.title);
-                                                        }}
-                                                    >
-                                                        {option.title}
-                                                    </div>
-                                                );
-                                            }
-                                        })}
-                                    </PopperWrapper>
-                                </div>
-                            )}
-                        >
-                            <div className={cx("sort-by-price")}>
+          <div className={cx("shop_sort-bar")} id="product_list">
+            <span className={cx("sort-bar-label")}>Sort by</span>
+            <div className={cx("sort-by-options")}>
+              {sortBarOptions.map((option, index) => {
+                if (option.type === "normal") {
+                  return (
+                    <button
+                      key={index}
+                      className={
+                        typeSort === option.title
+                          ? cx("option-btn-active")
+                          : cx("option-btn")
+                      }
+                      onClick={() => {
+                        setTypeSort(option.title);
+                        setPriceTitle("Price");
+                      }}
+                    >
+                      {option.title}
+                    </button>
+                  );
+                }
+              })}
+            </div>
+            <Tippy
+              interactive
+              delay={[0, 100]}
+              placement="bottom-end"
+              render={(attrs) => (
+                <div
+                  className={cx("price-sort-options")}
+                  tabIndex="-1"
+                  {...attrs}
+                >
+                  <PopperWrapper>
+                    {sortBarOptions.map((option, index) => {
+                      if (option.type === "price") {
+                        return (
+                          <div
+                            className={cx("option")}
+                            key={index}
+                            onClick={() => {
+                              setTypeSort(option.title);
+                              setPriceTitle(option.title);
+                            }}
+                          >
+                            {option.title}
+                          </div>
+                        );
+                      }
+                    })}
+                  </PopperWrapper>
+                </div>
+              )}
+            >
+              <div className={cx("sort-by-price")}>
                 <span
-                    className={
-                        priceTitle === "Price"
-                            ? cx("price-text")
-                            : cx("price-text-active")
-                    }
+                  className={
+                    priceTitle === "Price"
+                      ? cx("price-text")
+                      : cx("price-text-active")
+                  }
                 >
                   {priceTitle}
                 </span>
-                                <i className={cx("fa-solid fa-chevron-right fa-rotate-90")}></i>
-                            </div>
-                        </Tippy>
-                    </div>
+                <i className={cx("fa-solid fa-chevron-right fa-rotate-90")}></i>
+              </div>
+            </Tippy>
+          </div>
 
-                    <div className={cx("all_products")}>
-                        <div className={cx("all_product-list")}>
-                            {shop.products.map((item, index) => (
-                                <Link
-                                    to={"/product?productId=" + item.id}
-                                    key={index}
-                                    className={cx("all_product_items")}
-                                >
-                                    <img
-                                        src={item.images[0].url}
-                                        alt={item.name}
-                                        className={cx("all_product-img")}
-                                    />
-                                    <div className={cx("all_product-content")}>
-                                        <div className={cx("all_product-name")}>{item.name}</div>
-                                        <div className={cx("all_product-price")}>{item.price}$</div>
-                                        <div className={cx("all_rating_sold")}>
-                                            <div className={cx("product-rating")}>
-                                                <StarRating
-                                                    rating={item.rating}
-                                                    font={1.2}
-                                                    color={`gold`}
-                                                />
-                                            </div>
-                                            <div className={cx("sold")}>
-                                                {(() => {
-                                                    let rs = "";
-                                                    if (item.sold >= 1000) {
-                                                        const sold = item.sold / 1000;
-                                                        const rounded = Math.round(sold * 10) / 10;
-                                                        return (rs += rounded + "k");
-                                                    } else {
-                                                        return (rs += item.sold);
-                                                    }
-                                                })()}{" "}
-                                                sold
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
+          <div className={cx("all_products")}>
+            <div className={cx("all_product-list")}>
+              {shop.products.map((item, index) => (
+                <Link
+                  to={"/product?productId=" + item.id}
+                  key={index}
+                  className={cx("all_product_items")}
+                >
+                  <img
+                    src={item.images[0].url}
+                    alt={item.name}
+                    className={cx("all_product-img")}
+                  />
+                  <div className={cx("all_product-content")}>
+                    <div className={cx("all_product-name")}>{item.name}</div>
+                    <div className={cx("all_product-price")}>{item.price}$</div>
+                    <div className={cx("all_rating_sold")}>
+                      <div className={cx("product-rating")}>
+                        <StarRating
+                          rating={item.rating}
+                          font={1.2}
+                          color={`gold`}
+                        />
+                      </div>
+                      <div className={cx("sold")}>
+                        {(() => {
+                          let rs = "";
+                          if (item.sold >= 1000) {
+                            const sold = item.sold / 1000;
+                            const rounded = Math.round(sold * 10) / 10;
+                            return (rs += rounded + "k");
+                          } else {
+                            return (rs += item.sold);
+                          }
+                        })()}{" "}
+                        sold
+                      </div>
                     </div>
-                    <div className={cx("more-products")}>
-                        <button
-                            className={cx("prev")}
-                            onClick={handlePrevCmtPage}
-                            disabled={cmtPage === 1}
-                        >
-                            <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
-                        </button>
-                        {commentPageBtns.map(
-                            (btn) =>
-                                btn <= maxPage &&
-                                btn >= minPage && (
-                                    <button
-                                        key={btn}
-                                        className={cmtPage === btn ? cx("page-active") : cx("page")}
-                                        onClick={() => setCmtPage(btn)}
-                                    >
-                                        {btn}
-                                    </button>
-                                )
-                        )}
-                        {maxPage !== commentPageBtns.length && (
-                            <button className={cx("page")} disabled>
-                                {"..."}
-                            </button>
-                        )}
-                        <button
-                            className={cx("next")}
-                            onClick={handleNextCmtPage}
-                            disabled={cmtPage === shop.maxPage}
-                        >
-                            <i
-                                className={cx(
-                                    "fa-solid fa-chevron-left fa-rotate-180",
-                                    "next-icon"
-                                )}
-                            ></i>
-                        </button>
-                    </div>
-                </div>
+                  </div>
+                </Link>
+              ))}
             </div>
-            <Footer/>
-        </>
-    );
+          </div>
+          <div className={cx("more-products")}>
+            <button
+              className={cx("prev")}
+              onClick={handlePrevCmtPage}
+              disabled={cmtPage === 1}
+            >
+              <i className={cx("fa-solid fa-chevron-left", "prev-icon")}></i>
+            </button>
+            {commentPageBtns.map(
+              (btn) =>
+                btn <= maxPage &&
+                btn >= minPage && (
+                  <button
+                    key={btn}
+                    className={cmtPage === btn ? cx("page-active") : cx("page")}
+                    onClick={() => setCmtPage(btn)}
+                  >
+                    {btn}
+                  </button>
+                )
+            )}
+            {maxPage !== commentPageBtns.length && (
+              <button className={cx("page")} disabled>
+                {"..."}
+              </button>
+            )}
+            <button
+              className={cx("next")}
+              onClick={handleNextCmtPage}
+              disabled={cmtPage === shop.maxPage}
+            >
+              <i
+                className={cx(
+                  "fa-solid fa-chevron-left fa-rotate-180",
+                  "next-icon"
+                )}
+              ></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
 }
 
 export default Shop;

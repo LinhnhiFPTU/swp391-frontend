@@ -141,7 +141,7 @@ function AvailableProductMng() {
             })
             .catch((e) => {
                 console.log(e.response.status);
-                if (e.response.status == 403) {
+                if (e.response.status === 403) {
                 }
             });
     }, []);
