@@ -71,7 +71,7 @@ function NotificationsDropdown() {
                                             Recently received notifications
                                         </div>
                                         <div className={cx("notify-container")}>
-                                            {notifications.map((notification, index) => (
+                                            {notifications.slice(0, 6).map((notification, index) => (
                                                 <div className={cx("notify-content")} key={index}
                                                      onClick={e => handleClickNotification(e, notification)}>
                                                     <img

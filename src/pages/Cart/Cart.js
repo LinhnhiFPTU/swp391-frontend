@@ -302,7 +302,7 @@ function Cart() {
                     <span className={cx("sub-name")}>Total:</span>
                     <span className={cx("sub-price")}>${total.totalPrice}</span>
                   </div>
-                  <button onClick={handleCheckout}>Check out</button>
+                  <button disabled={total.totalPrice < 1} onClick={handleCheckout} className={cx("checkout-btn")}>Check out</button>
                 </div>
               </div>
             </>
