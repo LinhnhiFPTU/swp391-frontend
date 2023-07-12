@@ -20,8 +20,6 @@ const usersColumns = [
   },
   {
     name: "Avatar",
-    // selector: (row) => row.avatar,
-    // sortable: true,
     cell: (row) => (
       <div>
         <img className={cx("avatar-img")} src={row.avatar} alt="img-avatar" />

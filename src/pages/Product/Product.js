@@ -22,10 +22,42 @@ import { Cartcontext } from "~/context/Context";
 import avatar from "~/assets/images/user-avatar.png";
 import styles from "./Product.module.scss";
 
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const cx = classNames.bind(styles);
 const filterBtns = ["All", "5 Star", "4 Star", "3 Star", "2 Star", "1 Star"];
 const commentRating = [1, 2, 3, 4, 5];
 const commentPageBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+//Control Best Seller Button
+const PrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div className={cx("control-btn")} onClick={onClick}>
+      <button className={cx("prev")}>
+        <i className={cx("fa-regular fa-chevron-left")}></i>
+      </button>
+    </div>
+  );
+};
+const NextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div className={cx("control-btn")} onClick={onClick}>
+      <button className={cx("next")}>
+        <i className={cx("fa-solid fa-chevron-right")}></i>
+      </button>
+    </div>
+  );
+};
+const settings = {
+  slidesToShow: 6,
+  slidesToScroll: 2,
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />,
+};
 
 function Product() {
   const navigate = useNavigate();
@@ -662,30 +694,60 @@ function Product() {
                 <span className={cx("title")}>Bundled Products</span>
               </div>
               <div className={cx("bundled-list")}>
-                {product.attachWiths.map((bundleProduct, index) => (
-                  <Link
-                    to={"/product?productId=" + bundleProduct.id}
-                    className={cx("bundled-product")}
-                    key={index}
-                  >
-                    <img
-                      src={bundleProduct.images[0].url}
-                      alt="bundled-product-img"
-                      className={cx("product-img")}
-                    />
+                {product.attachWiths.length > 6 ? (
+                  <Slider {...settings}>
+                    {product.attachWiths.map((bundleProduct, index) => (
+                      <Link
+                        to={"/product?productId=" + bundleProduct.id}
+                        className={cx("bundled-product")}
+                        key={index}
+                      >
+                        <img
+                          src={bundleProduct.images[0].url}
+                          alt="bundled-product-img"
+                          className={cx("product-img")}
+                        />
 
-                    <div className={cx("product-content")}>
-                      <div className={cx("product-name")}>
-                        {bundleProduct.name}
-                      </div>
-                      <div className={cx("product-price")}>
-                        <span className={cx("price")}>
-                          ${bundleProduct.price}
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                        <div className={cx("product-content")}>
+                          <div className={cx("product-name")}>
+                            {bundleProduct.name}
+                          </div>
+                          <div className={cx("product-price")}>
+                            <span className={cx("price")}>
+                              ${bundleProduct.price}
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </Slider>
+                ) : (
+                  <div className={cx("list")}>
+                    {product.attachWiths.map((bundleProduct, index) => (
+                      <Link
+                        to={"/product?productId=" + bundleProduct.id}
+                        className={cx("bundled-product")}
+                        key={index}
+                      >
+                        <img
+                          src={bundleProduct.images[0].url}
+                          alt="bundled-product-img"
+                          className={cx("product-img")}
+                        />
+                        <div className={cx("product-content")}>
+                          <div className={cx("product-name")}>
+                            {bundleProduct.name}
+                          </div>
+                          <div className={cx("product-price")}>
+                            <span className={cx("price")}>
+                              ${bundleProduct.price}
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}

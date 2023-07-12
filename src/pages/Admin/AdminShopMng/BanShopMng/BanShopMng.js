@@ -184,9 +184,9 @@ function BanShopMng() {
               customStyles={customStyles}
               pagination
             />
-            <div className={cx("button")}>
+            {/* <div className={cx("button")}>
               <button className={cx("recover-btn")}>RECOVER</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
