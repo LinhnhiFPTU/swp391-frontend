@@ -57,22 +57,9 @@ const usersColumns = [
     name: "Action",
     cell: (row) => (
       <div>
-        {row.status === "Available" && (
-          <button
-            className={cx("ban_btn")}
-            onClick={() => {
-              axios
-                .post("/api/v1/admin/action/shop/" + row.id + "?action=BAN")
-                .then((res) => window.location.reload())
-                .catch((e) => console.log(e));
-            }}
-          >
-            Ban
-          </button>
-        )}
         {row.status === "Banned" && (
           <button
-            className={cx("recover_btn")}
+            className={cx("recover-btn")}
             onClick={() => {
               axios
                 .post("/api/v1/admin/action/shop/" + row.id + "?action=RECOVER")
@@ -180,13 +167,9 @@ function BanShopMng() {
             <DataTable
               columns={usersColumns}
               data={search}
-              selectableRows
               customStyles={customStyles}
               pagination
             />
-            {/* <div className={cx("button")}>
-              <button className={cx("recover-btn")}>RECOVER</button>
-            </div> */}
           </div>
         </div>
       </div>

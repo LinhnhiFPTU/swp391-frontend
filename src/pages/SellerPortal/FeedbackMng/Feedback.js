@@ -16,19 +16,27 @@ const cx = classNames.bind(styles);
 
 const filterStar = [
   {
+    title: "All",
+  },
+  {
     title: "5 Star",
+    value: 5,
   },
   {
     title: "4 Star",
+    value: 4,
   },
   {
     title: "3 Star",
+    value: 3,
   },
   {
     title: "2 Star",
+    value: 2,
   },
   {
     title: "1 Star",
+    value: 1,
   },
 ];
 
@@ -36,16 +44,52 @@ function FeedBack() {
   const UC = useContext(UserContext);
   const context = UC.state;
   const [shop, setShop] = useState({});
-  const [titleFilter, setTitleFilter] = useState("All");
+  const [titleFilter, setTitleFilter] = useState(0);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [page, setPage] = useState(1);
+  const [allFeedback, setAllFeedback] = useState(0);
+  const [maxPage, setMaxPage] = useState(0);
   const navigate = useNavigate();
 
+  const ceil = (num) => {
+    let rounded = Math.round(num);
+    if (rounded < num) {
+      rounded += 1;
+    }
+    return rounded;
+  };
+
+  const calculateMaxPage = (length) => {
+    let div = (length * 1.0) / 5;
+    return ceil(div);
+  };
+
   useEffect(() => {
+    let url = "/api/v1/shop/feedbacks/max-feedback";
+    if (filterStar[titleFilter].value) {
+      url += "&rate=" + filterStar[titleFilter].value;
+    }
+
     axios
-      .get("/api/v1/shop/feedbacks")
-      .then((res) => setFeedbacks(res.data))
+      .get(url)
+      .then((res) => {
+        setMaxPage(calculateMaxPage(res.data));
+        setAllFeedback(res.data);
+      })
       .catch((e) => console.log(e));
   }, []);
+
+  useEffect(() => {
+    let url = "/api/v1/shop/feedbacks?page=" + page;
+    if (filterStar[titleFilter].value) {
+      url += "&rate=" + filterStar[titleFilter].value;
+    }
+
+    axios
+      .get(url)
+      .then((res) => setFeedbacks(res.data))
+      .catch((e) => console.log(e));
+  }, [page, titleFilter]);
 
   useEffect(() => {
     if (context && context.shopDTO) {
@@ -58,6 +102,28 @@ function FeedBack() {
     navigate("detail", {
       state: feedback,
     });
+  };
+
+  const handlePrevPage = () => {
+    let willBe = page - 1;
+    if (willBe <= 0) {
+      return;
+    }
+
+    setPage(page - 1);
+  };
+
+  const handleNextPage = () => {
+    let willBe = page + 1;
+    if (willBe > maxPage) {
+      return;
+    }
+    setPage(page + 1);
+  };
+
+  const handleChat = (e, userId) => {
+    e.preventDefault();
+    navigate("/seller/portal/message", { state: userId });
   };
 
   useEffect(() => {
@@ -80,7 +146,9 @@ function FeedBack() {
             </div>
             <div className={cx("feedback-details")}>
               <div className={cx("feedback-statistic")}>
-                <div className={cx("count-feedback")}>0 Feedback</div>
+                <div className={cx("count-feedback")}>
+                  {allFeedback} Feedback
+                </div>
                 <Tippy
                   interactive
                   delay={[0, 100]}
@@ -96,7 +164,7 @@ function FeedBack() {
                           <div
                             className={cx("option")}
                             key={index}
-                            onClick={() => setTitleFilter(filter.title)}
+                            onClick={() => setTitleFilter(index)}
                           >
                             {filter.title}
                           </div>
@@ -108,12 +176,12 @@ function FeedBack() {
                   <div className={cx("filter-feedback")}>
                     <span
                       className={
-                        titleFilter === "All"
+                        titleFilter === 0
                           ? cx("filter-title")
                           : cx("filter-title-active")
                       }
                     >
-                      {titleFilter}
+                      {filterStar[titleFilter].title}
                     </span>
                     <i
                       className={cx(
@@ -158,7 +226,10 @@ function FeedBack() {
                         />
                       </div>
                       <div className={cx("chat")}>
-                        <button className={cx("chat-btn")}>
+                        <button
+                          className={cx("chat-btn")}
+                          onClick={(e) => handleChat(e, feedback.userId)}
+                        >
                           <i
                             className={cx("fa-solid fa-messages", "icon-chat")}
                           ></i>
@@ -194,10 +265,18 @@ function FeedBack() {
               ))}
             </div>
             <div className={cx("prev-next")}>
-              <button className={cx("icon-left")}>
+              <button
+                className={cx("icon-left")}
+                onClick={handlePrevPage}
+                disabled={page === 1}
+              >
                 <i className={cx("fa-light fa-angle-left")}></i>
               </button>
-              <button className={cx("icon-right")}>
+              <button
+                className={cx("icon-right")}
+                onClick={handleNextPage}
+                disabled={page === maxPage}
+              >
                 <i className={cx("fa-light fa-angle-right")}></i>
               </button>
             </div>

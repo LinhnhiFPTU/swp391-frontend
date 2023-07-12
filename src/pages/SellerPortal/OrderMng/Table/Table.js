@@ -36,12 +36,28 @@ const statusStyle = (status) => {
   }
 };
 
-function Table({ orders }) {
+function Table({ orders, page, setPage, maxPage }) {
   const [openListDetail, setOpenListDetail] = useState(false);
   const [index, setIndex] = useState(0);
   if (!orders || orders.length === 0) {
     return <NoOrder />;
   }
+
+  const handlePrevPage = () => {
+    let willBe = page - 1;
+    if (willBe <= 0) {
+      return;
+    }
+    setPage(page - 1);
+  };
+
+  const handleNextPage = () => {
+    let willBe = page + 1;
+    if (willBe > maxPage) {
+      return;
+    }
+    setPage(page + 1);
+  };
 
   const handleOpenDetails = (e, index) => {
     setOpenListDetail(true);
@@ -93,10 +109,18 @@ function Table({ orders }) {
             </div>
           ))}
           <div className={cx("prev-next")}>
-            <button className={cx("icon-left")}>
+            <button
+              className={cx("icon-left")}
+              onClick={handlePrevPage}
+              disabled={page === 1}
+            >
               <i className={cx("fa-light fa-angle-left")}></i>
             </button>
-            <button className={cx("icon-right")}>
+            <button
+              className={cx("icon-right")}
+              onClick={handleNextPage}
+              disabled={page === maxPage}
+            >
               <i className={cx("fa-light fa-angle-right")}></i>
             </button>
           </div>

@@ -198,6 +198,15 @@ function Product() {
     }
   }, [user]);
 
+  async function vndToUsd(amount) {
+    const response = await fetch(
+      "https://api.exchangerate-api.com/v4/latest/VND"
+    );
+    const data = await response.json();
+    const rate = data.rates.USD;
+    return amount * rate;
+  }
+
   useEffect(() => {
     if (calculatObject) {
       axios
@@ -211,13 +220,11 @@ function Product() {
             },
           }
         )
-        .then((res) => {
+        .then(async (res) => {
           console.log(res);
-          let formatter = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "VND",
-          });
-          setShippingFee(formatter.format(res.data.data.total));
+          let usd = await vndToUsd(res.data.data.total)
+          let shippingFee = Math.round((usd + Number.EPSILON) * 100) / 100
+          setShippingFee("$" + shippingFee);
         })
         .catch((e) => console.log(e));
     }
@@ -396,7 +403,7 @@ function Product() {
     e.preventDefault();
     if (user) {
       setIsBuyed(true);
-      dispatch({ type: "ADD", payload: product.id });
+      dispatch({ type: "ADD", payload: {pId: product.id, quantity: valueQuantity} });
     } else navigate("/login");
   };
 
@@ -668,7 +675,7 @@ function Product() {
                       onClick={() => {
                         if (user) {
                           setOpenToast(true);
-                          dispatch({ type: "ADD", payload: product.id });
+                          dispatch({ type: "ADD", payload: {pId: product.id, quantity: valueQuantity} });
                         } else navigate("/login");
                       }}
                     >
@@ -993,8 +1000,8 @@ function Product() {
           <div className={cx("product-related")}>
             <div className={cx("related-header")}>Product Related</div>
             <div className={cx("related-list")}>
-              {/* {product.relatedTo.map((item, index) => (
-                <Link key={index} className={cx("related-item")}>
+              {product.relatedTo.map((item, index) => (
+                <Link to={"/product?productId=" + item.product.id} key={index} className={cx("related-item")}>
                   <img
                     src={item.product.images[0].url}
                     alt="related-img"
@@ -1013,11 +1020,11 @@ function Product() {
                           <div className={cx("sale-price")}>{item.product.price}$</div>
                         </div>
                       )}
-                      <div className={cx("sold")}>item.product.sold</div>
+                      <div className={cx("sold")}>{item.product.sold}</div>
                     </div>
                   </div>
                 </Link>
-              ))} */}
+              ))}
             </div>
           </div>
         </div>

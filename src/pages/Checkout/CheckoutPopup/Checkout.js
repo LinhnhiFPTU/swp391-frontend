@@ -21,9 +21,9 @@ function CheckoutPopup() {
                         <a href="/" className={cx("home")}>
                             Home
                         </a>
-                        <Link to="/purchase/pending" className={cx("order")}>
+                        <a href="/purchase/pending" className={cx("order")}>
                             Purchase Order
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>

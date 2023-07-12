@@ -72,8 +72,12 @@ function Login() {
         .post("/api/v1/auths/authentication", request)
         .then((res) => {
           setMsg("");
-          window.location.href = "/";
-          console.log(res.data);
+          let redirectUrl = "/";
+          if (res.data.role === "ADMIN")
+            redirectUrl = "/admin/portal/dashboard";
+
+          window.location.href = redirectUrl;
+          console.log(res.data, redirectUrl);
         })
         .catch((e) => {
           setMsg(e.response.data.message);
@@ -137,7 +141,6 @@ function Login() {
                 <div className={cx("text")}>
                   <input
                     type="text"
-                    spellCheck={false}
                     className={cx("email")}
                     onChange={(e) =>
                       setRequest({ ...request, email: e.target.value })
@@ -150,7 +153,6 @@ function Login() {
                 <div className={cx("text")}>
                   <input
                     type={passwordType}
-                    spellCheck={false}
                     className={cx("password")}
                     onChange={(e) =>
                       setRequest({ ...request, password: e.target.value })

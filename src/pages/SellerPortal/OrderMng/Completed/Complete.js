@@ -4,124 +4,98 @@ import SideBar from "~/pages/SellerPortal/SideBar";
 import NavBar from "../NavBar";
 import Table from "../Table";
 import styles from "./Complete.module.scss";
-import {useEffect, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const cx = classNames.bind(styles);
 
-const orders = [
-    {
-        orderId: 123456,
-        order:
-            "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-        date: "01-01-2032 12:43",
-        price: 1234,
-        status: "Completed",
-        payment: "Cash",
-    },
-    {
-        orderId: 123456,
-        order:
-            "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-        date: "01-01-2032 12:43",
-        price: 1234,
-        status: "Completed",
-        payment: "Zalo",
-    },
-    {
-        orderId: 123456,
-        order:
-            "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-        date: "01-01-2032 12:43",
-        price: 1234,
-        status: "Completed",
-        payment: "VnPay",
-    },
-    {
-        orderId: 123456,
-        order:
-            "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-        date: "01-01-2032 12:43",
-        price: 1234,
-        status: "Completed",
-        payment: "Zalo",
-    },
-    {
-        orderId: 123456,
-        order:
-            "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-        date: "01-01-2032 12:43",
-        price: 1234,
-        status: "Completed",
-        payment: "VnPay",
-    },
-    {
-        orderId: 123456,
-        order:
-            "TH Outdoor Hanging Tube Feeders Premium Automatic Bird Feeder Garden Yard Decoration For Bird Lovers",
-        date: "01-01-2032 12:43",
-        price: 1234,
-        status: "Completed",
-        payment: "Cash",
-    },
-];
-
 function Complete() {
+  const [orders, setOrders] = useState([]);
+  const [maxPage, setMaxPage] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
+  const [page, setPage] = useState(1);
+  const searchRef = useRef()
 
-    const [orders, setOrders] = useState([])
-    const [page, setPage] = useState(1)
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
 
-    useEffect(() => {
-        document.title = "Seller Centre";
-    }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "/api/v1/shop/orders/max-page?keyword=" +
+          searchValue +
+          "&filter=COMPLETED"
+      )
+      .then((res) => setMaxPage(res.data))
+      .catch((e) => console.log(e));
+  }, []);
 
-    useEffect(() => {
-        axios.get("/api/v1/shop/orders/search?filter=COMPLETED&page=" + page)
-            .then(res => setOrders(res.data))
-            .catch(e => console.log(e))
-    }, [])
+  useEffect(() => {
+    axios
+      .get(
+        "/api/v1/shop/orders/search?filter=COMPLETED&page=" +
+          page +
+          "&keyword=" +
+          searchValue
+      )
+      .then((res) => setOrders(res.data))
+      .catch((e) => console.log(e));
+  }, [page, searchValue]);
 
-    return (
-        <>
-            <HeaderSeller title="Completed"/>
-            <div className={cx("order_wrapper")}>
-                <div className={cx("order_sidebar")}>
-                    <SideBar/>
+  const handleSearch = (e) => 
+  {
+    e.preventDefault()
+    setSearchValue(searchRef.current.value)
+  }
+
+  return (
+    <>
+      <HeaderSeller title="Completed" />
+      <div className={cx("order_wrapper")}>
+        <div className={cx("order_sidebar")}>
+          <SideBar />
+        </div>
+        <div className={cx("order_container")}>
+          <div className={cx("order_content")}>
+            <NavBar />
+            <div className={cx("order_search")}>
+              <div className={cx("type-search")}>Code orders</div>
+              <form className={cx("form-search")}>
+                <div className={cx("search-input")}>
+                  <input
+                    type="text"
+                    placeholder="Code"
+                    spellCheck={false}
+                    className={cx("input")}
+                    ref={searchRef}
+                  />
+                  <i
+                    className={cx(
+                      "fa-light fa-magnifying-glass",
+                      "search-icon"
+                    )}
+                  ></i>
                 </div>
-                <div className={cx("order_container")}>
-                    <div className={cx("order_content")}>
-                        <NavBar/>
-                        <div className={cx("order_search")}>
-                            <div className={cx("type-search")}>Code orders</div>
-                            <form className={cx("form-search")}>
-                                <div className={cx("search-input")}>
-                                    <input
-                                        type="text"
-                                        placeholder="Code"
-                                        spellCheck={false}
-                                        className={cx("input")}
-                                    />
-                                    <i
-                                        className={cx(
-                                            "fa-light fa-magnifying-glass",
-                                            "search-icon"
-                                        )}
-                                    ></i>
-                                </div>
-                                <button type="submit" className={cx("search-btn")}>
-                                    Search
-                                </button>
-                            </form>
-                        </div>
-                        <div className={cx("order_count")}>{orders.length} Orders</div>
-                        <div className={cx("order_table")}>
-                            <Table orders={orders}/>
-                        </div>
-                    </div>
-                </div>
+                <button type="submit" className={cx("search-btn")} onClick={handleSearch}>
+                  Search
+                </button>
+              </form>
             </div>
-        </>
-    );
+            <div className={cx("order_count")}>{orders.length} Orders</div>
+            <div className={cx("order_table")}>
+              <Table
+                orders={orders}
+                setPage={setPage}
+                page={page}
+                maxPage={maxPage}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Complete;

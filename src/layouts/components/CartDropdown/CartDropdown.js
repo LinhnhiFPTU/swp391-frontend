@@ -32,6 +32,10 @@ function CartDropdown() {
     setLastFiveItems(fiveItems);
   }, [state]);
 
+  const roundedFloat = (float) => {
+    return Math.round((float + Number.EPSILON) * 100) / 100;
+  };
+
   return (
     <div className={cx("cart-icon")}>
       <span className={cx("counter", "disable")}>{cartSize}</span>
@@ -74,7 +78,7 @@ function CartDropdown() {
                           </div>
                           <div className={cx("prod-price")}>
                             <p className={cx("type-text")}>
-                              {Math.round(
+                              {roundedFloat(
                                 cartItems.product.price *
                                   (1 - cartItems.salePercent / 100)
                               )}

@@ -7,82 +7,95 @@ import CountFilter from "../CountFilter";
 import Table from "../Table";
 
 import styles from "./Active.module.scss";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function Active() {
-    const [products, setProducts] = useState([]);
-    const [page, setPage] = useState(1);
-    const [filter, setFilter] = useState("");
-    const [headerTitle, setHeaderTitle] = useState("");
+  const [products, setProducts] = useState([]);
+  const [maxPage, setMaxPage] = useState(0);
+  const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState("");
+  const [headerTitle, setHeaderTitle] = useState("");
 
-    useEffect(() => {
-        let fil = headerTitle.toLowerCase()
-            ? headerTitle.toLowerCase() + "." + filter
-            : "default";
-        axios
-            .get("/api/v1/shop/products?page=" + page + "&filter=" + fil)
-            .then((res) => {
-                let resProducts = res.data.filter(
-                    (item, index) => !item.ban && item.available > 0
-                );
-                setProducts(resProducts.filter((item, index) => index < 5));
-            })
-            .catch((e) => console.log(e));
-    }, [filter]);
+  useEffect(() => {
+    axios
+      .get("/api/v1/shop/products/max-page")
+      .then((res) => setMaxPage(res.data))
+      .catch((e) => console.log(e));
+  }, []);
 
-    useEffect(() => {
-        document.title = "Seller Centre";
-    }, []);
+  useEffect(() => {
+    let fil = headerTitle.toLowerCase()
+      ? headerTitle.toLowerCase() + "." + filter
+      : "default";
+    axios
+      .get("/api/v1/shop/products?page=" + page + "&filter=" + fil)
+      .then((res) => {
+        let resProducts = res.data.filter(
+          (item, index) => !item.ban && item.available > 0
+        );
+        setProducts(resProducts.filter((item, index) => index < 5));
+      })
+      .catch((e) => console.log(e));
+  }, [filter, page]);
 
-    return (
-        <>
-            <HeaderSeller title="Product Active"/>
-            <div className={cx("product_wrapper")}>
-                <div className={cx("product_sidebar")}>
-                    <SideBar/>
+  useEffect(() => {
+    document.title = "Seller Centre";
+  }, []);
+
+  return (
+    <>
+      <HeaderSeller title="Product Active" />
+      <div className={cx("product_wrapper")}>
+        <div className={cx("product_sidebar")}>
+          <SideBar />
+        </div>
+        <div className={cx("product_container")}>
+          <div className={cx("product_content")}>
+            <NavBar />
+            <div className={cx("product-search")}>
+              <div className={cx("product-type")}>Product name</div>
+              <form className={cx("form-search")}>
+                <div className={cx("search-input")}>
+                  <input
+                    type="text"
+                    placeholder="Product name"
+                    spellCheck={false}
+                    className={cx("input")}
+                  />
+                  <i
+                    className={cx(
+                      "fa-light fa-magnifying-glass",
+                      "search-icon"
+                    )}
+                  ></i>
                 </div>
-                <div className={cx("product_container")}>
-                    <div className={cx("product_content")}>
-                        <NavBar/>
-                        <div className={cx("product-search")}>
-                            <div className={cx("product-type")}>Product name</div>
-                            <form className={cx("form-search")}>
-                                <div className={cx("search-input")}>
-                                    <input
-                                        type="text"
-                                        placeholder="Product name"
-                                        spellCheck={false}
-                                        className={cx("input")}
-                                    />
-                                    <i
-                                        className={cx(
-                                            "fa-light fa-magnifying-glass",
-                                            "search-icon"
-                                        )}
-                                    ></i>
-                                </div>
-                                <button type="submit" className={cx("search-btn")}>
-                                    Search
-                                </button>
-                            </form>
-                        </div>
-                        <CountFilter
-                            count={products.length}
-                            setFilter={setFilter}
-                            headerTitle={headerTitle}
-                            setHeaderTitle={setHeaderTitle}
-                        />
-                        <div className={cx("product-table")}>
-                            <Table products={products}/>
-                        </div>
-                    </div>
-                </div>
+                <button type="submit" className={cx("search-btn")}>
+                  Search
+                </button>
+              </form>
             </div>
-        </>
-    );
+            <CountFilter
+              count={products.length}
+              setFilter={setFilter}
+              headerTitle={headerTitle}
+              setHeaderTitle={setHeaderTitle}
+            />
+            <div className={cx("product-table")}>
+              <Table
+                products={products}
+                setPage={setPage}
+                page={page}
+                maxPage={maxPage}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Active;

@@ -228,7 +228,7 @@ function Products() {
                     </div>
                     <div className={cx("all_list-product")}>
                         {products.map((ps, index) => (
-                            <Link to="" className={cx("all_item-product")} key={index}>
+                            <Link to={"/product?productId=" + ps.product.id} className={cx("all_item-product")} key={index}>
                                 <img
                                     src={ps.product.images[0].url}
                                     alt="item-img"
