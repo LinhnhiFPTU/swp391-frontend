@@ -135,7 +135,7 @@ function Checkout() {
           .catch((e) => console.log(e));
       });
     }
-  }, [state.item, context, cartItem]);
+  }, [state.item, context]);
 
   useEffect(() => {
     if (cartItem.length > 0) {
@@ -390,7 +390,7 @@ function Checkout() {
                     <div className={cx("total-payment", "content")}>
                       <div className={cx("text")}>Total Payment:</div>
                       <div className={cx("price")}>
-                        ${calShippingFeeTotal() + state.total}
+                        ${roundedFloat(calShippingFeeTotal() + state.total)}
                       </div>
                     </div>
                   </div>
