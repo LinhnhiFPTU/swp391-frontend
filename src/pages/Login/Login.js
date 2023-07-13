@@ -108,6 +108,18 @@ function Login() {
     }
   }, [request.email, request.password]);
 
+  useEffect(() => {
+    const regex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+    if(request.email && !regex.test(request.email)) {
+      setDisabled(true)
+      setMsg("Email not valid!")
+    }else {
+      setDisabled(false)
+      setMsg("")
+    }
+
+  }, [request.email]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setOpen(true);
@@ -142,8 +154,9 @@ function Login() {
                   <input
                     type="text"
                     className={cx("email")}
-                    onChange={(e) =>
-                      setRequest({ ...request, email: e.target.value })
+                    spellCheck={false}
+                    onBlur={(e) =>
+                      setRequest({ ...request, email: e.target.value.trim() })
                     }
                     required
                   />

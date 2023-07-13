@@ -390,7 +390,11 @@ function Checkout() {
                     <div className={cx("total-payment", "content")}>
                       <div className={cx("text")}>Total Payment:</div>
                       <div className={cx("price")}>
-                        ${calShippingFeeTotal() + state.total}
+                        ${(() => {
+                          let totalPayment = calShippingFeeTotal() + state.total
+                          let result = totalPayment.toFixed(1)
+                          return result
+                        })()}
                       </div>
                     </div>
                   </div>
