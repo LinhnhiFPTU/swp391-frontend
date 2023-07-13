@@ -47,20 +47,22 @@ function Message() {
           .get("/api/v1/users/info")
           .then((res) => {
             if (res.data.shopDTO) {
-              let Sock = new SockJS("http://localhost:8080/ws");
-              stompClient = over(Sock);
-              stompClient.connect(
-                {},
-                () => onConnected(res.data.shopDTO.id, userId),
-                (e) => console.log(e)
-              );
+              if (!stompClient) {
+                let Sock = new SockJS("http://localhost:8080/ws");
+                stompClient = over(Sock);
+                stompClient.connect(
+                  {},
+                  () => conRequest(res.data.shopDTO.id, userId),
+                  (e) => console.log(e)
+                );
+              }else conRequest(res.data.shopDTO.id, userId)
             }
           })
           .catch((e) => {
             console.log(e);
           });
 
-        const onConnected = (shopId, userId) => {
+        const conRequest = (shopId, userId) => {
           const request = {
             fromId: shopId,
             toId: userId,
