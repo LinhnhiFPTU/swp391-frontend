@@ -156,7 +156,7 @@ function RateProduct({ order, curProduct, setCurProduct }) {
                   listImage.map((image, index) => (
                     <ImageItem
                       key={index}
-                      image={image}
+                      image={image.url}
                       index={index}
                       setListImage={setListImage}
                       setQuantityImage={setQuantityImage}

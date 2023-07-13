@@ -196,7 +196,7 @@ function ProductSearch() {
         <>
             <Header/>
             <div className={cx("product-search_wrapper")}>
-                {search.products.length > 0 ? (
+                {search.products.length > 0 || search.shop ? (
                     <div className={cx("product-search_container")}>
                         <ChatPupup/>
                         <div className={cx("product-search_filter-panel")}>

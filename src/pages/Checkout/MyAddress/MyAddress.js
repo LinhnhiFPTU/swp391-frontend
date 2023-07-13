@@ -10,16 +10,14 @@ const cx = classNames.bind(styles);
 function MyAddress({close, setReceiveInfo}) {
     const [show, setShow] = useState(false);
     const [receiveinfos, setReceiveInfos] = useState([]);
-    const [curPage, setCurPage] = useState(1);
     const [infoReceive, setInfoReceive] = useState(false);
 
     useEffect(() => {
         if (infoReceive) {
             axios
-                .get("/api/v1/users/info/receives?page=" + curPage)
+                .get("/api/v1/users/info/receives/all")
                 .then((res) => {
                     let setup = res.data || [];
-                    let param = curPage === 1 ? "" : "?page=" + curPage;
                     setReceiveInfos(setup);
                 })
                 .catch((e) => {
@@ -27,19 +25,6 @@ function MyAddress({close, setReceiveInfo}) {
                 });
         }
     }, [infoReceive]);
-
-    useEffect(() => {
-        axios
-            .get("/api/v1/users/info/receives?page=" + curPage)
-            .then((res) => {
-                let setup = res.data || [];
-                let param = curPage === 1 ? "" : "?page=" + curPage;
-                setReceiveInfos(setup);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    }, [curPage]);
 
     return (
         <>

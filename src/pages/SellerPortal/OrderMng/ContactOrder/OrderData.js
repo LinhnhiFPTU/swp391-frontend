@@ -4,11 +4,13 @@ import NoOrder from "../NoOrder";
 import styles from "./ContactOrder.module.scss";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 function OrderData({ orders, page, setPage, maxPage }) {
   const [shippingFee, setShippingFee] = useState("");
+  const navigate = useNavigate()
 
   const handleApprove = (e, order) => {
     e.preventDefault();
@@ -60,6 +62,12 @@ function OrderData({ orders, page, setPage, maxPage }) {
     setPage(page + 1);
   };
 
+  const handleChat = (e, userId) =>
+  {
+    e.preventDefault()
+    navigate("/seller/portal/message", {state: userId})
+  }
+
   if (!orders || orders.length === 0) {
     return <NoOrder />;
   }
@@ -81,7 +89,7 @@ function OrderData({ orders, page, setPage, maxPage }) {
                     className={cx("name")}
                   >{`${order.user.firstname} ${order.user.lastname}`}</div>
                   <div className={cx("chat")}>
-                    <button className={cx("chat-btn")}>
+                    <button className={cx("chat-btn")} onClick={e => handleChat(e, order.user.id)}>
                       <i
                         className={cx("fa-solid fa-messages", "icon-chat")}
                       ></i>

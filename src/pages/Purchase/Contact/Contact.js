@@ -78,7 +78,7 @@ function Contact() {
                                 <div className={cx("purchase_item_order-total")}>
                                     <div className={cx("order-total-detail")}>
                                         <div className={cx("text")}>Order Total:</div>
-                                        <div className={cx("price")}>${order.sellPrice}</div>
+                                        <div className={cx("price")}>${order.sellPrice + order.shippingFee}</div>
                                     </div>
                                 </div>
                                 <div className={cx("purchase_item-options")}>

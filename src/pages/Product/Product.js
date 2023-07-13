@@ -6,7 +6,7 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 
 import { UserContext } from "~/userContext/Context";
 import Header from "~/layouts/components/Header";
@@ -25,6 +25,8 @@ import styles from "./Product.module.scss";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { over } from "stompjs";
+import SockJS from "sockjs-client";
 
 const cx = classNames.bind(styles);
 const filterBtns = ["All", "5 Star", "4 Star", "3 Star", "2 Star", "1 Star"];
@@ -58,6 +60,8 @@ const settings = {
   nextArrow: <NextArrow />,
   prevArrow: <PrevArrow />,
 };
+
+var stompClient = null
 
 function Product() {
   const navigate = useNavigate();
@@ -157,6 +161,7 @@ function Product() {
   const Globalstate = useContext(Cartcontext);
   const dispatch = Globalstate.dispatch;
   const [isBuyed, setIsBuyed] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
 
   useEffect(() => {
     let productId = searchParams.get("productId");
@@ -428,8 +433,43 @@ function Product() {
         .then((res) => {
           navigate("/purchase/contact");
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          if (e.response.status === HttpStatusCode.BadRequest)
+          {
+            alert("Please add your receive info!")
+          }
+        });
     } else navigate("/login");
+  };
+
+  const handleNewConversation = (event, shopId) => {
+    event.preventDefault();
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        let Sock = new SockJS("http://localhost:8080/ws");
+        stompClient = over(Sock);
+        stompClient.connect(
+          {},
+          () => onConnected(shopId, res.data.id),
+          (e) => console.log(e)
+        );
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const onConnected = (shopId, userId) => {
+    const request = {
+      fromId: userId,
+      toId: shopId,
+      content: "Let's Start",
+      sendTime: new Date(),
+      chatterType: "USER",
+    };
+    stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
+    setOpenChat(true);
   };
 
   return (
@@ -445,7 +485,7 @@ function Product() {
       <Header />
       <div className={cx("product-wrapper")}>
         <div className={cx("product-container")}>
-          <ChatPupup />
+          <ChatPupup openChat={openChat} setOpenChat={setOpenChat} />
           {/*------Product main------*/}
           <div className={cx("product-main")}>
             {/*------Product image------*/}
@@ -657,7 +697,7 @@ function Product() {
                       <i className={cx("fa-light fa-paper-plane")}></i>
                       <span>Send Request</span>
                     </button>
-                    <button className={cx("chat")}>
+                    <button className={cx("chat")} onClick={(e) => handleNewConversation(e, product.shop.id)}>
                       <i className={cx("fa-regular fa-message-dots")}></i>
                       <span>Chat</span>
                     </button>
@@ -774,7 +814,7 @@ function Product() {
                   </span>
                 </div>
                 <div className={cx("shop-contact")}>
-                  <button className={cx("chat")}>
+                  <button className={cx("chat")} onClick={(e) => handleNewConversation(e, product.shop.id)}>
                     <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
                     <span className={cx("chat-text")}>Chat Now</span>
                   </button>

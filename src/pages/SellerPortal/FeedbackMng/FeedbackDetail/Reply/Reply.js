@@ -34,7 +34,7 @@ function Reply({setOpenReply, feedback}) {
                 response: inputTextarea
             }
             axios.post("/api/v1/shop/feedbacks/response/", request)
-                .then(res => window.location.reload())
+                .then(res => window.location.href = "/seller/portal/feedback")
                 .catch(e => console.log(e))
         }
     };

@@ -7,6 +7,7 @@ import Reply from "./Reply";
 
 import styles from "./FeedbackDetail.module.scss";
 import {useLocation} from "react-router-dom";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -62,6 +63,15 @@ function FeedbackDetail() {
     const handleOpenReply = () => {
         setOpenReply(true);
     };
+
+    const handleAcceptRefund = (e, fId) => 
+    {
+        e.preventDefault()
+        axios.post("/api/v1/shop/feedbacks/accept/" + fId)
+        .then(res => window.location.href = "/seller/portal/feedback/")
+        .catch(e => console.log(e))
+    }
+
     return (
         <>
             {openReply && <Reply setOpenReply={setOpenReply} feedback={feedback}/>}
@@ -247,6 +257,7 @@ function FeedbackDetail() {
                                     <div className={cx("reply")}>
                                         <button
                                             className={cx("reply-btn")}
+                                            onClick={e => handleAcceptRefund(e, feedback.id)}
                                         >
                                             Accept
                                         </button>
@@ -254,6 +265,7 @@ function FeedbackDetail() {
                                     <div className={cx("reply")}>
                                         <button
                                             className={cx("reply-btn")}
+                                            onClick={e => handleAcceptRefund(e, feedback.id)}
                                         >
                                             Reject
                                         </button>
