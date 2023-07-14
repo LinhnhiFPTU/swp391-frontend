@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
 import NavBar from "../NavBar";
-import Table from "../Table";
+import TableShipping from "../TableShipping/";
 
 import styles from "./Shipping.module.scss";
 import { useEffect, useRef, useState } from "react";
@@ -15,7 +15,7 @@ function Pending() {
   const [maxPage, setMaxPage] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(1);
-  const searchRef = useRef()
+  const searchRef = useRef();
 
   useEffect(() => {
     document.title = "Seller Centre";
@@ -44,11 +44,10 @@ function Pending() {
       .catch((e) => console.log(e));
   }, [page, searchValue]);
 
-  const handleSearch = (e) => 
-  {
-    e.preventDefault()
-    setSearchValue(searchRef.current.value)
-  }
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchValue(searchRef.current.value);
+  };
 
   return (
     <>
@@ -78,14 +77,18 @@ function Pending() {
                     )}
                   ></i>
                 </div>
-                <button type="submit" className={cx("search-btn")} onClick={handleSearch}>
+                <button
+                  type="submit"
+                  className={cx("search-btn")}
+                  onClick={handleSearch}
+                >
                   Search
                 </button>
               </form>
             </div>
             <div className={cx("order_count")}>{orders.length} Orders</div>
             <div className={cx("order_table")}>
-              <Table
+              <TableShipping
                 orders={orders}
                 setPage={setPage}
                 page={page}

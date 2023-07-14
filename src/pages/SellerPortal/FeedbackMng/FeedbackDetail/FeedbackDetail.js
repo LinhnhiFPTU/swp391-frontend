@@ -254,17 +254,17 @@ function FeedbackDetail() {
               </div>
               {feedback.type.startsWith("REPORT") ? (
                 <>
-                  <div className={cx("reply")}>
+                  <div className={cx("accept")}>
                     <button
-                      className={cx("reply-btn")}
+                      className={cx("accept-btn")}
                       onClick={(e) => handleAcceptRefund(e, feedback.id)}
                     >
                       Accept
                     </button>
                   </div>
-                  <div className={cx("reply")}>
+                  <div className={cx("reject")}>
                     <button
-                      className={cx("reply-btn")}
+                      className={cx("reject-btn")}
                       onClick={(e) => handleAcceptRefund(e, feedback.id)}
                     >
                       Reject

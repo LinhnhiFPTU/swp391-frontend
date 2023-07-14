@@ -38,7 +38,9 @@ function CartDropdown() {
 
   return (
     <div className={cx("cart-icon")}>
-      <span className={cx("counter", "disable")}>{cartSize}</span>
+      {cartSize > 0 && (
+        <span className={cx("counter", "disable")}>{cartSize}</span>
+      )}
       <Link to="/cart" className={cx("cart-link")}>
         <div className={cx("dropdown-cart")}>
           <Tippy
