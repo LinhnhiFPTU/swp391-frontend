@@ -70,6 +70,7 @@ import BanShopMng from "~/pages/Admin/AdminShopMng/BanShopMng";
 
 import ReportMng from "~/pages/Admin/ReportMng";
 import Setting from "~/pages/Admin/Setting";
+import AdNotifications from "~/pages/Admin/Notifications";
 
 const publicRoutes = [
     {path: "/", component: Home},
@@ -146,6 +147,7 @@ const publicRoutes = [
 
     {path: "/admin/portal/report", component: ReportMng},
     {path: "/admin/portal/settings", component: Setting},
+    {path: "/admin/portal/notifications", component: AdNotifications},
 ];
 
 const privateRoutes = [];

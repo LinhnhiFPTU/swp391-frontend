@@ -2,7 +2,9 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "./Topbar.module.scss";
 import { Link } from "react-router-dom";
-import Tippy from "@tippyjs/react";
+import Tippy from "@tippyjs/react/headless";
+import { Wrapper as PopperWrapper } from "~/components/Popper";
+import Notification from "./NotificationIcon";
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +24,14 @@ function Topbar() {
           </Link>
         </div>
         <div className={cx("header-info")}>
-          
+          <div className={cx("info-seller")}>
+            <span className={cx("seller-name")}>Admin</span>
+          </div>
+
+          <Notification />
+          <div className={cx("logout")}>
+            <i className={cx("icon-logout", "fa-regular fa-power-off")}></i>
+          </div>
         </div>
       </div>
     </div>

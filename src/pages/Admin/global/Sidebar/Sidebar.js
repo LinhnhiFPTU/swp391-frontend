@@ -7,10 +7,16 @@ import axios from "axios";
 const cx = classNames.bind(styles);
 const options = [
     {
-        id: 1,
+        id: 0,
         title: "Dashboard",
         icon: "fa-light fa-table-columns",
         path: "/admin/portal/dashboard",
+    },
+    {
+        id: 1,
+        title: "Notifications",
+        icon: "fa-light fa-bell",
+        path: "/admin/portal/notifications",
     },
     {
         id: 2,
