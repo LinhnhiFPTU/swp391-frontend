@@ -2,6 +2,9 @@ import classNames from "classnames/bind";
 
 import NoProduct from "../NoProduct";
 import styles from "./Table.module.scss";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import EditProduct from "../EditProduct/EditProduct";
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +28,16 @@ const statusStyle = (status) => {
 };
 
 function Table({ products, page, setPage, maxPage }) {
+  const [privateProducts, setPrivateProducts] = useState([])
+  const [showEdit, setShowEdit] = useState(false)
+
+  useEffect(() => {
+    if (products)
+    {
+      setPrivateProducts(products)
+    }
+  }, [products])
+
   if (!products || products.length === 0) {
     return <NoProduct />;
   }
@@ -45,6 +58,23 @@ function Table({ products, page, setPage, maxPage }) {
     setPage(page + 1);
   };
 
+  const handleDeleteProduct = (e, product) => {
+    e.preventDefault();
+    axios
+      .delete("/api/v1/shop/products/delete?id=" + product.id)
+      .then((res) => {
+        alert(res.data);
+        privateProducts = privateProducts.filter(p => p.id !== product.id)
+        setPrivateProducts(Array.from(privateProducts))
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const handleUpdateProduct = (e, product) => {
+    e.preventDefault();
+    setShowEdit(true)
+  };
+
   return (
     <div className={cx("table_data")}>
       <div className={cx("table-head")}>
@@ -56,7 +86,7 @@ function Table({ products, page, setPage, maxPage }) {
         <div className={cx("head-delete")}>Delete</div>
       </div>
       <div className={cx("table-content")}>
-        {products.map((product) => {
+        {privateProducts.map((product) => {
           let status = "Active";
           if (product.ban) status = "Ban";
           if (product.available === 0) status = "Sold out";
@@ -86,14 +116,20 @@ function Table({ products, page, setPage, maxPage }) {
                 </div>
               </div>
               <div className={cx("body-text", "body-edit")}>
-                <button className={cx("edit-btn")}>
+                <button
+                  className={cx("edit-btn")}
+                  onClick={(e) => handleUpdateProduct(e, product)}
+                >
                   <i
                     className={cx("fa-regular fa-pen-to-square", "edit-icon")}
                   ></i>
                 </button>
               </div>
               <div className={cx("body-text", "body-delete")}>
-                <button className={cx("delete-btn")}>
+                <button
+                  className={cx("delete-btn")}
+                  onClick={(e) => handleDeleteProduct(e, product)}
+                >
                   <i className={cx("fa-regular fa-trash", "delete-icon")}></i>
                 </button>
               </div>

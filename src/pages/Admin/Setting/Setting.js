@@ -11,7 +11,6 @@ const cx = classNames.bind(styles);
 
 function Setting() {
   const [settingsList, setSettingList] = useState([]);
-  const [valueCheck, setValueCheck] = useState(true);
   useEffect(() => {
     axios
       .get("/api/v1/admin/management/setting")
@@ -37,8 +36,10 @@ function Setting() {
       .catch((e) => console.log(e.response.status));
   };
 
-  const handleToggleFS = (e) => {
-    setValueCheck(e.target.checked)
+  const handleToggleFS = (e, setting) => {
+    let index = settingsList.indexOf(setting);
+    settingsList[index].value = e.target.checked ? 1 : 0;
+    setSettingList(Array.from(settingsList));
   };
 
   return (
@@ -56,28 +57,34 @@ function Setting() {
             </div>
             <div className={cx("setting-content_main")}>
               <div className={cx("setting-list-item")}>
-                {settingsList.map((item) => (
-                  <div className={cx("setting-item")} key={item.id}>
-                    <div className={cx("type-setting")}>{item.name}: </div>
-                    <div className={cx("edit-setting")}>
-                      <input
-                        type="number"
-                        className={cx("input")}
-                        value={item.value}
-                        onChange={(e) => handleChange(e, item)}
-                      />
+                {settingsList.map((item) => {
+                  if (item.name === "FlashSale") {
+                    return (
+                      <div className={cx("flashSale")}>
+                        <span className={cx("text")}>Flash Sale</span>
+                        <Switch
+                          checked={item.value === 1 ? true : false}
+                          name="switch"
+                          color="primary"
+                          onChange={(e) => handleToggleFS(e, item)}
+                        />
+                      </div>
+                    );
+                  }
+                  return (
+                    <div className={cx("setting-item")} key={item.id}>
+                      <div className={cx("type-setting")}>{item.name}: </div>
+                      <div className={cx("edit-setting")}>
+                        <input
+                          type="number"
+                          className={cx("input")}
+                          value={item.value}
+                          onChange={(e) => handleChange(e, item)}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
-                <div className={cx("flashSale")}>
-                  <span className={cx("text")}>Flash Sale</span>
-                  <Switch
-                    checked={valueCheck}
-                    name="switch"
-                    color="primary"
-                    onChange={handleToggleFS}
-                  />
-                </div>
+                  );
+                })}
               </div>
             </div>
             <div className={cx("setting-footer")} onClick={handleSave}>
