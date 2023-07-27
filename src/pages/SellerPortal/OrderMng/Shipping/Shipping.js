@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import HeaderSeller from "~/layouts/components/HeaderSeller";
 import SideBar from "~/pages/SellerPortal/SideBar";
 import NavBar from "../NavBar";
-import TableShipping from "../TableShipping/";
+import Table from "../Table";
 
 import styles from "./Shipping.module.scss";
 import { useEffect, useRef, useState } from "react";
@@ -88,7 +88,7 @@ function Pending() {
             </div>
             <div className={cx("order_count")}>{orders.length} Orders</div>
             <div className={cx("order_table")}>
-              <TableShipping
+              <Table
                 orders={orders}
                 setPage={setPage}
                 page={page}

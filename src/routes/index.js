@@ -72,6 +72,8 @@ import ReportMng from "~/pages/Admin/ReportMng";
 import Setting from "~/pages/Admin/Setting";
 import AdNotifications from "~/pages/Admin/Notifications";
 
+import Shipper from "~/pages/Shipper";
+
 const publicRoutes = [
     {path: "/", component: Home},
     {path: "/login", component: Login},
@@ -148,6 +150,8 @@ const publicRoutes = [
     {path: "/admin/portal/report", component: ReportMng},
     {path: "/admin/portal/settings", component: Setting},
     {path: "/admin/portal/notifications", component: AdNotifications},
+
+    {path: "/shipper", component: Shipper},
 ];
 
 const privateRoutes = [];
