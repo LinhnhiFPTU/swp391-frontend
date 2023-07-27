@@ -73,7 +73,17 @@ function Login() {
                 .then((res) => {
                     setMsg("");
                     let redirectUrl = "/"
-                    if (res.data.role === "ADMIN") redirectUrl = "/admin/portal/dashboard"
+                    if (res.data.role === "ADMIN")
+                    {
+                        redirectUrl = "/admin/portal/dashboard"
+                        return
+                    }
+
+                    if (res.data.role === "SHIPPER")
+                    {
+                        redirectUrl = "/shipper"
+                        return
+                    }
                     
                     window.location.href = redirectUrl
                     console.log(res.data, redirectUrl);

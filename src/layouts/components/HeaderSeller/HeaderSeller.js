@@ -46,6 +46,10 @@ function HeaderSeller({title, path = "/seller/portal/dashboard"}) {
         }
     }, [context]);
 
+    const roundedFloat = (float) => {
+        return Math.round((float + Number.EPSILON) * 100) / 100;
+      };
+
     return (
         <div className={cx("header")}>
             <div className={cx("header-content")}>
@@ -91,7 +95,7 @@ function HeaderSeller({title, path = "/seller/portal/dashboard"}) {
                                             <i
                                                 className={cx("icon-sub", "fa-regular fa-coins")}
                                             ></i>
-                                            <span>Wallet: {shop.wallet}</span>
+                                            <span>Wallet: {roundedFloat(shop.wallet)}</span>
                                         </Link>
                                     </div>
                                 </PopperWrapper>

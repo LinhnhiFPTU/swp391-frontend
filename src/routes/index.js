@@ -16,6 +16,7 @@ import Cart from "~/pages/Cart";
 import Category from "~/pages/Category";
 import ProductAll from "~/pages/ProductAll";
 import Checkout from "~/pages/Checkout";
+import EditProduct from "~/pages/SellerPortal/ProductMng/EditProduct/EditProduct";
 
 import Notifications from "~/pages/Notifications";
 import Purchase from "~/pages/Purchase";
@@ -123,6 +124,8 @@ const publicRoutes = [
     {path: "/seller/portal/feedback/detail", component: FeedbackDetail},
 
     {path: "/seller/portal/message", component: Message},
+
+    {path: "/seller/portal/edit-product", component: EditProduct},
 
     {path: "/seller/portal/shop", component: ShopMng},
 
