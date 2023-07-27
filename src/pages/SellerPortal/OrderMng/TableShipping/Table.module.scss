@@ -32,17 +32,17 @@
     }
 
     .status {
-      width: 120px;
+      width: 200px;
       text-align: center;
     }
 
     .payment {
-      width: 150px;
+      width: 100px;
       text-align: center;
     }
 
     .edit {
-      width: 150px;
+      width: 120px;
       text-align: center;
     }
   }
@@ -88,7 +88,7 @@
       }
 
       .status {
-        width: 120px;
+        width: 200px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -104,12 +104,12 @@
       }
 
       .payment {
-        width: 150px;
+        width: 100px;
         text-align: center;
       }
 
       .edit {
-        width: 150px;
+        width: 120px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -128,23 +128,6 @@
           &:hover {
             color: var(--primary);
             border: 1px solid var(--primary);
-            background-color: transparent;
-          }
-        }
-
-        .reject-btn {
-          width: 60px;
-          height: 28px;
-          margin-left: 5px;
-          border-radius: 4px;
-          color: #fff;
-          border: 1px solid #ff1616;
-          background-color: #ff1616;
-          transition: 0.25s linear;
-
-          &:hover {
-            color: #ff1616;
-            border: 1px solid #ff1616;
             background-color: transparent;
           }
         }

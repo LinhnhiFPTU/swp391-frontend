@@ -710,7 +710,7 @@ function Product() {
                         product.available === 0 ||
                         (user &&
                           user.shopDTO &&
-                          user.shopDTO.id == product.shop.id)
+                          user.shopDTO.id === product.shop.id)
                       }
                       onClick={() => {
                         if (user) {
@@ -724,7 +724,12 @@ function Product() {
                     </button>
                     <button
                       className={cx("buy")}
-                      disabled={product.available === 0}
+                      disabled={
+                        product.available === 0 ||
+                        (user &&
+                          user.shopDTO &&
+                          user.shopDTO.id === product.shop.id)
+                      }
                       onClick={handleBuyNow}
                     >
                       Buy Now

@@ -121,11 +121,10 @@ function FeedBack() {
     setPage(page + 1);
   };
 
-  const handleChat = (e, userId) =>
-  {
-    e.preventDefault()
-    navigate("/seller/portal/message", {state: userId})
-  }
+  const handleChat = (e, userId) => {
+    e.preventDefault();
+    navigate("/seller/portal/message", { state: userId });
+  };
 
   useEffect(() => {
     document.title = "Seller Centre";
@@ -227,7 +226,10 @@ function FeedBack() {
                         />
                       </div>
                       <div className={cx("chat")}>
-                        <button className={cx("chat-btn")} onClick={(e) => handleChat(e, feedback.userId)}>
+                        <button
+                          className={cx("chat-btn")}
+                          onClick={(e) => handleChat(e, feedback.userId)}
+                        >
                           <i
                             className={cx("fa-solid fa-messages", "icon-chat")}
                           ></i>

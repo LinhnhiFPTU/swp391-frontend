@@ -144,6 +144,12 @@
   }
 }
 
+.notify-error {
+  width: var(--width);
+  margin: 0 auto;
+  
+}
+
 //bottom
 .bottom {
   width: var(--width);
@@ -213,6 +219,10 @@
   font-size: 18px;
   color: red;
   user-select: none;
+
+  .sub-price {
+    margin-left: 10px;
+  }
 }
 
 .popup {

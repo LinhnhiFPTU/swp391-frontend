@@ -25,6 +25,7 @@ import Completed from "~/pages/Purchase/Completed";
 import ContactPurchase from "~/pages/Purchase/Contact";
 import Pending from "~/pages/Purchase/Pending";
 import Shipping from "~/pages/Purchase/Shipping";
+import Refund from "~/pages/Purchase/Refund";
 
 import Seller from "~/pages/Seller";
 import Register from "~/pages/Seller/Register";
@@ -70,6 +71,9 @@ import BanShopMng from "~/pages/Admin/AdminShopMng/BanShopMng";
 
 import ReportMng from "~/pages/Admin/ReportMng";
 import Setting from "~/pages/Admin/Setting";
+import AdNotifications from "~/pages/Admin/Notifications";
+
+import Shipper from "~/pages/Shipper";
 
 const publicRoutes = [
     {path: "/", component: Home},
@@ -99,6 +103,7 @@ const publicRoutes = [
     {path: "/purchase/shipping", component: Shipping},
     {path: "/purchase/complete", component: Completed},
     {path: "/purchase/cancel", component: Cancelled},
+    {path: "/purchase/refund", component: Refund},
 
     {path: "/seller", component: Seller},
     {path: "/seller/register", component: Register},
@@ -147,6 +152,9 @@ const publicRoutes = [
 
     {path: "/admin/portal/report", component: ReportMng},
     {path: "/admin/portal/settings", component: Setting},
+    {path: "/admin/portal/notifications", component: AdNotifications},
+
+    {path: "/shipper", component: Shipper},
 ];
 
 const privateRoutes = [];

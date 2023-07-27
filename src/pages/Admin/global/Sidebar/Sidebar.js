@@ -43,7 +43,7 @@ const options = [
     path: "/admin/portal/settings",
   },
   {
-    id: 6,
+    id: 7,
     title: "Wallet: 10",
     icon: "fa-regular fa-coins",
     path: "#",

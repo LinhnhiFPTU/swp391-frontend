@@ -2,6 +2,7 @@
 import classNames from "classnames/bind";
 import { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import Alert from "react-bootstrap/Alert";
 
 import { UserContext } from "~/userContext/Context";
 import styles from "./Cart.module.scss";
@@ -22,6 +23,7 @@ function Cart() {
   const state = Globalstate.state;
   const dispatch = Globalstate.dispatch;
   const navigate = useNavigate();
+  const [msg, setMsg] = useState("Quantity for <ProductName> not enough");
 
   useEffect(() => {
     if (paramLocation.state) {
@@ -224,7 +226,9 @@ function Cart() {
                           <div className={cx("product-details")}>
                             $
                             {p.salePercent
-                              ? roundedFloat( p.product.price * (1 - p.salePercent / 100))
+                              ? roundedFloat(
+                                  p.product.price * (1 - p.salePercent / 100)
+                                )
                               : p.product.price}
                           </div>
                           <div className={cx("product-quantity")}>
@@ -262,7 +266,9 @@ function Cart() {
                           <div className={cx("product-details")}>
                             $
                             {(p.salePercent
-                              ? roundedFloat(p.product.price * (1 - p.salePercent / 100))
+                              ? roundedFloat(
+                                  p.product.price * (1 - p.salePercent / 100)
+                                )
                               : p.product.price) * p.quantity}
                           </div>
                           <div className={cx("product-details")}>
@@ -281,7 +287,15 @@ function Cart() {
                     </div>
                   </div>
                 ))}
+                <div className={cx("notify-error")}>
+                  {msg && (
+                    <Alert key="danger" variant="danger">
+                      {msg}
+                    </Alert>
+                  )}
+                </div>
               </div>
+
               <div className={cx("bottom")}>
                 <div className={cx("cart-left")}>
                   <div className={cx("selectAll")}>
@@ -302,7 +316,13 @@ function Cart() {
                     <span className={cx("sub-name")}>Total:</span>
                     <span className={cx("sub-price")}>${total.totalPrice}</span>
                   </div>
-                  <button disabled={total.totalPrice < 1} onClick={handleCheckout} className={cx("checkout-btn")}>Check out</button>
+                  <button
+                    disabled={total.totalPrice < 1}
+                    onClick={handleCheckout}
+                    className={cx("checkout-btn")}
+                  >
+                    Check out
+                  </button>
                 </div>
               </div>
             </>

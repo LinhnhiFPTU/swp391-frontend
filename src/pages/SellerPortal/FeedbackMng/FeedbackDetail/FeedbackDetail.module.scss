@@ -230,6 +230,50 @@
             background-color: transparent;
           }
         }
+
+        .accept {
+          width: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .accept-btn {
+            width: 70px;
+            height: 28px;
+            outline: none;
+            border-radius: 4px;
+            border: 1px solid var(--primary);
+            color: #fff;
+            background-color: var(--primary);
+
+            &:hover {
+              color: var(--primary);
+              background-color: transparent;
+            }
+          }
+        }
+
+        .reject {
+          width: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .reject-btn {
+            width: 70px;
+            height: 28px;
+            outline: none;
+            border-radius: 4px;
+            border: 1px solid red;
+            color: #fff;
+            background-color: red;
+
+            &:hover {
+              color: red;
+              background-color: transparent;
+            }
+          }
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 .order_wrapper {
   width: 100%;
   margin-top: 71px;
-  height: calc(161vh - 71px);
+  height: 120vh;
   display: flex;
   align-items: center;
 
@@ -19,7 +19,7 @@
     .order_content {
       position: relative;
       width: var(--width);
-      height: 1500px;
+      height: fit-content;
       margin-top: 20px;
       background-color: #fff;
 

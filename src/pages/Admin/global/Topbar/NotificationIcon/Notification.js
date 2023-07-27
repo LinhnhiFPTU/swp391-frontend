@@ -1,61 +1,19 @@
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "./SellerNotify.module.scss";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import styles from "./Notification.module.scss";
 
 const cx = classNames.bind(styles);
 
-function SellerNotify() {
-  const [notifications, setNotifications] = useState([]);
-  const [page, setPage] = useState(1);
-  const navigate = useNavigate();
+const notifications = [];
 
-  useEffect(() => {
-    axios
-      .get("/api/v1/shop/notifications")
-      .then((res) => {
-        setNotifications(res.data);
-      })
-      .catch((e) => console.log(e));
-  }, []);
-
-  const handleClickNotification = (e, notification) => {
-    e.preventDefault();
-    if (notification.read) {
-      notification.redirectUrl && navigate(notification.redirectUrl);
-    } else {
-      axios
-        .post("/api/v1/shop/notification/read/" + notification.id)
-        .then((res) => {
-          let index = notifications.indexOf(notification);
-          notifications[index].read = true;
-          setNotifications(Array.from(notifications));
-
-          notification.redirectUrl && navigate(notification.redirectUrl);
-        })
-        .catch((e) => console.log(e));
-    }
-  };
-
-  const handleViewAll = (e) => {
-    e.preventDefault();
-    navigate("/seller/portal/notifications", {
-      state: notifications,
-    });
-  };
-
+function Notification() {
   return (
-    <div className={cx("seller_notify")}>
-      {notifications.filter((n) => !n.read).length > 0 && (
-        <div className={cx("count-notify")}>
-          {notifications.filter((n) => !n.read).length}
-        </div>
-      )}
-
-      <Link to="/seller/portal/notifications">
+    <div className={cx("notifications")}>
+      <div className={cx("count-notify")}>10</div>
+      {/* <i className={cx("fa-regular fa-bell", "icon-notify")}></i> */}
+      <Link to="/admin/portal/notifications">
         <div className={cx("dropdown-notify")}>
           <Tippy
             interactive
@@ -81,9 +39,9 @@ function SellerNotify() {
                         <div
                           className={cx("notify-content")}
                           key={index}
-                          onClick={(e) =>
-                            handleClickNotification(e, notification)
-                          }
+                          // onClick={(e) =>
+                          //   handleClickNotification(e, notification)
+                          // }
                         >
                           <img
                             src={notification.imageUrl}
@@ -102,16 +60,17 @@ function SellerNotify() {
                       ))}
                     </div>
                     <div className={cx("notify-footer")}>
-                      <a className={cx("view-all")} onClick={handleViewAll}>
+                      {/* <a className={cx("view-all")} onClick={handleViewAll}>
                         View All
-                      </a>
+                      </a> */}
+                      <a className={cx("view-all")}>View All</a>
                     </div>
                   </PopperWrapper>
                 )}
               </div>
             )}
           >
-            <i className={cx("fa-light fa-bell", "bell-icon")}></i>
+            <i className={cx("fa-regular fa-bell", "bell-icon")}></i>
           </Tippy>
         </div>
       </Link>
@@ -119,4 +78,4 @@ function SellerNotify() {
   );
 }
 
-export default SellerNotify;
+export default Notification;

@@ -1,7 +1,7 @@
 .dashboard_wrapper {
   width: 100%;
   margin-top: 71px;
-  height: 140vh;
+  height: calc(181vh - 71px);
   display: flex;
   align-items: center;
   background-color: #f6f6f6;

@@ -32,7 +32,7 @@ const statusStyle = (status) => {
   }
 };
 
-function Table({ orders, page, setPage, maxPage }) {
+function TableShipping({ orders, page, setPage, maxPage }) {
   const [openListDetail, setOpenListDetail] = useState(false);
   const [index, setIndex] = useState(0);
 
@@ -127,17 +127,8 @@ function Table({ orders, page, setPage, maxPage }) {
               </div>
               <div className={cx("body-text", "payment")}>{item.payment}</div>
               <div className={cx("body-text", "edit")}>
-                <button
-                  className={cx("approve-btn")}
-                  onClick={(e) => handleApproveOrder(e, item.id)}
-                >
+                <button className={cx("approve-btn")}>
                   <i className={cx("fa-solid fa-check")}></i>
-                </button>
-                <button
-                  className={cx("reject-btn")}
-                  onClick={(e) => handleRejectOrder(e, item.id)}
-                >
-                  <i className={cx("fa-solid fa-xmark")}></i>
                 </button>
               </div>
             </div>
@@ -164,4 +155,4 @@ function Table({ orders, page, setPage, maxPage }) {
   );
 }
 
-export default Table;
+export default TableShipping;

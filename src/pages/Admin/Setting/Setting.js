@@ -1,17 +1,17 @@
 import classNames from "classnames/bind";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Switch } from "@mui/material";
 import Topbar from "../global/Topbar";
 import Sidebar from "../global/Sidebar";
 
 import styles from "./Setting.module.scss";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function Setting() {
   const [settingsList, setSettingList] = useState([]);
-
+  const [valueCheck, setValueCheck] = useState(true);
   useEffect(() => {
     axios
       .get("/api/v1/admin/management/setting")
@@ -35,6 +35,10 @@ function Setting() {
         alert("Saving successfully");
       })
       .catch((e) => console.log(e.response.status));
+  };
+
+  const handleToggleFS = (e) => {
+    setValueCheck(e.target.checked)
   };
 
   return (
@@ -65,6 +69,15 @@ function Setting() {
                     </div>
                   </div>
                 ))}
+                <div className={cx("flashSale")}>
+                  <span className={cx("text")}>Flash Sale</span>
+                  <Switch
+                    checked={valueCheck}
+                    name="switch"
+                    color="primary"
+                    onChange={handleToggleFS}
+                  />
+                </div>
               </div>
             </div>
             <div className={cx("setting-footer")} onClick={handleSave}>
