@@ -105,7 +105,7 @@
 
 .shipper_container {
   width: 100%;
-  height: calc(100vh - 71px);
+  height: calc(175vh - 71px);
   margin-top: 71px;
   display: flex;
   justify-content: center;
@@ -113,7 +113,7 @@
 
   .shipper_content {
     width: 75%;
-    height: calc(100% - 40px);
+    height: fit-content;
     margin-top: 20px;
     margin-bottom: 20px;
     background-color: #fff;
@@ -183,8 +183,10 @@
       margin-top: 30px;
 
       .result {
+        cursor: pointer;
         width: 100%;
         height: 195px;
+        margin-top: 20px;
         background-color: #fff;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
@@ -291,6 +293,38 @@
             }
           }
         }
+      }
+    }
+    .prev-next {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+      margin-top: 20px;
+
+      .icon-left,
+      .icon-right {
+        outline: none;
+        border: none;
+        background-color: transparent;
+
+        i {
+          font-size: 2.8rem;
+          color: #999999;
+
+          &:hover {
+            color: var(--primary);
+          }
+        }
+      }
+
+      .icon-left {
+        margin-right: 30px;
+      }
+
+      .icon-right {
+        margin-left: 30px;
       }
     }
   }
