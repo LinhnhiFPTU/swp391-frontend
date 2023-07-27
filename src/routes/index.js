@@ -154,7 +154,7 @@ const publicRoutes = [
     {path: "/admin/portal/settings", component: Setting},
     {path: "/admin/portal/notifications", component: AdNotifications},
 
-    {path: "/shipper", component: Shipper},
+    {path: "/shipping-unit", component: Shipper},
 ];
 
 const privateRoutes = [];

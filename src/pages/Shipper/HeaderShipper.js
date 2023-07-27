@@ -1,10 +1,22 @@
 import classNames from "classnames/bind";
 
 import styles from "./Shipper.module.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function HeaderShipper() {
+  const [shipper, setShipper] = useState({})
+
+  useEffect(() => {
+    axios.get("/api/v1/users/info")
+    .then(res => {
+      setShipper(res.data)
+    })
+    .catch(e => console.log(e))
+  }, [])
+
   return (
     <div className={cx("header")}>
       <div className={cx("header-content")}>
@@ -16,13 +28,13 @@ function HeaderShipper() {
                 <span className={cx("sub-text")}>T</span>rading
               </span>
             </p>
-            <div className={cx("otherText")}>Shipper</div>
+            <div className={cx("otherText")}>Shipping Unit</div>
           </div>
         </div>
         <div className={cx("header-info")}>
           <div className={cx("info-seller")}>
-            <img className={cx("avatar")} src="https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg" alt="avatar"/>
-            <div className={cx("seller-name")}>Shipper</div>
+            <img className={cx("avatar")} src={shipper.imageurl} alt="avatar"/>
+            <div className={cx("seller-name")}>{shipper.firstname}</div>
           </div>
           <div className={cx("logout")}>
             <i className={cx("icon-logout", "fa-regular fa-power-off")}></i>
