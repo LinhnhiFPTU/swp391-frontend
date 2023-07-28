@@ -96,7 +96,13 @@ function Shipping() {
                   </div>
                 </div>
                 <div className={cx("purchase_item-options")}>
-                  <div className={cx("text")}>No rating received</div>
+                  <div className={cx("text")}>
+                    <span className={cx("expected")}>
+                      Received date (expected): 
+                    </span>
+                    {" "}
+                    28/07/2023 - 30/07/2023
+                  </div>
                   <div className={cx("button")}>
                     {(order.status === "Completed" ||
                       order.status === "Canceled") && (

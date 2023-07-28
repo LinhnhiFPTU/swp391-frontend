@@ -287,13 +287,13 @@ function Cart() {
                     </div>
                   </div>
                 ))}
-                <div className={cx("notify-error")}>
+                {/* <div className={cx("notify-error")}>
                   {msg && (
                     <Alert key="danger" variant="danger">
                       {msg}
                     </Alert>
                   )}
-                </div>
+                </div> */}
               </div>
 
               <div className={cx("bottom")}>
