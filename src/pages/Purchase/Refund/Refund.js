@@ -3,13 +3,20 @@ import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 import NavBar from "../NavBar";
 import NoPurchase from "../NoPurchase";
+import RefundDetail from "./RefundDetail";
 import styles from "./Refund.module.scss";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
 function Refund() {
+  const [openPopup, setOpenPopup] = useState(false);
+  const handleOpenPopup = () => {
+    setOpenPopup(true);
+  };
   return (
     <>
+      {openPopup && <RefundDetail closePopup={setOpenPopup} />}
       <Header />
       <div className={cx("refund_wrapper")}>
         <div className={cx("refund_container")}>
@@ -20,7 +27,10 @@ function Refund() {
                 <div className={cx("shop-name")}>Baboon’s Toys Shop</div>
                 <div className={cx("status")}>REFUND</div>
               </div>
-              <div className={cx("purchase_item-detail")}>
+              <div
+                className={cx("purchase_item-detail")}
+                onClick={handleOpenPopup}
+              >
                 <div className={cx("content")}>
                   <img
                     src="https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg"

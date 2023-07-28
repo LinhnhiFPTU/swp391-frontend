@@ -33,6 +33,11 @@ const statusStyle = (status) => {
       backgroundColor: "#F2F4F8",
       color: "#1B4780",
     };
+  } else if (status === "REFUND") {
+    return {
+      backgroundColor: "#FDF4F6",
+      color: "#E36482",
+    };
   }
 };
 
