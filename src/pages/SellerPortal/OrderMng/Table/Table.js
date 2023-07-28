@@ -36,7 +36,7 @@ const statusStyle = (status) => {
   }
 };
 
-function Table({ orders, page, setPage, maxPage }) {
+function Table({ orders, page, setPage, maxPage, setChange }) {
   const [openListDetail, setOpenListDetail] = useState(false);
   const [index, setIndex] = useState(0);
   if (!orders || orders.length === 0) {
@@ -70,6 +70,7 @@ function Table({ orders, page, setPage, maxPage }) {
         <OrderDetails
           setOpenListDetail={setOpenListDetail}
           order={orders[index]}
+          setChange={setChange}
         />
       )}
       <div className={cx("table_data")}>

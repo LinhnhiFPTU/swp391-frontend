@@ -3,6 +3,7 @@ import {createContext, useEffect, useReducer} from "react";
 
 export const Cartcontext = createContext();
 export const Context = (props) => {
+    let msg = "sss";
     const reducer = (state, action) => {
         switch (action.type) {
             case "ADD":
@@ -38,6 +39,7 @@ export const Context = (props) => {
                                     type: "LOAD",
                                     payload: res.data,
                                 });
+                                msg = "asdsadasd"
                             })
                             .catch((e) => console.log(e));
                     })
@@ -109,7 +111,7 @@ export const Context = (props) => {
     }, []);
 
     const [state, dispatch] = useReducer(reducer, []);
-    const info = {state, dispatch};
+    const info = {state, dispatch, msg};
     return (
         <Cartcontext.Provider value={info}>{props.children}</Cartcontext.Provider>
     );

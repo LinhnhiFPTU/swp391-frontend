@@ -23,7 +23,7 @@ function Cart() {
   const state = Globalstate.state;
   const dispatch = Globalstate.dispatch;
   const navigate = useNavigate();
-  const [msg, setMsg] = useState("Quantity for <ProductName> not enough");
+  const [msg, setMsg] = useState(Globalstate.msg);
 
   useEffect(() => {
     if (paramLocation.state) {

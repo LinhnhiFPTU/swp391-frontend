@@ -77,6 +77,7 @@ function Product() {
   const [maxPage, setMaxPage] = useState(0);
   const [page, setPage] = useState(1);
   const [shop, setShop] = useState({});
+  const [change, setChange] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -100,7 +101,7 @@ function Product() {
         setProducts(res.data.filter((item, index) => index < 5));
       })
       .catch((e) => console.log(e));
-  }, [filter, page]);
+  }, [filter, page, change]);
 
   useEffect(() => {
     axios
@@ -247,6 +248,7 @@ function Product() {
                 setPage={setPage}
                 page={page}
                 maxPage={maxPage}
+                setChange={setChange}
               />
             </div>
           </div>

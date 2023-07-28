@@ -26,7 +26,7 @@ function Pending() {
       .get(
         "/api/v1/shop/orders/max-page?keyword=" +
           searchValue +
-          "&filter=CANCELED"
+          "&filter=CANCELLED"
       )
       .then((res) => setMaxPage(res.data))
       .catch((e) => console.log(e));
@@ -35,7 +35,7 @@ function Pending() {
   useEffect(() => {
     axios
       .get(
-        "/api/v1/shop/orders/search?filter=CANCELED&page=" +
+        "/api/v1/shop/orders/search?filter=CANCELLED&page=" +
           page +
           "&keyword=" +
           searchValue

@@ -48,7 +48,7 @@ function Cancelled() {
 
     useEffect(() => {
         axios
-            .get("/api/v1/users/orders/search?filter=CANCELED&page=" + page)
+            .get("/api/v1/users/orders/search?filter=CANCELLED&page=" + page)
             .then((res) => setOrders(res.data))
             .catch((e) => console.log(e));
     }, []);

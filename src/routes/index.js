@@ -123,7 +123,6 @@ const publicRoutes = [
     {path: "/seller/portal/product/pending", component: PendingProduct},
     {path: "/seller/portal/product/ban", component: Band},
     {path: "/seller/portal/product/new", component: AddProduct},
-    {path: "/seller/portal/product/edit", component: EditProduct},
     {path: "/seller/portal/product/package", component: Package},
 
     {path: "/seller/portal/feedback", component: FeedbackMng},

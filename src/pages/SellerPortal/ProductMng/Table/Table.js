@@ -27,16 +27,9 @@ const statusStyle = (status) => {
   }
 };
 
-function Table({ products, page, setPage, maxPage }) {
-  const [privateProducts, setPrivateProducts] = useState([])
+function Table({ products, page, setPage, maxPage, setChange }) {
   const [showEdit, setShowEdit] = useState(false)
-
-  useEffect(() => {
-    if (products)
-    {
-      setPrivateProducts(products)
-    }
-  }, [products])
+  const [productEdit, setProductEdit] = useState()
 
   if (!products || products.length === 0) {
     return <NoProduct />;
@@ -64,19 +57,20 @@ function Table({ products, page, setPage, maxPage }) {
       .delete("/api/v1/shop/products/delete?id=" + product.id)
       .then((res) => {
         alert(res.data);
-        privateProducts = privateProducts.filter(p => p.id !== product.id)
-        setPrivateProducts(Array.from(privateProducts))
+        setChange(c => !c)
       })
       .catch((e) => console.log(e));
   };
 
   const handleUpdateProduct = (e, product) => {
     e.preventDefault();
+    setProductEdit(product)
     setShowEdit(true)
   };
 
   return (
     <div className={cx("table_data")}>
+      {showEdit && <EditProduct product={productEdit} setShowEdit={setShowEdit} setChange={setChange}/>}
       <div className={cx("table-head")}>
         <div className={cx("head-product")}>Product</div>
         <div className={cx("head-price")}>Price</div>
@@ -86,7 +80,7 @@ function Table({ products, page, setPage, maxPage }) {
         <div className={cx("head-delete")}>Delete</div>
       </div>
       <div className={cx("table-content")}>
-        {privateProducts.map((product) => {
+        {products.map((product) => {
           let status = "Active";
           if (product.ban) status = "Ban";
           if (product.available === 0) status = "Sold out";
