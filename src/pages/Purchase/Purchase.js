@@ -7,10 +7,13 @@ import NavBar from "./NavBar";
 import NoPurchase from "./NoPurchase/NoPurchase";
 import { Cartcontext } from "~/context/Context";
 import { UserContext } from "~/userContext/Context";
+import ChatPupup from "~/layouts/components/ChatPopup";
 
 import styles from "./Purchase.module.scss";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import SockJS from "sockjs-client";
+import { over } from "stompjs";
 
 const cx = classNames.bind(styles);
 
@@ -38,6 +41,8 @@ const styleStatus = (status) => {
   }
 };
 
+var stompClient = null;
+
 function Purchase() {
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
@@ -47,6 +52,7 @@ function Purchase() {
   const dispatch = cartContext.dispatch;
   const [buyed, setBuyed] = useState(false);
   const [rebuy, setRebuy] = useState();
+  const [openChat, setOpenChat] = useState(false);
   const navigate = useNavigate();
 
   const handleRebuy = (e, order) => {
@@ -76,11 +82,42 @@ function Purchase() {
       .catch((e) => console.log(e));
   }, []);
 
+  const handleNewConversation = (event, shopId) => {
+    event.preventDefault();
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        let Sock = new SockJS("http://localhost:8080/ws");
+        stompClient = over(Sock);
+        stompClient.connect(
+          {},
+          () => onConnected(shopId, res.data.id),
+          (e) => console.log(e)
+        );
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const onConnected = (shopId, userId) => {
+    const request = {
+      fromId: userId,
+      toId: shopId,
+      content: "Let's Start",
+      sendTime: new Date(),
+      chatterType: "USER",
+    };
+    stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
+    setOpenChat(true);
+  };
+
   return (
     <>
       <Header />
       <div className={cx("purchase_wrapper")}>
         <div className={cx("purchase_container")}>
+          <ChatPupup openChat={openChat} setOpenChat={setOpenChat} />
           <NavBar />
           {!orders || orders.length === 0 ? (
             <NoPurchase />
@@ -114,14 +151,14 @@ function Purchase() {
                           <div className={cx("quantity")}>x{item.quantity}</div>
                         </div>
                       </div>
-                      <div className={cx("price")}>${item.sellPrice}</div>
+                      <div className={cx("price")}>${item.soldPrice}</div>
                     </div>
                   ))}
                 </div>
                 <div className={cx("purchase_item_order-total")}>
                   <div className={cx("order-total-detail")}>
                     <div className={cx("text")}>Order Total:</div>
-                    <div className={cx("price")}>${order.sellPrice}</div>
+                    <div className={cx("price")}>${order.soldPrice + order.shippingFee}</div>
                   </div>
                 </div>
                 <div className={cx("purchase_item-options")}>
@@ -136,7 +173,7 @@ function Purchase() {
                         Buy Again
                       </a>
                     )}
-                    <button className={cx("contact-btn")}>
+                    <button className={cx("contact-btn")} onClick={(e) => handleNewConversation(e, order.shop.id)}>
                       Contact Seller
                     </button>
                   </div>

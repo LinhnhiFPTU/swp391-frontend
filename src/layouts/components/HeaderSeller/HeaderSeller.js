@@ -96,7 +96,7 @@ function HeaderSeller({ title, path = "/seller/portal/dashboard" }) {
                   <div className={cx("option-logout")}>
                     <Link to="#" className={cx("logout-link")}>
                       <i className={cx("icon-sub", "fa-regular fa-coins")}></i>
-                      <span>Wallet: {roundedFloat(shop.wallet)}</span>
+                      <span>Wallet: ${roundedFloat(shop.wallet)}</span>
                     </Link>
                   </div>
                 </PopperWrapper>

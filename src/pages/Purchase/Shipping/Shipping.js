@@ -83,7 +83,7 @@ function Shipping() {
                           <div className={cx("quantity")}>x{item.quantity}</div>
                         </div>
                       </div>
-                      <div className={cx("price")}>${item.sellPrice}</div>
+                      <div className={cx("price")}>${item.soldPrice}</div>
                     </div>
                   ))}
                 </div>
@@ -91,7 +91,7 @@ function Shipping() {
                   <div className={cx("order-total-detail")}>
                     <div className={cx("text")}>Order Total:</div>
                     <div className={cx("price")}>
-                      ${order.sellPrice + order.shippingFee}
+                      ${order.soldPrice + order.shippingFee}
                     </div>
                   </div>
                 </div>

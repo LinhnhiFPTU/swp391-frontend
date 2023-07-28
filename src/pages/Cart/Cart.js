@@ -23,7 +23,7 @@ function Cart() {
   const state = Globalstate.state;
   const dispatch = Globalstate.dispatch;
   const navigate = useNavigate();
-  const [msg, setMsg] = useState(Globalstate.msg);
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     if (paramLocation.state) {
@@ -239,11 +239,13 @@ function Cart() {
                                   dispatch({
                                     type: "DECREASE",
                                     payload: p.product.id,
+                                    setMsg: setMsg
                                   });
                                 } else {
                                   dispatch({
                                     type: "REMOVE",
                                     payload: p.product.id,
+                                    setMsg: setMsg
                                   });
                                 }
                               }}
