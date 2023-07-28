@@ -129,8 +129,14 @@
         background: #fffefb;
 
         .text {
-          font-size: 1.2rem;
-          color: #0000008a;
+          font-size: 1.4rem;
+          color: #1111118a;
+
+          .expected {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #333;
+          }
         }
 
         .button {
