@@ -30,6 +30,10 @@ const orderNavs = [
         title: "Cancelled",
         to: "/seller/portal/order/cancel",
     },
+    {
+        title: "Refund",
+        to: "/seller/portal/order/refund",
+    },
 ];
 
 function NavBar() {

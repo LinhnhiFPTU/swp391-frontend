@@ -38,6 +38,7 @@ import PendingOrder from "~/pages/SellerPortal/OrderMng/Pending";
 import ShippingOrder from "~/pages/SellerPortal/OrderMng/Shipping";
 import CompleteOrder from "~/pages/SellerPortal/OrderMng/Completed";
 import CancelOrder from "~/pages/SellerPortal/OrderMng/Cancelled";
+import RefundOrder from "~/pages/SellerPortal/OrderMng/Refund";
 
 import ProductMng from "~/pages/SellerPortal/ProductMng";
 import Active from "~/pages/SellerPortal/ProductMng/Active";
@@ -116,6 +117,7 @@ const publicRoutes = [
     {path: "/seller/portal/order/shipping", component: ShippingOrder},
     {path: "/seller/portal/order/complete", component: CompleteOrder},
     {path: "/seller/portal/order/cancel", component: CancelOrder},
+    {path: "/seller/portal/order/refund", component: RefundOrder},
 
     {path: "/seller/portal/product/all", component: ProductMng},
     {path: "/seller/portal/product/active", component: Active},
