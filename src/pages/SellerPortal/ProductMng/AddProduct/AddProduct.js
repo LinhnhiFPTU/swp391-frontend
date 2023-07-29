@@ -156,7 +156,7 @@ function AddProduct() {
 
     setImages((prev) => [...prev, ...files]);
     setListImage((prev) => [...prev, ...previews]);
-    setQuantityImage((pre) => pre + 1);
+    setQuantityImage((pre) => pre + length);
   };
 
   const handlePreviewVideo = (e) => {

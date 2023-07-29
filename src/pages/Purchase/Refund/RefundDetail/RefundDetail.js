@@ -4,14 +4,14 @@ import styles from "./Refund.modules.scss";
 
 const cx = classNames.bind(styles);
 
-function RefundDetail({ closePopup }) {
+function RefundDetail({ closePopup, order }) {
   return (
     <>
       <div className={cx("overlay")}>
         <div className={cx("order_popup")}>
           <div className={cx("order_container")}>
             <div className={cx("order_header")}>
-              <div className={cx("order-id")}>#1234456</div>
+              <div className={cx("order-id")}>#{order.id}</div>
               <div className={cx("close")}>
                 <i
                   className={cx("fa-solid fa-xmark")}
@@ -20,22 +20,24 @@ function RefundDetail({ closePopup }) {
               </div>
             </div>
             <div className={cx("order_content")}>
-              <div className={cx("item")}>
-                <img
-                  src="https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg"
-                  alt="product-img"
-                  className={cx("product-img")}
-                />
-                <div className={cx("info")}>
-                  <div className={cx("left")}>
-                    <div className={cx("name")}>
-                      Prevue Pet Products Travel Carrier for Birds, Black
+              {order.orderDetails.map((OD, index) => (
+                <div className={cx("item")} key={index}>
+                  <img
+                    src={OD.product.images[0].url}
+                    alt="product-img"
+                    className={cx("product-img")}
+                  />
+                  <div className={cx("info")}>
+                    <div className={cx("left")}>
+                      <div className={cx("name")}>
+                        {OD.product.name}
+                      </div>
+                      <div className={cx("quantity")}>x{OD.quantity}</div>
                     </div>
-                    <div className={cx("quantity")}>x2</div>
+                    <div className={cx("price")}>${OD.soldPrice}</div>
                   </div>
-                  <div className={cx("price")}>$1200</div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

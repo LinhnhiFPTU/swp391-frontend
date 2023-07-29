@@ -7,10 +7,13 @@ import PaymentMethod from "./PaymentMethod";
 import CheckoutPopup from "./CheckoutPopup";
 import { UserContext } from "~/userContext/Context";
 import AddressPopup from "~/layouts/components/AddressPopup/AddressPopup";
+import ChatPupup from "~/layouts/components/ChatPopup";
 
 import Footer from "~/layouts/components/Footer";
 import styles from "./Checkout.module.scss";
 import axios from "axios";
+import SockJS from "sockjs-client";
+import { over } from "stompjs";
 
 const cx = classNames.bind(styles);
 
@@ -31,6 +34,8 @@ const payments = [
   },
 ];
 
+var stompClient = null;
+
 function Checkout() {
   const { state } = useLocation();
   const [show, setShow] = useState(false);
@@ -38,6 +43,7 @@ function Checkout() {
   const [paymentId, setPaymentId] = useState(1);
   const [openAddress, setOpenAddress] = useState(true);
   const [infoReceive, setInfoReceive] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
   const [defaultReceiveInfo, setDefaultReceiveInfo] = useState({
     id: 0,
     fullname: "",
@@ -205,6 +211,36 @@ function Checkout() {
     }, 0);
   };
 
+  const handleNewConversation = (event, shopId) => {
+    event.preventDefault();
+    axios
+      .get("/api/v1/users/info")
+      .then((res) => {
+        let Sock = new SockJS("http://localhost:8080/ws");
+        stompClient = over(Sock);
+        stompClient.connect(
+          {},
+          () => onConnected(shopId, res.data.id),
+          (e) => console.log(e)
+        );
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const onConnected = (shopId, userId) => {
+    const request = {
+      fromId: userId,
+      toId: shopId,
+      content: "Let's Start",
+      sendTime: new Date(),
+      chatterType: "USER",
+    };
+    stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
+    setOpenChat(true);
+  };
+
   return (
     <>
       {openAddress && defaultReceiveInfo.province.name === "" && (
@@ -221,6 +257,7 @@ function Checkout() {
         {/*------------------HEADER-------------------*/}
         <div className={cx("checkout_header")}>
           <div className={cx("header_container")}>
+            <ChatPupup openChat={openChat} setOpenChat={setOpenChat} />
             <Link to="/" className={cx("logo-link")}>
               <p className={cx("text")}>
                 <span className={cx("sub-text")}>B</span>ird
@@ -294,7 +331,7 @@ function Checkout() {
                       <i
                         className={cx("fa-solid fa-messages", "chat-icon")}
                       ></i>
-                      <span className={cx("btn-chat-text")}>Chat now</span>
+                      <span className={cx("btn-chat-text")} onClick={(e) => handleNewConversation(e, item.shop.id)}>Chat now</span>
                     </button>
                   </div>
                 </div>
@@ -338,10 +375,6 @@ function Checkout() {
                   <div className={cx("shipping-info")}>
                     <div className={cx("shipping-detail")}>
                       <div className={cx("name")}>GHN</div>
-                      <div className={cx("receive-date")}>
-                        Receive by {new Date().toLocaleDateString()} -{" "}
-                        {new Date().toLocaleDateString()}
-                      </div>
                     </div>
                   </div>
 

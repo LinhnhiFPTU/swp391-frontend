@@ -132,8 +132,6 @@ const publicRoutes = [
 
     {path: "/seller/portal/message", component: Message},
 
-    {path: "/seller/portal/edit-product", component: EditProduct},
-
     {path: "/seller/portal/shop", component: ShopMng},
 
     {path: "/seller/portal/chart", component: Chart},

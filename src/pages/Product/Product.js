@@ -61,7 +61,7 @@ const settings = {
   prevArrow: <PrevArrow />,
 };
 
-var stompClient = null
+var stompClient = null;
 
 function Product() {
   const navigate = useNavigate();
@@ -227,8 +227,8 @@ function Product() {
         )
         .then(async (res) => {
           console.log(res);
-          let usd = await vndToUsd(res.data.data.total)
-          let shippingFee = Math.round((usd + Number.EPSILON) * 100) / 100
+          let usd = await vndToUsd(res.data.data.total);
+          let shippingFee = Math.round((usd + Number.EPSILON) * 100) / 100;
           setShippingFee("$" + shippingFee);
         })
         .catch((e) => console.log(e));
@@ -408,7 +408,10 @@ function Product() {
     e.preventDefault();
     if (user) {
       setIsBuyed(true);
-      dispatch({ type: "ADD", payload: {pId: product.id, quantity: valueQuantity} });
+      dispatch({
+        type: "ADD",
+        payload: { pId: product.id, quantity: valueQuantity },
+      });
     } else navigate("/login");
   };
 
@@ -434,9 +437,8 @@ function Product() {
           navigate("/purchase/contact");
         })
         .catch((e) => {
-          if (e.response.status === HttpStatusCode.BadRequest)
-          {
-            alert("Please add your receive info!")
+          if (e.response.status === HttpStatusCode.BadRequest) {
+            alert("Please add your receive info!");
           }
         });
     } else navigate("/login");
@@ -470,6 +472,10 @@ function Product() {
     };
     stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
     setOpenChat(true);
+  };
+
+  const roundedFloat = (float) => {
+    return Math.round((float + Number.EPSILON) * 100) / 100;
   };
 
   return (
@@ -593,7 +599,7 @@ function Product() {
                 {saleCondition() && (
                   <div className={cx("price-sale")}>
                     $
-                    {Math.round(
+                    {roundedFloat(
                       product.price *
                         (1 - product.productSale.salePercent / 100)
                     )}
@@ -697,7 +703,10 @@ function Product() {
                       <i className={cx("fa-light fa-paper-plane")}></i>
                       <span>Send Request</span>
                     </button>
-                    <button className={cx("chat")} onClick={(e) => handleNewConversation(e, product.shop.id)}>
+                    <button
+                      className={cx("chat")}
+                      onClick={(e) => handleNewConversation(e, product.shop.id)}
+                    >
                       <i className={cx("fa-regular fa-message-dots")}></i>
                       <span>Chat</span>
                     </button>
@@ -715,7 +724,13 @@ function Product() {
                       onClick={() => {
                         if (user) {
                           setOpenToast(true);
-                          dispatch({ type: "ADD", payload: {pId: product.id, quantity: valueQuantity} });
+                          dispatch({
+                            type: "ADD",
+                            payload: {
+                              pId: product.id,
+                              quantity: valueQuantity,
+                            },
+                          });
                         } else navigate("/login");
                       }}
                     >
@@ -819,7 +834,10 @@ function Product() {
                   </span>
                 </div>
                 <div className={cx("shop-contact")}>
-                  <button className={cx("chat")} onClick={(e) => handleNewConversation(e, product.shop.id)}>
+                  <button
+                    className={cx("chat")}
+                    onClick={(e) => handleNewConversation(e, product.shop.id)}
+                  >
                     <i className={cx("fa-solid fa-messages", "icon-chat")}></i>
                     <span className={cx("chat-text")}>Chat Now</span>
                   </button>
@@ -1041,7 +1059,11 @@ function Product() {
             <div className={cx("related-header")}>Product Related</div>
             <div className={cx("related-list")}>
               {product.relatedTo.map((item, index) => (
-                <Link to={"/product?productId=" + item.product.id} key={index} className={cx("related-item")}>
+                <Link
+                  to={"/product?productId=" + item.product.id}
+                  key={index}
+                  className={cx("related-item")}
+                >
                   <img
                     src={item.product.images[0].url}
                     alt="related-img"
@@ -1052,12 +1074,21 @@ function Product() {
                     <div className={cx("price-sold")}>
                       {saleCondition(item) ? (
                         <div className={cx("price")}>
-                          <div className={cx("real-price")}>{item.product.price}$</div>
-                          <div className={cx("sale-price")}>{Math.round(item.product.price * (1 - item.salePercent / 100))}$</div>
+                          <div className={cx("real-price")}>
+                            {item.product.price}$
+                          </div>
+                          <div className={cx("sale-price")}>
+                            {roundedFloat(
+                              item.product.price * (1 - item.salePercent / 100)
+                            )}
+                            $
+                          </div>
                         </div>
                       ) : (
                         <div className={cx("price")}>
-                          <div className={cx("sale-price")}>{item.product.price}$</div>
+                          <div className={cx("sale-price")}>
+                            {item.product.price}$
+                          </div>
                         </div>
                       )}
                       <div className={cx("sold")}>{item.product.sold}</div>

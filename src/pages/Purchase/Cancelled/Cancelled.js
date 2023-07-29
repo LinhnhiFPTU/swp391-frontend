@@ -48,10 +48,14 @@ function Cancelled() {
 
     useEffect(() => {
         axios
-            .get("/api/v1/users/orders/search?filter=CANCELED&page=" + page)
+            .get("/api/v1/users/orders/search?filter=CANCELLED&page=" + page)
             .then((res) => setOrders(res.data))
             .catch((e) => console.log(e));
     }, []);
+
+    const roundedFloat = (float) => {
+        return Math.round((float + Number.EPSILON) * 100) / 100;
+      };
 
     return (
         <>
@@ -88,14 +92,14 @@ function Cancelled() {
                                                     <div className={cx("quantity")}>x{item.quantity}</div>
                                                 </div>
                                             </div>
-                                            <div className={cx("price")}>${item.sellPrice}</div>
+                                            <div className={cx("price")}>${roundedFloat(item.soldPrice)}</div>
                                         </div>
                                     ))}
                                 </div>
                                 <div className={cx("purchase_item_order-total")}>
                                     <div className={cx("order-total-detail")}>
                                         <div className={cx("text")}>Order Total:</div>
-                                        <div className={cx("price")}>${order.sellPrice}</div>
+                                        <div className={cx("price")}>${roundedFloat(order.soldPrice + order.shippingFee)}</div>
                                     </div>
                                 </div>
                                 <div className={cx("purchase_item-options")}>

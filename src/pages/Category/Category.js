@@ -241,6 +241,10 @@ function Category() {
     setOpenChat(true);
   };
 
+  const roundedFloat = (float) => {
+    return Math.round((float + Number.EPSILON) * 100) / 100;
+  };
+
   return (
     <>
       <Header />
@@ -402,10 +406,7 @@ function Category() {
                         {ps.product.price}$
                       </div>
                       <span className={cx("sale-price")}>
-                        {Math.round(
-                          ps.product.price * (1 - ps.salePercent / 100)
-                        )}
-                        $
+                        ${roundedFloat(ps.product.price * (1 - ps.salePercent / 100))}
                       </span>
                     </div>
                   ) : (

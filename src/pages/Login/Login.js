@@ -37,64 +37,41 @@ function Login() {
     document.title = "Login now to start shopping! | Bird Trading Platform";
   }, []);
 
-    useEffect(() => {
-        if (user) {
-            axios
-                .get(
-                    `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: "application/json",
-                        },
-                    }
-                )
-                .then((res) => {
-                    axios
-                        .post("/api/v1/auths/google", res.data)
-                        .then((res) => {
-                            setMsg("");
-                            window.location.href = "/"
-                            console.log(res.data);
-                        })
-                        .catch((e) => {
-                            setMsg(e.response.data.message);
-                            setSubmit(false);
-                        });
-                })
-                .catch((err) => console.log(err));
-        }
-    }, [user, navigate]);
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          axios
+            .post("/api/v1/auths/google", res.data)
+            .then((res) => {
+              setMsg("");
+              let redirectUrl = "/";
+              if (res.data.role === "ADMIN") {
+                redirectUrl = "/admin/portal/dashboard";
+              } else if (res.data.role === "SHIPPING_UNIT") {
+                redirectUrl = "/shipping-unit";
+              }
 
-    useEffect(() => {
-        if (submit) {
-            axios
-                .post("/api/v1/auths/authentication", request)
-                .then((res) => {
-                    setMsg("");
-                    let redirectUrl = "/"
-                    if (res.data.role === "ADMIN")
-                    {
-                        redirectUrl = "/admin/portal/dashboard"
-                        return
-                    }
-
-                    if (res.data.role === "SHIPPER")
-                    {
-                        redirectUrl = "/shipper"
-                        return
-                    }
-                    
-                    window.location.href = redirectUrl
-                    console.log(res.data, redirectUrl);
-                })
-                .catch((e) => {
-                    setMsg(e.response.data.message);
-                    setSubmit(false);
-                    setOpen(false);
-                });
-        }
-    }, [submit, request, navigate]);
+              window.location.href = redirectUrl;
+              console.log(res.data);
+            })
+            .catch((e) => {
+              setMsg(e.response.data.message);
+              setSubmit(false);
+            });
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     if (submit) {
@@ -103,8 +80,11 @@ function Login() {
         .then((res) => {
           setMsg("");
           let redirectUrl = "/";
-          if (res.data.role === "ADMIN")
+          if (res.data.role === "ADMIN") {
             redirectUrl = "/admin/portal/dashboard";
+          } else if (res.data.role === "SHIPPING_UNIT") {
+            redirectUrl = "/shipping-unit";
+          }
 
           window.location.href = redirectUrl;
           console.log(res.data, redirectUrl);
@@ -140,14 +120,13 @@ function Login() {
 
   useEffect(() => {
     const regex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-    if(request.email && !regex.test(request.email)) {
-      setDisabled(true)
-      setMsg("Email not valid!")
-    }else {
-      setDisabled(false)
-      setMsg("")
+    if (request.email && !regex.test(request.email)) {
+      setDisabled(true);
+      setMsg("Email not valid!");
+    } else {
+      setDisabled(false);
+      setMsg("");
     }
-
   }, [request.email]);
 
   const handleSubmit = (e) => {

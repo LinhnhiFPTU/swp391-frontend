@@ -18,6 +18,7 @@ function Active() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [headerTitle, setHeaderTitle] = useState("");
+  const [change, setChange] = useState(false)
 
   useEffect(() => {
     axios
@@ -39,7 +40,7 @@ function Active() {
         setProducts(resProducts.filter((item, index) => index < 5));
       })
       .catch((e) => console.log(e));
-  }, [filter, page]);
+  }, [filter, page, change]);
 
   useEffect(() => {
     document.title = "Seller Centre";
@@ -89,6 +90,7 @@ function Active() {
                 setPage={setPage}
                 page={page}
                 maxPage={maxPage}
+                setChange={setChange}
               />
             </div>
           </div>

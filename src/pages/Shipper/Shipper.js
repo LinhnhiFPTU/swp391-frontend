@@ -4,18 +4,103 @@ import OrderPopup from "./OrderPopup";
 import styles from "./Shipper.module.scss";
 
 import HeaderShipper from "./HeaderShipper";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
 function Shipper() {
   const [openPopup, setOpenPopup] = useState(false);
-  const handleOpenPopup = () => {
-    setOpenPopup(true);
+  const [openOrder, setOpenOrder] = useState();
+  const [maxPage, setMaxPage] = useState(0);
+  const [page, setPage] = useState(1);
+  const [orders, setOrders] = useState([]);
+  const [search, setSearch] = useState("");
+  const searchRef = useRef();
+
+  useEffect(() => {
+    document.title = "Shipping Unit";
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/shipper/max-page?keyword=" + search)
+      .then((res) => setMaxPage(res.data))
+      .catch((e) => console.log(e));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/shipper/orders?page=" + page + "&keyword=" + search)
+      .then((res) => {
+        setOrders(res.data);
+      })
+      .catch((e) => console.log(e));
+  }, [page, search]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(searchRef.current.value);
   };
+
+  const handleOpenPopup = (order) => {
+    setOpenPopup(true);
+    setOpenOrder(order);
+  };
+
+  const handlePrevPage = () => {
+    let willBe = page - 1;
+    if (willBe <= 0) {
+      return;
+    }
+    setPage(page - 1);
+  };
+
+  const handleNextPage = () => {
+    let willBe = page + 1;
+    if (willBe > maxPage) {
+      return;
+    }
+    setPage(page + 1);
+  };
+
+  const handleSuccessDelivery = (e, order) => {
+    e.stopPropagation();
+    axios
+      .post(
+        "/api/v1/shipper/order/special/process/" + order.id + "?action=CONFIRM"
+      )
+      .then((res) => {
+        axios
+          .get("/api/v1/shipper/orders?page=" + page)
+          .then((res) => {
+            setOrders(res.data);
+          })
+          .catch((e) => console.log(e));
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const handleUnSuccessDelivery = (e, order) => {
+    e.stopPropagation();
+    axios
+      .post(
+        "/api/v1/shipper/order/special/process/" + order.id + "?action=REJECT"
+      )
+      .then((res) => {
+        axios
+          .get("/api/v1/shipper/orders?page=" + page)
+          .then((res) => {
+            setOrders(res.data);
+          })
+          .catch((e) => console.log(e));
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <>
-      {openPopup && <OrderPopup closePopup={setOpenPopup}/>}
+      {openPopup && <OrderPopup closePopup={setOpenPopup} order={openOrder} />}
       <HeaderShipper />
       <div className={cx("shipper_container")}>
         <div className={cx("shipper_content")}>
@@ -28,235 +113,99 @@ function Shipper() {
                   placeholder="Code"
                   spellCheck={false}
                   className={cx("input")}
+                  ref={searchRef}
                 />
                 <i
                   className={cx("fa-light fa-magnifying-glass", "search-icon")}
                 ></i>
               </div>
-              <button type="submit" className={cx("search-btn")}>
+              <button
+                type="submit"
+                className={cx("search-btn")}
+                onClick={handleSearch}
+              >
                 Search
               </button>
             </form>
           </div>
-          <div className={cx("order_result")}>
-            <div className={cx("result")} onClick={handleOpenPopup}>
-              <div className={cx("order-code")}>#1234456</div>
-              <div className={cx("order-detail")}>
-                <div className={cx("product-detail")}>
-                  <img
-                    src="https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg"
-                    alt="product-img"
-                    className={cx("product-img")}
-                  />
-                  <div className={cx("product-info")}>
-                    <div className={cx("name")}>
-                      Prevue Pet Products Travel Carrier for Birds, Black
-                    </div>
-                    <div className={cx("quantity")}>x2</div>
-                    <div className={cx("price")}>2000$</div>
-                  </div>
-                </div>
-                <div className={cx("user-detail")}>
-                  <div className={cx("user-info")}>
-                    <div className={cx("username")}>Le Vu Dinh Duy</div>
-                    <div className={cx("phone")}>0123456789</div>
-                    <div className={cx("address")}>
-                      S305 Vinhomes Grand Park, 9 District
-                    </div>
-                  </div>
-                </div>
-                <div className={cx("action")}>
-                  <div className={cx("action-btn")}>
-                    <div className={cx("approve")}>
-                      <button className={cx("approve-btn")}>
-                        Successful delivery
-                      </button>
-                    </div>
-                    <div className={cx("reject")}>
-                      <button className={cx("reject-btn")}>
-                        Unsuccessful delivery
-                      </button>
+          {orders.map((order) => (
+            <div className={cx("order_result")} key={order.id}>
+              <div
+                className={cx("result")}
+                onClick={() => handleOpenPopup(order)}
+              >
+                <div className={cx("order-code")}>#{order.id}</div>
+                <div className={cx("order-detail")}>
+                  <div className={cx("product-detail")}>
+                    <img
+                      src={order.orderDetails[0].product.images[0].url}
+                      alt="product-img"
+                      className={cx("product-img")}
+                    />
+                    <div className={cx("product-info")}>
+                      <div className={cx("name")}>
+                        {order.orderDetails[0].product.name}
+                      </div>
+                      <div className={cx("quantity")}>
+                        x{order.orderDetails[0].quantity}
+                      </div>
+                      <div className={cx("price")}>
+                        {order.orderDetails[0].sellPrice}$
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className={cx("result")}>
-              <div className={cx("order-code")}>#1234456</div>
-              <div className={cx("order-detail")}>
-                <div className={cx("product-detail")}>
-                  <img
-                    src="https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg"
-                    alt="product-img"
-                    className={cx("product-img")}
-                  />
-                  <div className={cx("product-info")}>
-                    <div className={cx("name")}>
-                      Prevue Pet Products Travel Carrier for Birds, Black
-                    </div>
-                    <div className={cx("quantity")}>x2</div>
-                    <div className={cx("price")}>2000$</div>
-                  </div>
-                </div>
-                <div className={cx("user-detail")}>
-                  <div className={cx("user-info")}>
-                    <div className={cx("username")}>Le Vu Dinh Duy</div>
-                    <div className={cx("phone")}>0123456789</div>
-                    <div className={cx("address")}>
-                      S305 Vinhomes Grand Park, 9 District
+                  <div className={cx("user-detail")}>
+                    <div className={cx("user-info")}>
+                      <div
+                        className={cx("username")}
+                      >{`${order.user.firstname} ${order.user.lastname}`}</div>
+                      <div className={cx("phone")}>
+                        {order.receiveInfo.phone}
+                      </div>
+                      <div className={cx("address")}>
+                        {`${order.receiveInfo.specific_address}, ${order.receiveInfo.ward.name}, ${order.receiveInfo.district.name}, ${order.receiveInfo.province.name}`}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className={cx("action")}>
-                  <div className={cx("action-btn")}>
-                    <div className={cx("approve")}>
-                      <button className={cx("approve-btn")}>
-                        Successful delivery
-                      </button>
-                    </div>
-                    <div className={cx("reject")}>
-                      <button className={cx("reject-btn")}>
-                        Unsuccessful delivery
-                      </button>
+                  <div className={cx("action")}>
+                    <div className={cx("action-btn")}>
+                      <div className={cx("approve")}>
+                        <button
+                          className={cx("approve-btn")}
+                          onClick={(e) => handleSuccessDelivery(e, order)}
+                        >
+                          Successful delivery
+                        </button>
+                      </div>
+                      <div className={cx("reject")}>
+                        <button
+                          className={cx("reject-btn")}
+                          onClick={(e) => handleUnSuccessDelivery(e, order)}
+                        >
+                          Unsuccessful delivery
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className={cx("result")}>
-              <div className={cx("order-code")}>#1234456</div>
-              <div className={cx("order-detail")}>
-                <div className={cx("product-detail")}>
-                  <img
-                    src="https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg"
-                    alt="product-img"
-                    className={cx("product-img")}
-                  />
-                  <div className={cx("product-info")}>
-                    <div className={cx("name")}>
-                      Prevue Pet Products Travel Carrier for Birds, Black
-                    </div>
-                    <div className={cx("quantity")}>x2</div>
-                    <div className={cx("price")}>2000$</div>
-                  </div>
-                </div>
-                <div className={cx("user-detail")}>
-                  <div className={cx("user-info")}>
-                    <div className={cx("username")}>Le Vu Dinh Duy</div>
-                    <div className={cx("phone")}>0123456789</div>
-                    <div className={cx("address")}>
-                      S305 Vinhomes Grand Park, 9 District
-                    </div>
-                  </div>
-                </div>
-                <div className={cx("action")}>
-                  <div className={cx("action-btn")}>
-                    <div className={cx("approve")}>
-                      <button className={cx("approve-btn")}>
-                        Successful delivery
-                      </button>
-                    </div>
-                    <div className={cx("reject")}>
-                      <button className={cx("reject-btn")}>
-                        Unsuccessful delivery
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={cx("result")}>
-              <div className={cx("order-code")}>#1234456</div>
-              <div className={cx("order-detail")}>
-                <div className={cx("product-detail")}>
-                  <img
-                    src="https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg"
-                    alt="product-img"
-                    className={cx("product-img")}
-                  />
-                  <div className={cx("product-info")}>
-                    <div className={cx("name")}>
-                      Prevue Pet Products Travel Carrier for Birds, Black
-                    </div>
-                    <div className={cx("quantity")}>x2</div>
-                    <div className={cx("price")}>2000$</div>
-                  </div>
-                </div>
-                <div className={cx("user-detail")}>
-                  <div className={cx("user-info")}>
-                    <div className={cx("username")}>Le Vu Dinh Duy</div>
-                    <div className={cx("phone")}>0123456789</div>
-                    <div className={cx("address")}>
-                      S305 Vinhomes Grand Park, 9 District
-                    </div>
-                  </div>
-                </div>
-                <div className={cx("action")}>
-                  <div className={cx("action-btn")}>
-                    <div className={cx("approve")}>
-                      <button className={cx("approve-btn")}>
-                        Successful delivery
-                      </button>
-                    </div>
-                    <div className={cx("reject")}>
-                      <button className={cx("reject-btn")}>
-                        Unsuccessful delivery
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={cx("result")}>
-              <div className={cx("order-code")}>#1234456</div>
-              <div className={cx("order-detail")}>
-                <div className={cx("product-detail")}>
-                  <img
-                    src="https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg"
-                    alt="product-img"
-                    className={cx("product-img")}
-                  />
-                  <div className={cx("product-info")}>
-                    <div className={cx("name")}>
-                      Prevue Pet Products Travel Carrier for Birds, Black
-                    </div>
-                    <div className={cx("quantity")}>x2</div>
-                    <div className={cx("price")}>2000$</div>
-                  </div>
-                </div>
-                <div className={cx("user-detail")}>
-                  <div className={cx("user-info")}>
-                    <div className={cx("username")}>Le Vu Dinh Duy</div>
-                    <div className={cx("phone")}>0123456789</div>
-                    <div className={cx("address")}>
-                      S305 Vinhomes Grand Park, 9 District
-                    </div>
-                  </div>
-                </div>
-                <div className={cx("action")}>
-                  <div className={cx("action-btn")}>
-                    <div className={cx("approve")}>
-                      <button className={cx("approve-btn")}>
-                        Successful delivery
-                      </button>
-                    </div>
-                    <div className={cx("reject")}>
-                      <button className={cx("reject-btn")}>
-                        Unsuccessful delivery
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={cx("prev-next")}>
-              <button className={cx("icon-left")}>
-                <i className={cx("fa-light fa-angle-left")}></i>
-              </button>
-              <button className={cx("icon-right")}>
-                <i className={cx("fa-light fa-angle-right")}></i>
-              </button>
-            </div>
+          ))}
+          <div className={cx("prev-next")}>
+            <button
+              className={cx("icon-left")}
+              onClick={handlePrevPage}
+              disabled={page === 1}
+            >
+              <i className={cx("fa-light fa-angle-left")}></i>
+            </button>
+            <button
+              className={cx("icon-right")}
+              onClick={handleNextPage}
+              disabled={page === maxPage}
+            >
+              <i className={cx("fa-light fa-angle-right")}></i>
+            </button>
           </div>
         </div>
       </div>

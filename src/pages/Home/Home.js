@@ -219,10 +219,10 @@ function Home() {
     background: "linear-gradient(#ee4d2d, #ff7337)",
   };
 
-  const saleCondition = (product) => {
+  const saleCondition = (productSale) => {
     return (
-      product.productSale &&
-      product.productSale.saleQuantity > product.productSale.sold
+      productSale &&
+      productSale.saleQuantity > productSale.sold
     );
   };
 
@@ -254,6 +254,10 @@ function Home() {
     };
     stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
     setOpenChat(true);
+  };
+
+  const roundedFloat = (float) => {
+    return Math.round((float + Number.EPSILON) * 100) / 100;
   };
 
   return (
@@ -291,95 +295,105 @@ function Home() {
           </div>
 
           {/* -----------------FLASH SALE----------------- */}
-          <div className={cx("flashSale-container")}>
-            <div className={cx("flashSale-top")}>
-              <div className={cx("flashSale-heading")}>
-                <span className={cx("flashSale-text-1")}>
-                  F<i className={cx("fa-solid fa-bolt-lightning")}></i>
-                  ASH <span className={cx("flashSale-text-2")}>SALE</span>
-                </span>
-                <span className={cx("countdown-minute")}>
-                  {minute < 10 ? "0" + minute : minute}
-                </span>
-                <span className={cx("countdown-second")}>
-                  {second < 10 ? "0" + second : second}
-                </span>
+          {flashSales.length > 0 && (
+            <div className={cx("flashSale-container")}>
+              <div className={cx("flashSale-top")}>
+                <div className={cx("flashSale-heading")}>
+                  <span className={cx("flashSale-text-1")}>
+                    F<i className={cx("fa-solid fa-bolt-lightning")}></i>
+                    ASH <span className={cx("flashSale-text-2")}>SALE</span>
+                  </span>
+                  <span className={cx("countdown-minute")}>
+                    {minute < 10 ? "0" + minute : minute}
+                  </span>
+                  <span className={cx("countdown-second")}>
+                    {second < 10 ? "0" + second : second}
+                  </span>
+                </div>
+                <div className={cx("flashSale-more")}>
+                  <Link to="/flash_sale" className={cx("more-item")}>
+                    <span className={cx("more-item-text")}>See more </span>
+                    <i
+                      className={cx("fa-light fa-chevron-up fa-rotate-90")}
+                    ></i>
+                  </Link>
+                </div>
               </div>
-              <div className={cx("flashSale-more")}>
-                <Link to="/flash_sale" className={cx("more-item")}>
-                  <span className={cx("more-item-text")}>See more </span>
-                  <i className={cx("fa-light fa-chevron-up fa-rotate-90")}></i>
-                </Link>
-              </div>
-            </div>
 
-            <div className={cx("flashSale-list")}>
-              <Slider {...settings_flashsale}>
-                {flashSales.map((item, index) => (
-                  <Link
-                    to={"/flash_sale?priority=" + item.product.id}
-                    key={index}
-                    className={cx("flashSale-items")}
-                  >
-                    <div className={cx("flashSale_item")}>
-                      <div className={cx("flashSale-img")}>
-                        <img src={item.product.images[0].url} alt="item-img" />
-                      </div>
-                      <div className={cx("flashSale-discount")}>
-                        <span className={cx("per-discount")}>
-                          -{item.salePercent}%
-                        </span>
-                      </div>
-                      <div className={cx("fitem-name")}>
-                        {item.product.name}
-                      </div>
-                      <div className={cx("fitem-price")}>
-                        ${item.product.price}
-                      </div>
-                      <div className={cx("flashSale-status")}>
-                        <div
-                          className={cx("loading")}
-                          style={{
-                            ...loading,
-                            width: `calc(${item.saleQuantity} * 170px)`,
-                          }}
-                        >
-                          <div
-                            className={cx("before-element")}
-                            style={{
-                              ...beforeLoading,
-                              width: `calc(((${item.sold} * 170) / ${item.saleQuantity}) * 1px)`,
-                            }}
-                          ></div>
-                          <span className={cx("loading-text")}>
-                            {(() => {
-                              if ((item.sold / item.saleQuantity) * 100 <= 50) {
-                                return "SELLING FAST";
-                              } else if (
-                                (item.sold / item.saleQuantity) * 100 >= 50 &&
-                                (item.sold / item.saleQuantity) * 100 <= 75
-                              ) {
-                                return `${item.sold} SOLD`;
-                              } else if (
-                                (item.sold / item.saleQuantity) * 100 >
-                                75
-                              ) {
-                                return `ONLY ${
-                                  item.saleQuantity - item.sold
-                                } LEFT`;
-                              } else {
-                                return "";
-                              }
-                            })()}
+              <div className={cx("flashSale-list")}>
+                <Slider {...settings_flashsale}>
+                  {flashSales.map((item, index) => (
+                    <Link
+                      to={"/flash_sale?priority=" + item.product.id}
+                      key={index}
+                      className={cx("flashSale-items")}
+                    >
+                      <div className={cx("flashSale_item")}>
+                        <div className={cx("flashSale-img")}>
+                          <img
+                            src={item.product.images[0].url}
+                            alt="item-img"
+                          />
+                        </div>
+                        <div className={cx("flashSale-discount")}>
+                          <span className={cx("per-discount")}>
+                            -{item.salePercent}%
                           </span>
                         </div>
+                        <div className={cx("fitem-name")}>
+                          {item.product.name}
+                        </div>
+                        <div className={cx("fitem-price")}>
+                          ${saleCondition(item) ? roundedFloat(item.product.price * (1 - item.salePercent / 100)) : item.product.price}
+                        </div>
+                        <div className={cx("flashSale-status")}>
+                          <div
+                            className={cx("loading")}
+                            style={{
+                              ...loading,
+                              width: `calc(${item.saleQuantity} * 170px)`,
+                            }}
+                          >
+                            <div
+                              className={cx("before-element")}
+                              style={{
+                                ...beforeLoading,
+                                width: `calc(((${item.sold} * 170) / ${item.saleQuantity}) * 1px)`,
+                              }}
+                            ></div>
+                            <span className={cx("loading-text")}>
+                              {(() => {
+                                if (
+                                  (item.sold / item.saleQuantity) * 100 <=
+                                  50
+                                ) {
+                                  return "SELLING FAST";
+                                } else if (
+                                  (item.sold / item.saleQuantity) * 100 >= 50 &&
+                                  (item.sold / item.saleQuantity) * 100 <= 75
+                                ) {
+                                  return `${item.sold} SOLD`;
+                                } else if (
+                                  (item.sold / item.saleQuantity) * 100 >
+                                  75
+                                ) {
+                                  return `ONLY ${
+                                    item.saleQuantity - item.sold
+                                  } LEFT`;
+                                } else {
+                                  return "";
+                                }
+                              })()}
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
-              </Slider>
+                    </Link>
+                  ))}
+                </Slider>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* -----------------BEST SELLER----------------- */}
           <div className={cx("best-seller_container")}>
@@ -432,14 +446,12 @@ function Home() {
                       color={`gold`}
                     />
                   </div>
-                  {saleCondition(item) ? (
+                  {saleCondition(item.productSale) ? (
                     <>
                       <div className={cx("price_before")}>${item.price}</div>
                       <div className={cx("product-price")}>
                         $
-                        {Math.round(
-                          item.price * (1 - item.productSale.salePercent / 100)
-                        )}
+                        {roundedFloat(item.price * (1 - item.productSale.salePercent / 100))}
                       </div>
                     </>
                   ) : (

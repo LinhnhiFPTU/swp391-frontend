@@ -15,6 +15,7 @@ function Pending() {
   const [maxPage, setMaxPage] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(1);
+  const [change, setChange] = useState(false)
   const searchRef = useRef();
 
   useEffect(() => {
@@ -42,7 +43,7 @@ function Pending() {
       )
       .then((res) => setOrders(res.data))
       .catch((e) => console.log(e));
-  }, [page, searchValue]);
+  }, [page, searchValue, change]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -93,6 +94,7 @@ function Pending() {
                 setPage={setPage}
                 page={page}
                 maxPage={maxPage}
+                setChange={setChange}
               />
             </div>
           </div>

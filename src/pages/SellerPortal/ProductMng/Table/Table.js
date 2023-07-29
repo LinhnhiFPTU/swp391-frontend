@@ -2,6 +2,9 @@ import classNames from "classnames/bind";
 
 import NoProduct from "../NoProduct";
 import styles from "./Table.module.scss";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import EditProduct from "../EditProduct/EditProduct";
 
 const cx = classNames.bind(styles);
 
@@ -24,7 +27,10 @@ const statusStyle = (status) => {
   }
 };
 
-function Table({ products, page, setPage, maxPage }) {
+function Table({ products, page, setPage, maxPage, setChange }) {
+  const [showEdit, setShowEdit] = useState(false)
+  const [productEdit, setProductEdit] = useState()
+
   if (!products || products.length === 0) {
     return <NoProduct />;
   }
@@ -45,8 +51,26 @@ function Table({ products, page, setPage, maxPage }) {
     setPage(page + 1);
   };
 
+  const handleDeleteProduct = (e, product) => {
+    e.preventDefault();
+    axios
+      .delete("/api/v1/shop/products/delete?id=" + product.id)
+      .then((res) => {
+        alert(res.data);
+        setChange(c => !c)
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const handleUpdateProduct = (e, product) => {
+    e.preventDefault();
+    setProductEdit(product)
+    setShowEdit(true)
+  };
+
   return (
     <div className={cx("table_data")}>
+      {showEdit && <EditProduct product={productEdit} setShowEdit={setShowEdit} setChange={setChange}/>}
       <div className={cx("table-head")}>
         <div className={cx("head-product")}>Product</div>
         <div className={cx("head-price")}>Price</div>
@@ -86,14 +110,20 @@ function Table({ products, page, setPage, maxPage }) {
                 </div>
               </div>
               <div className={cx("body-text", "body-edit")}>
-                <button className={cx("edit-btn")}>
+                <button
+                  className={cx("edit-btn")}
+                  onClick={(e) => handleUpdateProduct(e, product)}
+                >
                   <i
                     className={cx("fa-regular fa-pen-to-square", "edit-icon")}
                   ></i>
                 </button>
               </div>
               <div className={cx("body-text", "body-delete")}>
-                <button className={cx("delete-btn")}>
+                <button
+                  className={cx("delete-btn")}
+                  onClick={(e) => handleDeleteProduct(e, product)}
+                >
                   <i className={cx("fa-regular fa-trash", "delete-icon")}></i>
                 </button>
               </div>
