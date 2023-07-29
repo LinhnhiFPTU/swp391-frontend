@@ -52,6 +52,10 @@ function Shipping() {
       .catch((e) => console.log(e));
   }, []);
 
+  const roundedFloat = (float) => {
+    return Math.round((float + Number.EPSILON) * 100) / 100;
+  };
+
   return (
     <>
       <Header />
@@ -83,7 +87,7 @@ function Shipping() {
                           <div className={cx("quantity")}>x{item.quantity}</div>
                         </div>
                       </div>
-                      <div className={cx("price")}>${item.soldPrice}</div>
+                      <div className={cx("price")}>${roundedFloat(item.soldPrice)}</div>
                     </div>
                   ))}
                 </div>
@@ -91,7 +95,7 @@ function Shipping() {
                   <div className={cx("order-total-detail")}>
                     <div className={cx("text")}>Order Total:</div>
                     <div className={cx("price")}>
-                      ${order.soldPrice + order.shippingFee}
+                      ${roundedFloat(order.soldPrice + order.shippingFee)}
                     </div>
                   </div>
                 </div>
@@ -100,8 +104,7 @@ function Shipping() {
                     <span className={cx("expected")}>
                       Received date (expected): 
                     </span>
-                    {" "}
-                    28/07/2023 - 30/07/2023
+                    {" " + order.expectedReceive ? order.expectedReceive : (new Date()).toLocaleDateString()}
                   </div>
                   <div className={cx("button")}>
                     {(order.status === "Completed" ||

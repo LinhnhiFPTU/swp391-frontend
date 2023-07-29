@@ -34,7 +34,7 @@ function RefundDetail({ closePopup, order }) {
                       </div>
                       <div className={cx("quantity")}>x{OD.quantity}</div>
                     </div>
-                    <div className={cx("price")}>${OD.sellPrice}</div>
+                    <div className={cx("price")}>${OD.soldPrice}</div>
                   </div>
                 </div>
               ))}

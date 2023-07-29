@@ -60,6 +60,10 @@ function Completed() {
         return order.orderDetails.filter((od) => !od.feedbacked).length > 0;
     };
 
+    const roundedFloat = (float) => {
+        return Math.round((float + Number.EPSILON) * 100) / 100;
+      };
+
     return (
         <>
             {openFeedback && (
@@ -95,14 +99,14 @@ function Completed() {
                                                     <div className={cx("quantity")}>x{item.quantity}</div>
                                                 </div>
                                             </div>
-                                            <div className={cx("price")}>${item.soldPrice}</div>
+                                            <div className={cx("price")}>${roundedFloat(item.soldPrice)}</div>
                                         </div>
                                     ))}
                                 </div>
                                 <div className={cx("purchase_item_order-total")}>
                                     <div className={cx("order-total-detail")}>
                                         <div className={cx("text")}>Order Total:</div>
-                                        <div className={cx("price")}>${order.soldPrice + order.shippingFee}</div>
+                                        <div className={cx("price")}>${roundedFloat(order.soldPrice + order.shippingFee)}</div>
                                     </div>
                                 </div>
                                 <div className={cx("purchase_item-options")}>

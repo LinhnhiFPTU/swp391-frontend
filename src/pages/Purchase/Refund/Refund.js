@@ -28,6 +28,10 @@ function Refund() {
       .catch((e) => console.log(e));
   }, []);
 
+  const roundedFloat = (float) => {
+    return Math.round((float + Number.EPSILON) * 100) / 100;
+  };
+
   return (
     <>
       {openPopup && <RefundDetail closePopup={setOpenPopup} order={orderShow} />}
@@ -65,14 +69,14 @@ function Refund() {
                       </div>
                     </div>
                     <div className={cx("price")}>
-                      ${order.orderDetails[0].soldPrice}
+                      ${roundedFloat(order.orderDetails[0].soldPrice)}
                     </div>
                   </div>
                 </div>
                 <div className={cx("purchase_item_order-total")}>
                   <div className={cx("order-total-detail")}>
                     <div className={cx("text")}>Order Total:</div>
-                    <div className={cx("price")}>${order.soldPrice + order.shippingFee}</div>
+                    <div className={cx("price")}>${roundedFloat(order.soldPrice + order.shippingFee)}</div>
                   </div>
                 </div>
                 <div className={cx("purchase_item-options")}>

@@ -26,6 +26,7 @@ function ChatWindow({ closeChat, color }) {
   const textInputRef = useRef();
   const [user, setUser] = useState({});
   const [mediaMessages, setMediaMessages] = useState([]);
+  const [reportShopId, setReportShopId] = useState();
 
   useEffect(() => {
     axios
@@ -199,7 +200,7 @@ function ChatWindow({ closeChat, color }) {
 
   return (
     <>
-      {openReport && <Report closeReport={setOpenReport} type="shop" />}
+      {openReport && <Report closeReport={setOpenReport} type="shop" shop={reportShopId}/>}
       <div className={cx("chat_window")}>
         {showEmoji && (
           <div className={cx("emojiPickerContainer")}>
@@ -305,7 +306,16 @@ function ChatWindow({ closeChat, color }) {
                       </Link>
                     </div>
                     <div className={cx("report")}>
-                      <button onClick={() => setOpenReport(true)}>
+                      <button
+                        onClick={() => {
+                          setOpenReport(true);
+                          setReportShopId(
+                            conversations[activeTab].conversationChatters
+                              .filter((it) => !it.user)
+                              .map((it) => it.shop.id)[0]
+                          );
+                        }}
+                      >
                         Report
                       </button>
                     </div>

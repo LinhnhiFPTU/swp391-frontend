@@ -212,6 +212,10 @@ function Shop() {
     setOpenChat(true);
   };
 
+  const roundedFloat = (float) => {
+    return Math.round((float + Number.EPSILON) * 100) / 100;
+  };
+
   return (
     <>
       <Header />
