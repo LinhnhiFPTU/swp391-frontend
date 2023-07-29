@@ -1,7 +1,8 @@
 import classNames from "classnames/bind";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import MyAddress from "./MyAddress";
 import PaymentMethod from "./PaymentMethod";
 import CheckoutPopup from "./CheckoutPopup";
@@ -44,6 +45,7 @@ function Checkout() {
   const [paymentId, setPaymentId] = useState(1);
   const [openAddress, setOpenAddress] = useState(true);
   const [infoReceive, setInfoReceive] = useState(false);
+  const [open, setOpen] = useState(false);
   const [openChat, setOpenChat] = useState(false);
   const [errorMsg, setErrorMsg] = useState("")
   const [defaultReceiveInfo, setDefaultReceiveInfo] = useState({
@@ -174,6 +176,7 @@ function Checkout() {
 
   const handleOrder = (e) => {
     e.preventDefault();
+    setOpen(true);
     let receiveInfo = defaultReceiveInfo.id;
     let request = cartItem.map((ci, index) => ({
       payment: payments.filter((p) => p.id === paymentId)[0].title,
@@ -200,7 +203,10 @@ function Checkout() {
     } else {
       axios
         .post("/api/v1/users/order/create", request)
-        .then((res) => setShowCheckOutPopup(true))
+        .then((res) => {
+          setOpen(false);
+          setShowCheckOutPopup(true);
+        })
         .catch((e) => {
           if (e.response)
           {
@@ -249,6 +255,10 @@ function Checkout() {
     };
     stompClient.send("/app/conversation-request", {}, JSON.stringify(request));
     setOpenChat(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -342,7 +352,12 @@ function Checkout() {
                       <i
                         className={cx("fa-solid fa-messages", "chat-icon")}
                       ></i>
-                      <span className={cx("btn-chat-text")} onClick={(e) => handleNewConversation(e, item.shop.id)}>Chat now</span>
+                      <span
+                        className={cx("btn-chat-text")}
+                        onClick={(e) => handleNewConversation(e, item.shop.id)}
+                      >
+                        Chat now
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -443,6 +458,16 @@ function Checkout() {
               <div className={cx("payment-method-footer")}>
                 <div className={cx("payment-submit")} onClick={handleOrder}>
                   <button className={cx("submit-btn")}>Place Order</button>
+                  <Backdrop
+                    sx={{
+                      color: "#fff",
+                      zIndex: (theme) => theme.zIndex.drawer + 1,
+                    }}
+                    open={open}
+                    onClick={handleClose}
+                  >
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
                 </div>
               </div>
             </div>

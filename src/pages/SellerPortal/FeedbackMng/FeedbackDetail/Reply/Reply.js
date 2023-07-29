@@ -27,7 +27,7 @@ function Reply({setOpenReply, feedback}) {
         if (inputTextarea === "") {
             setErrorTextarea("Reply could not be empty");
         } else if (inputTextarea.length < 10 || inputTextarea.length > 300) {
-            setErrorTextarea("Reply content should have 10 - 50 characters");
+            setErrorTextarea("Reply content should have 10 - 30 characters");
         } else {
             let request = {
                 feedbackId: feedback.id,

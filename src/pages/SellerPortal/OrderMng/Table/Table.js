@@ -13,7 +13,7 @@ const statusStyle = (status) => {
       backgroundColor: "#EBF9F4",
       color: "#39B588",
     };
-  } else if (status === "CANCELED") {
+  } else if (status === "CANCELLED") {
     return {
       backgroundColor: "#FDF4F6",
       color: "#E36482",

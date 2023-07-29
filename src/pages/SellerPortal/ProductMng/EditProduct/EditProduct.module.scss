@@ -308,45 +308,9 @@
         align-items: center;
         margin-top: 10px;
 
-        .edit-category {
-          width: 280px;
-          height: 60px;
-
-          .category-main {
-            display: flex;
-            align-items: center;
-
-            .title {
-              width: 111px;
-              font-size: 1.4rem;
-
-              .required {
-                color: red;
-              }
-            }
-
-            .category-select {
-              user-select: none;
-              pointer-events: none;
-              width: fit-content;
-              margin-left: 25px;
-              padding: 7px 12px;
-              border-radius: 4px;
-              border: 1px solid #e5e5e5;
-              background-color: rgba(231, 230, 230, 0.3);
-
-              .title-select-active {
-                font-size: 1.4rem;
-                color: #999999;
-              }
-            }
-          }
-        }
-
         .edit-quantity {
           width: 350px;
           height: 62px;
-          margin-left: 30px;
 
           .quantity-main {
             display: flex;

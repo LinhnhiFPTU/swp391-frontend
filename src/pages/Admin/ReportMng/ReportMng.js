@@ -4,6 +4,7 @@ import Topbar from "../global/Topbar";
 import Sidebar from "../global/Sidebar";
 import ReportProduct from "./ReportProduct";
 import ReportShop from "./ReportShop";
+import ReportOrder from "./ReportOrder";
 import styles from "./ReportMng.module.scss";
 import { useState } from "react";
 
@@ -37,9 +38,18 @@ function ReportMng() {
               >
                 Shop Report
               </button>
+              <button
+                className={cx("nav-btn", {
+                  active: navOption === "Order Report",
+                })}
+                onClick={() => setNavOption("Order Report")}
+              >
+                Order Report
+              </button>
             </div>
             {navOption === "Product Report" && <ReportProduct />}
             {navOption === "Shop Report" && <ReportShop />}
+            {navOption === "Order Report" && <ReportOrder />}
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import Footer from "~/layouts/components/Footer";
 import NavBar from "../NavBar";
 import SendFeedback from "./SendFeedback";
 import NoPurchase from "../NoPurchase/NoPurchase";
+import Reply from "./Reply";
 import { Cartcontext } from "~/context/Context";
 import { UserContext } from "~/userContext/Context";
 
@@ -26,6 +27,7 @@ function Completed() {
   const [buyed, setBuyed] = useState(false);
   const [rebuy, setRebuy] = useState();
   const [order, setOrder] = useState();
+  const [openSendReport, setOpenSendReport] = useState(false);
   const navigate = useNavigate();
 
   const handleRebuy = (e, order) => {
@@ -73,6 +75,7 @@ function Completed() {
           setOrder={setOrder}
         />
       )}
+      {openSendReport && <Reply setOpenReply={setOpenSendReport} />}
       <Header />
       <div className={cx("completed_wrapper")}>
         <div className={cx("completed_container")}>
@@ -133,18 +136,15 @@ function Completed() {
                       Buy Again
                     </a>
                     <button
-                      to="/purchase/complete/feedback"
-                      className={cx("feedback-btn")}
+                      className={cx("reject-btn")}
                       onClick={() => {
-                        setOpenFeedback(true);
-                        setOrder(order);
+                        setOpenSendReport(true);
                       }}
                     >
-                      Don't receive order?
+                      Don't receive the order?
                     </button>
                     {feedbackCondition(order) && (
                       <button
-                        to="/purchase/complete/feedback"
                         className={cx("feedback-btn")}
                         onClick={() => {
                           setOpenFeedback(true);

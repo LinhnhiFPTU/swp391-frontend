@@ -63,8 +63,14 @@
           border: none;
           outline: none;
           border: 1px solid var(--primary);
-          color: var(--primary);
-          background-color: transparent;
+          color: #fff;
+          background-color: var(--primary);
+
+          &:hover {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background-color: transparent;
+          }
         }
 
         .order {
@@ -76,8 +82,14 @@
           border: none;
           outline: none;
           border: 1px solid var(--primary);
-          color: var(--primary);
-          background-color: transparent;
+          color: #fff;
+          background-color: var(--primary);
+
+          &:hover {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background-color: transparent;
+          }
         }
       }
     }
