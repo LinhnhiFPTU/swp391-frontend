@@ -174,6 +174,7 @@ function Checkout() {
 
   const handleOrder = (e) => {
     e.preventDefault();
+    setOpen(true);
     let receiveInfo = defaultReceiveInfo.id;
     let request = cartItem.map((ci, index) => ({
       payment: payments.filter((p) => p.id === paymentId)[0].title,
@@ -200,7 +201,10 @@ function Checkout() {
     } else {
       axios
         .post("/api/v1/users/order/create", request)
-        .then((res) => setShowCheckOutPopup(true))
+        .then((res) => {
+          setOpen(false);
+          setShowCheckOutPopup(true);
+        })
         .catch((e) => console.log(e));
     }
   };

@@ -16,7 +16,6 @@ import Cart from "~/pages/Cart";
 import Category from "~/pages/Category";
 import ProductAll from "~/pages/ProductAll";
 import Checkout from "~/pages/Checkout";
-import EditProduct from "~/pages/SellerPortal/ProductMng/EditProduct/EditProduct";
 
 import Notifications from "~/pages/Notifications";
 import Purchase from "~/pages/Purchase";

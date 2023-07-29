@@ -28,7 +28,7 @@ function Topbar() {
             <span className={cx("seller-name")}>Admin</span>
           </div>
 
-          <Notification />
+          {/* <Notification /> */}
           <div className={cx("logout")}>
             <i className={cx("icon-logout", "fa-regular fa-power-off")}></i>
           </div>
