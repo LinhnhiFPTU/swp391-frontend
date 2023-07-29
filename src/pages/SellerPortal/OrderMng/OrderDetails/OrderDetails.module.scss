@@ -170,6 +170,37 @@
             }
           }
         }
+
+        .approve {
+          padding: 2px 5px;
+          border: 1px solid var(--primary);
+          outline: none;
+          color: #fff;
+          background-color: var(--primary);
+          transition: 0.25s ease-in;
+
+          &:hover {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background-color: transparent;
+          }
+        }
+
+        .reject {
+          padding: 2px 5px;
+          border: 1px solid red;
+          outline: none;
+          color: #fff;
+          margin-left: 15px;
+          background-color: red;
+          transition: 0.25s ease-in;
+
+          &:hover {
+            border: 1px solid red;
+            color: red;
+            background-color: transparent;
+          }
+        }
       }
     }
   }

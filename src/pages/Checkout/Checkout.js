@@ -1,7 +1,8 @@
 import classNames from "classnames/bind";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import MyAddress from "./MyAddress";
 import PaymentMethod from "./PaymentMethod";
 import CheckoutPopup from "./CheckoutPopup";
@@ -43,6 +44,7 @@ function Checkout() {
   const [paymentId, setPaymentId] = useState(1);
   const [openAddress, setOpenAddress] = useState(true);
   const [infoReceive, setInfoReceive] = useState(false);
+  const [open, setOpen] = useState(false);
   const [openChat, setOpenChat] = useState(false);
   const [defaultReceiveInfo, setDefaultReceiveInfo] = useState({
     id: 0,
@@ -241,6 +243,10 @@ function Checkout() {
     setOpenChat(true);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       {openAddress && defaultReceiveInfo.province.name === "" && (
@@ -331,7 +337,12 @@ function Checkout() {
                       <i
                         className={cx("fa-solid fa-messages", "chat-icon")}
                       ></i>
-                      <span className={cx("btn-chat-text")} onClick={(e) => handleNewConversation(e, item.shop.id)}>Chat now</span>
+                      <span
+                        className={cx("btn-chat-text")}
+                        onClick={(e) => handleNewConversation(e, item.shop.id)}
+                      >
+                        Chat now
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -432,6 +443,16 @@ function Checkout() {
               <div className={cx("payment-method-footer")}>
                 <div className={cx("payment-submit")} onClick={handleOrder}>
                   <button className={cx("submit-btn")}>Place Order</button>
+                  <Backdrop
+                    sx={{
+                      color: "#fff",
+                      zIndex: (theme) => theme.zIndex.drawer + 1,
+                    }}
+                    open={open}
+                    onClick={handleClose}
+                  >
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
                 </div>
               </div>
             </div>

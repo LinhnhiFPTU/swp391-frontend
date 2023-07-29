@@ -101,12 +101,12 @@ function OrderDetails({ setOpenListDetail, order, setChange }) {
               </div>
             ))}
             {order.special && order.status === "SHIPPING" && (
-              <button onClick={handleCompleteSpecialOrder}>
+              <button onClick={handleCompleteSpecialOrder} className={cx("approve")}>
                 Mark as complete delivery!
               </button>
             )}
             {order.special  && order.status === "SHIPPING" && (
-              <button onClick={handleInCompleteSpecialOrder}>
+              <button onClick={handleInCompleteSpecialOrder} className={cx("reject")}>
                 Mark as incomplete delivery!
               </button>
             )}
