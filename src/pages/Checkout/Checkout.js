@@ -40,10 +40,12 @@ function Checkout() {
   const { state } = useLocation();
   const [show, setShow] = useState(false);
   const [showCheckOutPopup, setShowCheckOutPopup] = useState(false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
   const [paymentId, setPaymentId] = useState(1);
   const [openAddress, setOpenAddress] = useState(true);
   const [infoReceive, setInfoReceive] = useState(false);
   const [openChat, setOpenChat] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("")
   const [defaultReceiveInfo, setDefaultReceiveInfo] = useState({
     id: 0,
     fullname: "",
@@ -199,7 +201,15 @@ function Checkout() {
       axios
         .post("/api/v1/users/order/create", request)
         .then((res) => setShowCheckOutPopup(true))
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          if (e.response)
+          {
+            console.log(e.response.data.message)
+            setShowErrorPopup(true)
+            setErrorMsg(e.response.data.message)
+          }
+          console.log(e)
+        });
     }
   };
 
@@ -249,7 +259,8 @@ function Checkout() {
           receiveInfoChange={setInfoReceive}
         />
       )}
-      {showCheckOutPopup && <CheckoutPopup />}
+      {showCheckOutPopup && <CheckoutPopup type="success" />}
+      {showErrorPopup && <CheckoutPopup type="error" msg={errorMsg}/>}
       {show && (
         <MyAddress close={setShow} setReceiveInfo={setDefaultReceiveInfo} />
       )}

@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 function Refund() {
   const [orders, setOrders] = useState([]);
   const [maxPage, setMaxPage] = useState(0);
+  const [number, setNumber] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(1);
   const searchRef = useRef();
@@ -27,6 +28,13 @@ function Refund() {
         "/api/v1/shop/orders/max-page?keyword=" + searchValue + "&filter=REFUND"
       )
       .then((res) => setMaxPage(res.data))
+      .catch((e) => console.log(e));
+
+    axios
+      .get(
+        "/api/v1/shop/orders/number?keyword=" + searchValue + "&filter=REFUND"
+      )
+      .then((res) => setNumber(res.data))
       .catch((e) => console.log(e));
   }, []);
 
@@ -84,7 +92,7 @@ function Refund() {
                 </button>
               </form>
             </div>
-            <div className={cx("order_count")}>{orders.length} Orders</div>
+            <div className={cx("order_count")}>{number} Orders</div>
             <div className={cx("order_table")}>
               <Table
                 orders={orders}

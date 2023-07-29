@@ -13,9 +13,10 @@ const cx = classNames.bind(styles);
 function Pending() {
   const [orders, setOrders] = useState([]);
   const [maxPage, setMaxPage] = useState(0);
+  const [number, setNumber] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(1);
-  const [change, setChange] = useState(false)
+  const [change, setChange] = useState(false);
   const searchRef = useRef();
 
   useEffect(() => {
@@ -30,6 +31,15 @@ function Pending() {
           "&filter=SHIPPING"
       )
       .then((res) => setMaxPage(res.data))
+      .catch((e) => console.log(e));
+
+    axios
+      .get(
+        "/api/v1/shop/orders/number?keyword=" +
+          searchValue +
+          "&filter=SHIPPING"
+      )
+      .then((res) => setNumber(res.data))
       .catch((e) => console.log(e));
   }, []);
 
@@ -87,7 +97,7 @@ function Pending() {
                 </button>
               </form>
             </div>
-            <div className={cx("order_count")}>{orders.length} Orders</div>
+            <div className={cx("order_count")}>{number} Orders</div>
             <div className={cx("order_table")}>
               <Table
                 orders={orders}

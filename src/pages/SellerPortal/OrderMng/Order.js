@@ -14,9 +14,10 @@ const cx = classNames.bind(styles);
 function Order() {
   const [orders, setOrders] = useState([]);
   const [maxPage, setMaxPage] = useState(0);
+  const [number, setNumber] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(1);
-  const searchRef = useRef()
+  const searchRef = useRef();
 
   useEffect(() => {
     document.title = "Seller Centre";
@@ -26,6 +27,11 @@ function Order() {
     axios
       .get("/api/v1/shop/orders/max-page?keyword=" + searchValue)
       .then((res) => setMaxPage(res.data))
+      .catch((e) => console.log(e));
+
+    axios
+      .get("/api/v1/shop/orders/number?keyword=" + searchValue)
+      .then((res) => setNumber(res.data))
       .catch((e) => console.log(e));
   }, []);
 
@@ -39,11 +45,10 @@ function Order() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchValue]);
 
-  const handleSearch = (e) => 
-  {
-    e.preventDefault()
-    setSearchValue(searchRef.current.value)
-  }
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchValue(searchRef.current.value);
+  };
 
   return (
     <>
@@ -73,12 +78,16 @@ function Order() {
                     )}
                   ></i>
                 </div>
-                <button type="submit" className={cx("search-btn")} onClick={handleSearch}>
+                <button
+                  type="submit"
+                  className={cx("search-btn")}
+                  onClick={handleSearch}
+                >
                   Search
                 </button>
               </form>
             </div>
-            <div className={cx("order_count")}>{orders.length} Orders</div>
+            <div className={cx("order_count")}>{number} Orders</div>
             <div className={cx("order_table")}>
               <Table
                 orders={orders}

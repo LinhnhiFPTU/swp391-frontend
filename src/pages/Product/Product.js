@@ -509,7 +509,7 @@ function Product() {
               <div className={cx("product-status")}>
                 <div className={cx("product-status-left")}>
                   <div className={cx("product-rating")}>
-                    <span className={cx("rating-text")}>{product.rating}</span>
+                    <span className={cx("rating-text")}>{roundedFloat(product.rating)}</span>
                     <StarRating
                       rating={product.rating}
                       font={1.6}

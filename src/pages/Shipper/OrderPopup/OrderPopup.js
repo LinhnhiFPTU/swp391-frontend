@@ -33,7 +33,7 @@ function OrderPopup({ closePopup, order }) {
                     </div>
                     <div className={cx("quantity")}>x{od.quantity}</div>
                   </div>
-                  <div className={cx("price")}>${od.sellPrice}</div>
+                  <div className={cx("price")}>${od.soldPrice}</div>
                 </div>
               </div>
             ))}

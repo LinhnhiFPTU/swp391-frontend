@@ -489,7 +489,7 @@ function Home() {
                     </div>
                     <div className={cx("rating")}>
                       <span className={cx("rating-text")}>
-                        <span className={cx("rate")}>{shop.rating}</span>/5
+                        <span className={cx("rate")}>{roundedFloat(shop.rating)}</span>/5
                       </span>
                       <div className={cx("rating-icon")}>
                         <StarRating

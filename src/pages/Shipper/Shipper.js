@@ -98,6 +98,10 @@ function Shipper() {
       .catch((e) => console.log(e));
   };
 
+  const roundedFloat = (float) => {
+    return Math.round((float + Number.EPSILON) * 100) / 100;
+  };
+
   return (
     <>
       {openPopup && <OrderPopup closePopup={setOpenPopup} order={openOrder} />}
@@ -134,7 +138,7 @@ function Shipper() {
                 className={cx("result")}
                 onClick={() => handleOpenPopup(order)}
               >
-                <div className={cx("order-code")}>#{order.id}</div>
+                <div className={cx("order-code")}>#{order.id} - Shipping Fee: ${order.shippingFee} - Collection Fee: ${roundedFloat(order.soldPrice + order.shippingFee)}</div>
                 <div className={cx("order-detail")}>
                   <div className={cx("product-detail")}>
                     <img
@@ -150,7 +154,7 @@ function Shipper() {
                         x{order.orderDetails[0].quantity}
                       </div>
                       <div className={cx("price")}>
-                        {order.orderDetails[0].sellPrice}$
+                        {roundedFloat(order.orderDetails[0].soldPrice)}$
                       </div>
                     </div>
                   </div>

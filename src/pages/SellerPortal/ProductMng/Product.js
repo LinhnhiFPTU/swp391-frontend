@@ -179,7 +179,7 @@ function Product() {
             </div>
             <div className={cx("product-manage")}>
               <div className={cx("product-count")}>
-                {products.length} {products.length > 1 ? "Products" : "Product"}
+                {15} {15 > 1 ? "Products" : "Product"}
               </div>
               <div className={cx("product-options")}>
                 <Tippy

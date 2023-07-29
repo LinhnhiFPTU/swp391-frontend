@@ -89,7 +89,7 @@ function Cart() {
   };
 
   const handleCheckShop = (e, item) => {
-    let products = item.cartProducts.map((cp) => cp.product.id);
+    let products = item.cartProducts.filter(cp => cp.product.available >= cp.quantity).map((cp) => cp.product.id);
     let checked = checkedProducts.every((cp) => products.indexOf(cp) === -1);
     if (checked) {
       setCheckedProducts((prev) => [...prev, ...products]);
@@ -114,13 +114,16 @@ function Cart() {
       return;
     }
 
-    setCheckedProducts((prev) => [...prev, product.id]);
+    if (product.available >= item.quantity)
+    {
+      setCheckedProducts((prev) => [...prev, product.id]);
+    }
   };
 
   const handleCheckAll = () => {
     let allProducts = [];
     state.forEach((item, index) => {
-      let products = item.cartProducts.map((cp) => cp.product.id);
+      let products = item.cartProducts.filter(cp => cp.product.available >= cp.quantity).map((cp) => cp.product.id);
       allProducts = [...allProducts, ...products];
     });
 
@@ -203,99 +206,108 @@ function Cart() {
                       <span>{item.shop.name}</span>
                     </div>
                     <div className={cx("product_cart")}>
-                      {item.cartProducts.map((p, i) => (
-                        <div key={i} className={cx("product-item")}>
-                          <div className={cx("product_pick")}>
-                            <input
-                              type="checkbox"
-                              checked={
-                                checkedProducts.indexOf(p.product.id) !== -1
-                              }
-                              // value={products}
-                              onChange={(e) =>
-                                handleCheckProduct(e, item, p.product)
-                              }
-                              className={cx("checkbox-product")}
-                            />
-                            <img
-                              src={p.product.images[0].url}
-                              alt="Product name"
-                            />
-                            <span>{p.product.name}</span>
-                          </div>
-                          <div className={cx("product-details")}>
-                            $
-                            {p.salePercent
-                              ? roundedFloat(
-                                  p.product.price * (1 - p.salePercent / 100)
-                                )
-                              : p.product.price}
-                          </div>
-                          <div className={cx("product-quantity")}>
-                            <button
-                              className={cx("product-input")}
-                              onClick={() => {
-                                if (p.quantity - 1 >= 1) {
-                                  dispatch({
-                                    type: "DECREASE",
-                                    payload: p.product.id,
-                                    setMsg: setMsg
-                                  });
-                                } else {
+                      {item.cartProducts.map((p, i) => {
+                        return (
+                          <div key={i} className={cx("product-item")} style={p.product.available < p.quantity ? {opacity: "0.4"} : {}}>
+                            <div className={cx("product_pick")}>
+                              <input
+                                type="checkbox"
+                                checked={
+                                  checkedProducts.indexOf(p.product.id) !== -1
+                                }
+                                onChange={(e) =>
+                                  handleCheckProduct(e, p, p.product)
+                                }
+                                className={cx("checkbox-product")}
+                              />
+                              <img
+                                src={p.product.images[0].url}
+                                alt="Product name"
+                              />
+                              <span>{p.product.name}</span>
+                            </div>
+                            <div className={cx("product-details")}>
+                              $
+                              {p.salePercent
+                                ? roundedFloat(
+                                    p.product.price * (1 - p.salePercent / 100)
+                                  )
+                                : p.product.price}
+                            </div>
+                            <div className={cx("product-quantity")}>
+                              <button
+                                className={cx("product-input")}
+                                onClick={() => {
+                                  if (p.quantity - 1 >= 1) {
+                                    dispatch({
+                                      type: "DECREASE",
+                                      payload: p.product.id,
+                                      setMsg: setMsg,
+                                    });
+                                  } else {
+                                    dispatch({
+                                      type: "REMOVE",
+                                      payload: p.product.id,
+                                      setMsg: setMsg,
+                                    });
+                                  }
+                                }}
+                              >
+                                -
+                              </button>
+                              <p>{p.quantity}</p>
+                              <button
+                                className={cx("product-input")}
+                                onClick={() => {
+                                  if (p.product.available <= p.quantity) {
+                                    setMsg(
+                                      "Product " +
+                                        p.product.name +
+                                        " isn't enough for increase"
+                                    );
+                                  } else {
+                                    dispatch({
+                                      type: "INCREASE",
+                                      payload: p.product.id,
+                                    });
+                                  }
+                                }}
+                              >
+                                +
+                              </button>
+                            </div>
+                            <div className={cx("product-details")}>
+                              $
+                              {(p.salePercent
+                                ? roundedFloat(
+                                    p.product.price * (1 - p.salePercent / 100)
+                                  )
+                                : p.product.price) * p.quantity}
+                            </div>
+                            <div className={cx("product-details")}>
+                              <i
+                                className={cx("fa-solid fa-trash-can")}
+                                onClick={() =>
                                   dispatch({
                                     type: "REMOVE",
                                     payload: p.product.id,
-                                    setMsg: setMsg
-                                  });
+                                  })
                                 }
-                              }}
-                            >
-                              -
-                            </button>
-                            <p>{p.quantity}</p>
-                            <button
-                              className={cx("product-input")}
-                              onClick={() =>
-                                dispatch({
-                                  type: "INCREASE",
-                                  payload: p.product.id,
-                                })
-                              }
-                            >
-                              +
-                            </button>
+                              ></i>
+                            </div>
                           </div>
-                          <div className={cx("product-details")}>
-                            $
-                            {(p.salePercent
-                              ? roundedFloat(
-                                  p.product.price * (1 - p.salePercent / 100)
-                                )
-                              : p.product.price) * p.quantity}
-                          </div>
-                          <div className={cx("product-details")}>
-                            <i
-                              className={cx("fa-solid fa-trash-can")}
-                              onClick={() =>
-                                dispatch({
-                                  type: "REMOVE",
-                                  payload: p.product.id,
-                                })
-                              }
-                            ></i>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
-                {/* <div className={cx("notify-error")}>
+                <div className={cx("notify-error")}>
                   {msg && (
                     <Alert key="danger" variant="danger">
                       {msg}
                     </Alert>
                   )}
-                </div> */}
+                </div>
               </div>
 
               <div className={cx("bottom")}>
