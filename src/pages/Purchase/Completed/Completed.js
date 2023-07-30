@@ -28,6 +28,8 @@ function Completed() {
   const [rebuy, setRebuy] = useState();
   const [order, setOrder] = useState();
   const [openSendReport, setOpenSendReport] = useState(false);
+  const [curOrder, setCurOrder] = useState();
+  const [changed, setChanged] = useState(false)
   const navigate = useNavigate();
 
   const handleRebuy = (e, order) => {
@@ -55,7 +57,7 @@ function Completed() {
       .get("/api/v1/users/orders/search?filter=COMPLETED&page=" + page)
       .then((res) => setOrders(res.data))
       .catch((e) => console.log(e));
-  }, []);
+  }, [changed]);
 
   const feedbackCondition = (order) => {
     console.log(order);
@@ -75,7 +77,9 @@ function Completed() {
           setOrder={setOrder}
         />
       )}
-      {openSendReport && <Reply setOpenReply={setOpenSendReport} />}
+      {openSendReport && (
+        <Reply setOpenReply={setOpenSendReport} order={curOrder} setChanged={setChanged}/>
+      )}
       <Header />
       <div className={cx("completed_wrapper")}>
         <div className={cx("completed_container")}>
@@ -135,14 +139,17 @@ function Completed() {
                     >
                       Buy Again
                     </a>
-                    <button
-                      className={cx("reject-btn")}
-                      onClick={() => {
-                        setOpenSendReport(true);
-                      }}
-                    >
-                      Don't receive the order?
-                    </button>
+                    {!order.reported && (
+                      <button
+                        className={cx("reject-btn")}
+                        onClick={() => {
+                          setOpenSendReport(true);
+                          setCurOrder(order);
+                        }}
+                      >
+                        Don't receive the order?
+                      </button>
+                    )}
                     {feedbackCondition(order) && (
                       <button
                         className={cx("feedback-btn")}

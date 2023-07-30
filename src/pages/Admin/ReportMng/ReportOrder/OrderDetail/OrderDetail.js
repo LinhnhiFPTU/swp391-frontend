@@ -4,14 +4,14 @@ import styles from "./OrderDetail.module.scss";
 
 const cx = classNames.bind(styles);
 
-function OrderDetail({ closePopup }) {
+function OrderDetail({ closePopup, order }) {
   return (
     <>
       <div className={cx("overlay")}>
         <div className={cx("order_popup")}>
           <div className={cx("order_container")}>
             <div className={cx("order_header")}>
-              <div className={cx("order-id")}>#12345678</div>
+              <div className={cx("order-id")}>#{order.id} - SHIPPING FEE: ${order.shippingFee} - TOTAL: ${order.soldPrice + order.shippingFee}</div>
               <div className={cx("close")}>
                 <i
                   className={cx("fa-solid fa-xmark")}
@@ -20,24 +20,24 @@ function OrderDetail({ closePopup }) {
               </div>
             </div>
             <div className={cx("order_content")}>
-              {/* {order.orderDetails.map((OD, index) => ( */}
+              {order.orderDetails.map((OD, index) => (
               <div className={cx("item")}>
                 <img
-                  src="https://m.media-amazon.com/images/I/81cR4gm3+aL._AC_SL1500_.jpg"
+                  src={OD.product.images[0].url}
                   alt="product-img"
                   className={cx("product-img")}
                 />
                 <div className={cx("info")}>
                   <div className={cx("left")}>
                     <div className={cx("name")}>
-                      Prevue Pet Products Travel Carrier for Birds, Black
+                      {OD.product.name}
                     </div>
-                    <div className={cx("quantity")}>x23</div>
+                    <div className={cx("quantity")}>x{OD.quantity}</div>
                   </div>
-                  <div className={cx("price")}>$1200</div>
+                  <div className={cx("price")}>${OD.soldPrice}</div>
                 </div>
               </div>
-              {/* ))} */}
+              ))}
             </div>
           </div>
         </div>

@@ -199,7 +199,15 @@ function Checkout() {
         .then((res) => {
           window.open(res.data, "_self");
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          if (e.response)
+          {
+            console.log(e.response.data.message)
+            setShowErrorPopup(true)
+            setErrorMsg(e.response.data.message)
+          }
+          console.log(e)
+        });
     } else {
       axios
         .post("/api/v1/users/order/create", request)
@@ -210,6 +218,7 @@ function Checkout() {
         .catch((e) => {
           if (e.response)
           {
+            setOpen(false);
             console.log(e.response.data.message)
             setShowErrorPopup(true)
             setErrorMsg(e.response.data.message)
