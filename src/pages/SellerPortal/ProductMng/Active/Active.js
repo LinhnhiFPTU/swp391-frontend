@@ -79,7 +79,7 @@ function Active() {
               </form>
             </div>
             <CountFilter
-              count={15}
+              count={products.length >= 5 ? 15 : products.length}
               setFilter={setFilter}
               headerTitle={headerTitle}
               setHeaderTitle={setHeaderTitle}

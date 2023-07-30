@@ -20,6 +20,26 @@ function ReportOrder() {
       .catch((e) => console.log(e));
   }, []);
 
+  const handleConfirmUserNotReceived = (e, report) => {
+    e.preventDefault();
+    axios
+      .post("/api/v1/admin/report/shop/" + report.id + "?action=CONFIRM")
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const handleConfirmUserReceived = (e, report) => {
+    e.preventDefault();
+    axios
+      .post("/api/v1/admin/report/shop/" + report.id + "?action=WARNING")
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <>
       {open && <OrderDetail closePopup={setOpen} order={showOrder} />}
@@ -54,26 +74,19 @@ function ReportOrder() {
                   setShowOrder(pr.order);
                 }}
               >
-                <img
-                  src={pr.order.orderDetails[0].product.images[0].url}
-                  alt="product-img"
-                  className={cx("product-img")}
-                />
-                <div className={cx("product-name")}>
-                  {pr.order.orderDetails[0].product.name}
-                </div>
+                {pr.reasonSpecific}
               </div>
               <div className={cx("ship-unit")}>GHN</div>
               <div className={cx("rp-actions")}>
                 <button
                   className={cx("ban-btn")}
-                  // onClick={(e) => handleBanProduct(e, pr)}
+                  onClick={(e) => handleConfirmUserReceived(e, pr)}
                 >
                   <i className={cx("fa-regular fa-ban", "ban-icon")}></i>
                 </button>
                 <button
                   className={cx("notify-btn")}
-                  // onClick={(e) => handleWarningProduct(e, pr)}
+                  onClick={(e) => handleConfirmUserNotReceived(e, pr)}
                 >
                   <i
                     className={cx(
