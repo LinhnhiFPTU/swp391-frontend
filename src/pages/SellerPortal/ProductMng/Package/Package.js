@@ -27,7 +27,7 @@ const packages = [
   {
     packageType: "Gold",
     packageFee: {
-      price: "$600",
+      price: "$60",
       type: "3 months",
     },
     packageFeatures: [
@@ -40,7 +40,7 @@ const packages = [
   {
     packageType: "Platinum",
     packageFee: {
-      price: "$1150",
+      price: "$115",
       type: "6 months",
     },
     packageFeatures: [
@@ -53,7 +53,7 @@ const packages = [
   {
     packageType: "Diamond",
     packageFee: {
-      price: "$2200",
+      price: "$220",
       type: "1 year",
     },
     packageFeatures: [

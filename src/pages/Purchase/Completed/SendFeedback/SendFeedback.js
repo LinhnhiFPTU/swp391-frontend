@@ -94,14 +94,16 @@ function SendFeedback({ setOpenFeedback, order, setOrder }) {
             >
               Rate Product
             </button>
-            <button
-              className={cx("report-product", {
-                active: typeFeedback === "Report Product",
-              })}
-              onClick={() => setTypeFeedback("Report Product")}
-            >
-              Report Product
-            </button>
+            {!order.reported && (
+              <button
+                className={cx("report-product", {
+                  active: typeFeedback === "Report Product",
+                })}
+                onClick={() => setTypeFeedback("Report Product")}
+              >
+                Report Product
+              </button>
+            )}
           </div>
           {typeFeedback === "Rate Product" && (
             <RateProduct
