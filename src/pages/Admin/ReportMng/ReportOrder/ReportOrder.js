@@ -23,7 +23,7 @@ function ReportOrder() {
   const handleConfirmUserNotReceived = (e, report) => {
     e.preventDefault();
     axios
-      .post("/api/v1/admin/report/shop/" + report.id + "?action=CONFIRM")
+      .post("/api/v1/admin/report/order/" + report.id + "?action=CONFIRM")
       .then((res) => {
         window.location.reload();
       })
@@ -33,7 +33,7 @@ function ReportOrder() {
   const handleConfirmUserReceived = (e, report) => {
     e.preventDefault();
     axios
-      .post("/api/v1/admin/report/shop/" + report.id + "?action=WARNING")
+      .post("/api/v1/admin/report/order/" + report.id + "?action=WARNING")
       .then((res) => {
         window.location.reload();
       })
