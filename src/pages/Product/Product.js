@@ -699,6 +699,12 @@ function Product() {
                     <button
                       className={cx("contact")}
                       onClick={handleSendSpecialOrder}
+                      disabled={
+                        product.available === 0 ||
+                        (user &&
+                          user.shopDTO &&
+                          user.shopDTO.id === product.shop.id)
+                      }
                     >
                       <i className={cx("fa-light fa-paper-plane")}></i>
                       <span>Send Request</span>
