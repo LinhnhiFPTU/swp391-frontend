@@ -10,6 +10,7 @@ import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
 
 import { Cartcontext } from "~/context/Context";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -34,6 +35,16 @@ function Cart() {
 
   useEffect(() => {
     document.title = `Shopping Cart`;
+    axios
+      .get("/api/v1/users/cart")
+      .then((res) => {
+        console.log(res);
+        dispatch({
+          type: "LOAD",
+          payload: res.data,
+        });
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   const roundedFloat = (float) => {
@@ -89,7 +100,9 @@ function Cart() {
   };
 
   const handleCheckShop = (e, item) => {
-    let products = item.cartProducts.filter(cp => cp.product.available >= cp.quantity).map((cp) => cp.product.id);
+    let products = item.cartProducts
+      .filter((cp) => cp.product.available >= cp.quantity)
+      .map((cp) => cp.product.id);
     let checked = checkedProducts.every((cp) => products.indexOf(cp) === -1);
     if (checked) {
       setCheckedProducts((prev) => [...prev, ...products]);
@@ -114,8 +127,7 @@ function Cart() {
       return;
     }
 
-    if (product.available >= item.quantity)
-    {
+    if (product.available >= item.quantity) {
       setCheckedProducts((prev) => [...prev, product.id]);
     }
   };
@@ -123,7 +135,9 @@ function Cart() {
   const handleCheckAll = () => {
     let allProducts = [];
     state.forEach((item, index) => {
-      let products = item.cartProducts.filter(cp => cp.product.available >= cp.quantity).map((cp) => cp.product.id);
+      let products = item.cartProducts
+        .filter((cp) => cp.product.available >= cp.quantity)
+        .map((cp) => cp.product.id);
       allProducts = [...allProducts, ...products];
     });
 
@@ -208,7 +222,15 @@ function Cart() {
                     <div className={cx("product_cart")}>
                       {item.cartProducts.map((p, i) => {
                         return (
-                          <div key={i} className={cx("product-item")} style={p.product.available < p.quantity ? {opacity: "0.4"} : {}}>
+                          <div
+                            key={i}
+                            className={cx("product-item")}
+                            style={
+                              p.product.available < p.quantity
+                                ? { opacity: "0.4" }
+                                : {}
+                            }
+                          >
                             <div className={cx("product_pick")}>
                               <input
                                 type="checkbox"

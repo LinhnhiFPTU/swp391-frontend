@@ -43,7 +43,6 @@ export const Context = (props) => {
                   type: "LOAD",
                   payload: res.data,
                 });
-                action.setMsg("ABSDS");
               })
               .catch((e) => {
                 console.log(e);
